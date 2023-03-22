@@ -1,0 +1,33 @@
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999; /* để header hiển thị trên các phần tử khác nếu có */
+}
+
+.nav-link-custom {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.navbar-brand img {
+  width: 150px;
+  height: 50px;
+}
+
+.nav-bg {
+  background-color: #ADD8E6;
+}
+
+.nav-link {
+  color: black;
+}
+
+navbar-expand-lg {
+  padding: 0px !important
+}
+
+.imgingame {
+  width: 85%;
+  height: 85%;
+}

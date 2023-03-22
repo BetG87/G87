@@ -1,0 +1,48 @@
+<form [formGroup]="formRegister" (ngSubmit)="onSubmit()" class="container">
+  <div class="form-group">
+    <label for="fullName">Họ tên (Tên thật trùng với tài khoản ngân hàng) (*)</label>
+    <input type="text" formControlName="fullName" id="fullName" class="form-control">
+    <div *ngIf="formRegister.get('fullName').invalid && (formRegister.get('fullName').dirty || formRegister.get('fullName').touched)" class="invalid-feedback">
+      <div *ngIf="formRegister.get('fullName').errors.required">Vui lòng nhập họ tên</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="username">Tên đăng nhập (*)</label>
+    <input type="text" formControlName="username" id="username" class="form-control">
+    <div *ngIf="formRegister.get('username').invalid && (formRegister.get('username').dirty || formRegister.get('username').touched)" class="invalid-feedback">
+      <div *ngIf="formRegister.get('username').errors.required">Vui lòng nhập tên đăng nhập</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email (email để nhận tài khoản game) (*)</label>
+    <input type="email" formControlName="email" id="email" class="form-control">
+    <div *ngIf="formRegister.get('email').invalid && (formRegister.get('email').dirty || formRegister.get('email').touched)" class="invalid-feedback">
+      <div *ngIf="formRegister.get('email').errors.required">Vui lòng nhập email</div>
+      <div *ngIf="formRegister.get('email').errors.email">Vui lòng nhập email hợp lệ</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="numberPhone"> Số điện thoại(*)</label>
+    <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control">
+    <div *ngIf="formRegister.get('numnerPhone').invalid && (formRegister.get('numnerPhone').dirty || formRegister.get('numberPhone').touched)" class="invalid-feedback">
+      <div *ngIf="formRegister.get('numberPhone').errors.required">Vui lòng nhập số điện thoại</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Mật khẩu (6 ký tự) (*)</label>
+    <input type="password" formControlName="password" id="password" class="form-control">
+    <div *ngIf="formRegister.get('password').invalid && (formRegister.get('password').dirty || formRegister.get('password').touched)" class="invalid-feedback">
+      <div *ngIf="formRegister.get('password').errors.required">Vui lòng nhập mật khẩu</div>
+      <div *ngIf="formRegister.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="confirmPassword">Nhập lại mật khẩu (*)</label>
+    <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
+    <div *ngIf="formRegister.get('confirmPassword').invalid && (formRegister.get('confirmPassword').dirty || formRegister.get('confirmPassword').touched)" class="invalid-feedback">
+      <div *ngIf="formRegister.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
+      <div *ngIf="formRegister.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+    </div>
+  </div>
+  <button type="submit" [disabled]="formRegister.invalid" class="btn btn-primary">Đăng ký</button>
+</form>
