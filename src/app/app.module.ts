@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component'
+import { LoginComponent } from './login/login.component'
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RegisterComponent } from './register/register.component'
     HomeComponent,
     CarouselComponent,
     AboutComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
