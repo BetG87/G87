@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ConnectApiService } from '../Services/Web/connect-api.service';
+import { Bank } from '../entity/bank';
 
 @Component({
   selector: 'app-register',
@@ -13,30 +15,39 @@ export class RegisterComponent implements OnInit {
   public errorMessage = '';
   public formRegister :FormGroup | any
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private connectApi: ConnectApiService) { 
     
   }
   bankName = '';
-  selectedBank: number | undefined;
-  bankNameLists = [{id: 1, name: "VIETCOMBANK"}];
+  selectedBank: any;
+  bankNameLists:any;
 
-onBankChange(event: any) {
+onBankChange(event: any): void {
   console.log(event);
 }
   ngOnInit(): void {
     this.formRegister = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
+      password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      numberPhone: ['', Validators.required],
+      bankId: ['', Validators.required],
+      bankAccountNumber: ['', Validators.required],
 
     });
     // this.bankNameLists =[ {id: 1, name: "VIETCOMBANK"}]
-    this.bankNameLists = [{id: 1, name: "VIETCOMBANK"}];
     console.log(this.bankNameLists)
+    this.connectApi.get('v1/bank').subscribe((response) => {
+      console.log(response)
+      this.bankNameLists = response;
+      this.selectedBank = this.bankNameLists[0]._id;
+    });
     
   }
 
   public onSubmit(): void {
+    console.log(this.formRegister)
   }
 
   register() {
