@@ -1,0 +1,22 @@
+.change-Location {
+    position: absolute;
+    padding: 0px 3px;
+    /* top: 25%; */
+    /* right: 77%; */
+    transform: translate(-3px, -50px) scale(0.75);
+}
+
+.change-Location :focus {
+    color: red;
+}
+
+input:focus {
+    border: 2px solid red;
+    box-shadow: none;
+}
+
+
+/* input:hover {
+        border-color: black;
+        box-shadow: none;
+    } */
