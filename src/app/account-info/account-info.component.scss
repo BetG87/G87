@@ -44,3 +44,10 @@ li a:hover {
 .mgbottom {
     margin-bottom: 10%;
 }
+
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: normal !important;
+    text-align: -internal-center;
+}

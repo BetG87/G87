@@ -12,8 +12,7 @@
     <div class="col-md-9 col-sm-12">
         <div id="tab0" *ngIf="selectedTab === 0">
             <div class="row">
-                <div class="col-md-2 col-sm-12"></div>
-                <div class="col-md-8 col-sm-12">
+                <div class="col-md-10 col-sm-12">
                     <div class="row">
                         <h3 class="text-danger col-12  d-flex justify-content-center mgbottom"><i>THÔNG <span class="styleUnderLine"> TIN TÀI </span> KHOẢN</i></h3>
                         <div class="col-md-6 col-sm-12">
@@ -24,8 +23,8 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group col-md-12">
-                                <label for="numberPhone" class="size1Rem">Số điện thoại : </label>
-                                <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control">
+                                <label for="oldPass" class="size1Rem">Số điện thoại : </label>
+                                <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
@@ -48,14 +47,98 @@
                                 <input type="text" formControlName="fullName" id="fullName" class="form-control">
                             </div>
                         </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group col-md-12">
+                                <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
+                                <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group col-md-12">
+                                <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
+                                <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12"></div>
+            </div>
+        </div>
+        <div id="tab1" *ngIf="selectedTab === 1">
+            <div class="row">
+                <div class="col-md-10 col-sm-12">
+                    <div class="row">
+                        <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>TÀI <span class="styleUnderLine"> KHOẢN NGÂN</span> HÀNG</i></h3>
+                        <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                        <div class=" col-md-12 d-flex justify-content-center my-4">
+                            <button type="submit" class="btn btn-danger mt-2 ">THÊM TÀI KHOẢN</button>
+                        </div>
+                        <div class=" col-md-12 d-flex justify-content-center my-4">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="px-4 border-left">ID</th>
+                                        <th class="px-4 ">Tên Chủ Tài Khoản</th>
+                                        <th class="px-4 ">Ngân Hàng</th>
+                                        <th class="px-4 border-right">Số Tài Khoản</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let account of accounts">
+                                        <td class="px-4 border-left border-top border-bottom  py-2">{{ account.id }}</td>
+                                        <td class="px-4 border-top border-bottom py-2">{{ account.nameAccount }}</td>
+                                        <td class="px-4 border-top border-bottom py-2">{{ account.nameBank }}</td>
+                                        <td class="px-4 border-right border-top border-bottom py-2">{{ account.numberBank }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12"></div>
+            </div>
+        </div>
+        <div id="tab2" *ngIf="selectedTab === 2">
+            <div class="row">
+                <div class="col-md-10 col-sm-12">
+                    <div class="row">
+                        <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THAY<span class="styleUnderLine"> ĐỔI MẬT</span> KHẨU</i></h3>
+                        <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="oldPass"> Mật khẩu cũ<span class="text-danger">(*)</span></label>
+                            <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                            <div *ngIf="formChangePass.get('oldPass').invalid && (formChangePass.get('oldPass').dirty || formChangePass.get('oldPass').touched)" class="invalid-feedback">
+                                <div *ngIf="formChangePass.get('oldPass').errors.required">Vui lòng mật khẩu cũ</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="password">Mật khẩu mới (6 ký tự)<span class="text-danger">(*)</span></label>
+                            <input type="password" formControlName="password" id="password" class="form-control">
+                            <div *ngIf="formChangePass.get('password').invalid && (formChangePass.get('password').dirty || formChangePass.get('password').touched)" class="invalid-feedback">
+                                <div *ngIf="formChangePass.get('password').errors.required">Vui lòng nhập mật khẩu</div>
+                                <div *ngIf="formChangePass.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
+                            <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
+                            <div *ngIf="formChangePass.get('confirmPassword').invalid && (formChangePass.get('confirmPassword').dirty || formChangePass.get('confirmPassword').touched)" class="invalid-feedback">
+                                <div *ngIf="formChangePass.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
+                                <div *ngIf="formChangePass.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+                            </div>
+                        </div>
+
+                        <div class=" col-md-12 d-flex justify-content-center my-4">
+                            <button type="submit" class="btn btn-danger mt-2 ">LƯU THÔNG TIN</button>
+                        </div>
 
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-12"></div>
             </div>
         </div>
-        <div id="tab1" *ngIf="selectedTab === 1">1</div>
-        <div id="tab2" *ngIf="selectedTab === 2">2</div>
         <div id="tab3" *ngIf="selectedTab === 3">3</div>
         <div id="tab4" *ngIf="selectedTab === 4">4</div>
         <div id="tab5" *ngIf="selectedTab === 5">5</div>
