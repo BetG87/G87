@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label for="fullName">Họ tên (Tên thật trùng với tài khoản ngân hàng) <span class="text-danger">(*)</span></label>
-                    <input type="text" formControlName="fullName" id="fullName" class="form-control" >
+                    <input type="text" formControlName="fullName" id="fullName" class="form-control">
                     <div *ngIf="formRegister.get('fullName').invalid && (formRegister.get('fullName').dirty || formRegister.get('fullName').touched)" class="invalid-feedback">
                         <div *ngIf="formRegister.get('fullName').errors.required">Vui lòng nhập họ tên</div>
                     </div>
@@ -46,21 +46,21 @@
                         <div *ngIf="formRegister.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
                     </div>
                 </div>
-                <!--<div class="form-group col-md-6">
+                <div class="form-group col-md-6">
                     <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
                     <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
                     <div *ngIf="formRegister.get('confirmPassword').invalid && (formRegister.get('confirmPassword').dirty || formRegister.get('confirmPassword').touched)" class="invalid-feedback">
                         <div *ngIf="formRegister.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
                         <div *ngIf="formRegister.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
                     </div>
-                </div>-->
+                </div>
                 <div class="form-group col-md-12">
                     <label for="bankName"> Ngân Hàng<span class="text-danger">(*)</span></label>
                     <!-- <select formControlName="bankName" id="bankName" class="form-control" name="bankName">
                   <option *ngFor="let data of bankNameLists" [value]="data.id">{{data.name}}
                   </option>
               </select> -->
-                    <select id="bankId" class="form-control" name="bankId" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)"[ngModelOptions]="{standalone: true}">
+                    <select id="bankId" class="form-control" name="bankId" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)" [ngModelOptions]="{standalone: true}">
                  <option *ngFor="let bank of bankNameLists" [value]="bank._id">{{bank.name}}</option> 
               </select>
                     <div *ngIf="formRegister.get('bankId').invalid && (formRegister.get('bankId').dirty || formRegister.get('bankId').touched)" class="invalid-feedback">

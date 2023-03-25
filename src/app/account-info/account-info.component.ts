@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-info.component.scss']
 })
 export class AccountInfoComponent {
-
+  gameLists:any;
+  selectGame: any;
 isborderli = [false, false, false,false,false,false];
 selectedTab: number = 0;
 
