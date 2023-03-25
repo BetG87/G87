@@ -1,12 +1,21 @@
 <div class="row">
-    <div class="col-md-3 ">
+    <div class="col-md-4 mb-4">
         <ul class="m-4 navbar-ul">
-            <li><a href="#home" class="Navbar-li">THÔNG TIN TÀI KHOẢN</a></li>
-            <li><a href="#news" class="Navbar-li">TÀI KHOẢN NGÂN HÀNG</a></li>
-            <li><a href="#contact" class="Navbar-li">ĐỔI MẬT KHẨU</a></li>
-            <li><a href="#about" class="Navbar-li">NẠP TIỀN</a></li>
-            <li><a href="#about" class="Navbar-li">RÚT TIỀN</a></li>
-            <li><a href="#about" class="Navbar-li">LỊCH SỬ NẠP RÚT</a></li>
+            <li><a class="navbar-li text-center" [ngClass]="{ 'border-li': isborderli[0] }" (click)="activeInfo(0)">THÔNG TIN TÀI KHOẢN</a></li>
+            <li><a class="navbar-li text-center" [ngClass]="{ 'border-li': isborderli[1] }" (click)="activeInfo(1)">TÀI KHOẢN NGÂN HÀNG</a></li>
+            <li><a class="navbar-li text-center" [ngClass]="{ 'border-li': isborderli[2] }" (click)="activeInfo(2)">ĐỔI MẬT KHẨU</a></li>
+            <li><a class="navbar-li text-center" [ngClass]="{ 'border-li': isborderli[3] }" (click)="activeInfo(3)">NẠP TIỀN</a></li>
+            <li><a class="navbar-li text-center" [ngClass]="{ 'border-li': isborderli[4] }" (click)="activeInfo(4)">RÚT TIỀN</a></li>
+            <li><a class="navbar-li text-center" [ngClass]="{ 'border-li': isborderli[5] }" (click)="activeInfo(5)">LỊCH SỬ NẠP RÚT</a></li>
         </ul>
     </div>
+    <div class="col-md-8">
+        <div id="tab0" *ngIf="selectedTab === 0">0</div>
+        <div id="tab1" *ngIf="selectedTab === 1">1</div>
+        <div id="tab2" *ngIf="selectedTab === 2">2</div>
+        <div id="tab3" *ngIf="selectedTab === 3">3</div>
+        <div id="tab4" *ngIf="selectedTab === 4">4</div>
+        <div id="tab5" *ngIf="selectedTab === 5">5</div>
+    </div>
+
 </div>
