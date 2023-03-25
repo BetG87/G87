@@ -6,28 +6,34 @@
         <span class="navbar-toggler-icon"></span>
       </button>
             <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-custom" routerLink="/about" routerLinkActive="active">Giới thiệu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-custom" routerLink="/huong-dan" routerLinkActive="active">Hướng dẫn</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-custom" routerLink="/lien-ket" routerLinkActive="active">Liên kết</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-custom" routerLink="/ho-tro" routerLinkActive="active">Hỗ trợ</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a class="nav-link nav-link-custom" routerLink="/login" routerLinkActive="active">
-                        <button class="btn btn-outline-success me-2" type="button">Đăng nhập</button>
-                    </a>
-                    <a class="nav-link nav-link-custom" routerLink="/register" routerLinkActive="active">
-                        <button class="btn btn-success" type="button">Đăng ký</button>
-                    </a>
-                </div>
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link nav-link-custom" routerLink="/about" routerLinkActive="active">Giới thiệu</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-custom" routerLink="/huong-dan" routerLinkActive="active">Hướng dẫn</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-custom" routerLink="/lien-ket" routerLinkActive="active">Liên kết</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-link-custom" routerLink="/ho-tro" routerLinkActive="active">Hỗ trợ</a>
+                </li>
+              </ul>
+              <div class="d-flex" *ngIf="!isLoggedIn">
+                <a class="nav-link nav-link-custom" routerLink="/login" routerLinkActive="active">
+                  <button class="btn btn-outline-success me-2" type="button">Đăng nhập</button>
+                </a>
+                <a class="nav-link nav-link-custom" routerLink="/register" routerLinkActive="active">
+                  <button class="btn btn-success" type="button">Đăng ký</button>
+                </a>
+              </div>
+              <div class="d-flex" *ngIf="isLoggedIn">
+                <button class="btn btn-outline-success me-2" (click)="signout()" type="button">Đăng xuất</button>
+                <a class="nav-link nav-link-custom" routerLink="/account-info" routerLinkActive="active">
+                  <button class="btn btn-success" type="button">{{username}}</button>
+                </a>
+              </div>
             </div>
         </div>
     </nav>

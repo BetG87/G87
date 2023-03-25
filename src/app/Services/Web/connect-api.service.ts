@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { SessionStorageService } from '../StorageService/session-storage.service';
 //import { SessionStorageService } from '../StorageService/session-storage.service';
 const httpOptions = {
   headers: new HttpHeaders({
@@ -58,26 +59,26 @@ export class ConnectApiService {
 }
 
 
-//const TOKEN_KEY_HEADER = 'Authorization'
-//@Injectable()
-//export class AuthInterceptor implements HttpInterceptor {
-//  constructor(private token: SessionStorageService)
-//  {
+const TOKEN_KEY_HEADER = 'Authorization'
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private token: SessionStorageService)
+  {
 
-//  }
-//  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-//    let authReq = req;
-//    const token = this.token.getToken();
-//    if (token != null) {
-//      authReq = req.clone({ headers: req.headers.set(TOKEN_KEY_HEADER, 'Bearer ' + token) });
-//    }
-//    return next.handle(authReq);
-//  }
-//}
+  }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let authReq = req;
+    const token = this.token.getToken();
+    if (token != null) {
+      authReq = req.clone({ headers: req.headers.set(TOKEN_KEY_HEADER, 'Bearer ' + token) });
+    }
+    return next.handle(authReq);
+  }
+}
 
-//export const authInterceptorProviders =
-//  [
-//    {
-//      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
-//    }
-//  ]
+export const authInterceptorProviders =
+  [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+    }
+  ]
