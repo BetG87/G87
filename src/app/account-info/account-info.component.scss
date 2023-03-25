@@ -23,9 +23,9 @@
 
 /* Change the link color on hover */
 
-li a:hover {
-    background-color: #555555;
-    color: white;
+.navbar-li:hover {
+    background-color: white;
+    color: #555555;
 }
 
 .menuHeight {
@@ -48,6 +48,6 @@ li a:hover {
 th {
     display: table-cell;
     vertical-align: inherit;
-    font-weight: normal !important;
+    font-weight: normal;
     text-align: -internal-center;
 }

@@ -1,147 +1,221 @@
-<div class="row">
-    <div class="col-md-3 mb-4 col-sm-12 d-flex justify-content-center">
-        <ul class="m-4 navbar-ul">
-            <li><a class="navbar-li  text-center menuHeight" [ngClass]="{ 'border-li': isborderli[0] }" (click)="activeInfo(0)">THÔNG TIN TÀI KHOẢN</a></li>
-            <li><a class="navbar-li  text-center menuHeight" [ngClass]="{ 'border-li': isborderli[1] }" (click)="activeInfo(1)">TÀI KHOẢN NGÂN HÀNG</a></li>
-            <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[2] }" (click)="activeInfo(2)">ĐỔI MẬT KHẨU</a></li>
-            <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[3] }" (click)="activeInfo(3)">NẠP TIỀN</a></li>
-            <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[4] }" (click)="activeInfo(4)">RÚT TIỀN</a></li>
-            <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[5] }" (click)="activeInfo(5)">LỊCH SỬ NẠP RÚT</a></li>
-        </ul>
-    </div>
-    <div class="col-md-9 col-sm-12">
-        <div id="tab0" *ngIf="selectedTab === 0">
-            <div class="row">
-                <div class="col-md-10 col-sm-12">
-                    <div class="row">
-                        <h3 class="text-danger col-12  d-flex justify-content-center mgbottom"><i>THÔNG <span class="styleUnderLine"> TIN TÀI </span> KHOẢN</i></h3>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="fullName" class="size1Rem">Họ và tên : </label>
-                                <input type="text" formControlName="fullName" id="fullName" class="form-control">
+<form [formGroup]="formAccountinfo" (ngSubmit)="onSubmit()" class="container">
+    <div class="row">
+        <div class="col-md-3 mb-4 col-sm-12 d-flex justify-content-center">
+            <ul class="m-4 navbar-ul">
+                <li><a class="navbar-li  text-center menuHeight" [ngClass]="{ 'border-li': isborderli[0] }" (click)="activeInfo(0)">THÔNG TIN TÀI KHOẢN</a></li>
+                <li><a class="navbar-li  text-center menuHeight" [ngClass]="{ 'border-li': isborderli[1] }" (click)="activeInfo(1)">TÀI KHOẢN NGÂN HÀNG</a></li>
+                <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[2] }" (click)="activeInfo(2)">ĐỔI MẬT KHẨU</a></li>
+                <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[3] }" (click)="activeInfo(3)">NẠP TIỀN</a></li>
+                <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[4] }" (click)="activeInfo(4)">RÚT TIỀN</a></li>
+                <li><a class="navbar-li  text-center menuHeight align-self-center" [ngClass]="{ 'border-li': isborderli[5] }" (click)="activeInfo(5)">LỊCH SỬ NẠP RÚT</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            <div id="tab0" *ngIf="selectedTab === 0">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mgbottom"><i>THÔNG <span class="styleUnderLine"> TIN TÀI </span> KHOẢN</i></h3>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="fullName" class="size1Rem">Họ và tên : </label>
+                                    <input type="text" formControlName="fullName" id="fullName" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="oldPass" class="size1Rem">Số điện thoại : </label>
-                                <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="oldPass" class="size1Rem">Số điện thoại : </label>
+                                    <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="accountName" class="size1Rem">Tên đăng nhập : </label>
-                                <input type="text" formControlName="accountName" id="accountName" class="form-control">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="accountName" class="size1Rem">Tên đăng nhập : </label>
+                                    <input type="text" formControlName="accountName" id="accountName" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="gameCheck" class="size1Rem">Sản phẩm game đã đăng kí: </label>
-                                <select id="gameCheck" class="form-control" name="gameCheck" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="gameCheck" class="size1Rem">Sản phẩm game đã đăng kí: </label>
+                                    <select id="gameCheck" class="form-control" name="gameCheck" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
                          </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="fullName" class="size1Rem">Email : </label>
-                                <input type="text" formControlName="fullName" id="fullName" class="form-control">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="fullName" class="size1Rem">Email : </label>
+                                    <input type="text" formControlName="fullName" id="fullName" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
-                                <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
+                                    <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control">
+                                    <i class=" bg-primary rounded p-1 m-1"><i class="fa fa-copy "></i><span>Copy tài khoản game</span></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group col-md-12">
-                                <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
-                                <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group col-md-12">
+                                    <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
+                                    <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
+                                    <i class=" bg-primary rounded p-1 m-1"> <i class="fa fa-copy "></i><span>Copy mật khẩu game</span></i>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-2 col-sm-12"></div>
                 </div>
-                <div class="col-md-2 col-sm-12"></div>
             </div>
-        </div>
-        <div id="tab1" *ngIf="selectedTab === 1">
-            <div class="row">
-                <div class="col-md-10 col-sm-12">
-                    <div class="row">
-                        <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>TÀI <span class="styleUnderLine"> KHOẢN NGÂN</span> HÀNG</i></h3>
-                        <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
-                        <div class=" col-md-12 d-flex justify-content-center my-4">
-                            <button type="submit" class="btn btn-danger mt-2 ">THÊM TÀI KHOẢN</button>
-                        </div>
-                        <div class=" col-md-12 d-flex justify-content-center my-4">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th class="px-4 border-left">ID</th>
-                                        <th class="px-4 ">Tên Chủ Tài Khoản</th>
-                                        <th class="px-4 ">Ngân Hàng</th>
-                                        <th class="px-4 border-right">Số Tài Khoản</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let account of accounts">
-                                        <td class="px-4 border-left border-top border-bottom  py-2">{{ account.id }}</td>
-                                        <td class="px-4 border-top border-bottom py-2">{{ account.nameAccount }}</td>
-                                        <td class="px-4 border-top border-bottom py-2">{{ account.nameBank }}</td>
-                                        <td class="px-4 border-right border-top border-bottom py-2">{{ account.numberBank }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div id="tab1" *ngIf="selectedTab === 1">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>TÀI <span class="styleUnderLine"> KHOẢN NGÂN</span> HÀNG</i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class=" col-md-12 d-flex justify-content-center my-4">
+                                <button type="submit" class="btn btn-danger mt-2 ">THÊM TÀI KHOẢN</button>
+                            </div>
+                            <div class=" col-md-12 d-flex justify-content-center my-4">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="px-4 border-left">ID</th>
+                                            <th class="px-4 ">Tên Chủ Tài Khoản</th>
+                                            <th class="px-4 ">Ngân Hàng</th>
+                                            <th class="px-4 border-right">Số Tài Khoản</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let account of accounts">
+                                            <td class="px-4 border-left border-top border-bottom  py-2">{{ account.id }}</td>
+                                            <td class="px-4 border-top border-bottom py-2">{{ account.nameAccount }}</td>
+                                            <td class="px-4 border-top border-bottom py-2">{{ account.nameBank }}</td>
+                                            <td class="px-4 border-right border-top border-bottom py-2">{{ account.numberBank }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-2 col-sm-12"></div>
                 </div>
-                <div class="col-md-2 col-sm-12"></div>
             </div>
-        </div>
-        <div id="tab2" *ngIf="selectedTab === 2">
-            <div class="row">
-                <div class="col-md-10 col-sm-12">
-                    <div class="row">
-                        <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THAY<span class="styleUnderLine"> ĐỔI MẬT</span> KHẨU</i></h3>
-                        <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="oldPass"> Mật khẩu cũ<span class="text-danger">(*)</span></label>
-                            <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
-                            <div *ngIf="formChangePass.get('oldPass').invalid && (formChangePass.get('oldPass').dirty || formChangePass.get('oldPass').touched)" class="invalid-feedback">
-                                <div *ngIf="formChangePass.get('oldPass').errors.required">Vui lòng mật khẩu cũ</div>
+            <div id="tab2" *ngIf="selectedTab === 2">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THAY<span class="styleUnderLine"> ĐỔI MẬT</span> KHẨU</i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="oldPass"> Mật khẩu cũ<span class="text-danger">(*)</span></label>
+                                <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                                <div *ngIf="formChangePass.get('oldPass').invalid && (formChangePass.get('oldPass').dirty || formChangePass.get('oldPass').touched)" class="invalid-feedback">
+                                    <div *ngIf="formChangePass.get('oldPass').errors.required">Vui lòng mật khẩu cũ</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="password">Mật khẩu mới (6 ký tự)<span class="text-danger">(*)</span></label>
-                            <input type="password" formControlName="password" id="password" class="form-control">
-                            <div *ngIf="formChangePass.get('password').invalid && (formChangePass.get('password').dirty || formChangePass.get('password').touched)" class="invalid-feedback">
-                                <div *ngIf="formChangePass.get('password').errors.required">Vui lòng nhập mật khẩu</div>
-                                <div *ngIf="formChangePass.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="password">Mật khẩu mới (6 ký tự)<span class="text-danger">(*)</span></label>
+                                <input type="password" formControlName="password" id="password" class="form-control">
+                                <div *ngIf="formChangePass.get('password').invalid && (formChangePass.get('password').dirty || formChangePass.get('password').touched)" class="invalid-feedback">
+                                    <div *ngIf="formChangePass.get('password').errors.required">Vui lòng nhập mật khẩu</div>
+                                    <div *ngIf="formChangePass.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
-                            <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
-                            <div *ngIf="formChangePass.get('confirmPassword').invalid && (formChangePass.get('confirmPassword').dirty || formChangePass.get('confirmPassword').touched)" class="invalid-feedback">
-                                <div *ngIf="formChangePass.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
-                                <div *ngIf="formChangePass.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+                            <div class="col-md-6"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
+                                <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
+                                <div *ngIf="formChangePass.get('confirmPassword').invalid && (formChangePass.get('confirmPassword').dirty || formChangePass.get('confirmPassword').touched)" class="invalid-feedback">
+                                    <div *ngIf="formChangePass.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
+                                    <div *ngIf="formChangePass.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class=" col-md-12 d-flex justify-content-center my-4">
-                            <button type="submit" class="btn btn-danger mt-2 ">LƯU THÔNG TIN</button>
-                        </div>
+                            <div class=" col-md-12 d-flex justify-content-center my-4">
+                                <button type="submit" class="btn btn-danger mt-2 ">LƯU THÔNG TIN</button>
+                            </div>
 
+                        </div>
                     </div>
+                    <div class="col-md-2 col-sm-12"></div>
                 </div>
-                <div class="col-md-2 col-sm-12"></div>
             </div>
+            <div id="tab3" *ngIf="selectedTab === 3">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i><span class="styleUnderLine"> NẠP TIỀN</span> </i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="accountBankSend"> Tài khoản ngân hàng gửi<span class="text-danger">(*)</span></label>
+                                        <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                             </select>
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-12"></div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
+                                        <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                             </select>
+                                        <i class=" bg-primary rounded p-1 m-1"><i class="fa fa-copy "></i><span>Copy tài khoản game</span></i>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="addMoney">Số tiền nạp<span class="text-danger">(*)</span></label>
+                                        <input type="addMoney" formControlName="addMoney" id="addMoney" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12"></div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="checkGame"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
+                                        <select id="checkGame" class="form-control" name="checkGame" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                             </select>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="addMoney">Ghi Chú<span class="text-danger"></span></label>
+                                        <textarea type="addMoney" formControlName="addMoney" id="addMoney" class="form-control"></textarea>
+                                    </div>
+                                    <div class=" col-md-12 d-flex justify-content-center my-4">
+                                        <button type="submit" class="btn btn-danger mt-2 ">NẠP TIỀN</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 m-3 ">
+                                            <img alt="2sbobet" src="../../assets/images/1Bong88.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">1Bong88: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/2SBOBET.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">2SBOBET: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/Lasvegas.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">Lasvegas: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/3in1bet.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">3in1bet: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12"></div>
+                </div>
+            </div>
+            <div id="tab4" *ngIf="selectedTab === 4">4</div>
+            <div id="tab5" *ngIf="selectedTab === 5">5</div>
         </div>
-        <div id="tab3" *ngIf="selectedTab === 3">3</div>
-        <div id="tab4" *ngIf="selectedTab === 4">4</div>
-        <div id="tab5" *ngIf="selectedTab === 5">5</div>
     </div>
-
-</div>
+</form>

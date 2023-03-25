@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component'
 import { LoginComponent } from './login/login.component'
 import { HttpClientModule } from '@angular/common/http';
 import { AccountInfoComponent } from './account-info/account-info.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AccountInfoComponent } from './account-info/account-info.component';
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

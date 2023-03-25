@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Account } from './account';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'; 
 
 @Component({
   selector: 'app-account-info',
@@ -9,30 +10,29 @@ import { Account } from './account';
 })
 
   export class AccountInfoComponent implements OnInit {
+    public formAccountinfo: FormGroup | any
+    public formChangePass :FormGroup | any
+    id: any;
+    nameAccount: any;
+    nameBank : any;
+    numberBank: any;
+    gameLists:any;
+    selectGame: any;
+  isborderli = [false, false, false,false,false,false];
+  selectedTab: number = 0;
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
-  public formChangePass :FormGroup | any
-  id: any;
-  nameAccount: any;
-  nameBank : any;
-  numberBank: any;
-  
-  gameLists:any;
-  selectGame: any;
+  public onSubmit(): void {
 
-  
-isborderli = [false, false, false,false,false,false];
-selectedTab: number = 0;
-
-activeInfo(index: number) {
-  this.selectedTab = index;
-    for (let i = 0; i < this.isborderli.length; i++) {
-      this.isborderli[i] = i === index;
-     
+  }
+  activeInfo(index: number) {
+    this.selectedTab = index;
+      for (let i = 0; i < this.isborderli.length; i++) {
+        this.isborderli[i] = i === index;
+       
+      }
     }
-  }
-
+   
   accounts: Account[] = [
     { id: 1, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
     { id: 2, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
