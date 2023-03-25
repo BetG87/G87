@@ -1,52 +1,54 @@
-<div class="container my-4">
+<form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="container">
+  <div class="container my-4">
     <div class="row">
-        <div class="col-md-3 "></div>
-        <div class="col-md-6 ">
-            <div class=" row">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <h4 class="font-weight-bold" style="font-family:  Mulish, 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Đăng nhập</h4>
-                </div>
-                <div class="col-md-12 my-3">
-                    <input type="text" formControlName="loginName" id="loginName" class="form-control"><span for="loginName" class="change-Location bg-white d-flex justify-content-start" (click)="clickInput()">Tên đăng nhập(*)</span>
-                    <div *ngIf="formRegister.get('loginName').invalid && (formRegister.get('loginName').dirty || formRegister.get('loginName').touched)" class="invalid-feedback">
-                        <div *ngIf="formRegister.get('loginName').errors.required">Vui lòng nhập họ tên</div>
-                    </div>
-                </div>
-                <div class="col-md-12 my-3">
-                    <input type="text" formControlName="loginPass" id="loginPass" class="form-control"><span for="loginPass" class="change-Location bg-white ml-2 d-flex justify-content-start">Mật Khẩu(*)</span>
-                    <div *ngIf="formRegister.get('loginPass').invalid && (formRegister.get('loginPass').dirty || formRegister.get('loginPass').touched)" class="invalid-feedback">
-                        <div *ngIf="formRegister.get('loginPass').errors.required">Vui lòng nhập password</div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class=" col-md-12 d-flex justify-content-center mb-4">
-                        <button type="submit" [disabled]="formRegister.invalid" class="btn btn-danger mt-2 ">Đăng nhập</button>
-                    </div>
-                </div>
+      <div class="col-md-3 "></div>
+      <div class="col-md-6 ">
+        <div class=" row">
+          <div class="col-md-12 d-flex justify-content-center">
+            <h4 class="font-weight-bold" style="font-family:  Mulish, 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">Đăng nhập</h4>
+          </div>
+          <div class="col-md-12 my-3">
+            <input type="text" formControlName="username" id="username" class="form-control"><span for="username" class="change-Location bg-white d-flex justify-content-start" (click)="clickInput()">Tên đăng nhập(*)</span>
+            <div *ngIf="formLogin.get('username').invalid && (formLogin.get('username').dirty || formLogin.get('username').touched)" class="invalid-feedback">
+              <div *ngIf="formLogin.get('username').errors.required">Vui lòng nhập họ tên</div>
             </div>
+          </div>
+          <div class="col-md-12 my-3">
+            <input type="text" formControlName="password" id="password" class="form-control"><span for="password" class="change-Location bg-white ml-2 d-flex justify-content-start">Mật Khẩu(*)</span>
+            <div *ngIf="formLogin.get('password').invalid && (formLogin.get('password').dirty || formLogin.get('password').touched)" class="invalid-feedback">
+              <div *ngIf="formLogin.get('password').errors.required">Vui lòng nhập password</div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class=" col-md-12 d-flex justify-content-center mb-4">
+              <button type="submit" [disabled]="formLogin.invalid" class="btn btn-danger mt-2 ">Đăng nhập</button>
+            </div>
+          </div>
         </div>
-        <div class=" col-md-3"></div>
+      </div>
+      <div class=" col-md-3"></div>
     </div>
-</div>
-<style>
+  </div>
+  </form>
+  <style>
     .change-Location {
-        position: absolute;
-        padding: 0px 3px;
-        /* top: 25%; */
-        /* right: 77%; */
-        transform: translate(-3px, -50px) scale(0.75);
+      position: absolute;
+      padding: 0px 3px;
+      /* top: 25%; */
+      /* right: 77%; */
+      transform: translate(-3px, -50px) scale(0.75);
     }
-    
-    .change-Location :focus {
+
+      .change-Location :focus {
         color: red;
-    }
-    
+      }
+
     input:focus {
-        border: 2px solid red;
-        box-shadow: none;
+      border: 2px solid red;
+      box-shadow: none;
     }
     /* input:hover {
         border-color: black;
         box-shadow: none;
     } */
-</style>
+  </style>

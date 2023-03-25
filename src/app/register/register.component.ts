@@ -32,8 +32,8 @@ onBankChange(event: any): void {
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       numberPhone: ['', Validators.required],
-      bankId: ['', Validators.required],
       bankAccountNumber: ['', Validators.required],
+      bankId: ['', Validators.required]
 
     });
     // this.bankNameLists =[ {id: 1, name: "VIETCOMBANK"}]
@@ -48,6 +48,19 @@ onBankChange(event: any): void {
 
   public onSubmit(): void {
     console.log(this.formRegister)
+    var bankId = this.selectedBank;
+
+    const requestRegister =
+    {
+      ...this.formRegister.value,
+        bankId: bankId
+    }
+
+    this.connectApi.post('v1/auth/register', requestRegister).subscribe((response) => {
+      console.log(response)
+
+    });
+
   }
 
   register() {

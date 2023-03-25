@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConnectApiService } from '../Services/Web/connect-api.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,9 @@ export class LoginComponent implements OnInit {
   public isSuccessful = false;
   public isSignUpFailed = false;
   public errorMessage = '';
-  public formRegister :FormGroup | any
+  public formLogin :FormGroup | any
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private connectApi : ConnectApiService) { 
     
   }
   
@@ -22,12 +23,19 @@ onBankChange(event: any) {
   console.log(event);
 }
   ngOnInit(): void {
-  
+    this.formLogin = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+
+    });
     
   }
 
   public onSubmit(): void {
-  }
+    this.connectApi.post('v1/auth/login', this.formLogin.value).subscribe((response) => {
+      console.log(response)
+
+    });  }
 
   register() {
     
