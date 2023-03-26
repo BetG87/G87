@@ -1,4 +1,85 @@
 .imgingame {
-  width: 85%;
-  height: 85%;
+    width: 85%;
+    height: 85%;
+}
+
+.change-Location {
+    font-size: 0.875rem;
+    border-radius: 18px;
+    position: absolute;
+    padding: 0px 3px;
+    /* top: 25%; */
+    /* right: 77%; */
+    transform: translate(0px, 180px) scale(1.2);
+}
+
+@media only screen and (max-width: 1370px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 150px) scale(0.9);
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 150px) scale(0.8);
+    }
+}
+
+@media only screen and (max-width: 1180px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 120px) scale(0.7);
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 120px) scale(0.7);
+    }
+}
+
+@media only screen and (max-width: 915px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 80px) scale(0.5);
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 140px) scale(0.7);
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 120px) scale(0.7);
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 95px) scale(0.5);
+    }
+}
+
+@media only screen and (max-width: 393px) {
+    /* For mobile phones: */
+    .change-Location {
+        transform: translate(0px, 90px) scale(0.5);
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    /* For mobile phones: */
+    .change-Location {
+        font-size: 7px;
+        transform: translate(0px, 83px) scale(0.5);
+    }
 }

@@ -1,36 +1,39 @@
-
 <div class="container ">
-  <app-carousel></app-carousel>
+    <app-carousel></app-carousel>
 
 
-  <div *ngIf="!isLoggedIn" class="d-flex justify-content-around mt-1 ">
-    <a class="text-center" href="https://example.com">
-      <img src="assets/images/addmoney.png" class="img-fluid imgingame">
-    </a>
-    <a class="text-center" href="https://example.com">
-      <img src="assets/images/movegame.png" class="img-fluid imgingame">
-    </a>
-    <a class="text-center" href="https://example.com">
-      <img src="assets/images/money.png" class="img-fluid imgingame">
-    </a>
-  </div>
+    <div *ngIf="!isLoggedIn" class="d-flex justify-content-around mt-1 ">
+        <a class="text-center" href="https://example.com">
+            <img src="assets/images/addmoney.png" class="img-fluid imgingame">
+        </a>
+        <a class="text-center" href="https://example.com">
+            <img src="assets/images/movegame.png" class="img-fluid imgingame">
+        </a>
+        <a class="text-center" href="https://example.com">
+            <img src="assets/images/money.png" class="img-fluid imgingame">
+        </a>
+    </div>
 
 
-  <div class="row   justify-content-center">
-    <div class="col-md-3 col-6">
-      <img src="assets/images/1Bong88.jpg" alt="Image Description" class="img-thumbnail d-block ">
+    <div class="row   justify-content-center">
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/1Bong88.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88()">{{statusBong88}}</button>
+        </div>
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/2SBOBET.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame2SBOBET()">{{status2SBOBET}}</button>
+        </div>
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/3in1bet.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame3in1bet()">{{status3in1bet}}</button>
+        </div>
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/Lasvegas.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1 " (click)="addGameLasvegas()">{{statusLasvegas}}</button>
+        </div>
     </div>
-    <div class="col-md-3 col-6">
-      <img src="assets/images/2SBOBET.jpg" alt="Image Description" class="img-thumbnail d-block ">
-    </div>
-    <div class="col-md-3 col-6">
-      <img src="assets/images/3in1bet.jpg" alt="Image Description" class="img-thumbnail d-block ">
-    </div>
-    <div class="col-md-3 col-6">
-      <img src="assets/images/Lasvegas.jpg" alt="Image Description" class="img-thumbnail d-block ">
-    </div>
-  </div>
-  <!--<div class="row   justify-content-center" *ngFor="let item of data">
+    <!--<div class="row   justify-content-center" *ngFor="let item of data">
     <a *ngIf="!isLoggedIn" [routerLink]="['/register']">
       <img [src]="item.image">
     </a>
@@ -44,22 +47,22 @@
   </div>-->
 
 
-  <div class="row">
-    <div class="col-8">
+    <div class="row">
+        <div class="col-8">
 
+        </div>
+        <div class="col-4">
+            <div class="d-flex flex-column mt-1 ">
+                <a class="text-center" href="https://example.com">
+                    <img src="assets/images/24.png" class="img-fluid m-2 p-2">
+                </a>
+                <a class="text-center" href="https://example.com">
+                    <img src="assets/images/zalo.png" class="img-fluid m-2 p-2">
+                </a>
+                <a class="text-center" href="https://example.com">
+                    <img src="assets/images/huongdan.png" class="img-fluid m-2 p-2">
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="col-4">
-      <div class="d-flex flex-column mt-1 ">
-        <a class="text-center" href="https://example.com">
-          <img src="assets/images/24.png" class="img-fluid m-2 p-2">
-        </a>
-        <a class="text-center" href="https://example.com">
-          <img src="assets/images/zalo.png" class="img-fluid m-2 p-2">
-        </a>
-        <a class="text-center" href="https://example.com">
-          <img src="assets/images/huongdan.png" class="img-fluid m-2 p-2">
-        </a>
-      </div>
-    </div>
-  </div>
 </div>

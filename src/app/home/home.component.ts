@@ -6,6 +6,7 @@ import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
 import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
 import { Router } from '@angular/router';
+import { GameProduct } from "../entity/GameProduct";
 import decode from 'jwt-decode'
 @Component({
   selector: 'app-home',
@@ -17,14 +18,71 @@ export class HomeComponent implements OnInit {
   username?: string;
   userId?: string;
   isLoggedIn: boolean = false;
+  
+  statusBong88: string | undefined;
+  status2SBOBET: string | undefined;
+  status3in1bet: string | undefined;
+  statusLasvegas: string | undefined;
+  gameProduct : GameProduct [] | undefined ;
+  isStatus = [false,false,false,false];
   constructor(private dataShare: DataShareService, private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService, private route: Router,
     private cookieStore: CookieStorageService) {
-
+    this.statusBong88 ="VÀO GAME"
+    this.status3in1bet ="VÀO GAME"
+    this.status2SBOBET ="VÀO GAME"
+    this.statusLasvegas ="VÀO GAME"
     this.checkInit();
     this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
-      console.log(response)
-    })
+      console.log(response) 
+        this.gameProduct = response.gameProduct;
+      if (this.gameProduct) {
+      for (let i=0 ; i < this.gameProduct.length ;i++){
+        switch (this.gameProduct[i].name) {
+          case  "Bong88":
+            this.statusBong88 = "TÀI KHOẢN"    
+            this.isStatus[0] =true      
+            break;
+          case  "2SBOBET":
+            this.status2SBOBET = "TÀI KHOẢN"    
+            this.isStatus[1] =true        
+            break;
+          case "3in1bet":
+            this.status3in1bet = "TÀI KHOẢN"        
+            this.isStatus[2] =true  
+            break;      
+          case  "Lasvegas":
+            this.statusLasvegas = "TÀI KHOẢN"     
+            this.isStatus[3] =true       
+            break;
+          default:        
+        }
+      }
+    } 
+for (let i =0 ; i < this.isStatus.length; i++){
+ if(!this.isStatus[i]){
+  switch (i) {
+    case  0:
+      this.statusBong88 = "YÊU CẦU CẤP TÀI KHOẢN"       
+      break;
+    case  1:
+      this.status2SBOBET = "YÊU CẦU CẤP TÀI KHOẢN"        
+      break;
+    case 2:
+      this.status3in1bet = "YÊU CẦU CẤP TÀI KHOẢN"      
+      break;      
+    case  3:
+      this.statusLasvegas = "YÊU CẦU CẤP TÀI KHOẢN"          
+      break;
+    default:        
+  }
+ }
+
+
+}
+
+
+    })  
   }
   ngOnInit(): void {
   }
@@ -34,6 +92,7 @@ export class HomeComponent implements OnInit {
     this.cookieStore.getCookie("auth-token")
     //console.log(this.cookieStore.getCookie("auth-token"))
     const token = this.sessionStore.getToken();
+    console.log(this.sessionStore)
     if (token) {
       const payload = decode(token)
       //console.log(payload)
@@ -43,5 +102,17 @@ export class HomeComponent implements OnInit {
         this.userId = user['_id']
       }
     }
+  }
+  addGameBong88(){
+
+  }
+  addGame2SBOBET(){
+
+  }
+  addGame3in1bet(){
+
+  }
+  addGameLasvegas(){
+
   }
 }
