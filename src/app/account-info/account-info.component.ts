@@ -33,11 +33,14 @@ export class AccountInfoComponent implements OnInit {
     daysend : any ;
     statusSend : any ;
     noteSend : any ;
-    gameProduct: any;
+  gameProduct: any;
+  gameAccount: [] =[];
     selectGame: any;
   isborderli = [true, false, false,false,false,false];
   selectedTab: number = 0;
   username?: string;
+  usernameAcccount?: string;
+  passwordAcccount?: string;
   isLoggedIn: boolean = false;
    userId: string ="";
   constructor(private dataShare: DataShareService, 
@@ -54,7 +57,9 @@ export class AccountInfoComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       numberPhone: ['', Validators.required],
       bankAccountNumber: ['', Validators.required],
-      bankId: ['', Validators.required]
+      bankId: ['', Validators.required],
+      gameAccount: ['', Validators.required],
+      gamePassword: ['', Validators.required],
     });
 
     const user = this.sessionStore.getUser()
@@ -68,6 +73,20 @@ export class AccountInfoComponent implements OnInit {
       this.formAccountinfo.patchValue(response);
       this.gameProduct = response['gameProduct'];
       this.selectGame = this.gameProduct[0]._id
+      this.gameAccount = response['gameAccounts']
+      if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
+        // Sử dụng gameProduct và gameAccount để lọc dữ liệu
+        const filteredUsers = this.gameAccount.filter(user => {
+          const product = this.selectGame === user['gameProduct'];
+          return product;
+          
+        });
+        this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
+        this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
+      } else {
+        console.log('Không có dữ liệu để lọc');
+      }
+
     });
 
   }
@@ -99,7 +118,18 @@ export class AccountInfoComponent implements OnInit {
   ]
 
   onGameChange(event: any): void {
-    console.log(event);
+    if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
+      // Sử dụng gameProduct và gameAccount để lọc dữ liệu
+      const filteredUsers = this.gameAccount.filter(user => {
+        const product = event === user['gameProduct'];
+        return product;
+
+      });
+      this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
+      this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
+    } else {
+      console.log('Không có dữ liệu để lọc');
+    }
   }
 
   addBank(){
