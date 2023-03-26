@@ -42,7 +42,9 @@ export class AccountInfoComponent implements OnInit {
   usernameAcccount?: string;
   passwordAcccount?: string;
   isLoggedIn: boolean = false;
-   userId: string ="";
+  bankNameLists: any;
+  userId: string = "";
+  accounts: Account[]=[];
   constructor(private dataShare: DataShareService, 
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,
@@ -68,12 +70,17 @@ export class AccountInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.connectApi.get('v1/bank').subscribe((response) => {
+      console.log(response)
+      this.bankNameLists = response;
+    });
     this.connectApi.get('v1/user/' + this.userId).subscribe((response:any) => {
       console.log(response)
       this.formAccountinfo.patchValue(response);
       this.gameProduct = response['gameProduct'];
       this.selectGame = this.gameProduct[0]._id
       this.gameAccount = response['gameAccounts']
+      var bankAccount = response['bankAccounts']
       if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
         // Sử dụng gameProduct và gameAccount để lọc dữ liệu
         const filteredUsers = this.gameAccount.filter(user => {
@@ -85,8 +92,20 @@ export class AccountInfoComponent implements OnInit {
         this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
       } else {
         console.log('Không có dữ liệu để lọc');
-      }
-
+      } 
+      
+      console.log(bankAccount)
+      console.log(this.bankNameLists)
+      
+      bankAccount.filter((bankA: any) => {
+       var bankC= this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
+        console.log(bankC)
+        var value = new Account();
+        value.nameAccount = bankA['ownerName'];
+        value.nameBank = bankC['name'];
+        value.numberBank = bankA['bankAccountNumber'];
+        this.accounts.push(value);
+      })
     });
 
   }
@@ -101,11 +120,7 @@ export class AccountInfoComponent implements OnInit {
       }
     }
    
-  accounts: Account[] = [
-    { id: 1, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
-    { id: 2, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
-    { id: 3, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
-  ];
+
   accountSend : AccountSend [] =[
     { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
     { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},

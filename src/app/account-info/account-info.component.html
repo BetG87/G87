@@ -90,8 +90,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let account of accounts" class=" borderstyle m-1 ">
-                                        <td class="px-4  py-2 text-center">{{ account.id }}</td>
+                                    <tr *ngFor="let account of accounts; let index = index" class=" borderstyle m-1 ">
+                                      <td class="px-4  py-2 text-center">{{ index+1 }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.nameAccount }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.nameBank }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.numberBank }}</td>
