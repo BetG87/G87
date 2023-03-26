@@ -3,7 +3,7 @@
   <app-carousel></app-carousel>
 
 
-  <div class="d-flex justify-content-around mt-1 ">
+  <div *ngIf="!isLoggedIn" class="d-flex justify-content-around mt-1 ">
     <a class="text-center" href="https://example.com">
       <img src="assets/images/addmoney.png" class="img-fluid imgingame">
     </a>
