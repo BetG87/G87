@@ -1,4 +1,3 @@
-<form [formGroup]="formAccountinfo" (ngSubmit)="onSubmit()" class="container">
     <div class="row">
         <div class="col-md-3 mb-4 col-sm-12 d-flex justify-content-center">
             <ul class="m-4 navbar-ul">
@@ -11,63 +10,66 @@
             </ul>
         </div>
         <div class="col-md-9 col-sm-12">
-            <div id="tab0" *ngIf="selectedTab === 0">
-                <div class="row">
-                    <div class="col-md-10 col-sm-12">
-                        <div class="row">
-                            <h3 class="text-danger col-12  d-flex justify-content-center mgbottom"><i>THÔNG <span class="styleUnderLine"> TIN TÀI </span> KHOẢN</i></h3>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="fullName" class="size1Rem">Họ và tên : </label>
-                                    <input type="text" formControlName="fullName" id="fullName" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="oldPass" class="size1Rem">Số điện thoại : </label>
-                                    <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="accountName" class="size1Rem">Tên đăng nhập : </label>
-                                    <input type="text" formControlName="accountName" id="accountName" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="gameCheck" class="size1Rem">Sản phẩm game đã đăng kí: </label>
-                                    <select id="gameCheck" class="form-control" name="gameCheck" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
-                         </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="fullName" class="size1Rem">Email : </label>
-                                    <input type="text" formControlName="fullName" id="fullName" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
-                                    <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control">
-                                    <button class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
-                                </div>
-                            </div>
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="form-group col-md-12">
-                                    <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
-                                    <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
-                                    <button class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
-                                </div>
-                            </div>
+          <div id="tab0" *ngIf="selectedTab === 0">
+            <form [formGroup]="formAccountinfo" (ngSubmit)="onSubmit()" class="container">
+              <div class="row">
+                  <div class="col-md-10 col-sm-12">
+                    <div class="row">
+                      <h3 class="text-danger col-12  d-flex justify-content-center mgbottom"><i>THÔNG <span class="styleUnderLine"> TIN TÀI </span> KHOẢN</i></h3>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="fullName" class="size1Rem">Họ và tên : </label>
+                          <input type="text" formControlName="fullName" id="fullName" class="form-control">
                         </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="oldPass" class="size1Rem">Số điện thoại : </label>
+                          <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="accountName" class="size1Rem">Tên đăng nhập : </label>
+                          <input type="text" formControlName="accountName" id="accountName" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="gameCheck" class="size1Rem">Sản phẩm game đã đăng kí: </label>
+                          <select id="gameCheck" class="form-control" name="gameCheck" [(ngModel)]="selectGame" (ngModelChange)="onGameChange($event)" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="fullName" class="size1Rem">Email : </label>
+                          <input type="text" formControlName="fullName" id="fullName" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
+                          <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control">
+                          <button class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
+                        </div>
+                      </div>
+                      <div class="col-md-6"></div>
+                      <div class="col-md-6 col-sm-12">
+                        <div class="form-group col-md-12">
+                          <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
+                          <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
+                          <button class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-2 col-sm-12"></div>
-                </div>
-            </div>
+                  </div>
+                  <div class="col-md-2 col-sm-12"></div>
+              </div>
+              </form>
+
+          </div>
             <div id="tab1" *ngIf="selectedTab === 1">
                 <div class="row">
                     <div class="col-md-10 col-sm-12">
@@ -323,4 +325,3 @@
             </div>
         </div>
     </div>
-</form>

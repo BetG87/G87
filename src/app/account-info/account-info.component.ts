@@ -41,14 +41,15 @@ export class AccountInfoComponent implements OnInit {
     private cookieStore: CookieStorageService) {
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
-  }
-
-  ngOnInit(): void {
-    console.log("abvcs")
     this.connectApi.get('v1/user/' + this.userId).subscribe((response) => {
       console.log(response)
 
     });
+  }
+
+  ngOnInit(): void {
+    console.log("abvcs")
+
   }
   public onSubmit(): void {
 
@@ -76,5 +77,8 @@ export class AccountInfoComponent implements OnInit {
     { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
     { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
   ]
-  
+
+  onGameChange(event: any): void {
+    console.log(event);
+  }
 }

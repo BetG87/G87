@@ -16,7 +16,18 @@ export class RegisterComponent implements OnInit {
   public formRegister :FormGroup | any
 
   constructor(private fb: FormBuilder, private connectApi: ConnectApiService) { 
-    
+
+    this.formRegister = this.fb.group({
+      fullName: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      numberPhone: ['', Validators.required],
+      bankAccountNumber: ['', Validators.required],
+      bankId: ['', Validators.required]
+
+    });
   }
   bankName = '';
   selectedBank: any;
@@ -26,24 +37,11 @@ onBankChange(event: any): void {
   console.log(event);
 }
   ngOnInit(): void {
-    this.formRegister = this.fb.group({
-      fullName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      numberPhone: ['', Validators.required],
-      bankAccountNumber: ['', Validators.required],
-      bankId: ['', Validators.required]
-
-    });
-    // this.bankNameLists =[ {id: 1, name: "VIETCOMBANK"}]
-    console.log(this.bankNameLists)
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
       this.bankNameLists = response;
       this.selectedBank = this.bankNameLists[0]._id;
     });
-    
   }
 
   public onSubmit(): void {
