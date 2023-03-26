@@ -13,6 +13,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthInterceptor } from './Services/Web/connect-api.service';
+import { MyModalComponent } from './my-modal/my-modal.component';
+import { MyAddbankComponent } from './my-addbank/my-addbank.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AuthInterceptor } from './Services/Web/connect-api.service';
     AboutComponent,
     RegisterComponent,
     LoginComponent,
-    AccountInfoComponent
+    AccountInfoComponent,
+    MyModalComponent,
+    MyAddbankComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,32 @@
+.decorationHeader {
+    text-decoration: underline 3px rgb(255, 113, 68)
+}
+
+.textbank {
+    color: rgb(255, 113, 68);
+}
+
+.btnSaveInfo {
+    background-color: #BC2403;
+}
+
+.change-Location {
+    position: absolute;
+    padding: 0px 3px;
+    transform: translate(-3px, -50px) scale(0.75);
+}
+
+.change-LocationBank {
+    position: absolute;
+    padding: 0px 3px;
+    transform: translate(-3px, -12px) scale(0.75);
+}
+
+.change-Location :focus {
+    color: red;
+}
+
+input:focus {
+    border: 2px solid red;
+    box-shadow: none;
+}

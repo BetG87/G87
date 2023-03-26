@@ -48,14 +48,14 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
-                    <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
-                    <div *ngIf="formRegister.get('confirmPassword').invalid && (formRegister.get('confirmPassword').dirty || formRegister.get('confirmPassword').touched)" class="invalid-feedback">
-                        <div *ngIf="formRegister.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
-                        <div *ngIf="formRegister.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
-                    </div>
+                    <input name="confirmPassword" type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
+                    <!-- <div *ngIf="formRegister.get('confirmPassword').invalid && (formRegister.get('confirmPassword').dirty || formRegister.get('confirmPassword').touched)" class="invalid-feedback"> -->
+                    <!-- <div *ngIf="formRegister.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
+                    <div *ngIf="formRegister.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+                </div> -->
                 </div>
                 <div class="form-group col-md-12">
-                    <label for="bankName"> Ngân Hàng<span class="text-danger">(*)</span></label>
+                    <label for="bankId"> Ngân Hàng<span class="text-danger">(*)</span></label>
                     <!-- <select formControlName="bankName" id="bankName" class="form-control" name="bankName">
                   <option *ngFor="let data of bankNameLists" [value]="data.id">{{data.name}}
                   </option>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class=" col-md-12 d-flex justify-content-end mb-4">
-                    <button type="submit" [disabled]="!formRegister.invalid" class="btn btn-primary mt-2 ">Đăng ký</button>
+                    <button type="submit" [disabled]="!formRegister.invalid" class="btn btn-primary mt-2 " (click)="register()">Đăng ký</button>
                 </div>
             </div>
         </div>

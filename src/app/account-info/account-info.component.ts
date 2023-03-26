@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import decode from 'jwt-decode'
 import { AccountSend } from '../entity/accountSend';
 import { accountPutOut } from '../entity/accountPutOut';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
 
 @Component({
   selector: 'app-account-info',
@@ -36,14 +38,16 @@ export class AccountInfoComponent implements OnInit {
   username?: string;
   isLoggedIn: boolean = false;
    userId: string ="";
-  constructor(private dataShare: DataShareService, private connectApi: ConnectApiService,
-    private sessionStore: SessionStorageService, private route: Router,
-    private cookieStore: CookieStorageService) {
+  constructor(private dataShare: DataShareService, 
+    private connectApi: ConnectApiService,
+    private sessionStore: SessionStorageService,
+    private route: Router,
+    private cookieStore: CookieStorageService,
+    private modalService: NgbModal) {
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
     this.connectApi.get('v1/user/' + this.userId).subscribe((response) => {
       console.log(response)
-
     });
   }
 
@@ -81,4 +85,15 @@ export class AccountInfoComponent implements OnInit {
   onGameChange(event: any): void {
     console.log(event);
   }
+
+  addBank(){
+    const modalRef = this.modalService.open(MyAddbankComponent,{ size: "md", backdrop: "static", keyboard: false });
+    modalRef.result.then((result: any) => {
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
+  }
+  
+  
 }

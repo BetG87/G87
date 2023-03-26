@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { Bank } from '../entity/bank';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MyModalComponent } from '../my-modal/my-modal.component';
+
+
 
 @Component({
   selector: 'app-register',
@@ -15,8 +19,9 @@ export class RegisterComponent implements OnInit {
   public errorMessage = '';
   public formRegister :FormGroup | any
 
-  constructor(private fb: FormBuilder, private connectApi: ConnectApiService) { 
-
+  constructor(private fb: FormBuilder,
+    private connectApi: ConnectApiService,
+    private modalService: NgbModal) { 
     this.formRegister = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
@@ -61,7 +66,20 @@ onBankChange(event: any): void {
 
   }
 
-  register() {
+  register = () => {
+   
+    const modalRef = this.modalService.open(MyModalComponent,{ size: "sm", backdrop: "static", keyboard: false });
     
+    modalRef.result.then((result: any) => {
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
+  
   }
+  
+ 
+    
+  
+
 }
