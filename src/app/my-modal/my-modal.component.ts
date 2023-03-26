@@ -11,7 +11,6 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MyModalComponent implements OnInit {
 ngOnInit(): void {
-  throw new Error('Method not implemented.');
 }
 modal: any;
 

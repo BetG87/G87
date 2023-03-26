@@ -24,7 +24,8 @@ import { AccountInfo } from '../entity/AccountInfo';
 export class AccountInfoComponent implements OnInit {
 
     public formAccountinfo: FormGroup | any
-    public formChangePass :FormGroup | any
+  public formChangePass: FormGroup | any
+  public formDeposit: FormGroup | any
     id: any;
     nameAccount: any;
     nameBank : any;
@@ -43,6 +44,8 @@ export class AccountInfoComponent implements OnInit {
   passwordAcccount?: string;
   isLoggedIn: boolean = false;
   bankNameLists: any;
+  accountBankSend: any
+  accountBankAdmin: Account[]=[];
   userId: string = "";
   accounts: Account[]=[];
   constructor(private dataShare: DataShareService, 
@@ -63,6 +66,13 @@ export class AccountInfoComponent implements OnInit {
       gameAccount: ['', Validators.required],
       gamePassword: ['', Validators.required],
     });
+    this.formDeposit = this.fb.group({
+      amount: ['', Validators.required],
+      type: "deposit",
+      bankAccount: ['', Validators.required],
+      status: ['', Validators.required],
+      gameProduct: ['', Validators.required],
+    })
 
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
@@ -101,13 +111,18 @@ export class AccountInfoComponent implements OnInit {
        var bankC= this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
         console.log(bankC)
         var value = new Account();
+        value.id = bankA["_id"]
         value.nameAccount = bankA['ownerName'];
         value.nameBank = bankC['name'];
         value.numberBank = bankA['bankAccountNumber'];
         this.accounts.push(value);
       })
+      this.accountBankSend = this.accounts[0].id
     });
 
+    this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
+      this.accountBankAdmin = response;
+    })
   }
   public onSubmit(): void {
 

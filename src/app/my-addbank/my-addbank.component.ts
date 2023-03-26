@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { SessionStorageService } from '../Services/StorageService/session-storage.service';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 
 @Component({
@@ -9,20 +10,31 @@ import { ConnectApiService } from '../Services/Web/connect-api.service';
   styleUrls: ['./my-addbank.component.scss']
 })
 export class MyAddbankComponent implements OnInit {
- 
-  
+  public bankAccount: FormGroup | any
+  userId:any
   constructor(private fb: FormBuilder,
     private connectApi: ConnectApiService,
-    public activeModal: NgbActiveModal
-) { }
+    public activeModal: NgbActiveModal,
+    private sessionStore: SessionStorageService,
+  ) {
+
+    this.bankAccount = this.fb.group({
+      bankAccountNumber: ['', Validators.required],
+      ownerName: ['', Validators.required],
+      bankId: ['', Validators.required],
+      user: ['', Validators.required]
+    });
+    const user = this.sessionStore.getUser()
+    this.userId = user['_id'];
+  }
 
   
 bankName = '';
   selectedBank: any;
   bankNameLists:any;
 
-onBankChange(event: any): void {
-  console.log(event);
+  onBankChange(event: any): void {
+    this.bankAccount.get('bankId').setValue(event);
 }
   ngOnInit(): void {
     
@@ -35,7 +47,13 @@ onBankChange(event: any): void {
 
 
   UpdateBank = () => {
-   
+    console.log(this.bankAccount.value)
+    this.bankAccount.get('bankId').setValue(this.selectedBank);
+    this.bankAccount.get('user').setValue(this.userId);
+    this.connectApi.post('v1/bankaccount', this.bankAccount.value).subscribe((response) => {
+      console.log(response)
+
+    });
     this.activeModal.close();
   
   }

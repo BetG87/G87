@@ -5,27 +5,30 @@
     </button> -->
 </div>
 <div class="modal-body">
-    <div class="row">
-        <div class="col-md-12">
-            <p>Tên chủ tài khoản rút tiền phải trùng với tên quý khách đã đăng kí</p>
-        </div>
-        <div class="col-md-6 col-sm-12 my-3">
-            <span for="username" class="change-LocationBank bg-white d-flex justify-content-start">Ngân hàng(*)</span>
-            <select id="bankId" class="form-control" name="bankId" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)" [ngModelOptions]="{standalone: true}">
-                <option *ngFor="let bank of bankNameLists" [value]="bank._id">{{bank.name}}</option> 
-             </select>
-        </div>
-        <div class="col-md-6 col-sm-12 my-3">
-            <input type="text" formControlName="password" id="password" class="form-control"><span for="password" class="change-Location bg-white ml-2 d-flex justify-content-start">Số tài khoản(*)</span>
-        </div>
-        <div class="col-md-6 col-sm-12 my-3">
-            <input type="text" formControlName="password" id="password" class="form-control"><span for="password" class="change-Location bg-white ml-2 d-flex justify-content-start">Tên chủ tài khoản(*)</span>
-        </div>
-        <div class="col-md-6 col-sm-12"></div>
-        <div class="col-md-12 d-flex justify-content-center">
-            <button type="submit" class="btn mt-2 btnSaveInfo" (click)="UpdateBank()">LƯU LẠI</button>
-        </div>
-    </div>
+
+  <div class="row">
+    <form [formGroup]="bankAccount" class="container">
+      <div class="col-md-12">
+        <p>Tên chủ tài khoản rút tiền phải trùng với tên quý khách đã đăng kí</p>
+      </div>
+      <div class="col-md-12 col-sm-12 my-3">
+        <span for="username" class="change-LocationBank bg-white d-flex justify-content-start">Ngân hàng(*)</span>
+        <select id="bankId" class="form-control" name="bankId" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)" [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let bank of bankNameLists" [value]="bank._id">{{bank.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-12 col-sm-12 my-3">
+        <input type="text" formControlName="bankAccountNumber" id="bankAccountNumber" class="form-control"><span for="bankAccountNumber" class="change-Location bg-white ml-2 d-flex justify-content-start">Số tài khoản(*)</span>
+      </div>
+      <div class="col-md-12 col-sm-12 my-3">
+        <input type="text" formControlName="ownerName" id="ownerName" class="form-control"><span for="ownerName" class="change-Location bg-white ml-2 d-flex justify-content-start">Tên chủ tài khoản(*)</span>
+      </div>
+      <div class="col-md-12 col-sm-12"></div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <button type="submit" class="btn mt-2 btnSaveInfo" (click)="UpdateBank()">LƯU LẠI</button>
+      </div>
+    </form>
+  </div>
 </div>
 <div class="modal-footer">
     <div class="d-flex justify-content-end"><span class="textbank" (click)="close()">Đã Hiểu</span></div>
