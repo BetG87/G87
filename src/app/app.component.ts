@@ -25,9 +25,7 @@ export class AppComponent implements OnInit {
     private sessionStore: SessionStorageService, private route: Router,
     private cookieStore: CookieStorageService) {
 
-    console.log("abc")
     this.dataShare.dataUser.subscribe(data => {
-      console.log(data)
       this.checkInit();
 
     })
@@ -46,11 +44,10 @@ export class AppComponent implements OnInit {
   checkInit() {
     this.isLoggedIn = !!this.sessionStore.getToken();
     this.cookieStore.getCookie("auth-token")
-    console.log(this.cookieStore.getCookie("auth-token"))
+    //console.log(this.cookieStore.getCookie("auth-token"))
     const token = this.sessionStore.getToken();
     if (token) {
       const payload = decode(token)
-      console.log(payload)
       if (this.isLoggedIn) {
         const user = this.sessionStore.getUser();
         //this.roles = payload['role'];
@@ -58,7 +55,6 @@ export class AppComponent implements OnInit {
         //  this.showAdminBoard = (this.roles == 'ROLE_ADMIN');
         //}
         this.username = user['username'];
-        console.log(user)
       }
     }
   }

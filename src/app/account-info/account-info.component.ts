@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Account } from './account';
+import { Account } from '../entity/account';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'; 
+import { DataShareService } from '../Services/DataShare/data-share.service';
+import { ConnectApiService } from '../Services/Web/connect-api.service';
+import { SessionStorageService } from '../Services/StorageService/session-storage.service';
+import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
+import { Router } from '@angular/router';
+import decode from 'jwt-decode'
 
 @Component({
   selector: 'app-account-info',
@@ -9,7 +15,8 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./account-info.component.scss']
 })
 
-  export class AccountInfoComponent implements OnInit {
+export class AccountInfoComponent implements OnInit {
+
     public formAccountinfo: FormGroup | any
     public formChangePass :FormGroup | any
     id: any;
@@ -20,7 +27,22 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
     selectGame: any;
   isborderli = [false, false, false,false,false,false];
   selectedTab: number = 0;
+  username?: string;
+  isLoggedIn: boolean = false;
+   userId: string ="";
+  constructor(private dataShare: DataShareService, private connectApi: ConnectApiService,
+    private sessionStore: SessionStorageService, private route: Router,
+    private cookieStore: CookieStorageService) {
+    const user = this.sessionStore.getUser()
+    this.userId = user['_id'];
+  }
+
   ngOnInit(): void {
+    console.log("abvcs")
+    this.connectApi.get('v1/user/' + this.userId).subscribe((response) => {
+      console.log(response)
+
+    });
   }
   public onSubmit(): void {
 

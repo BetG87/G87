@@ -9,9 +9,10 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component'
 import { LoginComponent } from './login/login.component'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthInterceptor } from './Services/Web/connect-api.service';
 
 
 @NgModule({
@@ -33,7 +34,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

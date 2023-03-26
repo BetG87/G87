@@ -30,6 +30,20 @@
       <img src="assets/images/Lasvegas.jpg" alt="Image Description" class="img-thumbnail d-block ">
     </div>
   </div>
+  <!--<div class="row   justify-content-center" *ngFor="let item of data">
+    <a *ngIf="!isLoggedIn" [routerLink]="['/register']">
+      <img [src]="item.image">
+    </a>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? item.link : '/account-info'">
+      <img [src]="item.image">
+    </a>
+    <a [href]="isLoggedIn ? item.link : defaultLink">Link</a>
+    <button *ngIf="!isLoggedIn" (click)="playGame()">Vào game</button>
+    <button *ngIf="isLoggedIn && hasAccount">Tài khoản</button>
+    <button *ngIf="isLoggedIn && !hasAccount" (click)="requestAccount()">Yêu cầu tài khoản</button>
+  </div>-->
+
+
   <div class="row">
     <div class="col-8">
 
