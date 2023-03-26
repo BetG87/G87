@@ -8,6 +8,8 @@ import { SessionStorageService } from '../Services/StorageService/session-storag
 import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
 import { Router } from '@angular/router';
 import decode from 'jwt-decode'
+import { AccountSend } from '../entity/accountSend';
+import { accountPutOut } from '../entity/accountPutOut';
 
 @Component({
   selector: 'app-account-info',
@@ -23,9 +25,13 @@ export class AccountInfoComponent implements OnInit {
     nameAccount: any;
     nameBank : any;
     numberBank: any;
+    moneySend: any;
+    daysend : any ;
+    statusSend : any ;
+    noteSend : any ;
     gameLists:any;
     selectGame: any;
-  isborderli = [false, false, false,false,false,false];
+  isborderli = [true, false, false,false,false,false];
   selectedTab: number = 0;
   username?: string;
   isLoggedIn: boolean = false;
@@ -60,4 +66,15 @@ export class AccountInfoComponent implements OnInit {
     { id: 2, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
     { id: 3, nameAccount: 'John', nameBank: 'xx' ,numberBank: 123231231},
   ];
+  accountSend : AccountSend [] =[
+    { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
+    { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
+    { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
+  ]
+  accountPutOut : accountPutOut [] =[
+    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
+    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
+    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
+  ]
+  
 }

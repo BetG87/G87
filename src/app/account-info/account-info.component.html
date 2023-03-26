@@ -52,7 +52,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
                                     <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control">
-                                    <i class=" bg-primary rounded p-1 m-1"><i class="fa fa-copy "></i><span>Copy tài khoản game</span></i>
+                                    <button class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
                                 </div>
                             </div>
                             <div class="col-md-6"></div>
@@ -60,7 +60,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
                                     <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
-                                    <i class=" bg-primary rounded p-1 m-1"> <i class="fa fa-copy "></i><span>Copy mật khẩu game</span></i>
+                                    <button class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
                                 </div>
                             </div>
                         </div>
@@ -78,21 +78,21 @@
                                 <button type="submit" class="btn btn-danger mt-2 ">THÊM TÀI KHOẢN</button>
                             </div>
                             <div class=" col-md-12 d-flex justify-content-center my-4">
-                                <table>
+                                <table class="border-top-0" style="width: 100%;">
                                     <thead>
-                                        <tr>
-                                            <th class="px-4 border-left">ID</th>
-                                            <th class="px-4 ">Tên Chủ Tài Khoản</th>
-                                            <th class="px-4 ">Ngân Hàng</th>
-                                            <th class="px-4 border-right">Số Tài Khoản</th>
+                                        <tr class="   borderstyle m-1 ">
+                                            <th class="px-4 text-center">ID</th>
+                                            <th class="px-4 text-center">Tên Chủ Tài Khoản</th>
+                                            <th class="px-4 text-center">Ngân Hàng</th>
+                                            <th class="px-4 text-center">Số Tài Khoản</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let account of accounts">
-                                            <td class="px-4 border-left border-top border-bottom  py-2">{{ account.id }}</td>
-                                            <td class="px-4 border-top border-bottom py-2">{{ account.nameAccount }}</td>
-                                            <td class="px-4 border-top border-bottom py-2">{{ account.nameBank }}</td>
-                                            <td class="px-4 border-right border-top border-bottom py-2">{{ account.numberBank }}</td>
+                                        <tr *ngFor="let account of accounts" class=" borderstyle m-1 ">
+                                            <td class="px-4  py-2 text-center">{{ account.id }}</td>
+                                            <td class="px-4  py-2 text-center">{{ account.nameAccount }}</td>
+                                            <td class="px-4  py-2 text-center">{{ account.nameBank }}</td>
+                                            <td class="px-4  py-2 text-center">{{ account.numberBank }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -150,34 +150,35 @@
                             <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <div class="form-group col-md-6 col-sm-12">
+                                    <div class="form-group col-md-12 col-sm-12">
                                         <label for="accountBankSend"> Tài khoản ngân hàng gửi<span class="text-danger">(*)</span></label>
                                         <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
-                             </select>
-
+                                        <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                        </select>
                                     </div>
-                                    <div class="col-md-6 col-sm-12"></div>
+
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
                                         <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
-                             </select>
-                                        <i class=" bg-primary rounded p-1 m-1"><i class="fa fa-copy "></i><span>Copy tài khoản game</span></i>
+                                        <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option>                    
+                                        </select>
+                                        <button class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
                                     </div>
-                                    <div class="col-md-6"></div>
+
+
+
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="addMoney">Số tiền nạp<span class="text-danger">(*)</span></label>
                                         <input type="addMoney" formControlName="addMoney" id="addMoney" class="form-control">
                                     </div>
-                                    <div class="col-md-6 col-sm-12"></div>
+
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="checkGame"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
                                         <select id="checkGame" class="form-control" name="checkGame" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
-                             </select>
+                                    <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                    </select>
                                     </div>
-                                    <div class="col-md-6"></div>
+
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="addMoney">Ghi Chú<span class="text-danger"></span></label>
                                         <textarea type="addMoney" formControlName="addMoney" id="addMoney" class="form-control"></textarea>
@@ -207,15 +208,119 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-12"></div>
                 </div>
             </div>
-            <div id="tab4" *ngIf="selectedTab === 4">4</div>
-            <div id="tab5" *ngIf="selectedTab === 5">5</div>
+            <div id="tab4" *ngIf="selectedTab === 4">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i><span class="styleUnderLine"> RÚT TIỀN</span> </i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="accountBankSend"> Tài khoản ngân hàng <span class="text-danger">(*)</span></label>
+                                        <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="addMoney">Số tiền rút<span class="text-danger">(*)</span></label>
+                                        <input type="addMoney" formControlName="addMoney" id="addMoney" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="accountBankReceive"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
+                                        <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 m-3 ">
+                                            <img alt="2sbobet" src="../../assets/images/1Bong88.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">1Bong88: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/2SBOBET.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">2SBOBET: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/Lasvegas.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">Lasvegas: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/3in1bet.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">3in1bet: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-12 d-flex justify-content-center my-4">
+                                    <button type="submit" class="btn btn-danger mt-2 ">RÚT TIỀN</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12"></div>
+                </div>
+            </div>
+            <div id="tab5" *ngIf="selectedTab === 5">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>GIAO <span class="styleUnderLine"> DỊCH</span> NẠP</i></h3>
+                            <div class=" col-md-12 d-flex justify-content-center my-4">
+                                <table class="border-top-0" style="width: 100%;">
+                                    <thead>
+                                        <tr class="   borderstyle m-1 ">
+                                            <th class="px-4 text-center">Số Tiền </th>
+                                            <th class="px-4 text-center">Ngày Nạp</th>
+                                            <th class="px-4 text-center">Trạng Thái</th>
+                                            <th class="px-4 text-center">Ghi Chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let accountSend of accountSend" class=" borderstyle m-1 ">
+                                            <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ accountSend.moneySend }}</td>
+                                            <td class="px-4  py-2 text-center">{{ accountSend.daySend }}</td>
+                                            <td class="px-4  py-2 text-center">{{ accountSend.statusSend }}</td>
+                                            <td class="px-4  py-2 text-center">{{ accountSend.noteSend }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>GIAO <span class="styleUnderLine"> DỊCH</span> RÚT</i></h3>
+                            <div class=" col-md-12 d-flex justify-content-center my-4">
+                                <table class="border-top-0" style="width: 100%;">
+                                    <thead>
+                                        <tr class="   borderstyle m-1 ">
+                                            <th class="px-4 text-center">Số Tiền </th>
+                                            <th class="px-4 text-center">Ngày Rút</th>
+                                            <th class="px-4 text-center">Trạng Thái</th>
+                                            <th class="px-4 text-center">Ghi Chú</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let accountPutOut of accountPutOut" class=" borderstyle m-1 ">
+                                            <td class="px-4  py-2  d-flex justify-content-end">{{ accountPutOut.moneyPutOut }}</td>
+                                            <td class="px-4  py-2 text-center">{{ accountPutOut.dayPutOut }}</td>
+                                            <td class="px-4  py-2 text-center">{{ accountPutOut.statusPutOut}}</td>
+                                            <td class="px-4  py-2 text-center">{{ accountPutOut.notePutOut }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12"></div>
+                </div>
+            </div>
         </div>
     </div>
 </form>
