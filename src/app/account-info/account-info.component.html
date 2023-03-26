@@ -162,8 +162,8 @@
 
                           <div class="form-group col-md-12 col-sm-12">
                             <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
-                            <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                              <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
+                            <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="accountBankReceive" [ngModelOptions]="{standalone: true}">
+                              <option *ngFor="let account of accountBankAdmin" [value]="account.id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}}</option>
                             </select>
                           </div>
 

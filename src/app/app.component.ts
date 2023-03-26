@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   title = 'G87';
 
   username?: string;
+  userId?: string;
   isLoggedIn: boolean =false;
   ngOnInit(): void {
     this.checkInit();
@@ -25,9 +26,9 @@ export class AppComponent implements OnInit {
     private sessionStore: SessionStorageService, private route: Router,
     private cookieStore: CookieStorageService) {
 
-    this.dataShare.dataUser.subscribe(data => {
-      this.checkInit();
-
+    this.checkInit();
+    this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
+      console.log(response)
     })
   }
 
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit {
         //  this.showAdminBoard = (this.roles == 'ROLE_ADMIN');
         //}
         this.username = user['username'];
+        this.userId = user['_id']
       }
     }
   }

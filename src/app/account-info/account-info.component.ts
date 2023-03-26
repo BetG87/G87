@@ -45,6 +45,7 @@ export class AccountInfoComponent implements OnInit {
   isLoggedIn: boolean = false;
   bankNameLists: any;
   accountBankSend: any
+  accountBankReceive: any
   accountBankAdmin: Account[]=[];
   userId: string = "";
   accounts: Account[]=[];
@@ -118,11 +119,23 @@ export class AccountInfoComponent implements OnInit {
         this.accounts.push(value);
       })
       this.accountBankSend = this.accounts[0].id
+      this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
+        response.filter((bankA: any) => {
+          var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
+          console.log(bankC)
+          var value = new Account();
+          value.id = bankA["_id"]
+          value.nameAccount = bankA['ownerName'];
+          value.nameBank = bankC['name'];
+          value.numberBank = bankA['bankAccountNumber'];
+          this.accountBankAdmin.push(value);
+        })
+        this.accountBankReceive = this.accountBankAdmin[0].id
+      })
+
     });
 
-    this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
-      this.accountBankAdmin = response;
-    })
+   
   }
   public onSubmit(): void {
 

@@ -15,16 +15,15 @@ import decode from 'jwt-decode'
 })
 export class HomeComponent implements OnInit {
   username?: string;
+  userId?: string;
   isLoggedIn: boolean = false;
   constructor(private dataShare: DataShareService, private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService, private route: Router,
     private cookieStore: CookieStorageService) {
 
-    console.log("abc")
-    this.dataShare.dataUser.subscribe(data => {
-      console.log(data)
-      this.checkInit();
-
+    this.checkInit();
+    this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
+      console.log(response)
     })
   }
   ngOnInit(): void {
@@ -33,15 +32,15 @@ export class HomeComponent implements OnInit {
   checkInit() {
     this.isLoggedIn = !!this.sessionStore.getToken();
     this.cookieStore.getCookie("auth-token")
-    console.log(this.cookieStore.getCookie("auth-token"))
+    //console.log(this.cookieStore.getCookie("auth-token"))
     const token = this.sessionStore.getToken();
     if (token) {
       const payload = decode(token)
-      console.log(payload)
+      //console.log(payload)
       if (this.isLoggedIn) {
         const user = this.sessionStore.getUser();
         this.username = user['username'];
-        console.log(user)
+        this.userId = user['_id']
       }
     }
   }
