@@ -24,28 +24,28 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group col-md-12">
-                                    <label for="oldPass" class="size1Rem">Số điện thoại : </label>
-                                    <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                                    <label for="numberPhone" class="size1Rem">Số điện thoại : </label>
+                                    <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group col-md-12">
-                                    <label for="accountName" class="size1Rem">Tên đăng nhập : </label>
-                                    <input type="text" formControlName="accountName" id="accountName" class="form-control">
+                                    <label for="username" class="size1Rem">Tên đăng nhập : </label>
+                                    <input type="text" formControlName="username" id="username" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group col-md-12">
                                     <label for="gameCheck" class="size1Rem">Sản phẩm game đã đăng kí: </label>
                                     <select id="gameCheck" class="form-control" name="gameCheck" [(ngModel)]="selectGame" (ngModelChange)="onGameChange($event)" [ngModelOptions]="{standalone: true}">
-                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option>
+                            <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
                           </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group col-md-12">
-                                    <label for="fullName" class="size1Rem">Email : </label>
-                                    <input type="text" formControlName="fullName" id="fullName" class="form-control">
+                                    <label for="email" class="size1Rem">Email : </label>
+                                    <input type="text" formControlName="email" id="email" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -155,14 +155,14 @@
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="accountBankSend"> Tài khoản ngân hàng gửi<span class="text-danger">(*)</span></label>
                                     <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                        <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                        <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option> 
                                         </select>
                                 </div>
 
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
                                     <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                        <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option>                    
+                                        <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>                    
                                         </select>
                                     <button class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
                                 </div>
@@ -177,7 +177,7 @@
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="checkGame"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
                                     <select id="checkGame" class="form-control" name="checkGame" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                    <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                    <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option> 
                                     </select>
                                 </div>
 
@@ -228,7 +228,7 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="accountBankSend"> Tài khoản ngân hàng <span class="text-danger">(*)</span></label>
                                     <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                            <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option> 
                                         </select>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12">
@@ -238,7 +238,7 @@
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="accountBankReceive"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
                                     <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="selectGame" [ngModelOptions]="{standalone: true}">
-                                            <option *ngFor="let game of gameLists" [value]="game._id">{{game.name}}</option> 
+                                            <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option> 
                                         </select>
                                 </div>
                             </div>

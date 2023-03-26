@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '../entity/account';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'; 
 import { DataShareService } from '../Services/DataShare/data-share.service';
@@ -12,6 +12,8 @@ import { AccountSend } from '../entity/accountSend';
 import { accountPutOut } from '../entity/accountPutOut';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
+import { GameProduct } from '../entity/GameProduct';
+import { AccountInfo } from '../entity/AccountInfo';
 
 @Component({
   selector: 'app-account-info',
@@ -31,7 +33,7 @@ export class AccountInfoComponent implements OnInit {
     daysend : any ;
     statusSend : any ;
     noteSend : any ;
-    gameLists:any;
+    gameProduct: any;
     selectGame: any;
   isborderli = [true, false, false,false,false,false];
   selectedTab: number = 0;
@@ -43,16 +45,30 @@ export class AccountInfoComponent implements OnInit {
     private sessionStore: SessionStorageService,
     private route: Router,
     private cookieStore: CookieStorageService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private fb: FormBuilder) {
+    this.formAccountinfo = this.fb.group({
+      fullName: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      numberPhone: ['', Validators.required],
+      bankAccountNumber: ['', Validators.required],
+      bankId: ['', Validators.required]
+    });
+
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
-    this.connectApi.get('v1/user/' + this.userId).subscribe((response) => {
-      console.log(response)
-    });
+    
   }
 
   ngOnInit(): void {
-    console.log("abvcs")
+    this.connectApi.get('v1/user/' + this.userId).subscribe((response:any) => {
+      console.log(response)
+      this.formAccountinfo.patchValue(response);
+      this.gameProduct = response['gameProduct'];
+      this.selectGame = this.gameProduct[0]._id
+    });
 
   }
   public onSubmit(): void {
@@ -89,6 +105,7 @@ export class AccountInfoComponent implements OnInit {
   addBank(){
     const modalRef = this.modalService.open(MyAddbankComponent,{ size: "md", backdrop: "static", keyboard: false });
     modalRef.result.then((result: any) => {
+
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
