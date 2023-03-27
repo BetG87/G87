@@ -14,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
 import { GameProduct } from '../entity/GameProduct';
 import { AccountInfo } from '../entity/AccountInfo';
+import { Transaction } from '../entity/transaction';
 
 @Component({
   selector: 'app-account-info',
@@ -53,6 +54,8 @@ export class AccountInfoComponent implements OnInit {
   userId: string = "";
   accounts: Account[] = [];
   defaultStatus: any;
+  depositTransaction: Transaction[] = []
+  withDrawalTransaction: Transaction[] = []
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,
@@ -79,6 +82,7 @@ export class AccountInfoComponent implements OnInit {
       status: ['', Validators.required],
       gameProduct: ['', Validators.required],
       note: ['', Validators.required],
+      user: ['', Validators.required],
     })
     this.formWithDrawal = this.fb.group({
       amount: ['', Validators.required],
@@ -86,6 +90,7 @@ export class AccountInfoComponent implements OnInit {
       bankAccount: ['', Validators.required],
       status: ['', Validators.required],
       gameProduct: ['', Validators.required],
+      user: ['', Validators.required],
     })
 
     const user = this.sessionStore.getUser()
@@ -150,6 +155,9 @@ export class AccountInfoComponent implements OnInit {
         this.accountBankReceive = this.accountBankAdmin[0].id
       })
 
+      this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
+        console.log(response)
+      })
     });
 
 
@@ -205,7 +213,8 @@ export class AccountInfoComponent implements OnInit {
     this.formDeposit.get('bankAccount').setValue(this.accountBankSend);
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
     this.formDeposit.get('gameProduct').setValue(this.selectGameDeposit)
-      this.formDeposit.get('status').setValue(this.defaultStatus)
+    this.formDeposit.get('status').setValue(this.defaultStatus)
+    this.formDeposit.get('user').setValue(this.userId);
       this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
         console.log(response)
     })
@@ -214,6 +223,7 @@ export class AccountInfoComponent implements OnInit {
     this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
     this.formWithDrawal.get('gameProduct').setValue(this.selectGameWithDrawal)
     this.formWithDrawal.get('status').setValue(this.defaultStatus)
+    this.formWithDrawal.get('user').setValue(this.userId);
     this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
       console.log(response)
     })
