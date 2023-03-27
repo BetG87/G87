@@ -12,6 +12,8 @@ import { AccountSend } from '../entity/accountSend';
 import { accountPutOut } from '../entity/accountPutOut';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
+import { MyAddmoneyComponent } from '../my-addmoney/my-addmoney.component';
+import { MyGetoutmoneyComponent } from '../my-getoutmoney/my-getoutmoney.component';
 import { GameProduct } from '../entity/GameProduct';
 import { AccountInfo } from '../entity/AccountInfo';
 import { Transaction } from '../entity/transaction';
@@ -242,6 +244,13 @@ export class AccountInfoComponent implements OnInit {
     });
   }
   depositBank() {
+    const modalRef = this.modalService.open(MyAddmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.result.then((result: any) => {
+
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
     this.formDeposit.get('bankAccount').setValue(this.accountBankSend);
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
     this.formDeposit.get('gameProduct').setValue(this.selectGameDeposit)
@@ -285,6 +294,7 @@ export class AccountInfoComponent implements OnInit {
     })
   }
   withdrawalBank() {
+    const modalRef = this.modalService.open(MyGetoutmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
     this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
     this.formWithDrawal.get('gameProduct').setValue(this.selectGameWithDrawal)
     this.formWithDrawal.get('status').setValue(this.defaultStatus)

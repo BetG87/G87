@@ -15,6 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthInterceptor } from './Services/Web/connect-api.service';
 import { MyModalComponent } from './my-modal/my-modal.component';
 import { MyAddbankComponent } from './my-addbank/my-addbank.component';
+import { MyAddmoneyComponent } from './my-addmoney/my-addmoney.component';
+import { MyGetoutmoneyComponent } from './my-getoutmoney/my-getoutmoney.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MyAddbankComponent } from './my-addbank/my-addbank.component';
     LoginComponent,
     AccountInfoComponent,
     MyModalComponent,
-    MyAddbankComponent
+    MyAddbankComponent,
+    MyAddmoneyComponent,
+    MyGetoutmoneyComponent
   ],
   imports: [
     BrowserModule,
