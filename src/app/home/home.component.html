@@ -18,19 +18,19 @@
     <div class="row   justify-content-center">
         <div class="col-md-3 col-6 d-flex justify-content-center">
             <img src="assets/images/1Bong88.jpg" alt="Image Description" class="img-thumbnail d-block ">
-            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88()">{{statusBong88}}</button>
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #Bong88 id="Bong88">{{statusBong88}}</button>
         </div>
         <div class="col-md-3 col-6 d-flex justify-content-center">
             <img src="assets/images/2SBOBET.jpg" alt="Image Description" class="img-thumbnail d-block ">
-            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame2SBOBET()">{{status2SBOBET}}</button>
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame2SBOBET()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #2SBOBET id="2SBOBET">{{status2SBOBET}}</button>
         </div>
         <div class="col-md-3 col-6 d-flex justify-content-center">
             <img src="assets/images/3in1bet.jpg" alt="Image Description" class="img-thumbnail d-block ">
-            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame3in1bet()">{{status3in1bet}}</button>
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame3in1bet()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #3in1bet id="3in1bet">{{status3in1bet}}</button>
         </div>
         <div class="col-md-3 col-6 d-flex justify-content-center">
             <img src="assets/images/Lasvegas.jpg" alt="Image Description" class="img-thumbnail d-block ">
-            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1 " (click)="addGameLasvegas()">{{statusLasvegas}}</button>
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1 " (click)="addGameLasvegas()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #Lasvegas id="Lasvegas">{{statusLasvegas}}</button>
         </div>
     </div>
     <!--<div class="row   justify-content-center" *ngFor="let item of data">
