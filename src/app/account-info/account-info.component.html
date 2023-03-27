@@ -290,11 +290,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let accountSend of accountSend" class=" borderstyle m-1 ">
-                                        <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ accountSend.moneySend }}</td>
-                                        <td class="px-4  py-2 text-center">{{ accountSend.daySend }}</td>
-                                        <td class="px-4  py-2 text-center">{{ accountSend.statusSend }}</td>
-                                        <td class="px-4  py-2 text-center">{{ accountSend.noteSend }}</td>
+                                    <tr *ngFor="let transaction of depositTransaction" class=" borderstyle m-1 ">
+                                      <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ transaction.amount }}</td>
+                                        <td class="px-4  py-2 text-center">{{ transaction.date }}</td>
+                                        <td class="px-4  py-2 text-center">{{ transaction.status }}</td>
+                                        <td class="px-4  py-2 text-center">{{ transaction.note }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -311,12 +311,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let accountPutOut of accountPutOut" class=" borderstyle m-1 ">
-                                        <td class="px-4  py-2  d-flex justify-content-end">{{ accountPutOut.moneyPutOut }}</td>
-                                        <td class="px-4  py-2 text-center">{{ accountPutOut.dayPutOut }}</td>
-                                        <td class="px-4  py-2 text-center">{{ accountPutOut.statusPutOut}}</td>
-                                        <td class="px-4  py-2 text-center">{{ accountPutOut.notePutOut }}</td>
-                                    </tr>
+                                  <tr *ngFor="let transaction of withDrawalTransaction" class=" borderstyle m-1 ">
+                                    <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ transaction.amount }}</td>
+                                    <td class="px-4  py-2 text-center">{{ transaction.date }}</td>
+                                    <td class="px-4  py-2 text-center">{{ transaction.status }}</td>
+                                    <td class="px-4  py-2 text-center">{{ transaction.note }}</td>
+                                  </tr>
                                 </tbody>
                             </table>
                         </div>
