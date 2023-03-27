@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '../entity/account';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'; 
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { DataShareService } from '../Services/DataShare/data-share.service';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
@@ -23,21 +23,24 @@ import { AccountInfo } from '../entity/AccountInfo';
 
 export class AccountInfoComponent implements OnInit {
 
-    public formAccountinfo: FormGroup | any
+  public formAccountinfo: FormGroup | any
   public formChangePass: FormGroup | any
   public formDeposit: FormGroup | any
-    id: any;
-    nameAccount: any;
-    nameBank : any;
-    numberBank: any;
-    moneySend: any;
-    daysend : any ;
-    statusSend : any ;
-    noteSend : any ;
+  public formWithDrawal: FormGroup | any
+  id: any;
+  nameAccount: any;
+  nameBank: any;
+  numberBank: any;
+  moneySend: any;
+  daysend: any;
+  statusSend: any;
+  noteSend: any;
   gameProduct: any;
-  gameAccount: [] =[];
-    selectGame: any;
-  isborderli = [true, false, false,false,false,false];
+  gameAccount: [] = [];
+  selectGame: any;
+  selectGameDeposit: any
+  selectGameWithDrawal:any
+  isborderli = [true, false, false, false, false, false];
   selectedTab: number = 0;
   username?: string;
   usernameAcccount?: string;
@@ -46,10 +49,11 @@ export class AccountInfoComponent implements OnInit {
   bankNameLists: any;
   accountBankSend: any
   accountBankReceive: any
-  accountBankAdmin: Account[]=[];
+  accountBankAdmin: Account[] = [];
   userId: string = "";
-  accounts: Account[]=[];
-  constructor(private dataShare: DataShareService, 
+  accounts: Account[] = [];
+  defaultStatus: any;
+  constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,
     private route: Router,
@@ -69,7 +73,16 @@ export class AccountInfoComponent implements OnInit {
     });
     this.formDeposit = this.fb.group({
       amount: ['', Validators.required],
-      type: "deposit",
+      type: ['deposit', Validators.required],
+      bankAccount: ['', Validators.required],
+      bankAccountAdmin: ['', Validators.required],
+      status: ['', Validators.required],
+      gameProduct: ['', Validators.required],
+      note: ['', Validators.required],
+    })
+    this.formWithDrawal = this.fb.group({
+      amount: ['', Validators.required],
+      type: ['withdrawal', Validators.required],
       bankAccount: ['', Validators.required],
       status: ['', Validators.required],
       gameProduct: ['', Validators.required],
@@ -77,7 +90,7 @@ export class AccountInfoComponent implements OnInit {
 
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
-    
+
   }
 
   ngOnInit(): void {
@@ -85,7 +98,10 @@ export class AccountInfoComponent implements OnInit {
       console.log(response)
       this.bankNameLists = response;
     });
-    this.connectApi.get('v1/user/' + this.userId).subscribe((response:any) => {
+    this.connectApi.get('v1/status').subscribe((response: any) => {
+      this.defaultStatus =response[0]['_id']
+      })
+    this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
       console.log(response)
       this.formAccountinfo.patchValue(response);
       this.gameProduct = response['gameProduct'];
@@ -97,19 +113,19 @@ export class AccountInfoComponent implements OnInit {
         const filteredUsers = this.gameAccount.filter(user => {
           const product = this.selectGame === user['gameProduct'];
           return product;
-          
+
         });
         this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
         this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
       } else {
         console.log('Không có dữ liệu để lọc');
-      } 
-      
+      }
+
       console.log(bankAccount)
       console.log(this.bankNameLists)
-      
+
       bankAccount.filter((bankA: any) => {
-       var bankC= this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
+        var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
         console.log(bankC)
         var value = new Account();
         value.id = bankA["_id"]
@@ -117,6 +133,7 @@ export class AccountInfoComponent implements OnInit {
         value.nameBank = bankC['name'];
         value.numberBank = bankA['bankAccountNumber'];
         this.accounts.push(value);
+
       })
       this.accountBankSend = this.accounts[0].id
       this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
@@ -135,29 +152,29 @@ export class AccountInfoComponent implements OnInit {
 
     });
 
-   
+
   }
   public onSubmit(): void {
 
   }
   activeInfo(index: number) {
     this.selectedTab = index;
-      for (let i = 0; i < this.isborderli.length; i++) {
-        this.isborderli[i] = i === index;
-       
-      }
-    }
-   
+    for (let i = 0; i < this.isborderli.length; i++) {
+      this.isborderli[i] = i === index;
 
-  accountSend : AccountSend [] =[
-    { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
-    { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
-    { moneySend: 1, daySend: 'John', statusSend: 'xx' , noteSend: "đã gửi"},
+    }
+  }
+
+
+  accountSend: AccountSend[] = [
+    { moneySend: 1, daySend: 'John', statusSend: 'xx', noteSend: "đã gửi" },
+    { moneySend: 1, daySend: 'John', statusSend: 'xx', noteSend: "đã gửi" },
+    { moneySend: 1, daySend: 'John', statusSend: 'xx', noteSend: "đã gửi" },
   ]
-  accountPutOut : accountPutOut [] =[
-    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
-    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
-    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx' , notePutOut: "đã gửi"},
+  accountPutOut: accountPutOut[] = [
+    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx', notePutOut: "đã gửi" },
+    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx', notePutOut: "đã gửi" },
+    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx', notePutOut: "đã gửi" },
   ]
 
   onGameChange(event: any): void {
@@ -175,8 +192,8 @@ export class AccountInfoComponent implements OnInit {
     }
   }
 
-  addBank(){
-    const modalRef = this.modalService.open(MyAddbankComponent,{ size: "md", backdrop: "static", keyboard: false });
+  addBank() {
+    const modalRef = this.modalService.open(MyAddbankComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.result.then((result: any) => {
 
       console.log(result);
@@ -184,6 +201,22 @@ export class AccountInfoComponent implements OnInit {
       console.log(error);
     });
   }
-  
-  
+  depositBank() {
+    this.formDeposit.get('bankAccount').setValue(this.accountBankSend);
+    this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
+    this.formDeposit.get('gameProduct').setValue(this.selectGameDeposit)
+      this.formDeposit.get('status').setValue(this.defaultStatus)
+      this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
+        console.log(response)
+    })
+  }
+  withdrawalBank() {
+    this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
+    this.formWithDrawal.get('gameProduct').setValue(this.selectGameWithDrawal)
+    this.formWithDrawal.get('status').setValue(this.defaultStatus)
+    this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
+      console.log(response)
+    })
+  }
+
 }
