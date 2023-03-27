@@ -161,17 +161,22 @@ export class AccountInfoComponent implements OnInit {
         console.log(response)
         response.filter((de :any) => {
           if (de['type'] == 'deposit') {
+            console.log(de['type'])
             var value = new Transaction();
             value.amount = de['amount']
             value.date = de['date']
+            value.note = de['note']
             this.allStatus.filter((status: any) => {
               if (de['status'] == status['_id']) {
                 value.status = status['name']
               }
-              this.depositTransaction.push(value)
+             
             })
+
+            this.depositTransaction.push(value)
           }
           else {
+            console.log(de['type'])
             var value = new Transaction();
             value.amount = de['amount']
             value.date = de['date']
@@ -179,8 +184,9 @@ export class AccountInfoComponent implements OnInit {
               if (de['status'] == status['_id']) {
                 value.status = status['name']
               }
-              this.withDrawalTransaction.push(value)
+             
             })
+            this.withDrawalTransaction.push(value)
           }
         })
       })
@@ -243,6 +249,39 @@ export class AccountInfoComponent implements OnInit {
     this.formDeposit.get('user').setValue(this.userId);
       this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
         console.log(response)
+      })
+    var senderName: string = ""
+    var senderNumber: string = ""
+
+    this.accounts.filter((value: any) => {
+      console.log(value['_id'])
+      console.log(this.accountBankSend)
+      if (value['_id'] == this.accountBankSend) {
+        senderName = value['ownerName']
+        senderNumber = value['bankAccountNumber']
+        
+      }
+    })
+    var recevieName: string = ""
+    var recevieNumber: string = ""
+    this.accountBankAdmin.filter((value: any) => {
+      if (value['_id'] == this.accountBankReceive) {
+        recevieName = value['ownerName']
+        recevieNumber = value['bankAccountNumber']
+      }
+    })
+    const meessage = {
+      message: "Tên người gửi: " + senderName + "\n"
+        + "Số tài khoản người gửi: " + senderNumber + "\n"
+        + "Tên người nhận: " + recevieName + "\n"
+        + "Số tài khoản người nhận: " + recevieNumber + "\n"
+        + "Số tiên: " + this.formDeposit.get('amount').value + "\n"
+        + "Ghi chú: " + this.formDeposit.get('note').value
+
+    }
+
+    this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
+      console.log(response)
     })
   }
   withdrawalBank() {
