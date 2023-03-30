@@ -19,6 +19,20 @@
                 <li class="nav-item">
                   <a class="nav-link nav-link-custom" routerLink="/ho-tro" routerLinkActive="active">Hỗ trợ</a>
                 </li>
+                <nav>
+                  <ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-center">
+
+                    <li ngbDropdown [ngbNavItem]="3" class="nav-item" >
+                      <a href (click)="false" class="nav-link" ngbNavLink ngbDropdownToggle>Quản Lý</a>
+                      <div ngbDropdownMenu>
+
+                        <button ngbDropdownItem routerLink="/usermanager">Quản Lý Account</button>
+                        <button ngbDropdownItem routerLink="/gameaccountmanager">Quản Lý GameAccount</button>
+                        <button ngbDropdownItem routerLink="/bankaccountmanager">Quản Lý BankAccount</button>
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
               </ul>
               <div class="d-flex" *ngIf="!isLoggedIn">
                 <a class="nav-link nav-link-custom" routerLink="/login" routerLinkActive="active">

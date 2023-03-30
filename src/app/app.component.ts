@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   username?: string;
   userId?: string;
-  isLoggedIn: boolean =false;
+  isLoggedIn: boolean = false;
   ngOnInit(): void {
     this.checkInit();
   }
