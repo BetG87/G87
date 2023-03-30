@@ -156,14 +156,14 @@
                           <div class="form-group col-md-12 col-sm-12">
                             <label for="accountBankSend"> Tài khoản ngân hàng gửi<span class="text-danger">(*)</span></label>
                             <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="accountBankSend" [ngModelOptions]="{standalone: true}">
-                              <option *ngFor="let account of accounts" [value]="account.id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}} </option>
+                              <option *ngFor="let account of accounts" [value]="account._id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}} </option>
                             </select>
                           </div>
 
                           <div class="form-group col-md-12 col-sm-12">
                             <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
                             <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="accountBankReceive" [ngModelOptions]="{standalone: true}">
-                              <option *ngFor="let account of accountBankAdmin" [value]="account.id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}}</option>
+                              <option *ngFor="let account of accountBankAdmin" [value]="account._id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}}</option>
                             </select>
                           </div>
 
@@ -229,7 +229,7 @@
                           <div class="form-group col-md-12 col-sm-12">
                             <label for="accountBankSend"> Tài khoản ngân hàng <span class="text-danger">(*)</span></label>
                             <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="accountBankSend" [ngModelOptions]="{standalone: true}">
-                              <option *ngFor="let account of accounts" [value]="account.id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}} </option>
+                              <option *ngFor="let account of accounts" [value]="account._id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}} </option>
                             </select>
                           </div>
                           <div class="form-group col-md-12 col-sm-12">

@@ -135,26 +135,26 @@ export class AccountInfoComponent implements OnInit {
         var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
         console.log(bankC)
         var value = new Account();
-        value.id = bankA["_id"]
+        value._id = bankA["_id"]
         value.nameAccount = bankA['ownerName'];
         value.nameBank = bankC['name'];
         value.numberBank = bankA['bankAccountNumber'];
         this.accounts.push(value);
 
       })
-      this.accountBankSend = this.accounts[0].id
+      this.accountBankSend = this.accounts[0]._id
       this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
         response.filter((bankA: any) => {
           var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
           console.log(bankC)
           var value = new Account();
-          value.id = bankA["_id"]
+          value._id = bankA["_id"]
           value.nameAccount = bankA['ownerName'];
           value.nameBank = bankC['name'];
           value.numberBank = bankA['bankAccountNumber'];
           this.accountBankAdmin.push(value);
         })
-        this.accountBankReceive = this.accountBankAdmin[0].id
+        this.accountBankReceive = this.accountBankAdmin[0]._id
       })
 
       this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
@@ -249,22 +249,30 @@ export class AccountInfoComponent implements OnInit {
       })
     var senderName: string = ""
     var senderNumber: string = ""
-
+    console.log(this.accounts)
+    console.log(this.accountBankSend)
     this.accounts.filter((value: any) => {
-      console.log(value['_id'])
-      console.log(this.accountBankSend)
+      console.log(value)
+      console.log("C" + value['_id'])
+      console.log("D:" + this.accountBankSend)
       if (value['_id'] == this.accountBankSend) {
-        senderName = value['ownerName']
-        senderNumber = value['bankAccountNumber']
+        senderName = value['nameAccount']
+        senderNumber = value['numberBank']
         
       }
     })
     var recevieName: string = ""
     var recevieNumber: string = ""
+    console.log(this.accountBankAdmin)
+    console.log(this.accountBankReceive)
     this.accountBankAdmin.filter((value: any) => {
+      console.log(value)
+      console.log("A:" + value['_id'])
+      console.log("B:" + this.accountBankReceive)
       if (value['_id'] == this.accountBankReceive) {
-        recevieName = value['ownerName']
-        recevieNumber = value['bankAccountNumber']
+
+        recevieName = value['nameAccount']
+        recevieNumber = value['numberBank']
       }
     })
     const meessage = {
