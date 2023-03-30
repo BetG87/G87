@@ -90,14 +90,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let account of accounts; let index = index" class=" borderstyle m-1 ">
-                                      <td class="px-4  py-2 text-center">{{ index+1 }}</td>
+                                    <tr *ngFor="let account of accounts.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class=" borderstyle m-1 ">
+                                        <td class="px-4  py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.nameAccount }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.nameBank }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.numberBank }}</td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <span class="px-3"> Chọn </span>
+                            <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="mx-3">
+                          <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+                        </select>
+                            <button *ngIf="currentPage > 1" (click)="currentPage = currentPage - 1"><i class="fa-solid fa-arrow-left"></i>  </button>
+                            <button *ngIf="currentPage < (accounts.length / pageSize)" (click)="currentPage = currentPage + 1"><i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -147,72 +155,72 @@
         <div id="tab3" *ngIf="selectedTab === 3">
             <div class="row">
                 <div class="col-md-10 col-sm-12">
-                  <div class="row">
-                    <form [formGroup]="formDeposit" (ngSubmit)="onSubmit()" class="container">
-                      <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i><span class="styleUnderLine"> NẠP TIỀN</span> </i></h3>
-                      <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
-                      <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="accountBankSend"> Tài khoản ngân hàng gửi<span class="text-danger">(*)</span></label>
-                            <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="accountBankSend" [ngModelOptions]="{standalone: true}">
+                    <div class="row">
+                        <form [formGroup]="formDeposit" (ngSubmit)="onSubmit()" class="container">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i><span class="styleUnderLine"> NẠP TIỀN</span> </i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="accountBankSend"> Tài khoản ngân hàng gửi<span class="text-danger">(*)</span></label>
+                                        <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="accountBankSend" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let account of accounts" [value]="account._id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}} </option>
                             </select>
-                          </div>
+                                    </div>
 
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
-                            <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="accountBankReceive" [ngModelOptions]="{standalone: true}">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="accountBankReceive"> Tài khoản ngân hàng nhận<span class="text-danger">(*)</span></label>
+                                        <select id="accountBankReceive" class="form-control" name="accountBankReceive" [(ngModel)]="accountBankReceive" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let account of accountBankAdmin" [value]="account._id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}}</option>
                             </select>
-                          </div>
+                                    </div>
 
 
 
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="amount">Số tiền nạp<span class="text-danger">(*)</span></label>
-                            <input type="text" formControlName="amount" id="amount" class="form-control">
-                          </div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="amount">Số tiền nạp<span class="text-danger">(*)</span></label>
+                                        <input type="text" formControlName="amount" id="amount" class="form-control">
+                                    </div>
 
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="gameProduct"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
-                            <select id="gameProduct" class="form-control" name="gameProduct" [(ngModel)]="selectGameDeposit" [ngModelOptions]="{standalone: true}">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="gameProduct"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
+                                        <select id="gameProduct" class="form-control" name="gameProduct" [(ngModel)]="selectGameDeposit" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
                             </select>
-                          </div>
+                                    </div>
 
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="note">Ghi Chú<span class="text-danger"></span></label>
-                            <textarea type="text" formControlName="note" id="note" class="form-control"></textarea>
-                          </div>
-                          <div class=" col-md-12 d-flex justify-content-center my-4">
-                            <button type="submit" class="btn btn-danger mt-2 " (click)="depositBank()">NẠP TIỀN</button>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                          <div class="row">
-                            <div class="col-md-12 m-3 ">
-                              <img alt="2sbobet" src="../../assets/images/1Bong88.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">1Bong88: 1 điểm = 25.000 vnđ</span>
-                            </div>
-                            <div class="col-md-12 m-3">
-                              <img alt="2sbobet" src="../../assets/images/2SBOBET.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">2SBOBET: 1 điểm = 25.000 vnđ</span>
-                            </div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="note">Ghi Chú<span class="text-danger"></span></label>
+                                        <textarea type="text" formControlName="note" id="note" class="form-control"></textarea>
+                                    </div>
+                                    <div class=" col-md-12 d-flex justify-content-center my-4">
+                                        <button type="submit" class="btn btn-danger mt-2 " (click)="depositBank()">NẠP TIỀN</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 m-3 ">
+                                            <img alt="2sbobet" src="../../assets/images/1Bong88.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">1Bong88: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/2SBOBET.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">2SBOBET: 1 điểm = 25.000 vnđ</span>
+                                        </div>
 
-                            <div class="col-md-12 m-3">
-                              <img alt="2sbobet" src="../../assets/images/Lasvegas.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">Lasvegas: 1 điểm = 25.000 vnđ</span>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/Lasvegas.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">Lasvegas: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/3in1bet.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">3in1bet: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-12 m-3">
-                              <img alt="2sbobet" src="../../assets/images/3in1bet.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">3in1bet: 1 điểm = 25.000 vnđ</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      </form>
-                  </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-md-2 col-sm-12"></div>
             </div>
@@ -220,56 +228,56 @@
         <div id="tab4" *ngIf="selectedTab === 4">
             <div class="row">
                 <div class="col-md-10 col-sm-12">
-                  <div class="row">
-                    <form [formGroup]="formWithDrawal"  class="container">
-                      <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i><span class="styleUnderLine"> RÚT TIỀN</span> </i></h3>
-                      <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
-                      <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="accountBankSend"> Tài khoản ngân hàng <span class="text-danger">(*)</span></label>
-                            <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="accountBankSend" [ngModelOptions]="{standalone: true}">
+                    <div class="row">
+                        <form [formGroup]="formWithDrawal" class="container">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i><span class="styleUnderLine"> RÚT TIỀN</span> </i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="accountBankSend"> Tài khoản ngân hàng <span class="text-danger">(*)</span></label>
+                                        <select id="accountBankSend" class="form-control" name="accountBankSend" [(ngModel)]="accountBankSend" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let account of accounts" [value]="account._id">{{account.nameAccount}} - {{account.numberBank}} - {{account.nameBank}} </option>
                             </select>
-                          </div>
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="amount">Số tiền rút<span class="text-danger">(*)</span></label>
-                            <input type="text" formControlName="amount" id="amount" class="form-control">
-                          </div>
-                          <div class="form-group col-md-12 col-sm-12">
-                            <label for="accountBankReceive"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
-                            <select id="accountBankReceive" class="form-control" name="selectGameWithDrawal" [(ngModel)]="selectGameWithDrawal" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="amount">Số tiền rút<span class="text-danger">(*)</span></label>
+                                        <input type="text" formControlName="amount" id="amount" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="accountBankReceive"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
+                                        <select id="accountBankReceive" class="form-control" name="selectGameWithDrawal" [(ngModel)]="selectGameWithDrawal" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
                             </select>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                          <div class="row">
-                            <div class="col-md-12 m-3 ">
-                              <img alt="2sbobet" src="../../assets/images/1Bong88.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">1Bong88: 1 điểm = 25.000 vnđ</span>
-                            </div>
-                            <div class="col-md-12 m-3">
-                              <img alt="2sbobet" src="../../assets/images/2SBOBET.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">2SBOBET: 1 điểm = 25.000 vnđ</span>
-                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 m-3 ">
+                                            <img alt="2sbobet" src="../../assets/images/1Bong88.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">1Bong88: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/2SBOBET.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">2SBOBET: 1 điểm = 25.000 vnđ</span>
+                                        </div>
 
-                            <div class="col-md-12 m-3">
-                              <img alt="2sbobet" src="../../assets/images/Lasvegas.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">Lasvegas: 1 điểm = 25.000 vnđ</span>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/Lasvegas.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">Lasvegas: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                        <div class="col-md-12 m-3">
+                                            <img alt="2sbobet" src="../../assets/images/3in1bet.jpg" width="10%" height="140%" style="border-radius: 50%;">
+                                            <span class="mx-3">3in1bet: 1 điểm = 25.000 vnđ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-12 d-flex justify-content-center my-4">
+                                    <button type="submit" class="btn btn-danger mt-2 " (click)="withdrawalBank()">RÚT TIỀN</button>
+                                </div>
                             </div>
-                            <div class="col-md-12 m-3">
-                              <img alt="2sbobet" src="../../assets/images/3in1bet.jpg" width="10%" height="140%" style="border-radius: 50%;">
-                              <span class="mx-3">3in1bet: 1 điểm = 25.000 vnđ</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class=" col-md-12 d-flex justify-content-center my-4">
-                          <button type="submit" class="btn btn-danger mt-2 " (click)="withdrawalBank()">RÚT TIỀN</button>
-                        </div>
-                      </div>
-                      </form>
-                  </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-md-2 col-sm-12"></div>
             </div>
@@ -291,7 +299,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let transaction of depositTransaction" class=" borderstyle m-1 ">
-                                      <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ transaction.amount }}</td>
+                                        <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ transaction.amount }}</td>
                                         <td class="px-4  py-2 text-center">{{ transaction.date }}</td>
                                         <td class="px-4  py-2 text-center">{{ transaction.status }}</td>
                                         <td class="px-4  py-2 text-center">{{ transaction.note }}</td>
@@ -311,12 +319,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let transaction of withDrawalTransaction" class=" borderstyle m-1 ">
-                                    <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ transaction.amount }}</td>
-                                    <td class="px-4  py-2 text-center">{{ transaction.date }}</td>
-                                    <td class="px-4  py-2 text-center">{{ transaction.status }}</td>
-                                    <td class="px-4  py-2 text-center">{{ transaction.note }}</td>
-                                  </tr>
+                                    <tr *ngFor="let transaction of withDrawalTransaction" class=" borderstyle m-1 ">
+                                        <td class="px-4  py-2 d-flex justify-content-end text-center ">{{ transaction.amount }}</td>
+                                        <td class="px-4  py-2 text-center">{{ transaction.date }}</td>
+                                        <td class="px-4  py-2 text-center">{{ transaction.status }}</td>
+                                        <td class="px-4  py-2 text-center">{{ transaction.note }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

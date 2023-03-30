@@ -5,7 +5,9 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AccountInfoComponent } from './account-info/account-info.component';
-
+import { ManageraccountComponent } from './manageraccount/manageraccount.component';
+import { ManagergameComponent } from './managergame/managergame.component';
+import { ManagerbankComponent } from './managerbank/managerbank.component';
 const routes: Routes = [
   {
     path: '',
@@ -27,6 +29,18 @@ const routes: Routes = [
   {
     path: 'account-info',
     component: AccountInfoComponent,
+  },
+  {
+    path: 'manageraccount',
+    component: ManageraccountComponent,
+  },
+  {
+    path: 'managergame',
+    component: ManagergameComponent,
+  },
+  {
+    path: 'managerbank',
+    component: ManagerbankComponent,
   }
 ];
 

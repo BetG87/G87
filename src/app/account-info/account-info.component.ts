@@ -57,6 +57,9 @@ export class AccountInfoComponent implements OnInit {
   defaultStatus: any;
   depositTransaction: Transaction[] = []
   withDrawalTransaction: Transaction[] = []
+  currentPage = 1;
+  pageSize = 5;
+  pageSizes = [5, 10, 15, 20];
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,

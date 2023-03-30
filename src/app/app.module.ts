@@ -17,6 +17,9 @@ import { MyModalComponent } from './my-modal/my-modal.component';
 import { MyAddbankComponent } from './my-addbank/my-addbank.component';
 import { MyAddmoneyComponent } from './my-addmoney/my-addmoney.component';
 import { MyGetoutmoneyComponent } from './my-getoutmoney/my-getoutmoney.component';
+import { ManageraccountComponent } from './manageraccount/manageraccount.component';
+import { ManagergameComponent } from './managergame/managergame.component';
+import { ManagerbankComponent } from './managerbank/managerbank.component';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { MyGetoutmoneyComponent } from './my-getoutmoney/my-getoutmoney.componen
     MyModalComponent,
     MyAddbankComponent,
     MyAddmoneyComponent,
-    MyGetoutmoneyComponent
+    MyGetoutmoneyComponent,
+    ManageraccountComponent,
+    ManagergameComponent,
+    ManagerbankComponent
   ],
   imports: [
     BrowserModule,
