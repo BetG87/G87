@@ -8,8 +8,6 @@ import { SessionStorageService } from '../Services/StorageService/session-storag
 import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
 import { Router } from '@angular/router';
 import decode from 'jwt-decode'
-import { AccountSend } from '../entity/accountSend';
-import { accountPutOut } from '../entity/accountPutOut';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
 import { MyAddmoneyComponent } from '../my-addmoney/my-addmoney.component';
@@ -208,17 +206,6 @@ export class AccountInfoComponent implements OnInit {
   }
 
 
-  accountSend: AccountSend[] = [
-    { moneySend: 1, daySend: 'John', statusSend: 'xx', noteSend: "đã gửi" },
-    { moneySend: 1, daySend: 'John', statusSend: 'xx', noteSend: "đã gửi" },
-    { moneySend: 1, daySend: 'John', statusSend: 'xx', noteSend: "đã gửi" },
-  ]
-  accountPutOut: accountPutOut[] = [
-    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx', notePutOut: "đã gửi" },
-    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx', notePutOut: "đã gửi" },
-    { moneyPutOut: 1, dayPutOut: 'John', statusPutOut: 'xx', notePutOut: "đã gửi" },
-  ]
-
   onGameChange(event: any): void {
     if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
       // Sử dụng gameProduct và gameAccount để lọc dữ liệu
@@ -244,13 +231,7 @@ export class AccountInfoComponent implements OnInit {
     });
   }
   depositBank() {
-    const modalRef = this.modalService.open(MyAddmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
-    modalRef.result.then((result: any) => {
-
-      console.log(result);
-    }).catch((error: any) => {
-      console.log(error);
-    });
+    
     this.formDeposit.get('bankAccount').setValue(this.accountBankSend);
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
     this.formDeposit.get('gameProduct').setValue(this.selectGameDeposit)
@@ -258,6 +239,13 @@ export class AccountInfoComponent implements OnInit {
     this.formDeposit.get('user').setValue(this.userId);
       this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
         console.log(response)
+        const modalRef = this.modalService.open(MyAddmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.result.then((result: any) => {
+
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
       })
     var senderName: string = ""
     var senderNumber: string = ""
