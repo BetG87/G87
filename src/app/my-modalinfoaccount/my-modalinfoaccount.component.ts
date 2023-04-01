@@ -10,6 +10,7 @@ import { AccountInfo } from '../entity/AccountInfo';
   styleUrls: ['./my-modalinfoaccount.component.scss']
 })
 export class MyModalinfoaccountComponent implements OnInit {
+  public formAccountinfo: FormGroup | any 
   accountGame: [] = [];
   id : string ="";
   nameAccount :string = "";
@@ -17,7 +18,6 @@ export class MyModalinfoaccountComponent implements OnInit {
   fullName : string = "";
   email : string = "";
   dateCreateAccount : string = "";
-  public formAccountinfo: FormGroup | any 
   accountBank: [] = [];
   info: any | undefined;
   public onSubmit(): void {
@@ -28,13 +28,13 @@ export class MyModalinfoaccountComponent implements OnInit {
     if (this.info) {
        this.id = this.info._id;
        console.log(this.id)
-      this.nameAccount = this.info.username
-      this.numberPhone = this.info.numberPhone
-      this.fullName = this.info.fullName
-      this.email = this.info.email
-      this.dateCreateAccount = this.info.createdAt
-      this.accountGame = this.info.gameAccounts
-      this.accountBank =this.info.bankAccounts
+      this.nameAccount = this.info.username !== undefined ? this.info.username :  ""
+      this.numberPhone = this.info.numberPhone !== undefined ? this.info.numberPhone :  ""
+      this.fullName = this.info.fullName !== undefined ? this.info.fullName :  ""
+      this.email = this.info.email !== undefined ? this.info.email :  ""
+      this.dateCreateAccount = this.info.createdAt !== undefined ? this.info.createdAt :  ""
+      this.accountGame = this.info.gameAccounts !== undefined ? this.info.gameAccount :  ""
+      this.accountBank =this.info.bankAccounts !== undefined ? this.info.bankAccount :  ""
     }
   }
 
