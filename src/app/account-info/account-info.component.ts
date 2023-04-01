@@ -99,6 +99,7 @@ export class AccountInfoComponent implements OnInit {
 
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
+    this.username = user['username']
 
   }
 
@@ -113,23 +114,29 @@ export class AccountInfoComponent implements OnInit {
       })
     this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
       console.log(response)
+      var bankAccount = response['bankAccounts']
+      console.log(bankAccount)
       this.formAccountinfo.patchValue(response);
       this.gameProduct = response['gameProduct'];
       this.selectGame = this.gameProduct[0]._id
       this.gameAccount = response['gameAccounts']
-      var bankAccount = response['bankAccounts']
-      if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
-        // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-        const filteredUsers = this.gameAccount.filter(user => {
-          const product = this.selectGame === user['gameProduct'];
-          return product;
+      if (response['gameProduct'] != null && this.gameAccount == response['gameAccounts'])
+    {
+        if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
+          // Sử dụng gameProduct và gameAccount để lọc dữ liệu
+          const filteredUsers = this.gameAccount.filter(user => {
+            const product = this.selectGame === user['gameProduct'];
+            return product;
 
-        });
-        this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
-        this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
-      } else {
-        console.log('Không có dữ liệu để lọc');
-      }
+          });
+          this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
+          this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
+        } else {
+          console.log('Không có dữ liệu để lọc');
+        }
+    }
+      console.log(bankAccount)
+      
 
       console.log(bankAccount)
       console.log(this.bankNameLists)
@@ -279,15 +286,16 @@ export class AccountInfoComponent implements OnInit {
       }
     })
     const meessage = {
-      message: "Tên người gửi: " + senderName + "\n"
-        + "Số tài khoản người gửi: " + senderNumber + "\n"
-        + "Tên người nhận: " + recevieName + "\n"
-        + "Số tài khoản người nhận: " + recevieNumber + "\n"
-        + "Số tiên: " + this.formDeposit.get('amount').value + "\n"
-        + "Ghi chú: " + this.formDeposit.get('note').value
+      message: "User: *" + this.username + " NẠP TIỀN*\n"
+        + "Tên người gửi: *" + senderName + "* \n"
+        + "Số tài khoản người gửi: *" + senderNumber + "* \n"
+        + "Tên người nhận: *" + recevieName + "* \n"
+        + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
+        + "Số tiên: *" + this.formDeposit.get('amount').value + "* \n"
+        + "Ghi chú: *" + this.formDeposit.get('note').value +"*"
 
     }
-
+    console.log (meessage)
     this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
       console.log(response)
     })
@@ -300,6 +308,48 @@ export class AccountInfoComponent implements OnInit {
     this.formWithDrawal.get('user').setValue(this.userId);
     this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
       console.log(response)
+      var game = this.gameProduct.find((p: { _id: any; }) => p._id === this.selectGameWithDrawal);
+
+      var senderName: string = ""
+      var senderNumber: string = ""
+      console.log(this.accounts)
+      console.log(this.accountBankSend)
+      this.accounts.filter((value: any) => {
+        console.log(value)
+        console.log("C" + value['_id'])
+        console.log("D:" + this.accountBankSend)
+        if (value['_id'] == this.accountBankSend) {
+          senderName = value['nameAccount']
+          senderNumber = value['numberBank']
+
+        }
+      })
+      var recevieName: string = ""
+      var recevieNumber: string = ""
+      console.log(this.accountBankAdmin)
+      console.log(this.accountBankReceive)
+      this.accountBankAdmin.filter((value: any) => {
+        console.log(value)
+        console.log("A:" + value['_id'])
+        console.log("B:" + this.accountBankReceive)
+        if (value['_id'] == this.accountBankReceive) {
+
+          recevieName = value['nameAccount']
+          recevieNumber = value['numberBank']
+        }
+      })
+      const meessage = {
+        message: "User: *" + this.username + " RÚT TIỀN*\n"
+          + "Tên: *" + senderName + "* \n"
+          + "Số tài nhận: *" + senderNumber + "* \n"
+          + "Số tiên: *" + this.formWithDrawal.get('amount').value + "* \n"
+          + "Game: *" + game['name'] + "* \n"
+
+      }
+      console.log(meessage)
+      this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
+        console.log(response)
+      })
     })
   }
 
