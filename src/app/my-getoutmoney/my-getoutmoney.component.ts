@@ -17,6 +17,6 @@ export class MyGetoutmoneyComponent implements OnInit {
   
     closeModal() {
       this.activeModal.close();
-      this.router.navigate(['/login']);
+      // this.router.navigate(['/login']);
     }
   }
