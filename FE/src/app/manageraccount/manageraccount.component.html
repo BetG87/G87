@@ -1,6 +1,12 @@
 <div class="col-md-10 col-sm-12">
     <div class="row">
         <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THÔNG <span class="styleUnderLine"> TIN TÀI</span> KHOẢN</i></h3>
+        <div class="input-group mb-3 col-md-12 margin-input-right">
+            <input type="text" class="form-control margin-input-left" placeholder="Tìm kiếm..." [(ngModel)]="searchTerm" name="search">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" (click)="search()">Tìm kiếm</button>
+            </div>
+        </div>
         <div class=" col-md-12 d-flex justify-content-center my-4">
             <table class="border-top-0" style="width: 80%;">
                 <thead>
@@ -16,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let account of managerAccount.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
+                    <tr *ngFor="let account of filteredAccounts.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                         <td class=" py-2 text-center">{{ account.username }}</td>
                         <td class=" py-2 text-center">{{ account.email }}</td>

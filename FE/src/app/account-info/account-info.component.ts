@@ -65,7 +65,8 @@ export class AccountInfoComponent implements OnInit {
     private sessionStore: SessionStorageService,
     private route: Router,
     private cookieStore: CookieStorageService,
-    private modalService: NgbModal, private fb: FormBuilder) {
+    private modalService: NgbModal, 
+    private fb: FormBuilder) {
     this.formAccountinfo = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
