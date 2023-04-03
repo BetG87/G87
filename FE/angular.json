@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "bet99": {
+        "g87": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/bet99",
+                        "outputPath": "dist/g87",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": [
@@ -65,10 +65,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "bet99:build:production"
+                            "browserTarget": "g87:build:production"
                         },
                         "development": {
-                            "browserTarget": "bet99:build:development"
+                            "browserTarget": "g87:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "bet99:build"
+                        "browserTarget": "g87:build"
                     }
                 },
                 "test": {

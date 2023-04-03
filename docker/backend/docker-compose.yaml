@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ../../BE
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - MONGODB_URL=mongodb+srv://tri72027:72027Tri@jwt.f62nqsw.mongodb.net/?retryWrites=true&w=majority
+      - JWT_ACCESS_KEY=TRIG87
+      - JWT_REFRESH_KEY=TRIG87
+      - TELEGRAM_TOKEN=6115049677:AAG3TrLTgg8V0pGk-LTng6XYUDjwLQVc15Y
