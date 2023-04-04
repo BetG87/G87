@@ -1,8 +1,47 @@
 <div class="modal-header">
-    <h4 class="modal-title">Thông Tin Tài Khoản</h4>
+    <h4 class="modal-title">Cập Nhập Tài Khoản</h4>
 </div>
 <div class="modal-body">
-
+    <form [formGroup]="formAccountupdate" (ngSubmit)="onSubmit()" class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="id" class="size1Rem">ID :</label>
+                    <input type="text" formControlName="id" id="id" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="nameAccount" class="size1Rem">Tên tài khoản :</label>
+                    <input type="text" formControlName="nameAccount" id="nameAccount" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="passWord" class="size1Rem">Mật Khẩu :</label>
+                    <input type="text" formControlName="passWord" id="passWord" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="numberPhone" class="size1Rem">Số điện thoại : </label>
+                    <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="fullname" class="size1Rem">Tên đầy đủ : </label>
+                    <input type="text" formControlName="fullname" id="fullname" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="email" class="size1Rem">Email : </label>
+                    <input type="text" formControlName="email" id="email" class="form-control">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="modal-footer">
     <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">Đồng ý</button>

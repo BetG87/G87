@@ -18,6 +18,12 @@ import { MyModalupdateaccountComponent } from '../my-modalupdateaccount/my-modal
 })
 export class ManageraccountComponent implements OnInit {
   getToken: string = "";
+  currentPage = 1;
+  pageSize = 5;
+  pageSizes = [5, 10, 15, 20];
+  managerAccount: managerAccount[] = [];
+  filteredAccounts: any[] = [];
+  searchTerm: any;
 
   ngOnInit(): void {
 
@@ -27,17 +33,8 @@ export class ManageraccountComponent implements OnInit {
       this.filteredAccounts = [...this.managerAccount];
       console.log(this.filteredAccounts)
     })
-
-  
-
-
   }
-  currentPage = 1;
-  pageSize = 5;
-  pageSizes = [5, 10, 15, 20];
-  managerAccount: managerAccount[] = [];
-  filteredAccounts: any[] = [];
-  searchTerm: any;
+  
 
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -103,14 +100,15 @@ export class ManageraccountComponent implements OnInit {
       this.filteredAccounts = [...this.managerAccount];
 
     } else {
-      console.log("xx")
+      console.log(this.filteredAccounts)
+      console.log(this.managerAccount)
       this.filteredAccounts = this.managerAccount.filter(account => this.matchesSearchTerm(account));
-      
+      this.currentPage= 1;
     }
   }
 
   matchesSearchTerm(account: any) {
-
+    console.log(account)
     account.username = account.username !== undefined ? account.username : "" ;
     account.email = account.email !== undefined ? account.email : "" ;
     account.numberPhone = account.numberPhone !== undefined ? account.numberPhone : "" ;

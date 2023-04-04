@@ -60,8 +60,6 @@ export class MyModalinfoaccountComponent implements OnInit {
       this.formAccountinfo.controls['fullname'].setValue(this.info.fullName !== undefined ? this.info.fullName : "");
       this.formAccountinfo.controls['email'].setValue(this.info.email !== undefined ? this.info.email : "");
       this.formAccountinfo.controls['dateCreateAccount'].setValue(this.info.createdAt !== undefined ? this.info.createdAt : "");
-      //this.formAccountinfo.controls['accountGame'].setValue(this.info.gameAccounts !== undefined ? this.info.gameAccount : "");
-      //  this.formAccountinfo.controls['accountBank'].setValue(this.info.bankAccounts !== undefined ? this.info.bankAccount :  "");
       this.accountGame = this.info.gameAccounts;
       this.accountBank = this.info.bankAccounts;
       console.log(this.accountGame)
@@ -109,9 +107,6 @@ export class MyModalinfoaccountComponent implements OnInit {
         console.log(this.showinfoBank)
       })
 
-
-
-
       this.connectApi.get('v1/gameaccount').subscribe((response) => {
         this.accountGameLists = response;
         console.log(this.accountGameLists)
@@ -123,18 +118,7 @@ export class MyModalinfoaccountComponent implements OnInit {
         console.log(this.showinfoAccount);
     
       });
-
-
-
-
-
-
-
     });
-
-
-
- 
   }
 
   closeModal() {
