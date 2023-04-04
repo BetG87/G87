@@ -23,6 +23,8 @@ import { ManagerbankComponent } from './managerbank/managerbank.component';
 import { MyModaldeleteComponent } from './my-modaldelete/my-modaldelete.component';
 import { MyModalinfoaccountComponent } from './my-modalinfoaccount/my-modalinfoaccount.component';
 import { MyModalupdateaccountComponent } from './my-modalupdateaccount/my-modalupdateaccount.component';
+import { MyModalupdateaccountBankComponent } from './my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
+import { MyModalinfoaccountBankComponent } from './my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { MyModalupdateaccountComponent } from './my-modalupdateaccount/my-modalu
     ManagerbankComponent,
     MyModaldeleteComponent,
     MyModalinfoaccountComponent,
-    MyModalupdateaccountComponent
+    MyModalupdateaccountComponent,
+    MyModalupdateaccountBankComponent,
+    MyModalinfoaccountBankComponent
   ],
   imports: [
     BrowserModule,
