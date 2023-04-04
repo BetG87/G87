@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h4 class="modal-title">Thông Tin Tài Khoản</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formAccountinfoBank" (ngSubmit)="onSubmit()" class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="id" class="size1Rem">ID :</label>
+                    <input type="text" formControlName="id" id="id" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="nameAccount" class="size1Rem">Tên tài khoản :</label>
+                    <input type="text" formControlName="nameAccount" id="nameAccount" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="numberPhone" class="size1Rem">Số điện thoại : </label>
+                    <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="fullname" class="size1Rem">Tên đầy đủ : </label>
+                    <input type="text" formControlName="fullname" id="fullname" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="email" class="size1Rem">Email : </label>
+                    <input type="text" formControlName="email" id="email" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="gameAccount" class="size1Rem">Tài khoản game: </label>
+                    <select id="gameAccount" class="form-control" name="gameAccount">
+                            <option *ngFor="let showgame of showinfoAccountBank" >{{showgame.username}} - {{showgame._id}} </option>
+                            </select>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="accountBank" class="size1Rem">Tài khoản ngân hàng : </label>
+                    <select id="accountBank" class="form-control" name="accountBank" formControlName="accountBank">
+                            <option *ngFor="let bank of showinfoBank" >{{bank.bankAccountNumber}} - {{bank.ownerName}} - {{bank.code}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="dateCreateAccount" class="size1Rem">Ngày tạo tài khoản : </label>
+                    <input type="text" formControlName="dateCreateAccount" id="dateCreateAccount" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
+</div>
