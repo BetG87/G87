@@ -25,6 +25,8 @@ import { MyModalinfoaccountComponent } from './my-modalinfoaccount/my-modalinfoa
 import { MyModalupdateaccountComponent } from './my-modalupdateaccount/my-modalupdateaccount.component';
 import { MyModalupdateaccountBankComponent } from './my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
 import { MyModalinfoaccountBankComponent } from './my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
+import { MyModalinfoaccountGameComponent } from './my-modalinfoaccount-game/my-modalinfoaccount-game.component';
+import { MyModalupdateaccountGameComponent } from './my-modalupdateaccount-game/my-modalupdateaccount-game.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { MyModalinfoaccountBankComponent } from './my-modalinfoaccount-bank/my-m
     MyModalinfoaccountComponent,
     MyModalupdateaccountComponent,
     MyModalupdateaccountBankComponent,
-    MyModalinfoaccountBankComponent
+    MyModalinfoaccountBankComponent,
+    MyModalinfoaccountGameComponent,
+    MyModalupdateaccountGameComponent
   ],
   imports: [
     BrowserModule,

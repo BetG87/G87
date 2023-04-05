@@ -54,7 +54,7 @@ export class ManagerbankComponent implements OnInit {
   deleteAccountBank(idBank: any) {
     const title = "Xóa tài khoản ngân hàng";
     const content = "Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?";
-    const modalRef = this.modalService.open(MyModaldeleteComponent, { size: "sm", backdrop: "static", keyboard: false });
+    const modalRef = this.modalService.open(MyModaldeleteComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
@@ -81,7 +81,7 @@ export class ManagerbankComponent implements OnInit {
     const infoBank = this.managerAccountBank.filter((item) => item.bankAccountNumber === idBank);
     console.log(infoBank);
     const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.infoBank = infoBank;
+    modalRef.componentInstance.infoBank = infoBank[0];
     modalRef.result.then((result: any) => {
 
       console.log(result);

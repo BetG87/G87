@@ -6,55 +6,29 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="id" class="size1Rem">ID :</label>
-                    <input type="text" formControlName="id" id="id" class="form-control" readonly>
+                    <label for="accountBank" class="size1Rem">Số Tài Khoản :</label>
+                    <input type="text" formControlName="accountBank" id="accountBank" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="nameAccount" class="size1Rem">Tên tài khoản :</label>
-                    <input type="text" formControlName="nameAccount" id="nameAccount" class="form-control" readonly>
+                    <label for="nameAccountBank" class="size1Rem">Tên chủ tài khoản :</label>
+                    <input type="text" formControlName="nameAccountBank" id="nameAccountBank" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="numberPhone" class="size1Rem">Số điện thoại : </label>
-                    <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control" readonly>
+                    <label for="userBank" class="size1Rem">Mã người dùng : </label>
+                    <input type="text" formControlName="userBank" id="userBank" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="fullname" class="size1Rem">Tên đầy đủ : </label>
-                    <input type="text" formControlName="fullname" id="fullname" class="form-control" readonly>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="email" class="size1Rem">Email : </label>
-                    <input type="text" formControlName="email" id="email" class="form-control" readonly>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="gameAccount" class="size1Rem">Tài khoản game: </label>
-                    <select id="gameAccount" class="form-control" name="gameAccount">
-                            <option *ngFor="let showgame of showinfoAccountBank" >{{showgame.username}} - {{showgame._id}} </option>
-                            </select>
-                </div>
-            </div>
-            <div class="col-md-12 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="accountBank" class="size1Rem">Tài khoản ngân hàng : </label>
-                    <select id="accountBank" class="form-control" name="accountBank" formControlName="accountBank">
-                            <option *ngFor="let bank of showinfoBank" >{{bank.bankAccountNumber}} - {{bank.ownerName}} - {{bank.code}}</option>
+                    <label for="statusAccount" class="size1Rem">Trạng thái tài khoản : </label>
+                    <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount" [disabled]="isDisabled" style="pointer-events: none;">
+                            <option value="true">True</option>
+                            <option value="false">False</option>      
                     </select>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="dateCreateAccount" class="size1Rem">Ngày tạo tài khoản : </label>
-                    <input type="text" formControlName="dateCreateAccount" id="dateCreateAccount" class="form-control" readonly>
                 </div>
             </div>
         </div>
