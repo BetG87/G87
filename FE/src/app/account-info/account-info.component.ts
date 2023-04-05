@@ -65,7 +65,7 @@ export class AccountInfoComponent implements OnInit {
     private sessionStore: SessionStorageService,
     private route: Router,
     private cookieStore: CookieStorageService,
-    private modalService: NgbModal, 
+    private modalService: NgbModal,
     private fb: FormBuilder) {
     this.formAccountinfo = this.fb.group({
       fullName: ['', Validators.required],
@@ -97,6 +97,11 @@ export class AccountInfoComponent implements OnInit {
       gameProduct: ['', Validators.required],
       user: ['', Validators.required],
     })
+    this.formChangePass = this.fb.group({
+      oldPass: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    })
 
     const user = this.sessionStore.getUser()
     this.userId = user['_id'];
@@ -105,103 +110,93 @@ export class AccountInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.connectApi.get('v1/bank').subscribe((response) => {
-      console.log(response)
-      this.bankNameLists = response;
-    });
-    this.connectApi.get('v1/status').subscribe((response: any) => {
-      this.allStatus = response
-      this.defaultStatus =response[0]['_id']
-      })
-    this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
-      console.log(response)
-      var bankAccount = response['bankAccounts']
-      console.log(bankAccount)
-      this.formAccountinfo.patchValue(response);
-      this.gameProduct = response['gameProduct'];
-      this.selectGame = this.gameProduct[0]._id
-      this.gameAccount = response['gameAccounts']
-      if (response['gameProduct'] != null && this.gameAccount == response['gameAccounts'])
+    this.checkInit();
+    if(this.isLoggedIn)
     {
-        if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
-          // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-          const filteredUsers = this.gameAccount.filter(user => {
-            const product = this.selectGame === user['gameProduct'];
-            return product;
+      this.connectApi.get('v1/bank').subscribe((response) => {
+        this.bankNameLists = response;
+      });
+      this.connectApi.get('v1/status').subscribe((response: any) => {
+        this.allStatus = response
+        this.defaultStatus =response[0]['_id']
+        })
+      this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
+        var bankAccount = response['bankAccounts']
+        this.formAccountinfo.patchValue(response);
+        this.gameProduct = response['gameProduct'];
+        this.selectGame = this.gameProduct![0]?._id
+        this.gameAccount = response['gameAccounts']
+        if (response['gameProduct'] != null && this.gameAccount == response['gameAccounts'])
+      {
+          if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
+            // Sử dụng gameProduct và gameAccount để lọc dữ liệu
+            const filteredUsers = this.gameAccount.filter(user => {
+              const product = this.selectGame === user['gameProduct'];
+              return product;
 
-          });
-          this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
-          this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
-        } else {
-          console.log('Không có dữ liệu để lọc');
-        }
-    }
-      console.log(bankAccount)
-      
+            });
+            this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
+            this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
+          } else {
+          }
+      }
 
-      console.log(bankAccount)
-      console.log(this.bankNameLists)
-
-      bankAccount.filter((bankA: any) => {
-        var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
-        console.log(bankC)
-        var value = new Account();
-        value._id = bankA["_id"]
-        value.nameAccount = bankA['ownerName'];
-        value.nameBank = bankC['name'];
-        value.numberBank = bankA['bankAccountNumber'];
-        this.accounts.push(value);
-
-      })
-      this.accountBankSend = this.accounts[0]._id
-      this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
-        response.filter((bankA: any) => {
+        bankAccount.filter((bankA: any) => {
           var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
-          console.log(bankC)
           var value = new Account();
           value._id = bankA["_id"]
           value.nameAccount = bankA['ownerName'];
           value.nameBank = bankC['name'];
           value.numberBank = bankA['bankAccountNumber'];
-          this.accountBankAdmin.push(value);
-        })
-        this.accountBankReceive = this.accountBankAdmin[0]._id
-      })
+          this.accounts.push(value);
 
-      this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
-        console.log(response)
-        response.filter((de :any) => {
-          if (de['type'] == 'deposit') {
-            console.log(de['type'])
-            var value = new Transaction();
-            value.amount = de['amount']
-            value.date = de['date']
-            value.note = de['note']
-            this.allStatus.filter((status: any) => {
-              if (de['status'] == status['_id']) {
-                value.status = status['name']
-              }
-             
-            })
-
-            this.depositTransaction.push(value)
-          }
-          else {
-            console.log(de['type'])
-            var value = new Transaction();
-            value.amount = de['amount']
-            value.date = de['date']
-            this.allStatus.filter((status: any) => {
-              if (de['status'] == status['_id']) {
-                value.status = status['name']
-              }
-             
-            })
-            this.withDrawalTransaction.push(value)
-          }
         })
-      })
-    });
+        this.accountBankSend = this.accounts[0]?._id
+        this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
+          response.filter((bankA: any) => {
+            var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
+            var value = new Account();
+            value._id = bankA["_id"]
+            value.nameAccount = bankA['ownerName'];
+            value.nameBank = bankC['name'];
+            value.numberBank = bankA['bankAccountNumber'];
+            this.accountBankAdmin.push(value);
+          })
+          this.accountBankReceive = this.accountBankAdmin[0]?._id
+        })
+
+        this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
+          response.filter((de :any) => {
+            if (de['type'] == 'deposit') {
+              var value = new Transaction();
+              value.amount = de['amount']
+              value.date = de['date']
+              value.note = de['note']
+              this.allStatus.filter((status: any) => {
+                if (de['status'] == status['_id']) {
+                  value.status = status['name']
+                }
+
+              })
+
+              this.depositTransaction.push(value)
+            }
+            else {
+              var value = new Transaction();
+              value.amount = de['amount']
+              value.date = de['date']
+              this.allStatus.filter((status: any) => {
+                if (de['status'] == status['_id']) {
+                  value.status = status['name']
+                }
+              })
+              this.withDrawalTransaction.push(value)
+            }
+          })
+        })
+      });
+    }
+
 
 
   }
@@ -242,14 +237,13 @@ export class AccountInfoComponent implements OnInit {
     });
   }
   depositBank() {
-    
+
     this.formDeposit.get('bankAccount').setValue(this.accountBankSend);
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
     this.formDeposit.get('gameProduct').setValue(this.selectGameDeposit)
     this.formDeposit.get('status').setValue(this.defaultStatus)
     this.formDeposit.get('user').setValue(this.userId);
       this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
-        console.log(response)
         const modalRef = this.modalService.open(MyAddmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
     modalRef.result.then((result: any) => {
 
@@ -260,26 +254,18 @@ export class AccountInfoComponent implements OnInit {
       })
     var senderName: string = ""
     var senderNumber: string = ""
-    console.log(this.accounts)
-    console.log(this.accountBankSend)
+
     this.accounts.filter((value: any) => {
-      console.log(value)
-      console.log("C" + value['_id'])
-      console.log("D:" + this.accountBankSend)
+
       if (value['_id'] == this.accountBankSend) {
         senderName = value['nameAccount']
         senderNumber = value['numberBank']
-        
+
       }
     })
     var recevieName: string = ""
     var recevieNumber: string = ""
-    console.log(this.accountBankAdmin)
-    console.log(this.accountBankReceive)
     this.accountBankAdmin.filter((value: any) => {
-      console.log(value)
-      console.log("A:" + value['_id'])
-      console.log("B:" + this.accountBankReceive)
       if (value['_id'] == this.accountBankReceive) {
 
         recevieName = value['nameAccount']
@@ -330,9 +316,6 @@ export class AccountInfoComponent implements OnInit {
       console.log(this.accountBankAdmin)
       console.log(this.accountBankReceive)
       this.accountBankAdmin.filter((value: any) => {
-        console.log(value)
-        console.log("A:" + value['_id'])
-        console.log("B:" + this.accountBankReceive)
         if (value['_id'] == this.accountBankReceive) {
 
           recevieName = value['nameAccount']
@@ -353,5 +336,22 @@ export class AccountInfoComponent implements OnInit {
       })
     })
   }
+  checkInit() {
+    this.isLoggedIn = !!this.sessionStore.getToken();
+    this.cookieStore.getCookie("auth-token");
+    //console.log(this.cookieStore.getCookie("auth-token"))
+    const token = this.sessionStore.getToken();
+    if (token) {
+      const payload = decode(token);
+      //console.log(payload)
+      if (this.isLoggedIn) {
+        const user = this.sessionStore.getUser();
+        this.username = user["username"];
+        this.userId = user["_id"];
+      }
+    }
+  }
 
+  changePass() {
+  }
 }

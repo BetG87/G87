@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   username?: string;
   userId?: string;
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
   ngOnInit(): void {
     this.checkInit();
   }
@@ -27,9 +28,14 @@ export class AppComponent implements OnInit {
     private cookieStore: CookieStorageService) {
 
     this.checkInit();
-    this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
-      console.log(response)
-    })
+    if(this.isLoggedIn)
+    {
+      this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
+        console.log(response)
+        this.isAdmin = response['admin']
+      })
+
+    }
   }
 
   signout() {

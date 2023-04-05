@@ -20,7 +20,7 @@
                         <a class="nav-link nav-link-custom" routerLink="/ho-tro" routerLinkActive="active">Hỗ trợ</a>
                     </li>
                     <nav>
-                        <ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-center">
+                        <ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-center" *ngIf="isLoggedIn && isAdmin">
                             <li ngbDropdown [ngbNavItem]="3" class="nav-item">
                                 <a href (click)="false" class="nav-link adminstyle" routerLinkActive="active" ngbNavLink ngbDropdownToggle>Quản Lý</a>
                                 <div ngbDropdownMenu>

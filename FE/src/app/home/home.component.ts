@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   username?: string;
   userId?: string;
   isLoggedIn: boolean = false;
+  isAdmin : boolean = false;
   isLinkEnabled: Boolean = true;
   statusBong88: string | undefined;
   status2SBOBET: string | undefined;
@@ -48,53 +49,58 @@ export class HomeComponent implements OnInit {
     this.status2SBOBET = "VÀO GAME";
     this.statusLasvegas = "VÀO GAME";
     this.checkInit();
-    this.connectApi.get("v1/user/" + this.userId).subscribe((response: any) => {
-      console.log(response);
-      this.isLinkEnabled = false;
-      this.gameProduct = response.gameProduct;
-      if (this.gameProduct) {
-        for (let i = 0; i < this.gameProduct.length; i++) {
-          switch (this.gameProduct[i].name) {
-            case "Bong88":
-              this.statusBong88 = "TÀI KHOẢN";
-              this.isStatus[0] = true;
-              break;
-            case "2SBOBET":
-              this.status2SBOBET = "TÀI KHOẢN";
-              this.isStatus[1] = true;
-              break;
-            case "3in1bet":
-              this.status3in1bet = "TÀI KHOẢN";
-              this.isStatus[2] = true;
-              break;
-            case "Lasvegas":
-              this.statusLasvegas = "TÀI KHOẢN";
-              this.isStatus[3] = true;
-              break;
-            default:
+    if(this.isLoggedIn)
+    {
+      this.connectApi.get("v1/user/" + this.userId).subscribe((response: any) => {
+        console.log(response);
+        this.isLinkEnabled = false;
+        this.isAdmin = response['admin']
+        this.gameProduct = response.gameProduct;
+        if (this.gameProduct) {
+          for (let i = 0; i < this.gameProduct.length; i++) {
+            switch (this.gameProduct[i].name) {
+              case "Bong88":
+                this.statusBong88 = "TÀI KHOẢN";
+                this.isStatus[0] = true;
+                break;
+              case "2SBOBET":
+                this.status2SBOBET = "TÀI KHOẢN";
+                this.isStatus[1] = true;
+                break;
+              case "3in1bet":
+                this.status3in1bet = "TÀI KHOẢN";
+                this.isStatus[2] = true;
+                break;
+              case "Lasvegas":
+                this.statusLasvegas = "TÀI KHOẢN";
+                this.isStatus[3] = true;
+                break;
+              default:
+            }
           }
         }
-      }
-      for (let i = 0; i < this.isStatus.length; i++) {
-        if (!this.isStatus[i]) {
-          switch (i) {
-            case 0:
-              this.statusBong88 = "YÊU CẦU CẤP TÀI KHOẢN";
-              break;
-            case 1:
-              this.status2SBOBET = "YÊU CẦU CẤP TÀI KHOẢN";
-              break;
-            case 2:
-              this.status3in1bet = "YÊU CẦU CẤP TÀI KHOẢN";
-              break;
-            case 3:
-              this.statusLasvegas = "YÊU CẦU CẤP TÀI KHOẢN";
-              break;
-            default:
+        for (let i = 0; i < this.isStatus.length; i++) {
+          if (!this.isStatus[i]) {
+            switch (i) {
+              case 0:
+                this.statusBong88 = "YÊU CẦU CẤP TÀI KHOẢN";
+                break;
+              case 1:
+                this.status2SBOBET = "YÊU CẦU CẤP TÀI KHOẢN";
+                break;
+              case 2:
+                this.status3in1bet = "YÊU CẦU CẤP TÀI KHOẢN";
+                break;
+              case 3:
+                this.statusLasvegas = "YÊU CẦU CẤP TÀI KHOẢN";
+                break;
+              default:
+            }
           }
         }
-      }
-    });
+      });
+    }
+
   }
   ngOnInit(): void {}
 
