@@ -58,7 +58,16 @@ export class ManagergameComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-
+      if (result == true) {
+        const meessage = {
+          "_id": idGame
+      }
+        console.log (meessage)
+        this.connectApi.post('v1/gameaccount/delete',meessage).subscribe((response: any) => {
+          console.log(response)     
+        })
+        this.ngOnInit()
+      }else
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
@@ -99,15 +108,15 @@ export class ManagergameComponent implements OnInit {
       console.log(this.filteredAccountsGame)
       console.log(this.managerAccountGame)
       this.filteredAccountsGame = this.managerAccountGame.filter(accountGame => this.matchesSearchTerm(accountGame));
-      this.currentPage= 1;
+      this.currentPage = 1;
     }
   }
 
   matchesSearchTerm(accountGame: any) {
     console.log(accountGame)
-    accountGame._id = accountGame._id !== undefined ? accountGame._id : "" ;
-    accountGame.username = accountGame.username !== undefined ? accountGame.username : "" ;
-    accountGame.user = accountGame.user !== undefined ? accountGame.user : "" ;
+    accountGame._id = accountGame._id !== undefined ? accountGame._id : "";
+    accountGame.username = accountGame.username !== undefined ? accountGame.username : "";
+    accountGame.user = accountGame.user !== undefined ? accountGame.user : "";
     console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return accountGame._id.toLowerCase().indexOf(searchTerm) > -1

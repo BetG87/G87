@@ -19,9 +19,9 @@ export class MyModaldeleteComponent implements OnInit {
     }
   
     closeModal() {
-      this.activeModal.close(true);
+      this.activeModal.close(false);
     }
     confirm(){
-      this.activeModal.close(false);
+      this.activeModal.close(true);
     }
   }
