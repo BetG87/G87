@@ -8,6 +8,7 @@ import { AccountInfoComponent } from './account-info/account-info.component';
 import { ManageraccountComponent } from './manageraccount/manageraccount.component';
 import { ManagergameComponent } from './managergame/managergame.component';
 import { ManagerbankComponent } from './managerbank/managerbank.component';
+import { RoleGuardService } from './Services/Security/role-guard.service';
 const routes: Routes = [
   {
     path: '',
@@ -32,15 +33,27 @@ const routes: Routes = [
   },
   {
     path: 'manageraccount',
-    component: ManageraccountComponent,
+    component: ManageraccountComponent,canActivate: [RoleGuardService],
+    data:
+    {
+      expectedRole: true
+    }
   },
   {
     path: 'managergame',
-    component: ManagergameComponent,
+    component: ManagergameComponent,canActivate: [RoleGuardService],
+    data:
+    {
+      expectedRole: true
+    },
   },
   {
     path: 'managerbank',
-    component: ManagerbankComponent,
+    component: ManagerbankComponent,canActivate: [RoleGuardService],
+    data:
+    {
+      expectedRole: true
+    },
   }
 ];
 

@@ -29,13 +29,13 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
 
     });
-    
+
   }
-  
+
 
   ngOnInit(): void {
 
-    
+
     if (this.sessionStore.getToken()) {
       this.isLoggedIn = true;
       this.isAdmin = this.sessionStore.getUser().isAdmin;
@@ -52,9 +52,9 @@ export class LoginComponent implements OnInit {
       this.sessionStore.saveUser({ _id: response['_id'], username: response['username'] })
       this.isLoggedIn = true;
       this.isLoginFailed = false;
-      this.route.navigate(['']);
-      this.dataShare.setDataUser({ _id: response['_id'], username: response['username'] })
 
+      this.dataShare.setDataUser({ _id: response['_id'], username: response['username'] })
+      window.location.href = '/';
     });  }
 
 

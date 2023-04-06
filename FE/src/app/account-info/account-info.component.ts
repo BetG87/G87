@@ -353,5 +353,6 @@ export class AccountInfoComponent implements OnInit {
   }
 
   changePass() {
+
   }
 }

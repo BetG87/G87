@@ -27,7 +27,10 @@ import { MyModalupdateaccountBankComponent } from './my-modalupdateaccount-bank/
 import { MyModalinfoaccountBankComponent } from './my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
 import { MyModalinfoaccountGameComponent } from './my-modalinfoaccount-game/my-modalinfoaccount-game.component';
 import { MyModalupdateaccountGameComponent } from './my-modalupdateaccount-game/my-modalupdateaccount-game.component';
-
+import { JwtModule } from "@auth0/angular-jwt";
+export function tokenGetter() {
+  return sessionStorage.getItem("auth-token");
+}
 
 @NgModule({
   declarations: [
@@ -60,7 +63,13 @@ import { MyModalupdateaccountGameComponent } from './my-modalupdateaccount-game/
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    JwtModule.forRoot({
+      config: {
+       tokenGetter: tokenGetter,
+      },
+    })
+
   ],
   providers: [
     {
