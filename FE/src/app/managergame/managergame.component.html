@@ -12,8 +12,9 @@
                 <thead>
                     <tr class="borderstyle m-1">
                         <th class="px-4 text-center">Số Thứ Tự</th>
-                        <th class="px-4 text-center">Số Tài Khoản Game</th>
-                        <th class="px-4 text-center">Tên Game</th>
+                        <th class="px-4 text-center">Game</th>
+                        <th class="px-4 text-center">Tài Khoản Game </th>
+                        <th class="px-4 text-center">Mật Khẩu </th>
                         <th class="px-4 text-center">Mã người dùng</th>
                         <th class="px-4 text-center">Trạng Thái</th>
                         <th class="px-4 text-center">Thông tin</th>
@@ -24,10 +25,11 @@
                 <tbody>
                     <tr *ngFor="let accountGame of filteredAccountsGame.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
-                        <td class=" py-2 text-center">{{ accountGame._id}}</td>
+                        <td class=" py-2 text-center">{{ accountGame.nameGame}}</td>
                         <td class=" py-2 text-center">{{ accountGame.username }}</td>
+                        <td class=" py-2 text-center">{{ accountGame.password }}</td>
                         <td class=" py-2 text-center">{{ accountGame.user }}</td>
-                        <td class=" py-2 text-center">{{ accountGame.isActive }}</td>
+                        <td class=" py-2 text-center">{{ accountGame.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>
                         <td class=" py-2 text-center">
                             <a (click)="infoAccountGame(accountGame._id) " class="text-primary"><i class="fa fa-info-circle"></i></a>
                         </td>

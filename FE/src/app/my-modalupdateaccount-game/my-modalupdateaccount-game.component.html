@@ -2,38 +2,39 @@
     <h4 class="modal-title">Thông Tin Tài Khoản Game</h4>
 </div>
 <div class="modal-body">
-    <form [formGroup]="formAccountinfoGame" (ngSubmit)="onSubmit()" class="container">
+    <form [formGroup]="formAccountupdateGame" (ngSubmit)="onSubmit()" class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="accountGame" class="size1Rem">Mã sản phẩm game :</label>
-                    <input type="text" formControlName="accountGame" id="accountGame" class="form-control" readonly>
+                    <label for="nameGame" class="size1Rem">Game :</label>
+                    <input type="text" formControlName="nameGame" id="nameGame" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="nameAccountGame" class="size1Rem">Tên loại game :</label>
-                    <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control" readonly>
+                    <label for="user" class="size1Rem">Mã người dùng : </label>
+                    <input type="text" formControlName="user" id="user" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="passAccountGame" class="size1Rem">Mật Khẩu Game :</label>
-                    <input type="password" formControlName="passAccountGame" id="passAccountGame" class="form-control" readonly>
+                    <label for="nameAccountGame" class="size1Rem">Tài khoản game :</label>
+                    <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control">
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="userGame" class="size1Rem">Mã người dùng : </label>
-                    <input type="text" formControlName="userGame" id="userGame" class="form-control" readonly>
+                    <label for="password" class="size1Rem">Mật khẩu :</label>
+                    <input type="text" formControlName="password" id="password" class="form-control">
                 </div>
             </div>
+
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="statusAccount" class="size1Rem">Trạng thái tài khoản : </label>
-                    <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount" style="pointer-events: none;">
-                            <option value="true">True</option>
-                            <option value="false">False</option>      
+                    <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount">
+                        <option value="true">Đang sử dụng</option>
+                        <option value="false">Ngưng sử dụng</option>      
                     </select>
                 </div>
             </div>
@@ -41,5 +42,6 @@
     </form>
 </div>
 <div class="modal-footer">
+    <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">Cập Nhập</button>
     <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
 </div>

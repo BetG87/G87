@@ -6,14 +6,8 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="accountGame" class="size1Rem">Mã sản phẩm game :</label>
+                    <label for="accountGame" class="size1Rem">Game :</label>
                     <input type="text" formControlName="accountGame" id="accountGame" class="form-control" readonly>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="nameAccountGame" class="size1Rem">Tên loại game :</label>
-                    <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -24,11 +18,23 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
+                    <label for="nameAccountGame" class="size1Rem">Tài khoản game :</label>
+                    <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="password" class="size1Rem">Mật khẩu :</label>
+                    <input type="text" formControlName="password" id="password" class="form-control" readonly>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
                     <label for="statusAccount" class="size1Rem">Trạng thái tài khoản : </label>
-                    <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount" style="pointer-events: none;">
-                            <option value="true">True</option>
-                            <option value="false">False</option>      
-                    </select>
+                    <input id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount" readonly>
+
+
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ import { GameAccount } from '../entity/GameAccount';
 import { MyModaldeleteComponent } from '../my-modaldelete/my-modaldelete.component';
 import { MyModalinfoaccountGameComponent } from '../my-modalinfoaccount-game/my-modalinfoaccount-game.component';
 import { MyModalupdateaccountGameComponent } from '../my-modalupdateaccount-game/my-modalupdateaccount-game.component';
+import { GameProduct } from '../entity/GameProduct';
 
 @Component({
   selector: 'app-managergame',
@@ -24,6 +25,8 @@ export class ManagergameComponent implements OnInit {
   managerAccountGame: GameAccount[] = [];
   filteredAccountsGame: any[] = [];
   searchTerm: any;
+  listGameProduct : any [] = [];
+  GameProduct : GameProduct [] = [];
 
 
   constructor(private dataShare: DataShareService,
@@ -48,7 +51,26 @@ export class ManagergameComponent implements OnInit {
       this.managerAccountGame = response
       this.filteredAccountsGame = [...this.managerAccountGame];
       console.log(this.filteredAccountsGame)
+      this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
+        console.log(response)
+        this.GameProduct = response
+        this.listGameProduct = [...this.GameProduct];
+        console.log(this.listGameProduct)
+        
+        for (let i = 0; i < this.filteredAccountsGame.length; i++) {
+          const gameProduct = this.filteredAccountsGame[i].gameProduct;
+          const game = this.listGameProduct.find(g => g._id === gameProduct);
+          if (game) {
+            this.filteredAccountsGame[i].nameGame = game.name;
+          }
+        }
+        console.log(this.filteredAccountsGame)
+      })
     })
+    
+
+
+    
 
   }
   deleteAccountGame(idGame: any) {
@@ -72,7 +94,6 @@ export class ManagergameComponent implements OnInit {
     }).catch((error: any) => {
       console.log(error);
     });
-
   }
   infoAccountGame(idGame: any) {
     const infoGame = this.managerAccountGame.filter((item) => item._id === idGame);
@@ -114,7 +135,7 @@ export class ManagergameComponent implements OnInit {
 
   matchesSearchTerm(accountGame: any) {
     console.log(accountGame)
-    accountGame._id = accountGame._id !== undefined ? accountGame._id : "";
+    accountGame.gameProduct = accountGame.gameProduct !== undefined ? accountGame.gameProduct : "";
     accountGame.username = accountGame.username !== undefined ? accountGame.username : "";
     accountGame.user = accountGame.user !== undefined ? accountGame.user : "";
     console.log(this.searchTerm)
