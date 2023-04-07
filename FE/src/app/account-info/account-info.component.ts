@@ -139,6 +139,9 @@ export class AccountInfoComponent implements OnInit {
             this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
           } else {
           }
+      }else
+      {
+
       }
 
         bankAccount.filter((bankA: any) => {
