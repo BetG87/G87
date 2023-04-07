@@ -24,9 +24,13 @@
                             <li ngbDropdown [ngbNavItem]="3" class="nav-item">
                                 <a href (click)="false" class="nav-link adminstyle" routerLinkActive="active" ngbNavLink ngbDropdownToggle>Quản Lý</a>
                                 <div ngbDropdownMenu>
-                                    <button ngbDropdownItem routerLink="/manageraccount">Quản Lý Account</button>
-                                    <button ngbDropdownItem routerLink="/managergame">Quản Lý GameAccount</button>
-                                    <button ngbDropdownItem routerLink="/managerbank">Quản Lý BankAccount</button>
+                                    <button ngbDropdownItem routerLink="/manageraccount">Người dùng</button>
+                                    <button ngbDropdownItem routerLink="/managergameaccount">Tài khoản Game</button>
+                                    <button ngbDropdownItem routerLink="/managerbankaccount">Tài khoản Ngân Hàng</button>
+                                    <button ngbDropdownItem routerLink="/managerbank">Ngân hàng</button>
+                                    <button ngbDropdownItem routerLink="/managergame">Game</button>
+                                    <button ngbDropdownItem routerLink="/managertransaction">Lịch sử nạp rút</button>
+                                    <button ngbDropdownItem routerLink="/managerstatus">Trạng thái</button>
                                 </div>
                             </li>
                         </ul>

@@ -40,7 +40,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'managergame',
+    path: 'managergameaccount',
     component: ManagergameComponent,canActivate: [RoleGuardService],
     data:
     {
@@ -48,7 +48,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'managerbank',
+    path: 'managerbankaccount',
     component: ManagerbankComponent,canActivate: [RoleGuardService],
     data:
     {
