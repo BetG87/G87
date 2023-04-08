@@ -7,7 +7,7 @@ import { DataShareService } from '../Services/DataShare/data-share.service';
 import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
-import { MyModaldeleteComponent } from '../my-modaldelete/my-modaldelete.component';
+import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { MyModalinfoaccountComponent } from '../my-modalinfoaccount/my-modalinfoaccount.component';
 import { MyModalupdateaccountComponent } from '../my-modalupdateaccount/my-modalupdateaccount.component';
 
@@ -58,7 +58,7 @@ export class ManageraccountComponent implements OnInit {
   deleteAccount(_id: any) {
     const title = "Xóa tài khoản";
     const content = "Bạn có chắc chắn muốn xóa tài khoản này?";
-    const modalRef = this.modalService.open(MyModaldeleteComponent, { size: "sm", backdrop: "static", keyboard: false });
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "sm", backdrop: "static", keyboard: false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {

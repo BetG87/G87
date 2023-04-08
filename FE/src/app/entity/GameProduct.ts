@@ -3,5 +3,5 @@ export class GameProduct {
   name: string | undefined;
   linkImage: string | undefined;
   linkGame: number | undefined;
-  isActive: boolean =true
-  }
+  isActive: boolean = true
+}

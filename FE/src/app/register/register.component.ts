@@ -17,11 +17,11 @@ export class RegisterComponent implements OnInit {
   public isSuccessful = false;
   public isSignUpFailed = false;
   public errorMessage = '';
-  public formRegister :FormGroup | any
+  public formRegister: FormGroup | any
 
   constructor(private fb: FormBuilder,
     private connectApi: ConnectApiService,
-    private modalService: NgbModal) { 
+    private modalService: NgbModal) {
     this.formRegister = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
@@ -36,11 +36,11 @@ export class RegisterComponent implements OnInit {
   }
   bankName = '';
   selectedBank: any;
-  bankNameLists:any;
+  bankNameLists: any;
 
-onBankChange(event: any): void {
-  console.log(event);
-}
+  onBankChange(event: any): void {
+    console.log(event);
+  }
   ngOnInit(): void {
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
@@ -56,7 +56,7 @@ onBankChange(event: any): void {
     const requestRegister =
     {
       ...this.formRegister.value,
-        bankId: bankId
+      bankId: bankId
     }
 
     this.connectApi.post('v1/auth/register', requestRegister).subscribe((response) => {
@@ -67,19 +67,21 @@ onBankChange(event: any): void {
   }
 
   register = () => {
-   
-    const modalRef = this.modalService.open(MyModalComponent,{ size: "sm", backdrop: "static", keyboard: false });
-    
+
+    const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.Notification = "Thông Báo Đăng Kí";
+    modalRef.componentInstance.contentNotification = "Bạn Đã Đăng Kí Thành CÔng";
+    modalRef.componentInstance.command = "register"
     modalRef.result.then((result: any) => {
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
     });
-  
+
   }
-  
- 
-    
-  
+
+
+
+
 
 }
