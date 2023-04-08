@@ -10,17 +10,17 @@
                 <button class="btn btn-primary" type="submit" (click)="search()">Tìm kiếm</button>
             </div>
         </div>
-        <div class="input-group  col-md-12 d-flex justify-content-center my-4">
+        <div class="input-group  col-md-12 d-flex justify-content-center my-4" *ngIf="transactionsLoaded">
             <table class="border-top-0" style="width: 80%;">
                 <thead>
                     <tr class="borderstyle m-1">
                         <th class="px-4 text-center">Số Thứ Tự</th>
                         <th class="px-4 text-center">Người Dùng</th>
-                        <th class="px-4 text-center">Người Gửi </th>
-                        <th class="px-4 text-center">Người Nhận </th>
+                        <th class="px-4 text-center">TK Người DÙng </th>
+                        <th class="px-4 text-center">TK ADMIN </th>
                         <th class="px-4 text-center">Số Tiền</th>
                         <th class="px-4 text-center">Trạng Thái</th>
-                        <th class="px-4 text-center">Type</th>
+                        <th class="px-4 text-center">Nạp/Rút</th>
                         <th class="px-4 text-center">Cập nhật</th>
                     </tr>
                 </thead>
@@ -28,11 +28,13 @@
                     <tr *ngFor="let transaction of filteredTransactions.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                         <td class=" py-2 text-center">{{ transaction.nameUser}}</td>
-                        <td class=" py-2 text-center">{{ transaction.nameBankaccount }}</td>
-                        <td class=" py-2 text-center">{{ transaction.nameBankaccountAdmin }}</td>
+                        <td class=" py-2 text-center">{{ transaction.namebankAccount}}-{{transaction.numberbankAccount}}</td>
+                        <td class=" py-2 text-center">{{ transaction.numberbankAccountAdmin}}</td>
                         <td class=" py-2 text-center">{{ transaction.amount }}</td>
-                        <td class=" py-2 text-center">{{ transaction.isActive ? 'Đã xử lý' : 'Chưa xủ lý' }}</td>
-                        <td class=" py-2 text-center">{{ transaction.nameType }}</td>
+                        <td class=" py-2 text-center">{{ transaction.nameStatus}}</td>
+                        <td class=" py-2 text-center">
+                            <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>
+                            <span *ngIf="transaction.type == 'withdrawal'">Rút tiền</span></td>
                         <td class="px-4 py-2 text-center">
                             <a (click)="updateTransactionGame(transaction._id)" class="text-primary"><i class="fa fa-pencil"></i></a>
                         </td>

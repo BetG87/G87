@@ -17,7 +17,6 @@ import { MyModalComponent } from './my-modal/my-modal.component';
 import { MyAddbankComponent } from './my-addbank/my-addbank.component';
 import { ManageraccountComponent } from './manageraccount/manageraccount.component';
 import { ManagergameComponent } from './managergame/managergame.component';
-import { ManagerbankComponent } from './managerbank/managerbank.component';
 import { MyModalinfoaccountComponent } from './my-modalinfoaccount/my-modalinfoaccount.component';
 import { MyModalupdateaccountComponent } from './my-modalupdateaccount/my-modalupdateaccount.component';
 import { MyModalupdateaccountBankComponent } from './my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
@@ -28,6 +27,8 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { MyModalconfirmationmsgComponent } from './my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { ManagertransactionComponent } from './managertransaction/managertransaction.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MyModalupdatetransactionsComponent } from './my-modalupdatetransactions/my-modalupdatetransactions.component';
+import { ManagerbankaccountComponent } from './managerbankaccount/managerbankaccount.component';
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
 }
@@ -45,7 +46,6 @@ export function tokenGetter() {
     MyAddbankComponent,
     ManageraccountComponent,
     ManagergameComponent,
-    ManagerbankComponent,
     MyModalinfoaccountComponent,
     MyModalupdateaccountComponent,
     MyModalupdateaccountBankComponent,
@@ -54,6 +54,8 @@ export function tokenGetter() {
     MyModalupdateaccountGameComponent,
     MyModalconfirmationmsgComponent,
     ManagertransactionComponent,
+    MyModalupdatetransactionsComponent,
+    ManagerbankaccountComponent,
 
   ],
   imports: [

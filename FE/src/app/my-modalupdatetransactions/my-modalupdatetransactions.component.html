@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{TittleGame}}</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formAccountupdateGame" (ngSubmit)="onSubmit()" class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="nameGame" class="size1Rem">Game :</label>
+                    <!-- <select id="nameGame" class="form-control" name="nameGame" formControlName="nameGame">
+                        <option *ngFor="let nameGame of allGameproduct" [value]="nameGame._id">{{nameGame.name}}</option>
+                    </select> -->
+                    <ng-select [items]="allGameproduct" bindLabel="name" bindValue="_id" formControlName="nameGame"></ng-select>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label for="user" class="size1Rem">Tài Khoản người dùng : </label>
+                <!-- <select id="user" class="form-control" name="user" formControlName="user">
+                        <option *ngFor="let user of allAccount" [value]="user._id">{{user.username}}</option>
+
+                    <input type="text" formControlName="user" id="user" class="form-control" readonly>
+                </select>-->
+
+                <ng-select [items]="allAccount" bindLabel="username" bindValue="_id" formControlName="user"></ng-select>
+
+
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="nameAccountGame" class="size1Rem">Tài khoản game :</label>
+                    <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="password" class="size1Rem">Mật khẩu :</label>
+                    <input type="text" formControlName="password" id="password" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="statusAccount" class="size1Rem">Trạng thái tài khoản : </label>
+                    <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount">
+                        <option value="true">Đang sử dụng</option>
+                        <option value="false">Ngưng sử dụng</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">{{buttonConfirm}}</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
+</div>

@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import { ManageraccountComponent } from './manageraccount/manageraccount.component';
 import { ManagergameComponent } from './managergame/managergame.component';
-import { ManagerbankComponent } from './managerbank/managerbank.component';
+import { ManagerbankaccountComponent } from './managerbankaccount/managerbankaccount.component';
 import { ManagertransactionComponent } from './managertransaction/managertransaction.component';
 import { RoleGuardService } from './Services/Security/role-guard.service';
 const routes: Routes = [
@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
     path: 'managerbankaccount',
-    component: ManagerbankComponent, canActivate: [RoleGuardService],
+    component: ManagerbankaccountComponent, canActivate: [RoleGuardService],
     data:
     {
       expectedRole: true

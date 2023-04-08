@@ -12,11 +12,11 @@ import { MyModalinfoaccountBankComponent } from '../my-modalinfoaccount-bank/my-
 import { MyModalupdateaccountBankComponent } from '../my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
 
 @Component({
-  selector: 'app-managerbank',
-  templateUrl: './managerbank.component.html',
-  styleUrls: ['./managerbank.component.scss']
+  selector: 'app-managerbankaccount',
+  templateUrl: './managerbankaccount.component.html',
+  styleUrls: ['./managerbankaccount.component.scss']
 })
-export class ManagerbankComponent implements OnInit {
+export class ManagerbankaccountComponent implements OnInit {
   getToken: string = "";
   currentPage = 1;
   pageSize = 5;
@@ -116,3 +116,4 @@ export class ManagerbankComponent implements OnInit {
   }
 
 }
+
