@@ -26,6 +26,7 @@ import { MyModalinfoaccountGameComponent } from './my-modalinfoaccount-game/my-m
 import { MyModalupdateaccountGameComponent } from './my-modalupdateaccount-game/my-modalupdateaccount-game.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { MyModalconfirmationmsgComponent } from './my-modalconfirmationmsg/my-modalconfirmationmsg.component';
+import { ManagertransactionComponent } from './managertransaction/managertransaction.component';
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
 }
@@ -50,7 +51,8 @@ export function tokenGetter() {
     MyModalinfoaccountBankComponent,
     MyModalinfoaccountGameComponent,
     MyModalupdateaccountGameComponent,
-    MyModalconfirmationmsgComponent
+    MyModalconfirmationmsgComponent,
+    ManagertransactionComponent
   ],
   imports: [
     BrowserModule,

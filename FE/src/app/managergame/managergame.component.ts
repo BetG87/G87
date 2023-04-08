@@ -125,6 +125,9 @@ export class ManagergameComponent implements OnInit {
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoGame = infoGame[0];
     modalRef.componentInstance.mode = "1";
+    modalRef.componentInstance.TittleGame = "Cập Nhập Tài Khoản Game" ; 
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập" ; 
+    
     modalRef.result.then((result: any) => {
       if (result == true) {
         this.ngOnInit()
@@ -137,6 +140,7 @@ export class ManagergameComponent implements OnInit {
   }
   search() {
     console.log(this.managerAccountGame)
+    console.log(this.filteredAccountsGame)
     if (!this.searchTerm) {
       this.filteredAccountsGame = [...this.managerAccountGame];
 
@@ -153,17 +157,21 @@ export class ManagergameComponent implements OnInit {
     accountGame.nameAccount = accountGame.nameAccount !== undefined ? accountGame.nameAccount : "";
     accountGame.nameGame = accountGame.nameGame !== undefined ? accountGame.nameGame : "";
     accountGame.password = accountGame.password !== undefined ? accountGame.password : "";
-
+    accountGame.username = accountGame.username !== undefined ? accountGame.username : "";
+    
     const searchTerm = this.searchTerm.toLowerCase();
     return accountGame.gameProduct.toLowerCase().indexOf(searchTerm) > -1
       || accountGame.nameAccount.toLowerCase().indexOf(searchTerm) > -1
       || accountGame.nameGame.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.password.toLowerCase().indexOf(searchTerm) > -1;
+      || accountGame.password.toLowerCase().indexOf(searchTerm) > -1
+      || accountGame.username.toLowerCase().indexOf(searchTerm) > -1;
   }
 
   addGame() {
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.mode = "0";
+    modalRef.componentInstance.TittleGame = "Tạo Tài Khoản Game" ; 
+    modalRef.componentInstance.buttonConfirm = "Tạo Tài Khoản" ; 
     modalRef.result.then((result: any) => {
       console.log(result);
       if (result == true) {

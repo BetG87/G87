@@ -16,7 +16,8 @@ export class MyModalupdateaccountGameComponent implements OnInit {
   allAccount: any;
   mode: string = "0";
   allGameproduct: any;
-
+  TittleGame: string = "";
+  buttonConfirm : string = "";
 
   constructor(public activeModal: NgbActiveModal,
     private router: Router,
@@ -71,7 +72,7 @@ export class MyModalupdateaccountGameComponent implements OnInit {
     if (!this.checkForm()) {
       alert("Xin hãy nhập đầy đủ nội dung");
       return
-    } 
+    }
     if (this.mode == "1") {
       const title = "Cập Nhập tài khoản Game";
       const content = "Bạn có chắc muốn cập nhập tài khoản Game này?";
@@ -137,6 +138,6 @@ export class MyModalupdateaccountGameComponent implements OnInit {
     return formValid;
   }
 
- 
+
 
 }
