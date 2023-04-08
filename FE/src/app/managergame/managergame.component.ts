@@ -80,6 +80,7 @@ export class ManagergameComponent implements OnInit {
             }
           }
           console.log(this.filteredAccountsGame)
+          this.currentPage = 1
         })
       })
     })
@@ -125,7 +126,9 @@ export class ManagergameComponent implements OnInit {
     modalRef.componentInstance.infoGame = infoGame[0];
     modalRef.componentInstance.mode = "1";
     modalRef.result.then((result: any) => {
-
+      if (result == true) {
+        this.ngOnInit()
+      }
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
@@ -163,6 +166,9 @@ export class ManagergameComponent implements OnInit {
     modalRef.componentInstance.mode = "0";
     modalRef.result.then((result: any) => {
       console.log(result);
+      if (result == true) {
+        this.ngOnInit()
+      }
     }).catch((error: any) => {
       console.log(error);
     });

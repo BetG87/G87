@@ -7,7 +7,9 @@
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="nameGame" class="size1Rem">Game :</label>
-                    <input type="text" formControlName="nameGame" id="nameGame" class="form-control" readonly>
+                    <select id="nameGame" class="form-control" name="nameGame" formControlName="nameGame">
+                        <option *ngFor="let nameGame of allGameproduct" [value]="nameGame._id">{{nameGame.name}}</option> 
+                    </select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
