@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AboutComponent } from './about/about.component';
@@ -18,7 +18,6 @@ import { MyAddbankComponent } from './my-addbank/my-addbank.component';
 import { ManageraccountComponent } from './manageraccount/manageraccount.component';
 import { ManagergameComponent } from './managergame/managergame.component';
 import { ManagerbankComponent } from './managerbank/managerbank.component';
-import { MyModaldeleteComponent } from './my-modaldelete/my-modaldelete.component';
 import { MyModalinfoaccountComponent } from './my-modalinfoaccount/my-modalinfoaccount.component';
 import { MyModalupdateaccountComponent } from './my-modalupdateaccount/my-modalupdateaccount.component';
 import { MyModalupdateaccountBankComponent } from './my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
@@ -26,6 +25,7 @@ import { MyModalinfoaccountBankComponent } from './my-modalinfoaccount-bank/my-m
 import { MyModalinfoaccountGameComponent } from './my-modalinfoaccount-game/my-modalinfoaccount-game.component';
 import { MyModalupdateaccountGameComponent } from './my-modalupdateaccount-game/my-modalupdateaccount-game.component';
 import { JwtModule } from "@auth0/angular-jwt";
+import { MyModalconfirmationmsgComponent } from './my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
 }
@@ -44,13 +44,13 @@ export function tokenGetter() {
     ManageraccountComponent,
     ManagergameComponent,
     ManagerbankComponent,
-    MyModaldeleteComponent,
     MyModalinfoaccountComponent,
     MyModalupdateaccountComponent,
     MyModalupdateaccountBankComponent,
     MyModalinfoaccountBankComponent,
     MyModalinfoaccountGameComponent,
-    MyModalupdateaccountGameComponent
+    MyModalupdateaccountGameComponent,
+    MyModalconfirmationmsgComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +62,7 @@ export function tokenGetter() {
     FontAwesomeModule,
     JwtModule.forRoot({
       config: {
-       tokenGetter: tokenGetter,
+        tokenGetter: tokenGetter,
       },
     })
 

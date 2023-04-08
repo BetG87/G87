@@ -7,7 +7,7 @@ import { CookieStorageService } from '../Services/StorageService/cookie-storage.
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { managerAccountBank } from '../entity/managerAccountBank';
-import { MyModaldeleteComponent } from '../my-modaldelete/my-modaldelete.component';
+import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { MyModalinfoaccountBankComponent } from '../my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
 import { MyModalupdateaccountBankComponent } from '../my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
 
@@ -54,7 +54,7 @@ export class ManagerbankComponent implements OnInit {
   deleteAccountBank(idBank: any) {
     const title = "Xóa tài khoản ngân hàng";
     const content = "Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?";
-    const modalRef = this.modalService.open(MyModaldeleteComponent, { size: "md", backdrop: "static", keyboard: false });
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {

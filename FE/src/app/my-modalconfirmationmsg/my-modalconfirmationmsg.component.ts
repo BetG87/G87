@@ -3,12 +3,11 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-my-modaldelete',
-  templateUrl: './my-modaldelete.component.html',
-  styleUrls: ['./my-modaldelete.component.scss']
+  selector: 'app-my-modalconfirmationmsg',
+  templateUrl: './my-modalconfirmationmsg.component.html',
+  styleUrls: ['./my-modalconfirmationmsg.component.scss']
 })
-
-export class MyModaldeleteComponent implements OnInit {
+export class MyModalconfirmationmsgComponent implements OnInit {
   ngOnInit(): void {
   }
   modal: any;

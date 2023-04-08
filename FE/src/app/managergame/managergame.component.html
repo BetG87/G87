@@ -1,13 +1,16 @@
 <div class="col-md-10 col-sm-12">
     <div class="row">
         <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THÔNG <span class="styleUnderLine"> TIN TÀI KHOẢN</span> GAME</i></h3>
+        <div class=" col-md-12 d-flex justify-content-center my-4">
+            <button type="submit" class="btn btn-danger mt-2 " (click)="addGame()">THÊM TÀI KHOẢN GAME</button>
+        </div>
         <div class="input-group mb-3 col-md-12 margin-input-right">
             <input type="text" class="form-control margin-input-left" placeholder="Tìm kiếm..." [(ngModel)]="searchTerm" name="search">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" (click)="search()">Tìm kiếm</button>
             </div>
         </div>
-        <div class=" col-md-12 d-flex justify-content-center my-4">
+        <div class="input-group  col-md-12 d-flex justify-content-center my-4">
             <table class="border-top-0" style="width: 80%;">
                 <thead>
                     <tr class="borderstyle m-1">
@@ -15,7 +18,7 @@
                         <th class="px-4 text-center">Game</th>
                         <th class="px-4 text-center">Tài Khoản Game </th>
                         <th class="px-4 text-center">Mật Khẩu </th>
-                        <th class="px-4 text-center">Mã người dùng</th>
+                        <th class="px-4 text-center">Tài khoản người dùng</th>
                         <th class="px-4 text-center">Trạng Thái</th>
                         <th class="px-4 text-center">Thông tin</th>
                         <th class="px-4 text-center">Cập nhật</th>
@@ -28,7 +31,7 @@
                         <td class=" py-2 text-center">{{ accountGame.nameGame}}</td>
                         <td class=" py-2 text-center">{{ accountGame.username }}</td>
                         <td class=" py-2 text-center">{{ accountGame.password }}</td>
-                        <td class=" py-2 text-center">{{ accountGame.user }}</td>
+                        <td class=" py-2 text-center">{{ accountGame.nameAccount }}</td>
                         <td class=" py-2 text-center">{{ accountGame.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>
                         <td class=" py-2 text-center">
                             <a (click)="infoAccountGame(accountGame._id) " class="text-primary"><i class="fa fa-info-circle"></i></a>

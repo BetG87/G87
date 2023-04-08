@@ -7,7 +7,7 @@ import { CookieStorageService } from '../Services/StorageService/cookie-storage.
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GameAccount } from '../entity/GameAccount';
-import { MyModaldeleteComponent } from '../my-modaldelete/my-modaldelete.component';
+import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { MyModalinfoaccountGameComponent } from '../my-modalinfoaccount-game/my-modalinfoaccount-game.component';
 import { MyModalupdateaccountGameComponent } from '../my-modalupdateaccount-game/my-modalupdateaccount-game.component';
 import { GameProduct } from '../entity/GameProduct';
@@ -25,10 +25,11 @@ export class ManagergameComponent implements OnInit {
   managerAccountGame: GameAccount[] = [];
   filteredAccountsGame: any[] = [];
   searchTerm: any;
-  listGameProduct : any [] = [];
-  GameProduct : GameProduct [] = [];
+  listGameProduct: any[] = [];
+  GameProduct: GameProduct[] = [];
 
-
+  allAccount: any[] = [];
+  listallAccount: any[] = [];
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,
@@ -56,7 +57,7 @@ export class ManagergameComponent implements OnInit {
         this.GameProduct = response
         this.listGameProduct = [...this.GameProduct];
         console.log(this.listGameProduct)
-        
+
         for (let i = 0; i < this.filteredAccountsGame.length; i++) {
           const gameProduct = this.filteredAccountsGame[i].gameProduct;
           const game = this.listGameProduct.find(g => g._id === gameProduct);
@@ -65,32 +66,42 @@ export class ManagergameComponent implements OnInit {
           }
         }
         console.log(this.filteredAccountsGame)
+
+        this.connectApi.get('v1/user').subscribe((response: any) => {
+          console.log(response)
+          this.allAccount = response
+          this.listallAccount = [...this.allAccount];
+          console.log(this.listallAccount)
+          for (let i = 0; i < this.filteredAccountsGame.length; i++) {
+            const accountId = this.filteredAccountsGame[i].user;
+            const account = this.listallAccount.find(g => g._id === accountId);
+            if (account) {
+              this.filteredAccountsGame[i].nameAccount = account.username;
+            }
+          }
+          console.log(this.filteredAccountsGame)
+        })
       })
     })
-    
-
-
-    
-
   }
   deleteAccountGame(idGame: any) {
     const title = "Xóa tài khoản Game";
     const content = "Bạn có chắc chắn muốn xóa tài khoản Game này?";
-    const modalRef = this.modalService.open(MyModaldeleteComponent, { size: "md", backdrop: "static", keyboard: false });
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
       if (result == true) {
         const meessage = {
           "_id": idGame
-      }
-        console.log (meessage)
-        this.connectApi.post('v1/gameaccount/delete',meessage).subscribe((response: any) => {
-          console.log(response)     
+        }
+        console.log(meessage)
+        this.connectApi.post('v1/gameaccount/delete', meessage).subscribe((response: any) => {
+          console.log(response)
         })
         this.ngOnInit()
-      }else
-      console.log(result);
+      } else
+        console.log(result);
     }).catch((error: any) => {
       console.log(error);
     });
@@ -112,6 +123,7 @@ export class ManagergameComponent implements OnInit {
     console.log(infoGame);
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoGame = infoGame[0];
+    modalRef.componentInstance.mode = "1";
     modalRef.result.then((result: any) => {
 
       console.log(result);
@@ -134,15 +146,26 @@ export class ManagergameComponent implements OnInit {
   }
 
   matchesSearchTerm(accountGame: any) {
-    console.log(accountGame)
     accountGame.gameProduct = accountGame.gameProduct !== undefined ? accountGame.gameProduct : "";
-    accountGame.username = accountGame.username !== undefined ? accountGame.username : "";
-    accountGame.user = accountGame.user !== undefined ? accountGame.user : "";
-    console.log(this.searchTerm)
+    accountGame.nameAccount = accountGame.nameAccount !== undefined ? accountGame.nameAccount : "";
+    accountGame.nameGame = accountGame.nameGame !== undefined ? accountGame.nameGame : "";
+    accountGame.password = accountGame.password !== undefined ? accountGame.password : "";
+
     const searchTerm = this.searchTerm.toLowerCase();
-    return accountGame._id.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.username.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.user.toLowerCase().indexOf(searchTerm) > -1;
+    return accountGame.gameProduct.toLowerCase().indexOf(searchTerm) > -1
+      || accountGame.nameAccount.toLowerCase().indexOf(searchTerm) > -1
+      || accountGame.nameGame.toLowerCase().indexOf(searchTerm) > -1
+      || accountGame.password.toLowerCase().indexOf(searchTerm) > -1;
+  }
+
+  addGame() {
+    const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.mode = "0";
+    modalRef.result.then((result: any) => {
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
   }
 
 }

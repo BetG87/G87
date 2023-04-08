@@ -11,10 +11,11 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="user" class="size1Rem">Mã người dùng : </label>
-                    <input type="text" formControlName="user" id="user" class="form-control" readonly>
-                </div>
+                <label for="user" class="size1Rem">Tài Khoản người dùng : </label>
+                <select id="user" class="form-control" name="user" formControlName="user">
+                        <option *ngFor="let user of allAccount" [value]="user._id">{{user.username}}</option> 
+                    <!-- <input type="text" formControlName="user" id="user" class="form-control" readonly> -->
+                </select>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
