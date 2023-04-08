@@ -15,7 +15,7 @@
     </div>
 
 
-    <div class="row   justify-content-center">
+    <!-- <div class="row   justify-content-center">
         <div class="col-md-3 col-6 d-flex justify-content-center">
             <img src="assets/images/1Bong88.jpg" alt="Image Description" class="img-thumbnail d-block ">
             <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #Bong88 id="Bong88">{{statusBong88}}</button>
@@ -32,7 +32,7 @@
             <img src="assets/images/Lasvegas.jpg" alt="Image Description" class="img-thumbnail d-block ">
             <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1 " (click)="addGameLasvegas()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #Lasvegas id="Lasvegas">{{statusLasvegas}}</button>
         </div>
-    </div>
+    </div> -->
     <!--<div class="row   justify-content-center" *ngFor="let item of data">
     <a *ngIf="!isLoggedIn" [routerLink]="['/register']">
       <img [src]="item.image">
@@ -45,7 +45,16 @@
     <button *ngIf="isLoggedIn && hasAccount">Tài khoản</button>
     <button *ngIf="isLoggedIn && !hasAccount" (click)="requestAccount()">Yêu cầu tài khoản</button>
   </div>-->
+  <div class="row   justify-content-center">
+    <div class="col-md-3 col-6 d-flex justify-content-center  "  *ngFor="let item of gameProductAll">
+      <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
+        <img [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
+      </a>
+      <img  *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
+      <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88(item._id,gameUserId.includes(item!._id!.toString()))" id="{{item.name}}">{{!isLoggedIn ? "Vào Game": gameUserId.includes(item!._id!.toString())?"Tài Khoản":"Yêu cầu Tài Khoản"}}</button>
 
+    </div>
+</div>
 
     <div class="row">
         <div class="col-8">

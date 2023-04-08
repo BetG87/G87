@@ -17,6 +17,7 @@ import { CookieStorageService } from "../Services/StorageService/cookie-storage.
 import { Router } from "@angular/router";
 import { GameProduct } from "../entity/GameProduct";
 import decode from "jwt-decode";
+import { ConsoleService } from "@ng-select/ng-select/lib/console.service";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -34,6 +35,8 @@ export class HomeComponent implements OnInit {
   status3in1bet: string | undefined;
   statusLasvegas: string | undefined;
   gameProduct: GameProduct[] | undefined;
+  gameProductAll: GameProduct[] | undefined;
+  gameUserId : string [] = [];
   isStatus = [false, false, false, false];
   constructor(
     private dataShare: DataShareService,
@@ -49,6 +52,10 @@ export class HomeComponent implements OnInit {
     this.status2SBOBET = "VÀO GAME";
     this.statusLasvegas = "VÀO GAME";
     this.checkInit();
+    this.connectApi.get("v1/gameproduct").subscribe((response: any) => {
+      this.gameProductAll = response
+    })
+
     if(this.isLoggedIn)
     {
       this.connectApi.get("v1/user/" + this.userId).subscribe((response: any) => {
@@ -58,46 +65,48 @@ export class HomeComponent implements OnInit {
         this.gameProduct = response.gameProduct;
         if (this.gameProduct) {
           for (let i = 0; i < this.gameProduct.length; i++) {
-            switch (this.gameProduct[i].name) {
-              case "Bong88":
-                this.statusBong88 = "TÀI KHOẢN";
-                this.isStatus[0] = true;
-                break;
-              case "2SBOBET":
-                this.status2SBOBET = "TÀI KHOẢN";
-                this.isStatus[1] = true;
-                break;
-              case "3in1bet":
-                this.status3in1bet = "TÀI KHOẢN";
-                this.isStatus[2] = true;
-                break;
-              case "Lasvegas":
-                this.statusLasvegas = "TÀI KHOẢN";
-                this.isStatus[3] = true;
-                break;
-              default:
-            }
+            let id = this.gameProduct[i]['_id']
+            this.gameUserId.push(id as any);
+            // switch (this.gameProduct[i].name) {
+            //   case "Bong88":
+            //     this.statusBong88 = "TÀI KHOẢN";
+            //     this.isStatus[0] = true;
+            //     break;
+            //   case "2SBOBET":
+            //     this.status2SBOBET = "TÀI KHOẢN";
+            //     this.isStatus[1] = true;
+            //     break;
+            //   case "3in1bet":
+            //     this.status3in1bet = "TÀI KHOẢN";
+            //     this.isStatus[2] = true;
+            //     break;
+            //   case "Lasvegas":
+            //     this.statusLasvegas = "TÀI KHOẢN";
+            //     this.isStatus[3] = true;
+            //     break;
+            //   default:
+            // }
           }
         }
-        for (let i = 0; i < this.isStatus.length; i++) {
-          if (!this.isStatus[i]) {
-            switch (i) {
-              case 0:
-                this.statusBong88 = "YÊU CẦU CẤP TÀI KHOẢN";
-                break;
-              case 1:
-                this.status2SBOBET = "YÊU CẦU CẤP TÀI KHOẢN";
-                break;
-              case 2:
-                this.status3in1bet = "YÊU CẦU CẤP TÀI KHOẢN";
-                break;
-              case 3:
-                this.statusLasvegas = "YÊU CẦU CẤP TÀI KHOẢN";
-                break;
-              default:
-            }
-          }
-        }
+        // for (let i = 0; i < this.isStatus.length; i++) {
+        //   if (!this.isStatus[i]) {
+        //     switch (i) {
+        //       case 0:
+        //         this.statusBong88 = "YÊU CẦU CẤP TÀI KHOẢN";
+        //         break;
+        //       case 1:
+        //         this.status2SBOBET = "YÊU CẦU CẤP TÀI KHOẢN";
+        //         break;
+        //       case 2:
+        //         this.status3in1bet = "YÊU CẦU CẤP TÀI KHOẢN";
+        //         break;
+        //       case 3:
+        //         this.statusLasvegas = "YÊU CẦU CẤP TÀI KHOẢN";
+        //         break;
+        //       default:
+        //     }
+        //   }
+        // }
       });
     }
 
@@ -120,8 +129,11 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-  addGameBong88() {}
-  addGame2SBOBET() {}
-  addGame3in1bet() {}
-  addGameLasvegas() {}
+  addGameBong88(id :any, action: any) {
+    console.log(id)
+    console.log(action)
+    // nếu action = true thì mở modal hiện tk mk, = false thì push tele
+
+  }
+
 }
