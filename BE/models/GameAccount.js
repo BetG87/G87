@@ -26,6 +26,9 @@ const gameAccountSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Status',
     },
+},
+{
+    timestamps:true
 });
 
 const GameAccount = mongoose.model('GameAccount', gameAccountSchema);

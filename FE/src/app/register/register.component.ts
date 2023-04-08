@@ -61,22 +61,38 @@ export class RegisterComponent implements OnInit {
 
     this.connectApi.post('v1/auth/register', requestRegister).subscribe((response) => {
       console.log(response)
-
+      const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+      modalRef.componentInstance.Notification = "Thông Báo Đăng Kí";
+      modalRef.componentInstance.contentNotification = "Bạn Đã Đăng Kí Thành CÔng";
+      modalRef.componentInstance.command = "register"
+      modalRef.result.then((result: any) => {
+        console.log(result);
+      }).catch((error: any) => {
+        console.log(error);
+      });
+    },(response) => {
+      const modalRef = this.modalService.open(MyModalComponent, {
+        size: 'sm',
+        backdrop: 'static',
+        keyboard: false,
+      });
+      modalRef.componentInstance.Notification =
+        'Thông Báo Đăng Kí';
+      modalRef.componentInstance.contentNotification =
+        'Đăng ký tài khoảng không thành công';
+      modalRef.result
+        .then((result: any) => {
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
     });
 
   }
 
   register = () => {
 
-    const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.Notification = "Thông Báo Đăng Kí";
-    modalRef.componentInstance.contentNotification = "Bạn Đã Đăng Kí Thành CÔng";
-    modalRef.componentInstance.command = "register"
-    modalRef.result.then((result: any) => {
-      console.log(result);
-    }).catch((error: any) => {
-      console.log(error);
-    });
+
 
   }
 

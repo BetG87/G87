@@ -60,9 +60,10 @@
                   <option *ngFor="let data of bankNameLists" [value]="data.id">{{data.name}}
                   </option>
               </select> -->
-                    <select id="bankId" class="form-control" name="bankId" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)" [ngModelOptions]="{standalone: true}">
-                 <option *ngFor="let bank of bankNameLists" [value]="bank._id">{{bank.name}}</option> 
-              </select>
+              <!-- <select id="bankId" class="form-control" name="bankId" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)" [ngModelOptions]="{standalone: true}">
+                 <option *ngFor="let bank of bankNameLists" [value]="bank._id">{{bank.name}}</option>
+              </select> -->
+              <ng-select [items]="bankNameLists" bindLabel="name" bindValue="_id" formControlName="user" [(ngModel)]="selectedBank" (ngModelChange)="onBankChange($event)"></ng-select>
                     <div *ngIf="formRegister.get('bankId').invalid && (formRegister.get('bankId').dirty || formRegister.get('bankId').touched)" class="invalid-feedback">
                         <div *ngIf="formRegister.get('bankId').errors.required">Vui lòng chọn ngân hàng</div>
                     </div>

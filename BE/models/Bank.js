@@ -21,6 +21,9 @@ const bankSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Status',
     },
+},
+{
+    timestamps:true
 });
 
 const Bank = mongoose.model('Bank', bankSchema);

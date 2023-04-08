@@ -51,7 +51,8 @@
         <img [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
       </a>
       <img  *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
-      <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88(item._id,gameUserId.includes(item!._id!.toString()))" id="{{item.name}}">{{!isLoggedIn ? "Vào Game": gameUserId.includes(item!._id!.toString())?"Tài Khoản":"Yêu cầu Tài Khoản"}}</button>
+      <button  *ngIf="isLoggedIn" type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88(item._id,gameUserId.includes(item!._id!.toString()))" id="{{item.name}}">
+        {{!isLoggedIn ? "Vào Game": gameUserId.includes(item!._id!.toString())?"Tài Khoản":"Yêu cầu Tài Khoản"}}</button>
 
     </div>
 </div>

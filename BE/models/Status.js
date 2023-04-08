@@ -17,6 +17,9 @@ const statusSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+},
+{
+    timestamps:true
 });
 
 const Status = mongoose.model('Status', statusSchema);
