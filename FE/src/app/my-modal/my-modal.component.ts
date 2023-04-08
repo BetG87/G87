@@ -10,15 +10,20 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./my-modal.component.scss']
 })
 export class MyModalComponent implements OnInit {
-ngOnInit(): void {
-}
-modal: any;
+  ngOnInit(): void {
+  }
+  modal: any;
+  Notification: string = "";
+  contentNotification: string = "";
+  command :string = "";
 
-constructor(public activeModal: NgbActiveModal, 
-  private router: Router) {}
+  constructor(public activeModal: NgbActiveModal,
+    private router: Router) { }
 
   closeModal() {
     this.activeModal.close();
+    if (this.command = "register") {
     this.router.navigate(['/login']);
+  }
   }
 }

@@ -10,11 +10,10 @@ import { Router } from '@angular/router';
 import decode from 'jwt-decode'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
-import { MyAddmoneyComponent } from '../my-addmoney/my-addmoney.component';
-import { MyGetoutmoneyComponent } from '../my-getoutmoney/my-getoutmoney.component';
 import { GameProduct } from '../entity/GameProduct';
 import { AccountInfo } from '../entity/AccountInfo';
 import { Transaction } from '../entity/transaction';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-account-info',
@@ -247,13 +246,14 @@ export class AccountInfoComponent implements OnInit {
     this.formDeposit.get('status').setValue(this.defaultStatus)
     this.formDeposit.get('user').setValue(this.userId);
       this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
-        const modalRef = this.modalService.open(MyAddmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
-    modalRef.result.then((result: any) => {
-
-      console.log(result);
-    }).catch((error: any) => {
-      console.log(error);
-    });
+        const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+        modalRef.componentInstance.Notification = "Nạp Tiền";
+        modalRef.componentInstance.contentNotification = "  Yêu cầu nap tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+        modalRef.result.then((result: any) => {
+          console.log(result);
+        }).catch((error: any) => {
+          console.log(error);
+        });
       })
     var senderName: string = ""
     var senderNumber: string = ""
@@ -291,7 +291,14 @@ export class AccountInfoComponent implements OnInit {
     })
   }
   withdrawalBank() {
-    const modalRef = this.modalService.open(MyGetoutmoneyComponent, { size: "sm", backdrop: "static", keyboard: false });
+    const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.Notification = "Rút TIền";
+    modalRef.componentInstance.contentNotification = " Yêu cầu rút tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+    modalRef.result.then((result: any) => {
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
     this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
     this.formWithDrawal.get('gameProduct').setValue(this.selectGameWithDrawal)
     this.formWithDrawal.get('status').setValue(this.defaultStatus)

@@ -7,6 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './my-modaldelete.component.html',
   styleUrls: ['./my-modaldelete.component.scss']
 })
+
 export class MyModaldeleteComponent implements OnInit {
   ngOnInit(): void {
   }

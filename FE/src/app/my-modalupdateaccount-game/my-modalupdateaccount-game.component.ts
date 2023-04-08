@@ -73,8 +73,7 @@ export class MyModalupdateaccountGameComponent implements OnInit {
             "password": this.formAccountupdateGame.controls['password'].value,
             "isActive": this.formAccountupdateGame.controls['statusAccount'].value,
             "gameProduct": this.infoGame.gameProduct,
-            "user": this.formAccountupdateGame.controls['user'].value,
-            "status": this.formAccountupdateGame.controls['statusAccount'].value
+            "user": this.formAccountupdateGame.controls['user'].value
           }
           console.log(meessage)
           this.connectApi.post('v1/gameaccount/update', meessage).subscribe((response: any) => {
