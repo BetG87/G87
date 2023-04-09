@@ -363,6 +363,46 @@ export class AccountInfoComponent implements OnInit {
   }
 
   changePass() {
-
+      var obj = {
+        _id: this.userId,
+        oldPassword: this.formChangePass.get('oldPass').value,
+        newPassword: this.formChangePass.get('password').value,
+      }
+      this.connectApi.post('v1/user/changepass', obj).subscribe((response: any) => {
+        const modalRef = this.modalService.open(MyModalComponent, {
+          size: 'sm',
+          backdrop: 'static',
+          keyboard: false,
+        });
+        modalRef.componentInstance.Notification = 'Đổi mật khẩu';
+        modalRef.componentInstance.contentNotification =
+          ' Bạn đã đổi mật khẩu thành công. Xin vui lòng đăng nhập lại';
+        modalRef.result
+          .then((result: any) => {
+            this.sessionStore.signOut();
+            this.dataShare.setToken('');
+            this.dataShare.setDataUser(null);
+            window.location.href = '/';
+          })
+          .catch((error: any) => {
+            console.log(error);
+          });
+      }, (reponse) =>
+      {
+        const modalRef = this.modalService.open(MyModalComponent, {
+          size: 'sm',
+          backdrop: 'static',
+          keyboard: false,
+        });
+        modalRef.componentInstance.Notification = 'Đổi mật khẩu';
+        modalRef.componentInstance.contentNotification =
+          ' Bạn đã đổi mật không thành công khẩu thành công.';
+        modalRef.result
+          .then((result: any) => {
+          })
+          .catch((error: any) => {
+            console.log(error);
+          });
+      })
   }
 }
