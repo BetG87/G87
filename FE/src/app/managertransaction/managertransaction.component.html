@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let transaction of filteredTransactions.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
+                    <tr *ngFor="let transaction of fullData.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                         <td class=" py-2 text-center">{{ transaction.nameUser}}</td>
                         <td class=" py-2 text-center">{{ transaction.namebankAccount}}-{{transaction.numberbankAccount}}</td>
@@ -34,9 +34,9 @@
                         <td class=" py-2 text-center">{{ transaction.nameStatus}}</td>
                         <td class=" py-2 text-center">
                             <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>
-                            <span *ngIf="transaction.type == 'withdrawal'">Rút tiền</span></td>
+                            <span *ngIf="transaction.type === 'withdrawal'">Rút tiền</span></td>
                         <td class="px-4 py-2 text-center">
-                            <a (click)="updateTransactionGame(transaction._id)" class="text-primary"><i class="fa fa-pencil"></i></a>
+                            <a (click)="updateTransaction(transaction._id)" class="text-primary"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
                 </tbody>

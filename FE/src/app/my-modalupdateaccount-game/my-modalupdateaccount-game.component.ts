@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-my-modalupdateaccount-game',
@@ -17,7 +18,7 @@ export class MyModalupdateaccountGameComponent implements OnInit {
   mode: string = "0";
   allGameproduct: any;
   TittleGame: string = "";
-  buttonConfirm : string = "";
+  buttonConfirm: string = "";
 
   constructor(public activeModal: NgbActiveModal,
     private router: Router,
@@ -91,7 +92,27 @@ export class MyModalupdateaccountGameComponent implements OnInit {
           }
           console.log(meessage)
           this.connectApi.post('v1/gameaccount/update', meessage).subscribe((response: any) => {
-            this.activeModal.close(true);
+            if (response) {
+              if (response) {
+                const modalRef = this.modalService.open(MyModalComponent, {
+                  size: 'sm',
+                  backdrop: 'static',
+                  keyboard: false,
+                });
+                modalRef.componentInstance.Notification =
+                  'Thông Báo Cập Nhập';
+                modalRef.componentInstance.contentNotification =
+                  'Cập nhập tài khoản Game thành công';
+                modalRef.componentInstance.command = "updategame";
+                modalRef.result
+                  .then((result: any) => {                   
+                    this.activeModal.close(true);
+                  })
+                  .catch((error: any) => {
+                    console.log(error);
+                  });
+              }
+            }
           })
         } else
           console.log(result);
@@ -116,7 +137,25 @@ export class MyModalupdateaccountGameComponent implements OnInit {
           }
           console.log(meessage)
           this.connectApi.post('v1/gameaccount/', meessage).subscribe((response: any) => {
-            this.activeModal.close(true);
+            if (response) {
+              const modalRef = this.modalService.open(MyModalComponent, {
+                size: 'sm',
+                backdrop: 'static',
+                keyboard: false,
+              });
+              modalRef.componentInstance.Notification =
+                'Thông Báo Tạo Mới';
+              modalRef.componentInstance.contentNotification =
+                'Tạo mới tài khoản Game thành công';
+              modalRef.result
+                .then((result: any) => {
+                  this.activeModal.close(true);
+                })
+                .catch((error: any) => {
+                  console.log(error);
+                });
+            }
+
           })
         } else
           console.log(result);

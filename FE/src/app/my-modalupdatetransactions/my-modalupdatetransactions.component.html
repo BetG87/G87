@@ -1,50 +1,57 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{TittleGame}}</h4>
+    <h4 class="modal-title">{{Tittle}}</h4>
 </div>
 <div class="modal-body">
-    <form [formGroup]="formAccountupdateGame" (ngSubmit)="onSubmit()" class="container">
+    <form [formGroup]="formAccountupdateTransaction" (ngSubmit)="onSubmit()" class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="nameGame" class="size1Rem">Game :</label>
+                    <label for="UserName" class="size1Rem">Tài Khoản User :</label>
                     <!-- <select id="nameGame" class="form-control" name="nameGame" formControlName="nameGame">
                         <option *ngFor="let nameGame of allGameproduct" [value]="nameGame._id">{{nameGame.name}}</option>
                     </select> -->
+                    <ng-select [items]="allUserName" bindLabel="username" bindValue="_id" formControlName="UserName"></ng-select>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="nameGame" class="size1Rem">Game :</label>
                     <ng-select [items]="allGameproduct" bindLabel="name" bindValue="_id" formControlName="nameGame"></ng-select>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
-                <label for="user" class="size1Rem">Tài Khoản người dùng : </label>
-                <!-- <select id="user" class="form-control" name="user" formControlName="user">
-                        <option *ngFor="let user of allAccount" [value]="user._id">{{user.username}}</option>
-
-                    <input type="text" formControlName="user" id="user" class="form-control" readonly>
-                </select>-->
-
-                <ng-select [items]="allAccount" bindLabel="username" bindValue="_id" formControlName="user"></ng-select>
-
-
+            <div class="col-md-12 col-sm-12">
+                <label for="AccountBankUser" class="size1Rem">Tài Khoản ngân hàng User : </label>
+                <ng-select [items]="listallBankAccount" bindLabel="fullNameBank" bindValue="_id" formControlName="AccountBankUser"></ng-select>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <label for="AccountBankAdmin" class="size1Rem">Tài Khoản ngân hàng  Admin : </label>
+                <ng-select [items]="listallBankAccount" bindLabel="fullNameBank" bindValue="_id" formControlName="AccountBankAdmin"></ng-select>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="nameAccountGame" class="size1Rem">Tài khoản game :</label>
-                    <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control">
+                    <label for="amount" class="size1Rem">Số tiền :</label>
+                    <input type="number" formControlName="amount" id="amount" class="form-control">
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="password" class="size1Rem">Mật khẩu :</label>
-                    <input type="text" formControlName="password" id="password" class="form-control">
+                    <label for="status" class="size1Rem">Trạng thái :</label>
+                    <ng-select [items]="listallStatus" bindLabel="name" bindValue="_id" formControlName="status"></ng-select>
                 </div>
             </div>
-
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="statusAccount" class="size1Rem">Trạng thái tài khoản : </label>
-                    <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount">
-                        <option value="true">Đang sử dụng</option>
-                        <option value="false">Ngưng sử dụng</option>
+                    <label for="type" class="size1Rem">Loại chuyển khoản :</label>
+                    <select formControlName="type" id="type" class="form-control">
+                        <option value="deposit">Nạp Tiền</option>
+                        <option value="withdrawal">Rút Tiền</option>
                     </select>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="note" class="size1Rem">Ghi chú:</label>
+                    <textarea type="text" formControlName="note" id="note" class="form-control"></textarea>
                 </div>
             </div>
         </div>

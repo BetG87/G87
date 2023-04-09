@@ -32,6 +32,7 @@ export class ManagertransactionComponent implements OnInit {
   listallStatus: any[] = [];
   allBankAccount: any[] = [];
   listallBankAccount: any[] = [];
+  fullData: any[] = [];
   transactionsLoaded: boolean = false;
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -51,24 +52,22 @@ export class ManagertransactionComponent implements OnInit {
 
   async ngOnInit() {
     await this.GetTransaction();
-    await this.GetGameProduct();
-    await this.GetUser();
-    await this.GetStatus();
-    await this.GetBankAccount();
-    this.currentPage = 1
+    this.currentPage = 1;
     this.transactionsLoaded = true;
+
   }
 
-  GetTransaction() {
+  async GetTransaction() {
     this.connectApi.get('v1/transaction').subscribe((response: any) => {
       console.log(response)
       this.managerTransaction = response
       this.filteredTransactions = [...this.managerTransaction];
       console.log(this.filteredTransactions)
     })
+    await this.GetGameProduct();
     return Promise.resolve();
   }
-  GetGameProduct() {
+  async GetGameProduct() {
     this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
       console.log(response)
       this.GameProduct = response
@@ -83,10 +82,11 @@ export class ManagertransactionComponent implements OnInit {
         }
       }
     })
+    await this.GetUser();
     return Promise.resolve();
   }
 
-  GetUser() {
+  async GetUser() {
     this.connectApi.get('v1/user').subscribe((response: any) => {
       console.log(response)
       this.allUser = response
@@ -99,11 +99,12 @@ export class ManagertransactionComponent implements OnInit {
           this.filteredTransactions[i].nameUser = account.username;
         }
       }
-      return Promise.resolve();
     })
+    await this.GetStatus();
+    return Promise.resolve();
   }
 
-  GetStatus() {
+  async GetStatus() {
     this.connectApi.get('v1/status').subscribe((response: any) => {
       console.log(response)
       this.allStatus = response
@@ -117,10 +118,11 @@ export class ManagertransactionComponent implements OnInit {
         }
       }
     })
+    await this.GetBankAccount();
     return Promise.resolve();
   }
-  GetBankAccount() {
-    this.connectApi.get('v1/bankaccount').subscribe((response: any) => {
+  async GetBankAccount() {
+    this.connectApi.get('v1/bankaccount').subscribe(async (response: any) => {
       console.log(response)
       this.allBankAccount = response
       this.listallBankAccount = [...this.allBankAccount];
@@ -137,20 +139,29 @@ export class ManagertransactionComponent implements OnInit {
         if (bankAccountAdmin) {
           this.filteredTransactions[i].namebankAccountAdmin = bankAccount.ownerName;
           this.filteredTransactions[i].numberbankAccountAdmin = bankAccount.bankAccountNumber;
-
         }
       }
       console.log(this.filteredTransactions)
+      this.GetfullData();
       return Promise.resolve();
     })
-
   }
-  updateTransactionGame(idGame: any) {
-    const infoTransactions = this.filteredTransactions.filter((item) => item._id === idGame);
-    console.log(infoTransactions);
+
+  async GetfullData() {
+    await setTimeout(() => {
+      this.fullData = this.filteredTransactions;
+      console.log(this.fullData)
+    }, 1000);
+  }
+  updateTransaction(idaccounttransaction: any) {
+    const infoTransactions = this.filteredTransactions.filter((item) => item._id === idaccounttransaction);
+    console.log(infoTransactions[0]);
     const modalRef = this.modalService.open(MyModalupdatetransactionsComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoTransactions = infoTransactions[0];
+    console.log(infoTransactions[0])
     modalRef.componentInstance.mode = "1";
+    modalRef.componentInstance.Tittle = "Cập Nhập Giao Dịch";
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {
         this.ngOnInit()
@@ -168,31 +179,33 @@ export class ManagertransactionComponent implements OnInit {
     } else {
       console.log(this.filteredTransactions)
       console.log(this.managerTransaction)
-      this.filteredTransactions = this.managerTransaction.filter(accountGame => this.matchesSearchTerm(accountGame));
+      this.filteredTransactions = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
       this.currentPage = 1;
     }
   }
 
-  matchesSearchTerm(accountGame: any) {
-    accountGame.nameUser = accountGame.nameUser !== undefined ? accountGame.nameUser : "";
-    accountGame.namebankAccount = accountGame.namebankAccount !== undefined ? accountGame.namebankAccount : "";
-    accountGame.numberbankAccount = accountGame.numberbankAccount !== undefined ? accountGame.numberbankAccount : "";
-    accountGame.namebankAccountAdmin = accountGame.namebankAccountAdmin !== undefined ? accountGame.namebankAccountAdmin : "";
-    accountGame.amount = accountGame.amount !== undefined ? accountGame.amount : "";
-    accountGame.nameStatus = accountGame.nameStatus !== undefined ? accountGame.nameStatus : "";
+  matchesSearchTerm(accounttransaction: any) {
+    accounttransaction.nameUser = accounttransaction.nameUser !== undefined ? accounttransaction.nameUser : "";
+    accounttransaction.namebankAccount = accounttransaction.namebankAccount !== undefined ? accounttransaction.namebankAccount : "";
+    accounttransaction.numberbankAccount = accounttransaction.numberbankAccount !== undefined ? accounttransaction.numberbankAccount : "";
+    accounttransaction.namebankAccountAdmin = accounttransaction.namebankAccountAdmin !== undefined ? accounttransaction.namebankAccountAdmin : "";
+    accounttransaction.amount = accounttransaction.amount !== undefined ? accounttransaction.amount : "";
+    accounttransaction.nameStatus = accounttransaction.nameStatus !== undefined ? accounttransaction.nameStatus : "";
 
     const searchTerm = this.searchTerm.toLowerCase();
-    return accountGame.nameUser.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.namebankAccount.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.numberbankAccount.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.namebankAccountAdmin.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.amount.toLowerCase().indexOf(searchTerm) > -1
-      || accountGame.nameStatus.toLowerCase().indexOf(searchTerm) > -1;
+    return accounttransaction.nameUser.toLowerCase().indexOf(searchTerm) > -1
+      || accounttransaction.namebankAccount.toLowerCase().indexOf(searchTerm) > -1
+      || accounttransaction.numberbankAccount.toLowerCase().indexOf(searchTerm) > -1
+      || accounttransaction.namebankAccountAdmin.toLowerCase().indexOf(searchTerm) > -1
+      || accounttransaction.amount.toLowerCase().indexOf(searchTerm) > -1
+      || accounttransaction.nameStatus.toLowerCase().indexOf(searchTerm) > -1;
   }
 
   addTransaction() {
     const modalRef = this.modalService.open(MyModalupdatetransactionsComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.mode = "0";
+    modalRef.componentInstance.Tittle = "Tạo Mới Giao Dịch";
+    modalRef.componentInstance.buttonConfirm = "Tạo Mới";
     modalRef.result.then((result: any) => {
       console.log(result);
       if (result == true) {

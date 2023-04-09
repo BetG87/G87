@@ -15,15 +15,23 @@ export class MyModalComponent implements OnInit {
   modal: any;
   Notification: string = "";
   contentNotification: string = "";
-  command :string = "";
+  command: string = "";
 
   constructor(public activeModal: NgbActiveModal,
     private router: Router) { }
 
   closeModal() {
-    this.activeModal.close();
-    if (this.command = "register") {
-    this.router.navigate(['/login']);
-  }
+
+    if (this.command == "register") {
+
+      this.activeModal.dismiss();
+      this.router.navigate(['/login']);
+
+    } else {
+      this.activeModal.close(true);
+    }
+
+
+
   }
 }

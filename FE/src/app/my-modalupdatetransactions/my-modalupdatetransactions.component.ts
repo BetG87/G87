@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-my-modalupdatetransactions',
@@ -11,56 +12,115 @@ import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-m
   styleUrls: ['./my-modalupdatetransactions.component.scss']
 })
 export class MyModalupdatetransactionsComponent implements OnInit {
-  public formAccountupdateGame: FormGroup | any
-  infoGame: any | undefined;
-  allAccount: any;
+  public formAccountupdateTransaction: FormGroup | any
+  allUserName: any[] = [];
+  allBankAccount: any[] = [];
+  allBank: any[] = [];
+  listallBankAccount: any[] = [];
+  listStatus: any[] = [];
+  listallStatus: any[] = [];
+  infoTransactions: any | undefined;
   mode: string = "0";
   allGameproduct: any;
-  TittleGame: string = "";
-  buttonConfirm : string = "";
+  Tittle: string = "";
+  buttonConfirm: string = "";
 
   constructor(public activeModal: NgbActiveModal,
     private router: Router,
     private fb: FormBuilder,
     private connectApi: ConnectApiService,
     private modalService: NgbModal) {
-    this.formAccountupdateGame = this.fb.group({
+    this.formAccountupdateTransaction = this.fb.group({
+      UserName: [''],
       nameGame: [''],
-      nameAccountGame: [''],
-      user: [''],
-      statusAccount: [''],
-      password: ['']
-
+      AccountBankUser: [''],
+      AccountBankAdmin: [''],
+      amount: [''],
+      status: [''],
+      type: [''],
+      note: [''],
     });
 
   }
   public onSubmit(): void {
 
   }
-  ngOnInit(): void {
-    this.connectApi.get('v1/user').subscribe((response: any) => {
-      this.allAccount = response
-      console.log(this.allAccount)
-    })
+  async ngOnInit(): Promise<void> {
+    await this.GetUser();
+    await this.GetProduct();
+    await this.GetBankAccount();
+    await this.GetStatus();
 
+  }
+  GetUser() {
+    this.connectApi.get('v1/user').subscribe((response: any) => {
+      this.allUserName = response
+      console.log(this.allUserName)
+    })
+    return Promise.resolve();
+  }
+  GetProduct() {
     this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
       this.allGameproduct = response
       console.log(this.allGameproduct)
     })
+    return Promise.resolve();
+  }
+  GetBankAccount() {
+    this.connectApi.get('v1/bank').subscribe((response: any) => {
+      this.allBank = response
+      this.connectApi.get('v1/bankaccount').subscribe((response: any) => {
+        console.log(response)
+        this.allBankAccount = response
+        this.listallBankAccount = [...this.allBankAccount];
+        console.log(this.listallBankAccount)
+        for (let i = 0; i < this.listallBankAccount.length; i++) {
+          const bankId = this.listallBankAccount[i].bankId;
+          const bankAccount = this.allBank.find(g => g._id === bankId);
+          if (bankAccount) {
+            this.listallBankAccount[i].namebank = bankAccount.name;
+            this.listallBankAccount[i].fullNameBank = this.listallBankAccount[i].ownerName + "-" + bankAccount.name + "-" + this.listallBankAccount[i].bankAccountNumber;
+          }
+        }
+        console.log(this.listallBankAccount)
+        return Promise.resolve();
+      })
+    })
+    return Promise.resolve();
+  }
+
+  GetStatus() {
+    this.connectApi.get('v1/status').subscribe((response: any) => {
+      console.log(response)
+      this.listStatus = response
+      this.listallStatus = [...this.listStatus];
+      console.log(this.listallStatus)
+    })
+    this.GetData();
+    return Promise.resolve();
+  }
+
+  GetData() {
     if (this.mode == "1") {
-      console.log(this.infoGame)
-      if (this.infoGame) {
-        console.log(this.infoGame)
-        this.formAccountupdateGame.controls['nameGame'].setValue(this.infoGame.gameProduct !== undefined ? this.infoGame.gameProduct : "");
-        this.formAccountupdateGame.controls['nameAccountGame'].setValue(this.infoGame.username !== undefined ? this.infoGame.username : "");
-        this.formAccountupdateGame.controls['user'].setValue(this.infoGame.user !== undefined ? this.infoGame.user : "");
-        this.formAccountupdateGame.controls['statusAccount'].setValue(this.infoGame.isActive !== undefined ? this.infoGame.isActive : "");
-        this.formAccountupdateGame.controls['password'].setValue("");
-        this.formAccountupdateGame.get('nameGame').disable();
-        this.formAccountupdateGame.get('nameAccountGame').disable();
-        console.log(this.infoGame)
+      console.log(this.infoTransactions)
+      if (this.infoTransactions) {
+        console.log(this.infoTransactions)
+        this.formAccountupdateTransaction.controls['UserName'].setValue(this.infoTransactions.user !== undefined ? this.infoTransactions.user : "");
+        this.formAccountupdateTransaction.controls['nameGame'].setValue(this.infoTransactions.gameProduct !== undefined ? this.infoTransactions.gameProduct : "");
+        this.formAccountupdateTransaction.controls['AccountBankUser'].setValue(this.infoTransactions.bankAccount !== undefined ? this.infoTransactions.bankAccount : "");
+        this.formAccountupdateTransaction.controls['AccountBankAdmin'].setValue(this.infoTransactions.bankAccountAdmin !== undefined ? this.infoTransactions.bankAccountAdmin : "");
+        this.formAccountupdateTransaction.controls['amount'].setValue(this.infoTransactions.amount !== undefined ? this.infoTransactions.amount : "");
+        this.formAccountupdateTransaction.controls['status'].setValue(this.infoTransactions.status !== undefined ? this.infoTransactions.status : "");
+        this.formAccountupdateTransaction.controls['type'].setValue(this.infoTransactions.type !== undefined ? this.infoTransactions.type : "");
+        this.formAccountupdateTransaction.controls['note'].setValue(this.infoTransactions.note !== undefined ? this.infoTransactions.note : "");
+        this.formAccountupdateTransaction.get('UserName').disable();
+        // this.formAccountupdateTransaction.get('nameAccountGame').disable();
+        console.log(this.infoTransactions.numberbankAccount)
+        console.log(this.formAccountupdateTransaction.controls['AccountBankUser'].value)
+        console.log(this.listallBankAccount)
       }
     }
+    return Promise.resolve();
   }
 
   closeModal() {
@@ -74,24 +134,42 @@ export class MyModalupdatetransactionsComponent implements OnInit {
       return
     }
     if (this.mode == "1") {
-      const title = "Cập Nhập tài khoản Game";
-      const content = "Bạn có chắc muốn cập nhập tài khoản Game này?";
+      const title = "Cập Nhập Giao Dịch";
+      const content = "Bạn có chắc muốn cập nhập giao dịch này?";
       const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
       modalRef.componentInstance.title = title;
       modalRef.componentInstance.content = content;
       modalRef.result.then((result: any) => {
         if (result == true) {
           const meessage = {
-            "_id": this.infoGame._id,
-            "username": this.formAccountupdateGame.controls['nameAccountGame'].value,
-            "password": this.formAccountupdateGame.controls['password'].value,
-            "isActive": this.formAccountupdateGame.controls['statusAccount'].value,
-            "gameProduct": this.infoGame.gameProduct,
-            "user": this.formAccountupdateGame.controls['user'].value
+            "_id": this.infoTransactions._id,
+            "amount": this.formAccountupdateTransaction.controls['amount'].value,
+            "type": this.formAccountupdateTransaction.controls['type'].value,
+            "bankAccount": this.formAccountupdateTransaction.controls['AccountBankUser'].value,
+            "bankAccountAdmin": this.formAccountupdateTransaction.controls['AccountBankAdmin'].value,
+            "gameProduct": this.formAccountupdateTransaction.controls['nameGame'].value,
+            "status": this.formAccountupdateTransaction.controls['status'].value,
+            "user": this.formAccountupdateTransaction.controls['UserName'].value,
+            "note": this.formAccountupdateTransaction.controls['note'].value
           }
           console.log(meessage)
-          this.connectApi.post('v1/gameaccount/update', meessage).subscribe((response: any) => {
+          this.connectApi.post('v1/transaction/update', meessage).subscribe((response: any) => {
             this.activeModal.close(true);
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Cập Nhập';
+            modalRef.componentInstance.contentNotification =
+              'Cập nhập giao dịch thành công';
+            modalRef.result
+              .then((result: any) => {
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
           })
         } else
           console.log(result);
@@ -99,24 +177,41 @@ export class MyModalupdatetransactionsComponent implements OnInit {
         console.log(error);
       });
     } else {
-      const title = "Tạo tài khoản Game";
-      const content = "Bạn có muốn tạo tài khoản Game này?";
+      const title = "Tạo Mới Giao Dịch";
+      const content = "Bạn có muốn tạo mới giao dịch này?";
       const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
       modalRef.componentInstance.title = title;
       modalRef.componentInstance.content = content;
       modalRef.result.then((result: any) => {
         if (result == true) {
           const meessage = {
-            // "_id": this.infoGame._id,
-            "username": this.formAccountupdateGame.controls['nameAccountGame'].value,
-            "password": this.formAccountupdateGame.controls['password'].value,
-            "isActive": this.formAccountupdateGame.controls['statusAccount'].value,
-            "gameProduct": this.formAccountupdateGame.controls['nameGame'].value,
-            "user": this.formAccountupdateGame.controls['user'].value
+            "amount": this.formAccountupdateTransaction.controls['amount'].value,
+            "type": this.formAccountupdateTransaction.controls['type'].value,
+            "bankAccount": this.formAccountupdateTransaction.controls['AccountBankUser'].value,
+            "bankAccountAdmin": this.formAccountupdateTransaction.controls['AccountBankAdmin'].value,
+            "gameProduct": this.formAccountupdateTransaction.controls['nameGame'].value,
+            "status": this.formAccountupdateTransaction.controls['status'].value,
+            "user": this.formAccountupdateTransaction.controls['UserName'].value,
+            "note": this.formAccountupdateTransaction.controls['note'].value
           }
           console.log(meessage)
-          this.connectApi.post('v1/gameaccount/', meessage).subscribe((response: any) => {
+          this.connectApi.post('v1/transaction/', meessage).subscribe((response: any) => {
             this.activeModal.close(true);
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Đăng kí';
+            modalRef.componentInstance.contentNotification =
+              'Đăng kí giao dịch thành công';
+            modalRef.result
+              .then((result: any) => {
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
           })
         } else
           console.log(result);
@@ -128,7 +223,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
 
   checkForm() {
     let formValid = true;
-    const controls = this.formAccountupdateGame.controls;
+    const controls = this.formAccountupdateTransaction.controls;
     for (const name in controls) {
       if (controls[name].value === '') {
         formValid = false;

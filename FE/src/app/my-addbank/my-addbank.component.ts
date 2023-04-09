@@ -11,7 +11,7 @@ import { ConnectApiService } from '../Services/Web/connect-api.service';
 })
 export class MyAddbankComponent implements OnInit {
   public bankAccount: FormGroup | any
-  userId:any
+  userId: any
   constructor(private fb: FormBuilder,
     private connectApi: ConnectApiService,
     public activeModal: NgbActiveModal,
@@ -28,16 +28,15 @@ export class MyAddbankComponent implements OnInit {
     this.userId = user['_id'];
   }
 
-  
-bankName = '';
+  bankName = '';
   selectedBank: any;
-  bankNameLists:any;
+  bankNameLists: any;
 
   onBankChange(event: any): void {
     this.bankAccount.get('bankId').setValue(event);
-}
+  }
   ngOnInit(): void {
-    
+
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
       this.bankNameLists = response;
@@ -55,11 +54,11 @@ bankName = '';
 
     });
     this.activeModal.close();
-  
+
   }
   close = () => {
-   
+
     this.activeModal.dismiss();
-  
+
   }
 }
