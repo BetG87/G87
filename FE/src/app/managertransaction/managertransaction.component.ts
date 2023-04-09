@@ -149,9 +149,6 @@ export class ManagertransactionComponent implements OnInit {
   }
 
   async GetfullData() {
-    this.filteredTransactions.forEach(transaction => {
-      transaction.date = new Date(transaction.date);
-    });
     this.filteredTransactions.sort((a, b) => b.date - a.date);
     await setTimeout(() => {
       this.fullData = this.filteredTransactions;
