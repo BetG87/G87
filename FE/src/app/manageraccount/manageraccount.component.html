@@ -1,6 +1,9 @@
 <div class="col-md-10 col-sm-12">
     <div class="row">
         <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THÔNG <span class="styleUnderLine"> TIN TÀI</span> KHOẢN</i></h3>
+        <div class=" col-md-12 d-flex justify-content-center my-4">
+            <button type="submit" class="btn btn-danger mt-2 " (click)="addTransaction()">THÊM DỮ LIỆU TÀI KHOẢN</button>
+        </div>
         <div class="input-group mb-3 col-md-12 margin-input-right">
             <input type="text" class="form-control margin-input-left" placeholder="Tìm kiếm..." [(ngModel)]="searchTerm" name="search">
             <div class="input-group-append">
@@ -16,6 +19,7 @@
                         <th class="px-4 text-center">Email</th>
                         <th class="px-4 text-center">Số điện thoại</th>
                         <th class="px-4 text-center">Tên đầy đủ</th>
+                        <th class="px-4 text-center">Loại tài khoản</th>
                         <th class="px-4 text-center">Thông tin</th>
                         <th class="px-4 text-center">Cập nhật</th>
                         <th class="px-4 text-center">Xóa</th>
@@ -28,6 +32,7 @@
                         <td class=" py-2 text-center">{{ account.email }}</td>
                         <td class=" py-2 text-center">{{ account.numberPhone }}</td>
                         <td class=" py-2 text-center">{{ account.fullName }}</td>
+                        <td class=" py-2 text-center">{{ account.admin ? 'admin' : 'thường' }} </td>
                         <td class=" py-2 text-center">
                             <a (click)="infoAccount(account._id) " class="text-primary"><i class="fa fa-info-circle"></i></a>
                         </td>

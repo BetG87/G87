@@ -85,9 +85,14 @@ export class ManageraccountComponent implements OnInit {
     const info = this.managerAccount.filter((item) => item._id === _id);
     console.log(info);
     const modalRef = this.modalService.open(MyModalupdateaccountComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.mode = "1";
     modalRef.componentInstance.info = info;
+    modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin tài khoản";
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
-
+      if (result == true) {
+        this.ngOnInit()
+      }
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
@@ -119,5 +124,19 @@ export class ManageraccountComponent implements OnInit {
       || account.email.toLowerCase().indexOf(searchTerm) > -1
       || account.numberPhone.toLowerCase().indexOf(searchTerm) > -1
       || account.fullName.toLowerCase().indexOf(searchTerm) > -1;
+  }
+  addTransaction() {
+    const modalRef = this.modalService.open(MyModalupdateaccountComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.mode = "0";
+    modalRef.componentInstance.Tittle = "Tạo Mới Tài Khoản";
+    modalRef.componentInstance.buttonConfirm = "Tạo Mới";
+    modalRef.result.then((result: any) => {
+      console.log(result);
+      if (result == true) {
+        this.ngOnInit()
+      }
+    }).catch((error: any) => {
+      console.log(error);
+    });
   }
 }

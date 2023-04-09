@@ -37,6 +37,7 @@ export class MyModalinfoaccountComponent implements OnInit {
       id: [''],
       nameAccount: [''],
       numberPhone: [''],
+      typeAccount:[''],
       fullname: [''],
       email: [''],
       accountBank: [''],
@@ -57,6 +58,7 @@ export class MyModalinfoaccountComponent implements OnInit {
       this.formAccountinfo.controls['id'].setValue(this.info._id !== undefined ? this.info._id : "");
       this.formAccountinfo.controls['nameAccount'].setValue(this.info.username !== undefined ? this.info.username : "");
       this.formAccountinfo.controls['numberPhone'].setValue(this.info.numberPhone !== undefined ? this.info.numberPhone : "");
+      this.formAccountinfo.controls['typeAccount'].setValue(this.info.admin == true ? "Admin" : "Thường");
       this.formAccountinfo.controls['fullname'].setValue(this.info.fullName !== undefined ? this.info.fullName : "");
       this.formAccountinfo.controls['email'].setValue(this.info.email !== undefined ? this.info.email : "");
       this.formAccountinfo.controls['dateCreateAccount'].setValue(this.info.createdAt !== undefined ? this.info.createdAt : "");
@@ -66,15 +68,9 @@ export class MyModalinfoaccountComponent implements OnInit {
     }
 
 
-
-
-
     this.connectApi.get('v1/bank').subscribe((response) => {
       this.bankNameLists = response;
       console.log(this.bankNameLists)
-
-
-
 
       this.connectApi.get('v1/bankaccount').subscribe((response: any) => {
         this.fullallaccountbank = response
@@ -122,9 +118,7 @@ export class MyModalinfoaccountComponent implements OnInit {
   }
 
   closeModal() {
-    this.activeModal.close(true);
+    this.activeModal.dismiss();
   }
-  confirm() {
-    this.activeModal.close(false);
-  }
+
 }

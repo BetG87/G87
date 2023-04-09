@@ -19,6 +19,7 @@
                         <th class="px-4 text-center">TK Người DÙng </th>
                         <th class="px-4 text-center">TK ADMIN </th>
                         <th class="px-4 text-center">Số Tiền</th>
+                        <th class="px-4 text-center">Ngày Giao Dịch</th>
                         <th class="px-4 text-center">Trạng Thái</th>
                         <th class="px-4 text-center">Nạp/Rút</th>
                         <th class="px-4 text-center">Cập nhật</th>
@@ -31,6 +32,7 @@
                         <td class=" py-2 text-center">{{ transaction.namebankAccount}}-{{transaction.numberbankAccount}}</td>
                         <td class=" py-2 text-center">{{ transaction.numberbankAccountAdmin}}</td>
                         <td class=" py-2 text-center">{{ transaction.amount }}</td>
+                        <td class=" py-2 text-center">{{ transaction.date | date:'yyyy/MM/dd'}}</td>
                         <td class=" py-2 text-center">{{ transaction.nameStatus}}</td>
                         <td class=" py-2 text-center">
                             <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>

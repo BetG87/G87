@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Transaction } from '../entity/transaction';
 import { MyModalupdatetransactionsComponent } from '../my-modalupdatetransactions/my-modalupdatetransactions.component';
 import { GameProduct } from '../entity/GameProduct';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -51,9 +52,9 @@ export class ManagertransactionComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.filteredTransactions = []
     await this.GetTransaction();
-    this.currentPage = 1;
-    this.transactionsLoaded = true;
+
 
   }
 
@@ -148,10 +149,16 @@ export class ManagertransactionComponent implements OnInit {
   }
 
   async GetfullData() {
+    this.filteredTransactions.forEach(transaction => {
+      transaction.date = new Date(transaction.date);
+    });
+    this.filteredTransactions.sort((a, b) => b.date - a.date);
     await setTimeout(() => {
       this.fullData = this.filteredTransactions;
+      this.currentPage = 1;
+      this.transactionsLoaded = true;
       console.log(this.fullData)
-    }, 1000);
+    }, 3000);
   }
   updateTransaction(idaccounttransaction: any) {
     const infoTransactions = this.filteredTransactions.filter((item) => item._id === idaccounttransaction);
