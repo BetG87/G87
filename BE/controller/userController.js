@@ -64,13 +64,44 @@ const userController =
             if (req.body.status != null) {
                 user.status = req.body.status;
             }
+            if (req.body.isActive != null) {
+                user.isActive = req.body.isActive;
+            }
+            if (req.body.admin != null) {
+                user.admin = req.body.admin;
+            }
             const updatedUser = await user.save();
             return res.status(200).json(updatedUser);
         }
         catch (err) {
             return res.status(500).json(err)
         }
-    },
+    },changePassword: async (req, res) => {
+        try {          
+            const user = await User.findById(req.body._id);
+            const validPassword = await bcrypt.compare(
+				req.body.oldPassword,
+				user.password
+			)
+			if (!validPassword) {
+				return res.status(404).json("Wrong password")
+			}
+            else{
+                if (req.body.newPassword != null) {
+                    const salt = await bcrypt.genSalt(10);
+                    const hashed = await bcrypt.hash(req.body.newPassword, salt);
+                    user.password = hashed;
+            }
+                const updatedUser = await user.save();
+                return res.status(200).json("Change Password succcessfully");
+            }
+            
+        }
+        catch (err) {
+            return res.status(500).json(err)
+        }
+    }
+    
 }
 
 module.exports = userController;

@@ -11,4 +11,5 @@ router.get('/', middlewareController.verifyTokenAndAdminAuth, userController.get
 router.get('/:id', middlewareController.verifyToken, userController.getById);
 router.post('/delete', middlewareController.verifyTokenAndAdminAuth, userController.deletelUser);
 router.post('/update', middlewareController.verifyTokenAndAdminAuth, userController.updateUser);
+router.post('/changepass', middlewareController.verifyTokenAndAdminAuth, userController.changePassword);
 module.exports = router
