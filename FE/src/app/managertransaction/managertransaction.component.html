@@ -28,12 +28,12 @@
                 <tbody>
                     <tr *ngFor="let transaction of fullData.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
-                        <td class=" py-2 text-center">{{ transaction.nameUser}}</td>
-                        <td class=" py-2 text-center">{{ transaction.namebankAccount}}-{{transaction.numberbankAccount}}</td>
-                        <td class=" py-2 text-center">{{ transaction.numberbankAccountAdmin}}</td>
+                        <td class=" py-2 text-center">{{ transaction.user?.username}}</td>
+                        <td class=" py-2 text-center">{{ transaction.bankAccount?.ownerName}}-{{transaction.bankAccount?.bankAccountNumber}}</td>
+                        <td class=" py-2 text-center">{{ transaction.bankAccountAdmin?.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ transaction.amount }}</td>
                         <td class=" py-2 text-center">{{ transaction.date | date:'yyyy/MM/dd'}}</td>
-                        <td class=" py-2 text-center">{{ transaction.nameStatus}}</td>
+                        <td class=" py-2 text-center">{{ transaction.status?.name}}</td>
                         <td class=" py-2 text-center">
                             <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>
                             <span *ngIf="transaction.type === 'withdrawal'">Rút tiền</span></td>

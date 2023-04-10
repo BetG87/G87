@@ -8,9 +8,10 @@ import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Transaction } from '../entity/transaction';
 import { MyModalupdatetransactionsComponent } from '../my-modalupdatetransactions/my-modalupdatetransactions.component';
-import { GameProduct } from '../entity/GameProduct';
+
 import { forkJoin, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, timeout } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -26,14 +27,6 @@ export class ManagertransactionComponent implements OnInit {
   managerTransaction: Transaction[] = [];
   filteredTransactions: any[] = [];
   searchTerm: any;
-  listGameProduct: any[] = [];
-  GameProduct: GameProduct[] = [];
-  allUser: any[] = [];
-  listallUser: any[] = [];
-  allStatus: any[] = [];
-  listallStatus: any[] = [];
-  allBankAccount: any[] = [];
-  listallBankAccount: any[] = [];
   fullData: any[] = [];
   transactionsLoaded: boolean = false;
   constructor(private dataShare: DataShareService,
@@ -42,7 +35,6 @@ export class ManagertransactionComponent implements OnInit {
     private route: Router,
     private cookieStore: CookieStorageService,
     private modalService: NgbModal, private fb: FormBuilder) {
-
 
     const getTokenac = this.sessionStore.getToken();
     console.log(getTokenac)
@@ -55,119 +47,26 @@ export class ManagertransactionComponent implements OnInit {
   async ngOnInit() {
     this.filteredTransactions = [];
     this.fullData = [];
-    forkJoin({
-      transaction: this.GetTransaction(),
-      gameProduct: this.GetGameProduct(),
-      user: this.GetUser(),
-      status: this.GetStatus(),
-      bankAccount: this.GetBankAccount()
-
-    }).pipe(
-      catchError(error => of(error)) // handle errors
-    ).subscribe(() => {
-      this.GetfullData();
-    });
+    this.GetTransaction()
   }
 
-  async GetTransaction() {
+  GetTransaction() {
     this.connectApi.get('v1/transaction').subscribe((response: any) => {
       console.log(response)
       this.managerTransaction = response
       this.filteredTransactions = [...this.managerTransaction];
       console.log(this.filteredTransactions)
-    })
-    // await this.GetUser();
-
-    return Promise.resolve();
-  }
-  async GetGameProduct() {
-    this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
-      console.log(response)
-      this.GameProduct = response
-      this.listGameProduct = [...this.GameProduct];
-      console.log(this.listGameProduct)
-
-      for (let i = 0; i < this.filteredTransactions.length; i++) {
-        const gameProduct = this.filteredTransactions[i].gameProduct;
-        const game = this.listGameProduct.find(g => g._id === gameProduct);
-        if (game) {
-          this.filteredTransactions[i].nameGame = game.name;
-        }
-      }
-    })
-    // await this.GetGameProduct();
-    return Promise.resolve();
-  }
-
-  async GetUser() {
-    this.connectApi.get('v1/user').subscribe((response: any) => {
-      console.log(response)
-      this.allUser = response
-      this.listallUser = [...this.allUser];
-      console.log(this.listallUser)
-      for (let i = 0; i < this.filteredTransactions.length; i++) {
-        const accountId = this.filteredTransactions[i].user;
-        const account = this.listallUser.find(g => g._id === accountId);
-        if (account) {
-          this.filteredTransactions[i].nameUser = account.username;
-        }
-      }
-    })
-    // await this.GetStatus();
-    return Promise.resolve();
-  }
-
-  async GetStatus() {
-    this.connectApi.get('v1/status').subscribe((response: any) => {
-      console.log(response)
-      this.allStatus = response
-      this.listallStatus = [...this.allStatus];
-      console.log(this.listallStatus)
-      for (let i = 0; i < this.filteredTransactions.length; i++) {
-        const statusId = this.filteredTransactions[i].status;
-        const status = this.listallStatus.find(g => g._id === statusId);
-        if (status) {
-          this.filteredTransactions[i].nameStatus = status.name;
-        }
-      }
-    })
-    // await this.GetBankAccount();
-    return Promise.resolve();
-  }
-  async GetBankAccount() {
-    this.connectApi.get('v1/bankaccount').subscribe(async (response: any) => {
-      console.log(response)
-      this.allBankAccount = response
-      this.listallBankAccount = [...this.allBankAccount];
-      console.log(this.listallBankAccount)
-      for (let i = 0; i < this.filteredTransactions.length; i++) {
-        const bankAccountId = this.filteredTransactions[i].bankAccount;
-        const bankAccount = this.listallBankAccount.find(g => g._id === bankAccountId);
-        if (bankAccount) {
-          this.filteredTransactions[i].namebankAccount = bankAccount.ownerName;
-          this.filteredTransactions[i].numberbankAccount = bankAccount.bankAccountNumber;
-        }
-        const bankAccountAdminId = this.filteredTransactions[i].bankAccountAdmin;
-        const bankAccountAdmin = this.listallBankAccount.find(g => g._id === bankAccountAdminId);
-        if (bankAccountAdmin) {
-          this.filteredTransactions[i].namebankAccountAdmin = bankAccountAdmin.ownerName;
-          this.filteredTransactions[i].numberbankAccountAdmin = bankAccountAdmin.bankAccountNumber;
-        }
-      }
-      console.log(this.filteredTransactions)
-      // this.GetfullData();
-      return Promise.resolve();
+      this.GetfullData(this.filteredTransactions)
     })
   }
 
-  async GetfullData() {
-    this.filteredTransactions.sort((a, b) => b.date - a.date);
-    await setTimeout(() => {
-      this.fullData = this.filteredTransactions;
-      this.currentPage = 1;
-      this.transactionsLoaded = true;
-      console.log(this.fullData)
-    }, 3000);
+  async GetfullData(datalist: any[]) {
+    datalist.sort((a, b) => b.date - a.date);
+    this.fullData = datalist;
+    this.currentPage = 1;
+    this.transactionsLoaded = true;
+    console.log(this.fullData)
+
   }
   updateTransaction(idaccounttransaction: any) {
     const infoTransactions = this.filteredTransactions.filter((item) => item._id === idaccounttransaction);
@@ -188,33 +87,55 @@ export class ManagertransactionComponent implements OnInit {
     });
   }
   search() {
-    console.log(this.managerTransaction)
+    console.log(this.fullData)
     if (!this.searchTerm) {
-      this.filteredTransactions = [...this.managerTransaction];
-
+      this.fullData = [...this.managerTransaction];
     } else {
-      console.log(this.filteredTransactions)
-      console.log(this.managerTransaction)
-      this.filteredTransactions = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
+      this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
+      this.fullData.sort((a, b) => b.date - a.date);
       this.currentPage = 1;
     }
   }
 
   matchesSearchTerm(accounttransaction: any) {
-    accounttransaction.nameUser = accounttransaction.nameUser !== undefined ? accounttransaction.nameUser : "";
-    accounttransaction.namebankAccount = accounttransaction.namebankAccount !== undefined ? accounttransaction.namebankAccount : "";
-    accounttransaction.numberbankAccount = accounttransaction.numberbankAccount !== undefined ? accounttransaction.numberbankAccount : "";
-    accounttransaction.namebankAccountAdmin = accounttransaction.namebankAccountAdmin !== undefined ? accounttransaction.namebankAccountAdmin : "";
-    accounttransaction.amount = accounttransaction.amount !== undefined ? accounttransaction.amount : "";
-    accounttransaction.nameStatus = accounttransaction.nameStatus !== undefined ? accounttransaction.nameStatus : "";
-
     const searchTerm = this.searchTerm.toLowerCase();
-    return accounttransaction.nameUser.toLowerCase().indexOf(searchTerm) > -1
-      || accounttransaction.namebankAccount.toLowerCase().indexOf(searchTerm) > -1
-      || accounttransaction.numberbankAccount.toLowerCase().indexOf(searchTerm) > -1
-      || accounttransaction.namebankAccountAdmin.toLowerCase().indexOf(searchTerm) > -1
-      || accounttransaction.amount.toLowerCase().indexOf(searchTerm) > -1
-      || accounttransaction.nameStatus.toLowerCase().indexOf(searchTerm) > -1;
+    let searchName
+    let searchownerName
+    let searchbankAccountNumberuser
+    let searchbankAccountNumberAdmin
+    let searchamount
+    let nameStatus
+    let date
+    if (accounttransaction.user !== undefined) {
+      accounttransaction.user.username = accounttransaction.user.username !== undefined ? accounttransaction.user.username : "";
+      searchName = accounttransaction.user.username.toLowerCase().indexOf(searchTerm) > -1
+    }
+    if (accounttransaction.bankAccount !== undefined) {
+      accounttransaction.bankAccount.ownerName = accounttransaction.bankAccount.ownerName !== undefined ? accounttransaction.bankAccount.ownerName : "";
+      accounttransaction.bankAccount.bankAccountNumber = accounttransaction.bankAccount.bankAccountNumber !== undefined ? accounttransaction.bankAccount.bankAccountNumber : "";
+      searchownerName = accounttransaction.bankAccount.ownerName.toLowerCase().indexOf(searchTerm) > -1
+      searchbankAccountNumberuser = accounttransaction.bankAccount.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
+    }
+    if (accounttransaction.bankAccountAdmin !== undefined) {
+      accounttransaction.bankAccountAdmin.bankAccountNumber = accounttransaction.bankAccountAdmin.bankAccountNumber !== undefined ? accounttransaction.bankAccountAdmin.bankAccountNumber : "";
+      searchbankAccountNumberAdmin = accounttransaction.bankAccountAdmin.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
+    }
+    accounttransaction.amount = accounttransaction.amount !== undefined ? accounttransaction.amount : "";
+    searchamount = accounttransaction.amount.toLowerCase().indexOf(searchTerm) > -1
+    accounttransaction.nameStatus = accounttransaction.status.name !== undefined ? accounttransaction.status.name : "";
+    nameStatus = accounttransaction.nameStatus.toLowerCase().indexOf(searchTerm) > -1;
+    const datePipe = new DatePipe('en-US');
+    let formattedDate = datePipe.transform(accounttransaction.date, 'yyyy/MM/dd');
+    if (formattedDate) {
+      date = formattedDate.toLowerCase().indexOf(searchTerm) > -1;
+    }
+    return searchName
+      || searchownerName
+      || searchbankAccountNumberuser
+      || searchbankAccountNumberAdmin
+      || searchamount
+      || nameStatus
+      || date
   }
 
   addTransaction() {
@@ -232,9 +153,7 @@ export class ManagertransactionComponent implements OnInit {
     });
   }
   handleError(error: any) {
-
   }
-
 }
 
 

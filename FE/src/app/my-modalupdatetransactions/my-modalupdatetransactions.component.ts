@@ -105,15 +105,20 @@ export class MyModalupdatetransactionsComponent implements OnInit {
       console.log(this.infoTransactions)
       if (this.infoTransactions) {
         console.log(this.infoTransactions)
-        this.formAccountupdateTransaction.controls['UserName'].setValue(this.infoTransactions.user !== undefined ? this.infoTransactions.user : "");
-        this.formAccountupdateTransaction.controls['nameGame'].setValue(this.infoTransactions.gameProduct !== undefined ? this.infoTransactions.gameProduct : "");
-        this.formAccountupdateTransaction.controls['AccountBankUser'].setValue(this.infoTransactions.bankAccount !== undefined ? this.infoTransactions.bankAccount : "");
-        this.formAccountupdateTransaction.controls['AccountBankAdmin'].setValue(this.infoTransactions.bankAccountAdmin !== undefined ? this.infoTransactions.bankAccountAdmin : "");
+        this.formAccountupdateTransaction.controls['UserName'].setValue(this.infoTransactions.user._id !== undefined ? this.infoTransactions.user._id : "");
+        this.formAccountupdateTransaction.controls['nameGame'].setValue(this.infoTransactions.gameProduct._id !== undefined ? this.infoTransactions.gameProduct._id : "");
+        this.formAccountupdateTransaction.controls['AccountBankUser'].setValue(this.infoTransactions.bankAccount._id !== undefined ? this.infoTransactions.bankAccount._id : "");
+        this.formAccountupdateTransaction.controls['AccountBankAdmin'].setValue(this.infoTransactions.bankAccountAdmin._id !== undefined ? this.infoTransactions.bankAccountAdmin._id : "");
         this.formAccountupdateTransaction.controls['amount'].setValue(this.infoTransactions.amount !== undefined ? this.infoTransactions.amount : "");
-        this.formAccountupdateTransaction.controls['status'].setValue(this.infoTransactions.status !== undefined ? this.infoTransactions.status : "");
+        this.formAccountupdateTransaction.controls['status'].setValue(this.infoTransactions.status._id !== undefined ? this.infoTransactions.status._id : "");
         this.formAccountupdateTransaction.controls['type'].setValue(this.infoTransactions.type !== undefined ? this.infoTransactions.type : "");
         this.formAccountupdateTransaction.controls['note'].setValue(this.infoTransactions.note !== undefined ? this.infoTransactions.note : "");
         this.formAccountupdateTransaction.get('UserName').disable();
+        this.formAccountupdateTransaction.get('nameGame').disable();
+        this.formAccountupdateTransaction.get('AccountBankUser').disable();
+        this.formAccountupdateTransaction.get('AccountBankAdmin').disable();
+        this.formAccountupdateTransaction.get('amount').disable();
+
         // this.formAccountupdateTransaction.get('nameAccountGame').disable();
         console.log(this.infoTransactions.numberbankAccount)
         console.log(this.formAccountupdateTransaction.controls['AccountBankUser'].value)
