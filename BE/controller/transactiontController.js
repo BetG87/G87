@@ -18,7 +18,7 @@ const transactionController = {
     },
     getAllTransaction: async (req, res) => {
         try {
-            const bankAccount = await Transaction.find();
+            const bankAccount = await Transaction.find().populate('bankAccount bankAccountAdmin gameProduct user status');
             return res.status(200).json(bankAccount)
         } catch (err) {
             return res.status(500).json(err); //HTTP REQUEST CODE
