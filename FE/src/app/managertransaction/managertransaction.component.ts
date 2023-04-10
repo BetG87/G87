@@ -9,7 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Transaction } from '../entity/transaction';
 import { MyModalupdatetransactionsComponent } from '../my-modalupdatetransactions/my-modalupdatetransactions.component';
 import { GameProduct } from '../entity/GameProduct';
-import { DatePipe } from '@angular/common';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Component({
@@ -52,10 +53,20 @@ export class ManagertransactionComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.filteredTransactions = []
-    await this.GetTransaction();
+    this.filteredTransactions = [];
+    this.fullData = [];
+    forkJoin({
+      transaction: this.GetTransaction(),
+      gameProduct: this.GetGameProduct(),
+      user: this.GetUser(),
+      status: this.GetStatus(),
+      bankAccount: this.GetBankAccount()
 
-
+    }).pipe(
+      catchError(error => of(error)) // handle errors
+    ).subscribe(() => {
+      this.GetfullData();
+    });
   }
 
   async GetTransaction() {
@@ -65,7 +76,8 @@ export class ManagertransactionComponent implements OnInit {
       this.filteredTransactions = [...this.managerTransaction];
       console.log(this.filteredTransactions)
     })
-    await this.GetGameProduct();
+    // await this.GetUser();
+
     return Promise.resolve();
   }
   async GetGameProduct() {
@@ -83,7 +95,7 @@ export class ManagertransactionComponent implements OnInit {
         }
       }
     })
-    await this.GetUser();
+    // await this.GetGameProduct();
     return Promise.resolve();
   }
 
@@ -101,7 +113,7 @@ export class ManagertransactionComponent implements OnInit {
         }
       }
     })
-    await this.GetStatus();
+    // await this.GetStatus();
     return Promise.resolve();
   }
 
@@ -119,7 +131,7 @@ export class ManagertransactionComponent implements OnInit {
         }
       }
     })
-    await this.GetBankAccount();
+    // await this.GetBankAccount();
     return Promise.resolve();
   }
   async GetBankAccount() {
@@ -138,12 +150,12 @@ export class ManagertransactionComponent implements OnInit {
         const bankAccountAdminId = this.filteredTransactions[i].bankAccountAdmin;
         const bankAccountAdmin = this.listallBankAccount.find(g => g._id === bankAccountAdminId);
         if (bankAccountAdmin) {
-          this.filteredTransactions[i].namebankAccountAdmin = bankAccount.ownerName;
-          this.filteredTransactions[i].numberbankAccountAdmin = bankAccount.bankAccountNumber;
+          this.filteredTransactions[i].namebankAccountAdmin = bankAccountAdmin.ownerName;
+          this.filteredTransactions[i].numberbankAccountAdmin = bankAccountAdmin.bankAccountNumber;
         }
       }
       console.log(this.filteredTransactions)
-      this.GetfullData();
+      // this.GetfullData();
       return Promise.resolve();
     })
   }
@@ -219,7 +231,12 @@ export class ManagertransactionComponent implements OnInit {
       console.log(error);
     });
   }
+  handleError(error: any) {
+
+  }
+
 }
+
 
 
 
