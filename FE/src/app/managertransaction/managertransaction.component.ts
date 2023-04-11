@@ -61,7 +61,8 @@ export class ManagertransactionComponent implements OnInit {
   }
 
   async GetfullData(datalist: any[]) {
-    datalist.sort((a, b) => b.date - a.date);
+    datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    console.log(datalist)
     this.fullData = datalist;
     this.currentPage = 1;
     this.transactionsLoaded = true;
@@ -92,7 +93,7 @@ export class ManagertransactionComponent implements OnInit {
       this.fullData = [...this.managerTransaction];
     } else {
       this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
-      this.fullData.sort((a, b) => b.date - a.date);
+      this.fullData .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       this.currentPage = 1;
     }
   }
