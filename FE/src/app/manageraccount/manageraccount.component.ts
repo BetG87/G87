@@ -30,11 +30,13 @@ export class ManageraccountComponent implements OnInit {
     this.connectApi.get('v1/user/').subscribe((response: any) => {
       console.log(response)
       this.managerAccount = response
+
       this.filteredAccounts = [...this.managerAccount];
+      this.filteredAccounts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       console.log(this.filteredAccounts)
     })
   }
-  
+
 
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -91,6 +93,7 @@ export class ManageraccountComponent implements OnInit {
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {
+        console.log(result)
         this.ngOnInit()
       }
       console.log(result);
@@ -108,16 +111,17 @@ export class ManageraccountComponent implements OnInit {
       console.log(this.filteredAccounts)
       console.log(this.managerAccount)
       this.filteredAccounts = this.managerAccount.filter(account => this.matchesSearchTerm(account));
-      this.currentPage= 1;
+      this.filteredAccounts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      this.currentPage = 1;
     }
   }
 
   matchesSearchTerm(account: any) {
     console.log(account)
-    account.username = account.username !== undefined ? account.username : "" ;
-    account.email = account.email !== undefined ? account.email : "" ;
-    account.numberPhone = account.numberPhone !== undefined ? account.numberPhone : "" ;
-    account.fullName = account.fullName !== undefined ? account.fullName : "" ;
+    account.username = account.username !== undefined ? account.username : "";
+    account.email = account.email !== undefined ? account.email : "";
+    account.numberPhone = account.numberPhone !== undefined ? account.numberPhone : "";
+    account.fullName = account.fullName !== undefined ? account.fullName : "";
     console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return account.username.toLowerCase().indexOf(searchTerm) > -1

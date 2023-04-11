@@ -49,6 +49,23 @@
                     <input type="text" formControlName="email" id="email" class="form-control">
                 </div>
             </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="statusUser" class="size1Rem">Trạng thái tài khoản : </label>
+                    <select id="statusUser" class="form-control" name="statusUser" formControlName="statusUser">
+                        <option value="true">Đang sử dụng</option>
+                        <option value="false">Ngưng sử dụng</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12" *ngIf="mode === '0'">
+                <label for="bankId"> Ngân Hàng</label>
+                <ng-select [items]="bankNameLists" bindLabel="name" bindValue="_id" formControlName="bankId"></ng-select>
+            </div>
+            <div class="form-group col-md-6 col-sm-12" *ngIf="mode === '0'">
+                <label for="bankAccountNumber"> Số Tài Khoản</label>
+                <input type="text" formControlName="bankAccountNumber" id="bankAccountNumber" class="form-control" formControlName="bankAccountNumber">
+            </div>
         </div>
     </form>
 </div>

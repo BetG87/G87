@@ -17,6 +17,9 @@ export class MyModalupdateaccountComponent implements OnInit {
   Tittle: string = "";
   buttonConfirm: string = "";
   info: any | undefined;
+  bankNameLists: any;
+  selectedBank: any;
+
   constructor(public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private router: Router,
@@ -29,11 +32,19 @@ export class MyModalupdateaccountComponent implements OnInit {
       typeAccount: [''],
       fullname: [''],
       email: [''],
-      passWord: ['']
+      passWord: [''],
+      statusUser: [''],
+      bankId: [''],
+      bankAccountNumber: ['']
     });
+    
   }
 
   ngOnInit(): void {
+    this.connectApi.get('v1/bank').subscribe((response) => {
+      console.log(response)
+      this.bankNameLists = response;
+    });
     this.Getdata()
   }
 
@@ -47,6 +58,7 @@ export class MyModalupdateaccountComponent implements OnInit {
         this.formAccountupdate.controls['typeAccount'].setValue(this.info[0].admin !== undefined ? this.info[0].admin : "");
         this.formAccountupdate.controls['fullname'].setValue(this.info[0].fullName !== undefined ? this.info[0].fullName : "");
         this.formAccountupdate.controls['email'].setValue(this.info[0].email !== undefined ? this.info[0].email : "");
+        this.formAccountupdate.controls['statusUser'].setValue(this.info[0].isActive !== undefined ? this.info[0].isActive : false);
         this.formAccountupdate.get('nameAccount').disable();
       }
     }
@@ -79,7 +91,8 @@ export class MyModalupdateaccountComponent implements OnInit {
             "password": this.formAccountupdate.controls['passWord'].value,
             "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
             "fullName": this.formAccountupdate.controls['fullname'].value,
-            "admin": this.formAccountupdate.controls['typeAccount'].value
+            "admin": this.formAccountupdate.controls['typeAccount'].value,
+            "isActive": this.formAccountupdate.controls['statusUser'].value
           }
           console.log(meessage)
           this.connectApi.post('v1/user/update', meessage).subscribe((response: any) => {
@@ -121,7 +134,10 @@ export class MyModalupdateaccountComponent implements OnInit {
             "password": this.formAccountupdate.controls['passWord'].value,
             "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
             "fullName": this.formAccountupdate.controls['fullname'].value,
-            "admin": this.formAccountupdate.controls['typeAccount'].value
+            "admin": this.formAccountupdate.controls['typeAccount'].value,
+            "isActive": this.formAccountupdate.controls['statusUser'].value,
+            "bankId": this.formAccountupdate.controls['bankId'].value,
+            "bankAccountNumber": this.formAccountupdate.controls['bankAccountNumber'].value,
           }
           console.log(meessage)
           this.connectApi.post('v1/auth/register', meessage).subscribe((response: any) => {

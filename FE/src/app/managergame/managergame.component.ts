@@ -79,6 +79,7 @@ export class ManagergameComponent implements OnInit {
               this.filteredAccountsGame[i].nameAccount = account.username;
             }
           }
+          this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
           console.log(this.filteredAccountsGame)
           this.currentPage = 1
         })
@@ -148,6 +149,7 @@ export class ManagergameComponent implements OnInit {
       console.log(this.filteredAccountsGame)
       console.log(this.managerAccountGame)
       this.filteredAccountsGame = this.managerAccountGame.filter(accountGame => this.matchesSearchTerm(accountGame));
+      this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       this.currentPage = 1;
     }
   }
