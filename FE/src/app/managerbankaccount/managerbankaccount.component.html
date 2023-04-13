@@ -14,7 +14,7 @@
                         <th class="px-4 text-center">Số Thứ Tự</th>
                         <th class="px-4 text-center">Số Tài Khoản</th>
                         <th class="px-4 text-center">Tên Chủ Tài Khoản</th>
-                        <th class="px-4 text-center">Mã người dùng</th>
+                        <th class="px-4 text-center">Tài khoản</th>
                         <th class="px-4 text-center">Trạng Thái</th>
                         <th class="px-4 text-center">Thông tin</th>
                         <th class="px-4 text-center">Cập nhật</th>
@@ -26,7 +26,7 @@
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                         <td class=" py-2 text-center">{{ accountBank.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ accountBank.ownerName }}</td>
-                        <td class=" py-2 text-center">{{ accountBank.user }}</td>
+                        <td class=" py-2 text-center">{{ accountBank.user?.username }}</td>
                         <td class=" py-2 text-center">{{ accountBank.isActive }}</td>
                         <td class=" py-2 text-center">
                             <a (click)="infoAccountBank(accountBank.bankAccountNumber) " class="text-primary"><i class="fa fa-info-circle"></i></a>

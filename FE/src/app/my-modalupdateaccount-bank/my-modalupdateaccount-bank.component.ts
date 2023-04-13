@@ -36,7 +36,7 @@ export class MyModalupdateaccountBankComponent implements OnInit {
       console.log(this.infoBank)
       this.formAccountinfoBank.controls['accountBank'].setValue(this.infoBank.bankAccountNumber !== undefined ? this.infoBank.bankAccountNumber : "");
       this.formAccountinfoBank.controls['nameAccountBank'].setValue(this.infoBank.ownerName !== undefined ? this.infoBank.ownerName : "");
-      this.formAccountinfoBank.controls['userBank'].setValue(this.infoBank.user !== undefined ? this.infoBank.user : "");
+      this.formAccountinfoBank.controls['userBank'].setValue(this.infoBank.user !== undefined ? this.infoBank.user.username : "");
       this.formAccountinfoBank.controls['statusAccount'].setValue(this.infoBank.isActive !== undefined ? this.infoBank.isActive : "");
       console.log(this.infoBank)
     }
@@ -48,6 +48,7 @@ export class MyModalupdateaccountBankComponent implements OnInit {
     this.activeModal.close(true);
   }
   confirm() {
+    this.formAccountinfoBank.controls['userBank'].setValue(this.infoBank.user !== undefined ? this.infoBank.user._id : "");
     this.activeModal.close(false);
   }
 
