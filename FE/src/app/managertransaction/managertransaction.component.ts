@@ -94,7 +94,7 @@ export class ManagertransactionComponent implements OnInit {
     } else {
       this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
       this.fullData .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      this.currentPage = 1;
+      this.currentPage = 1; 
     }
   }
 

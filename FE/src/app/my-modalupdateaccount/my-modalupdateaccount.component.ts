@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { MyModalComponent } from '../my-modal/my-modal.component';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-my-modalupdateaccount',
@@ -19,6 +20,7 @@ export class MyModalupdateaccountComponent implements OnInit {
   info: any | undefined;
   bankNameLists: any;
   selectedBank: any;
+  confirm: boolean = false
 
   constructor(public activeModal: NgbActiveModal,
     private fb: FormBuilder,
@@ -27,23 +29,23 @@ export class MyModalupdateaccountComponent implements OnInit {
     private modalService: NgbModal) {
     this.formAccountupdate = this.fb.group({
       // id: [''],
-      nameAccount: [''],
-      numberPhone: [''],
-      typeAccount: [''],
-      fullname: [''],
-      email: [''],
-      passWord: [''],
-      statusUser: [''],
-      bankId: [''],
-      bankAccountNumber: ['']
+      nameAccount: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      numberPhone: [null, [Validators.required, Validators.minLength(8)]],
+      typeAccount: [false, [Validators.required]],
+      fullname: [null, [Validators.required, Validators.minLength(8)]],
+      email: [null, [Validators.required, Validators.email]],
+      accountpassword:  [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      statusUser: [true, [Validators.required]],
+      bankId: [null, [Validators.required]],
+      bankAccountNumber: [null, [Validators.required, Validators.minLength(8)]]
     });
-    
   }
 
   ngOnInit(): void {
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
       this.bankNameLists = response;
+      this.formAccountupdate.controls['bankId'].setValue(this.bankNameLists[0]?._id)
     });
     this.Getdata()
   }
@@ -71,32 +73,74 @@ export class MyModalupdateaccountComponent implements OnInit {
   closeModal() {
     this.activeModal.close(true);
   }
-  confirm() {
-    if (!this.checkForm()) {
-      alert("Xin hãy nhập đầy đủ nội dung");
-      return
-    }
-    if (this.mode == "1") {
-      const title = "Cập Nhập Thông Tin Tài Khoản";
-      const content = "Bạn có chắc muốn cập nhập thông tin tài khoản này?";
-      const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
-      modalRef.componentInstance.title = title;
-      modalRef.componentInstance.content = content;
-      modalRef.result.then((result: any) => {
-        if (result == true) {
-          const meessage = {
-            "_id": this.info[0]._id,
-            "username": this.formAccountupdate.controls['nameAccount'].value,
-            "email": this.formAccountupdate.controls['email'].value,
-            "password": this.formAccountupdate.controls['passWord'].value,
-            "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
-            "fullName": this.formAccountupdate.controls['fullname'].value,
-            "admin": this.formAccountupdate.controls['typeAccount'].value,
-            "isActive": this.formAccountupdate.controls['statusUser'].value
+  btnconfirm() {
+    this.confirm = true
+    if (this.confirm && this.formAccountupdate.valid) {
+      if (this.mode == "1") {
+        const title = "Cập Nhập Thông Tin Tài Khoản";
+        const content = "Bạn có chắc muốn cập nhập thông tin tài khoản này?";
+        const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
+        modalRef.componentInstance.title = title;
+        modalRef.componentInstance.content = content;
+        modalRef.result.then((result: any) => {
+          if (result == true) {
+            const meessage = {
+              "_id": this.info[0]._id,
+              "username": this.formAccountupdate.controls['nameAccount'].value,
+              "email": this.formAccountupdate.controls['email'].value,
+              "password": this.formAccountupdate.controls['accountpassword'].value,
+              "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
+              "fullName": this.formAccountupdate.controls['fullname'].value,
+              "admin": this.formAccountupdate.controls['typeAccount'].value,
+              "isActive": this.formAccountupdate.controls['statusUser'].value
+            }
+            console.log(meessage)
+            this.connectApi.post('v1/user/update', meessage).subscribe((response: any) => {
+              if (response) {
+                this.activeModal.close(true);
+                const modalRef = this.modalService.open(MyModalComponent, {
+                  size: 'sm',
+                  backdrop: 'static',
+                  keyboard: false,
+                });
+                modalRef.componentInstance.Notification =
+                  'Thông Báo Cập Nhập';
+                modalRef.componentInstance.contentNotification =
+                  'Cập nhập tài khoản thành công';
+                modalRef.result
+                  .then((result: any) => {
+                  })
+                  .catch((error: any) => {
+                    console.log(error);
+                  });
+              }
+            })
           }
-          console.log(meessage)
-          this.connectApi.post('v1/user/update', meessage).subscribe((response: any) => {
-            if (response) {
+          console.log(result);
+        }).catch((error: any) => {
+          console.log(error);
+        });
+      } else {
+        const title = "Tạo Mới Tài Khoản";
+        const content = "Bạn có muốn tạo mới tài khoản này?";
+        const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
+        modalRef.componentInstance.title = title;
+        modalRef.componentInstance.content = content;
+        modalRef.result.then((result: any) => {
+          if (result == true) {
+            const meessage = {
+              "username": this.formAccountupdate.controls['nameAccount'].value,
+              "email": this.formAccountupdate.controls['email'].value,
+              "password": this.formAccountupdate.controls['accountpassword'].value,
+              "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
+              "fullName": this.formAccountupdate.controls['fullname'].value,
+              "admin": this.formAccountupdate.controls['typeAccount'].value,
+              "isActive": this.formAccountupdate.controls['statusUser'].value,
+              "bankId": this.formAccountupdate.controls['bankId'].value,
+              "bankAccountNumber": this.formAccountupdate.controls['bankAccountNumber'].value,
+            }
+            console.log(meessage)
+            this.connectApi.post('v1/auth/register', meessage).subscribe((response: any) => {
               this.activeModal.close(true);
               const modalRef = this.modalService.open(MyModalComponent, {
                 size: 'sm',
@@ -104,66 +148,29 @@ export class MyModalupdateaccountComponent implements OnInit {
                 keyboard: false,
               });
               modalRef.componentInstance.Notification =
-                'Thông Báo Cập Nhập';
+                'Thông Báo Đăng kí';
               modalRef.componentInstance.contentNotification =
-                'Cập nhập tài khoản thành công';
+                'Đăng kí tài khoản thành công';
               modalRef.result
                 .then((result: any) => {
                 })
                 .catch((error: any) => {
                   console.log(error);
                 });
-            }
-          })
-        }
-        console.log(result);
-      }).catch((error: any) => {
-        console.log(error);
-      });
-    } else {
-      const title = "Tạo Mới Tài Khoản";
-      const content = "Bạn có muốn tạo mới tài khoản này?";
-      const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
-      modalRef.componentInstance.title = title;
-      modalRef.componentInstance.content = content;
-      modalRef.result.then((result: any) => {
-        if (result == true) {
-          const meessage = {
-            "username": this.formAccountupdate.controls['nameAccount'].value,
-            "email": this.formAccountupdate.controls['email'].value,
-            "password": this.formAccountupdate.controls['passWord'].value,
-            "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
-            "fullName": this.formAccountupdate.controls['fullname'].value,
-            "admin": this.formAccountupdate.controls['typeAccount'].value,
-            "isActive": this.formAccountupdate.controls['statusUser'].value,
-            "bankId": this.formAccountupdate.controls['bankId'].value,
-            "bankAccountNumber": this.formAccountupdate.controls['bankAccountNumber'].value,
-          }
-          console.log(meessage)
-          this.connectApi.post('v1/auth/register', meessage).subscribe((response: any) => {
-            this.activeModal.close(true);
-            const modalRef = this.modalService.open(MyModalComponent, {
-              size: 'sm',
-              backdrop: 'static',
-              keyboard: false,
-            });
-            modalRef.componentInstance.Notification =
-              'Thông Báo Đăng kí';
-            modalRef.componentInstance.contentNotification =
-              'Đăng kí tài khoản thành công';
-            modalRef.result
-              .then((result: any) => {
-              })
-              .catch((error: any) => {
-                console.log(error);
-              });
-          })
-        } else
-          console.log(result);
-      }).catch((error: any) => {
-        console.log(error);
-      });
+            })
+          } else
+            console.log(result);
+        }).catch((error: any) => {
+          console.log(error);
+        });
+      }
+
     }
+    // if (!this.checkForm()) {
+    //   alert("Xin hãy nhập đầy đủ nội dung");
+    //   return
+    // }
+
   }
 
   checkForm() {

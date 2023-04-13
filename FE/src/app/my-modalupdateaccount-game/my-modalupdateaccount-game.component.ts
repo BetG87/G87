@@ -29,7 +29,7 @@ export class MyModalupdateaccountGameComponent implements OnInit {
       nameGame: [''],
       nameAccountGame: [''],
       user: [''],
-      statusAccount: [''],
+      statusAccount: [true],
       password: ['']
 
     });
@@ -47,21 +47,24 @@ export class MyModalupdateaccountGameComponent implements OnInit {
     this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
       this.allGameproduct = response
       console.log(this.allGameproduct)
-    })
-    if (this.mode == "1") {
-      console.log(this.infoGame)
-      if (this.infoGame) {
+      this.formAccountupdateGame.controls['nameGame'].setValue(this.allGameproduct[0]?._id);
+      if (this.mode == "1") {
         console.log(this.infoGame)
-        this.formAccountupdateGame.controls['nameGame'].setValue(this.infoGame.gameProduct !== undefined ? this.infoGame.gameProduct : "");
-        this.formAccountupdateGame.controls['nameAccountGame'].setValue(this.infoGame.username !== undefined ? this.infoGame.username : "");
-        this.formAccountupdateGame.controls['user'].setValue(this.infoGame.user !== undefined ? this.infoGame.user : "");
-        this.formAccountupdateGame.controls['statusAccount'].setValue(this.infoGame.isActive !== undefined ? this.infoGame.isActive : "");
-        this.formAccountupdateGame.controls['password'].setValue("");
-        this.formAccountupdateGame.get('nameGame').disable();
-        this.formAccountupdateGame.get('nameAccountGame').disable();
-        console.log(this.infoGame)
+        if (this.infoGame) {
+          console.log(this.infoGame)
+          this.formAccountupdateGame.controls['nameGame'].setValue(this.infoGame.gameProduct !== undefined ? this.infoGame.gameProduct : "");
+          this.formAccountupdateGame.controls['nameAccountGame'].setValue(this.infoGame.username !== undefined ? this.infoGame.username : "");
+          this.formAccountupdateGame.controls['user'].setValue(this.infoGame.user !== undefined ? this.infoGame.user : "");
+          this.formAccountupdateGame.controls['statusAccount'].setValue(this.infoGame.isActive !== undefined ? this.infoGame.isActive : "");
+          this.formAccountupdateGame.controls['password'].setValue(this.infoGame.password !== undefined ? this.infoGame.password : "");
+          this.formAccountupdateGame.get('nameGame').disable();
+          this.formAccountupdateGame.get('nameAccountGame').disable();
+          console.log(this.infoGame)
+        }
       }
-    }
+    })
+
+
   }
 
   closeModal() {
@@ -105,7 +108,7 @@ export class MyModalupdateaccountGameComponent implements OnInit {
                   'Cập nhập tài khoản Game thành công';
                 modalRef.componentInstance.command = "updategame";
                 modalRef.result
-                  .then((result: any) => {                   
+                  .then((result: any) => {
                     this.activeModal.close(true);
                   })
                   .catch((error: any) => {
