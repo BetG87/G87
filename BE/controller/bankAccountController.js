@@ -19,7 +19,7 @@ const bankAccountController = {
     },
     getAllBankAccount: async (req, res) => {
         try {
-            const bankAccount = await BankAccount.find();
+            const bankAccount = await BankAccount.find().populate('user');
             return res.status(200).json(bankAccount)
         } catch (err) {
             return res.status(500).json(err); //HTTP REQUEST CODE

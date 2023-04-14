@@ -25,7 +25,7 @@ const userController =
             return res.status(500).json(err)
         }
     },
-    deletelUser: async (req, res) => {
+    deletedUser: async (req, res) => {
         try {
             const user = await User.findById(req.body._id)
             user.isActive = false;
@@ -38,7 +38,6 @@ const userController =
     },
     updateUser: async (req, res) => {
         try {
-           
             const user = await User.findById(req.body._id);
             if (req.body.password != null) {
                     const salt = await bcrypt.genSalt(10);
@@ -100,7 +99,37 @@ const userController =
         catch (err) {
             return res.status(500).json(err)
         }
-    }
+    },
+    usernameisexist: async (req, res) => {
+		try {
+			const user = await User.findOne({ username: req.body.username });
+			if (user) {
+				return res.status(200).json(true)
+			}
+            else{
+                return res.status(200).json(false)
+            }
+			
+		}
+		catch (err) {
+			return res.status(500).json("abc");
+		}
+	},   
+    emailsexist: async (req, res) => {
+		try {
+			const user = await User.findOne({ email: req.body.email });
+			if (user) {
+				return res.status(200).json(true)
+			}
+            else{
+                return res.status(200).json(false)
+            }
+			
+		}
+		catch (err) {
+			return res.status(500).json("abc");
+		}
+	}
     
 }
 
