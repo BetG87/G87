@@ -14,6 +14,12 @@
                 <div class="form-group col-md-12">
                     <label for="nameAccount" class="size1Rem">Tên tài khoản :</label>
                     <input type="text" formControlName="nameAccount" id="nameAccount" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.nameAccount.errors">
+                        <div *ngIf="confirm &&  formAccountupdate.controls.nameAccount.errors.required">Xin hãy nhập Tên tài khoản</div>
+                        <div *ngIf=" confirm && formAccountupdate.controls.nameAccount.errors.minLength"> Độ dài của Tên tài khoản không thể nhỏ hơn 4
+                        </div>
+                        <div *ngIf="confirm && formAccountupdate.controls.nameAccount.errors.maxLength">Độ dài của Tên tài khoản không thể lơn hơn 20 </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -27,26 +33,42 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="passWord" class="size1Rem">Mật Khẩu :</label>
-                    <input type="text" formControlName="passWord" id="passWord" class="form-control">
+                    <label for="accountpassword" class="size1Rem">Mật Khẩu :</label>
+                    <input type="password" formControlName="accountpassword" id="accountpassword" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.accountpassword.errors">
+                        <div *ngIf="confirm &&  formAccountupdate.controls.accountpassword.errors.required">Xin hãy nhập mật khẩu</div>
+                        <div *ngIf=" confirm && formAccountupdate.controls.accountpassword.errors.minLength"> Độ dài của mật khẩu không thể nhỏ hơn 6
+                        </div>
+                        <div *ngIf="confirm && formAccountupdate.controls.accountpassword.errors.maxLength">Độ dài của mật khẩu không thể lơn hơn 20 </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="numberPhone" class="size1Rem">Số điện thoại : </label>
                     <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.numberPhone.errors">
+                        <div *ngIf="confirm &&  formAccountupdate.controls.numberPhone.errors.required">Xin hãy nhập số điện thoại</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="fullname" class="size1Rem">Tên đầy đủ : </label>
                     <input type="text" formControlName="fullname" id="fullname" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.fullname.errors">
+                        <div *ngIf="confirm &&  formAccountupdate.controls.fullname.errors.required">Xin hãy nhập đầy đủ họ tên</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="email" class="size1Rem">Email : </label>
                     <input type="text" formControlName="email" id="email" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.email.errors">
+                        <div *ngIf="confirm &&  formAccountupdate.controls.email.errors.required">Xin hãy nhập email</div>
+                        <div *ngIf="confirm &&  formAccountupdate.controls.email.errors.email">Xin hãy nhập email đúng định dạng ...a@gmail.com</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -65,12 +87,15 @@
             <div class="form-group col-md-6 col-sm-12" *ngIf="mode === '0'">
                 <label for="bankAccountNumber"> Số Tài Khoản</label>
                 <input type="text" formControlName="bankAccountNumber" id="bankAccountNumber" class="form-control" formControlName="bankAccountNumber">
+                <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.bankAccountNumber.errors">
+                    <div *ngIf="confirm &&  formAccountupdate.controls.bankAccountNumber.errors.required">Xin hãy nhập số tài khoản</div>
+                </div>
             </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">{{buttonConfirm}}</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
 
     <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
 </div>

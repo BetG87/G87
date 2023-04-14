@@ -113,6 +113,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
         this.formAccountupdateTransaction.controls['status'].setValue(this.infoTransactions.status?._id !== undefined ? this.infoTransactions.status?._id : "");
         this.formAccountupdateTransaction.controls['type'].setValue(this.infoTransactions.type !== undefined ? this.infoTransactions.type : "");
         this.formAccountupdateTransaction.controls['note'].setValue(this.infoTransactions.note !== undefined ? this.infoTransactions.note : "");
+        
         this.formAccountupdateTransaction.get('UserName').disable();
         this.formAccountupdateTransaction.get('nameGame').disable();
         this.formAccountupdateTransaction.get('AccountBankUser').disable();

@@ -27,6 +27,7 @@ export class ManagergameComponent implements OnInit {
   searchTerm: any;
   listGameProduct: any[] = [];
   GameProduct: GameProduct[] = [];
+  datetest: any[] = [];
 
   allAccount: any[] = [];
   listallAccount: any[] = [];
@@ -66,7 +67,6 @@ export class ManagergameComponent implements OnInit {
           }
         }
         console.log(this.filteredAccountsGame)
-
         this.connectApi.get('v1/user').subscribe((response: any) => {
           console.log(response)
           this.allAccount = response
@@ -79,12 +79,23 @@ export class ManagergameComponent implements OnInit {
               this.filteredAccountsGame[i].nameAccount = account.username;
             }
           }
-          this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-          console.log(this.filteredAccountsGame)
-          this.currentPage = 1
+          this.GetfullData( this.filteredAccountsGame)
+          // this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+          // this.filteredAccountsGame = [...this.filteredAccountsGame];
+        
+          // this.currentPage = 1
         })
       })
     })
+  }
+  async GetfullData(datalist: any[]) {
+    datalist.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    console.log(datalist)
+    this.filteredAccountsGame = datalist;
+    this.currentPage = 1;
+    // this.transactionsLoaded = true;
+    console.log(this.filteredAccountsGame)
+
   }
   deleteAccountGame(idGame: any) {
     const title = "Xóa tài khoản Game";
@@ -126,9 +137,9 @@ export class ManagergameComponent implements OnInit {
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoGame = infoGame[0];
     modalRef.componentInstance.mode = "1";
-    modalRef.componentInstance.TittleGame = "Cập Nhập Tài Khoản Game" ; 
-    modalRef.componentInstance.buttonConfirm = "Cập Nhập" ; 
-    
+    modalRef.componentInstance.TittleGame = "Cập Nhập Tài Khoản Game";
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập";
+
     modalRef.result.then((result: any) => {
       if (result == true) {
         this.ngOnInit()
@@ -148,9 +159,10 @@ export class ManagergameComponent implements OnInit {
     } else {
       console.log(this.filteredAccountsGame)
       console.log(this.managerAccountGame)
-      this.filteredAccountsGame = this.managerAccountGame.filter(accountGame => this.matchesSearchTerm(accountGame));
+      this.filteredAccountsGame = this.filteredAccountsGame.filter(accountGame => this.matchesSearchTerm(accountGame));
       this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       this.currentPage = 1;
+      console.log(this.filteredAccountsGame)
     }
   }
 
@@ -160,7 +172,7 @@ export class ManagergameComponent implements OnInit {
     accountGame.nameGame = accountGame.nameGame !== undefined ? accountGame.nameGame : "";
     accountGame.password = accountGame.password !== undefined ? accountGame.password : "";
     accountGame.username = accountGame.username !== undefined ? accountGame.username : "";
-    
+
     const searchTerm = this.searchTerm.toLowerCase();
     return accountGame.gameProduct.toLowerCase().indexOf(searchTerm) > -1
       || accountGame.nameAccount.toLowerCase().indexOf(searchTerm) > -1
@@ -172,8 +184,8 @@ export class ManagergameComponent implements OnInit {
   addGame() {
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.mode = "0";
-    modalRef.componentInstance.TittleGame = "Tạo Tài Khoản Game" ; 
-    modalRef.componentInstance.buttonConfirm = "Tạo Tài Khoản" ; 
+    modalRef.componentInstance.TittleGame = "Tạo Tài Khoản Game";
+    modalRef.componentInstance.buttonConfirm = "Tạo Tài Khoản";
     modalRef.result.then((result: any) => {
       console.log(result);
       if (result == true) {
