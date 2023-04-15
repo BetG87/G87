@@ -47,7 +47,7 @@
             </table>
         </div>
         <div class="col-md-12 d-flex justify-content-end">
-            <span class="d-flex justify-content-center"> Chọn </span>
+            <span class="d-flex justify-content-center padding"> Chọn </span>
             <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="pageselect mx-3">
           <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
         </select>

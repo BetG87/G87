@@ -13,16 +13,20 @@ export class MyModalinfoaccountBankComponent implements OnInit {
   public formAccountinfoBank: FormGroup | any
   infoBank: any | undefined;
   isDisabled: boolean = true;
-
+  allUserName: any[] = [];
+  bankNameLists: any;
   constructor(public activeModal: NgbActiveModal,
     private router: Router,
     private fb: FormBuilder,
     private connectApi: ConnectApiService,) {
     this.formAccountinfoBank = this.fb.group({
+      userName: [''],
       accountBank: [''],
       nameAccountBank: [''],
       userBank: [''],
       statusAccount: [''],
+      typeAccount :  [''],
+      bankId :  [''],
 
     });
 
@@ -31,19 +35,39 @@ export class MyModalinfoaccountBankComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.GetBank()
+    this.GetUser()
     console.log(this.infoBank)
 
-    if (this.infoBank) {
-      console.log(this.infoBank)
-      this.formAccountinfoBank.controls['accountBank'].setValue(this.infoBank.bankAccountNumber !== undefined ? this.infoBank.bankAccountNumber : "");
-      this.formAccountinfoBank.controls['nameAccountBank'].setValue(this.infoBank.ownerName !== undefined ? this.infoBank.ownerName : "");
-      this.formAccountinfoBank.controls['userBank'].setValue(this.infoBank.user !== undefined ? this.infoBank.user : "");
-      this.formAccountinfoBank.controls['statusAccount'].setValue(this.infoBank.isActive !== undefined ? this.infoBank.isActive : "");
-      console.log(this.infoBank)
-    }
+    
 
 
   }
+  GetBank(){
+    this.connectApi.get('v1/bank').subscribe((response) => {
+      console.log(response)
+      this.bankNameLists = response;
+    });
+  }
+  GetUser() {
+    this.connectApi.get('v1/user').subscribe((response: any) => {
+      this.allUserName = response
+      console.log(this.allUserName)
+      if (this.infoBank) {
+        console.log(this.infoBank)
+        this.formAccountinfoBank.controls['userName'].setValue(this.infoBank.user?._id !== undefined ? this.infoBank.user?._id : "");
+        this.formAccountinfoBank.controls['accountBank'].setValue(this.infoBank.bankAccountNumber !== undefined ? this.infoBank.bankAccountNumber : "");
+        this.formAccountinfoBank.controls['userBank'].setValue(this.infoBank.ownerName !== undefined ? this.infoBank.ownerName : "");
+        this.formAccountinfoBank.controls['statusAccount'].setValue(this.infoBank.isActive !== undefined ? this.infoBank.isActive : "");
+        this.formAccountinfoBank.controls['typeAccount'].setValue(this.infoBank.isAdmin !== undefined ? this.infoBank.isAdmin : true);
+        this.formAccountinfoBank.controls['bankId'].setValue(this.infoBank.bankId !== undefined ? this.infoBank.bankId : "");
+        this.formAccountinfoBank.get('userName').disable();
+        console.log(this.infoBank)
+      }
+    })
+  
+  }
+
 
   closeModal() {
     this.activeModal.close(true);

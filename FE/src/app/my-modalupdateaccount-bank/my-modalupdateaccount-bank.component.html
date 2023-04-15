@@ -1,40 +1,62 @@
 <div class="modal-header">
-    <h4 class="modal-title">Thông Tin Tài Khoản</h4>
+    <h4 class="modal-title">{{Tittle}}</h4>
 </div>
 <div class="modal-body">
     <form [formGroup]="formAccountinfoBank" (ngSubmit)="onSubmit()" class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
+                    <label for="userName" class="size1Rem">Tài Khoản User :</label>
+                    <ng-select [items]="allUserName" bindLabel="username" bindValue="_id" formControlName="userName"></ng-select>
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountinfoBank.controls.userName.errors">
+                        <div *ngIf="confirm &&  formAccountinfoBank.controls.userName.errors.required">Xin hãy chọn tài khoản người dùng</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
                     <label for="accountBank" class="size1Rem">Số Tài Khoản :</label>
                     <input type="text" formControlName="accountBank" id="accountBank" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountinfoBank.controls.accountBank.errors">
+                        <div *ngIf="confirm &&  formAccountinfoBank.controls.accountBank.errors.required">Xin hãy nhập số tài khoản</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="nameAccountBank" class="size1Rem">Tên chủ tài khoản :</label>
                     <input type="text" formControlName="nameAccountBank" id="nameAccountBank" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="userBank" class="size1Rem">Tài khoản : </label>
-                    <input type="text" formControlName="userBank" id="userBank" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountinfoBank.controls.nameAccountBank.errors">
+                        <div *ngIf="confirm &&  formAccountinfoBank.controls.nameAccountBank.errors.required">Xin hãy nhập tên chủ tài khoản</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="statusAccount" class="size1Rem">Trạng thái tài khoản : </label>
                     <select id="statusAccount" class="form-control" name="statusAccount" formControlName="statusAccount">
-                            <option value="true">True</option>
-                            <option value="false">False</option>
+                            <option value="true">Đang sử dụng</option>
+                            <option value="false">Ngừng sử dụng</option>
                     </select>
                 </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="typeAccount" class="size1Rem">Loại tài khoản : </label>
+                    <select id="typeAccount" class="form-control" name="typeAccount" formControlName="typeAccount">
+                            <option value="true">Admin</option>
+                            <option value="false">Thường</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label for="bankId"> Ngân Hàng</label>
+                <ng-select [items]="bankNameLists" bindLabel="name" bindValue="_id" formControlName="bankId"></ng-select>
             </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">Đồng ý</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
     <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
 </div>

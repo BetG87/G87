@@ -21,17 +21,26 @@
                     <input type="text" formControlName="user" id="user" class="form-control" readonly>
                 </select>-->
                 <ng-select [items]="allAccount" bindLabel="username" bindValue="_id" formControlName="user"></ng-select>
+                <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateGame.controls.user.errors">
+                    <div *ngIf="confirm &&  formAccountupdateGame.controls.user.errors.required">Xin hãy chọn tài khoản người dùng</div>
+                </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="nameAccountGame" class="size1Rem">Tài khoản game :</label>
                     <input type="text" formControlName="nameAccountGame" id="nameAccountGame" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateGame.controls.nameAccountGame.errors">
+                        <div *ngIf="confirm &&  formAccountupdateGame.controls.nameAccountGame.errors.required">Xin hãy nhập tên tài khoản game</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="password" class="size1Rem">Mật khẩu :</label>
                     <input type="text" formControlName="password" id="password" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateGame.controls.password.errors">
+                        <div *ngIf="confirm &&  formAccountupdateGame.controls.password.errors.required">Xin hãy nhập mật khẩu</div>
+                    </div>
                 </div>
             </div>
 
@@ -48,6 +57,6 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">{{buttonConfirm}}</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
     <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
 </div>

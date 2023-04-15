@@ -47,12 +47,12 @@
             </table>
         </div>
         <div class="col-md-12 d-flex justify-content-end">
-            <span class="px-3"> Chọn </span>
-            <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="mx-3">
+            <span class="px-3 padding"> Chọn </span>
+            <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="mx-3 pageselect">
           <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
         </select>
-            <button *ngIf="currentPage > 1" (click)="currentPage = currentPage - 1"><i class="fa-solid fa-arrow-left"></i>  </button>
-            <button *ngIf="currentPage < (managerAccountGame.length / pageSize)" (click)="currentPage = currentPage + 1"><i class="fa-solid fa-arrow-right"></i></button>
+            <button *ngIf="currentPage > 1" (click)="currentPage = currentPage - 1" class="my-button"><i class="fa-solid fa-arrow-left"></i>  </button>
+            <button *ngIf="currentPage < (managerAccountGame.length / pageSize)" (click)="currentPage = currentPage + 1" class="my-button"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 </div>

@@ -16,9 +16,9 @@
                     <input type="text" formControlName="nameAccount" id="nameAccount" class="form-control">
                     <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.nameAccount.errors">
                         <div *ngIf="confirm &&  formAccountupdate.controls.nameAccount.errors.required">Xin hãy nhập Tên tài khoản</div>
-                        <div *ngIf=" confirm && formAccountupdate.controls.nameAccount.errors.minLength"> Độ dài của Tên tài khoản không thể nhỏ hơn 4
+                        <div *ngIf=" confirm && formAccountupdate.controls.nameAccount.errors.minlength"> Độ dài của Tên tài khoản không thể nhỏ hơn 6
                         </div>
-                        <div *ngIf="confirm && formAccountupdate.controls.nameAccount.errors.maxLength">Độ dài của Tên tài khoản không thể lơn hơn 20 </div>
+                        <div *ngIf="confirm && formAccountupdate.controls.nameAccount.errors.maxlength">Độ dài của Tên tài khoản không thể lơn hơn 20 </div>
                     </div>
                 </div>
             </div>
@@ -37,9 +37,8 @@
                     <input type="password" formControlName="accountpassword" id="accountpassword" class="form-control">
                     <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.accountpassword.errors">
                         <div *ngIf="confirm &&  formAccountupdate.controls.accountpassword.errors.required">Xin hãy nhập mật khẩu</div>
-                        <div *ngIf=" confirm && formAccountupdate.controls.accountpassword.errors.minLength"> Độ dài của mật khẩu không thể nhỏ hơn 6
+                        <div *ngIf=" confirm && formAccountupdate.controls.accountpassword.errors.minlength"> Độ dài của mật khẩu không thể nhỏ hơn 6
                         </div>
-                        <div *ngIf="confirm && formAccountupdate.controls.accountpassword.errors.maxLength">Độ dài của mật khẩu không thể lơn hơn 20 </div>
                     </div>
                 </div>
             </div>
@@ -49,6 +48,8 @@
                     <input type="text" formControlName="numberPhone" id="numberPhone" class="form-control">
                     <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.numberPhone.errors">
                         <div *ngIf="confirm &&  formAccountupdate.controls.numberPhone.errors.required">Xin hãy nhập số điện thoại</div>
+                        <div *ngIf=" confirm && formAccountupdate.controls.numberPhone.errors.minlength"> Độ dài của số điện thoại không thể nhỏ hơn 8
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,7 +58,9 @@
                     <label for="fullname" class="size1Rem">Tên đầy đủ : </label>
                     <input type="text" formControlName="fullname" id="fullname" class="form-control">
                     <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.fullname.errors">
-                        <div *ngIf="confirm &&  formAccountupdate.controls.fullname.errors.required">Xin hãy nhập đầy đủ họ tên</div>
+                        <div *ngIf="confirm && formAccountupdate.controls.fullname.errors.required">Xin hãy nhập đầy đủ họ tên</div>
+                        <div *ngIf="confirm && formAccountupdate.controls.fullname.errors.minlength">Độ dài của họ tên không thể nhỏ hơn 10
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,6 +71,9 @@
                     <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.email.errors">
                         <div *ngIf="confirm &&  formAccountupdate.controls.email.errors.required">Xin hãy nhập email</div>
                         <div *ngIf="confirm &&  formAccountupdate.controls.email.errors.email">Xin hãy nhập email đúng định dạng ...a@gmail.com</div>
+                        <div *ngIf=" confirm && formAccountupdate.controls.email.errors.minlength"> Độ dài của mail không thể nhỏ hơn 10
+                        </div>
+                        <div *ngIf="confirm && formAccountupdate.controls.email.errors.maxlength">Độ dài của mail không thể lơn hơn 50 </div>
                     </div>
                 </div>
             </div>
@@ -89,6 +95,8 @@
                 <input type="text" formControlName="bankAccountNumber" id="bankAccountNumber" class="form-control" formControlName="bankAccountNumber">
                 <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.bankAccountNumber.errors">
                     <div *ngIf="confirm &&  formAccountupdate.controls.bankAccountNumber.errors.required">Xin hãy nhập số tài khoản</div>
+                    <div *ngIf=" confirm && formAccountupdate.controls.bankAccountNumber.errors.minlength"> Độ dài số tài khoản không thể nhỏ hơn 8
+                    </div>
                 </div>
             </div>
         </div>
