@@ -136,4 +136,17 @@ export class HomeComponent implements OnInit {
 
   }
 
+  routeInfo(index :number)
+  {
+    if (this.isLoggedIn) {
+        const queryParams = { tab: index};
+        this.route.navigate(['/account-info'], { queryParams });
+    }
+    else
+    {
+      this.route.navigate(['/register']);
+    }
+  }
 }
+
+

@@ -6,7 +6,7 @@ import { DataShareService } from '../Services/DataShare/data-share.service';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
 import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import decode from 'jwt-decode'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
@@ -36,6 +36,7 @@ export class AccountInfoComponent implements OnInit {
   statusSend: any;
   noteSend: any;
   gameProduct: any;
+  gameProductAll : any;
   gameAccount: [] = [];
   selectGame: any;
   selectGameDeposit: any
@@ -65,7 +66,8 @@ export class AccountInfoComponent implements OnInit {
     private route: Router,
     private cookieStore: CookieStorageService,
     private modalService: NgbModal,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private activeRoute: ActivatedRoute) {
     this.formAccountinfo = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
@@ -114,6 +116,11 @@ export class AccountInfoComponent implements OnInit {
     {
       this.connectApi.get('v1/bank').subscribe((response) => {
         this.bankNameLists = response;
+      });
+      this.connectApi.get('v1/gameproduct').subscribe((response) => {
+        this.gameProductAll = response;
+        this.formDeposit.get('gameProduct').setValue(this.gameProductAll[0]?._id)
+        this.formWithDrawal.get('gameProduct').setValue(this.gameProductAll[0]?._id)
       });
       this.connectApi.get('v1/status').subscribe((response: any) => {
         this.allStatus = response
@@ -199,7 +206,13 @@ export class AccountInfoComponent implements OnInit {
       });
     }
 
-
+    const tabValue = this.activeRoute.snapshot.queryParamMap.get('tab');
+    if (tabValue !== null) {
+      const parsedValue = parseInt(tabValue, 10);
+      if (!isNaN(parsedValue)) {
+        this.selectedTab = parsedValue;
+      }
+    }
 
   }
   public onSubmit(): void {
@@ -242,7 +255,6 @@ export class AccountInfoComponent implements OnInit {
 
     this.formDeposit.get('bankAccount').setValue(this.accountBankSend);
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
-    this.formDeposit.get('gameProduct').setValue(this.selectGameDeposit)
     this.formDeposit.get('status').setValue(this.defaultStatus)
     this.formDeposit.get('user').setValue(this.userId);
       this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
@@ -275,6 +287,17 @@ export class AccountInfoComponent implements OnInit {
         recevieNumber = value['numberBank']
       }
     })
+    var gameName :string = ""
+    this.gameProductAll.filter((value:any)=>
+    {
+      if(value['_id']== this.formDeposit.get('gameProduct').value)
+      {
+        gameName = value['name']
+        console.log(gameName)
+      }
+      console.log(this.formDeposit.get('gameProduct').value)
+    })
+    console.log(this.formDeposit.patchValue)
     const meessage = {
       message: "User: *" + this.username + " NẠP TIỀN*\n"
         + "Tên người gửi: *" + senderName + "* \n"
@@ -282,6 +305,7 @@ export class AccountInfoComponent implements OnInit {
         + "Tên người nhận: *" + recevieName + "* \n"
         + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
         + "Số tiên: *" + this.formDeposit.get('amount').value + "* \n"
+        + "Game: *" + gameName + "* \n"
         + "Ghi chú: *" + this.formDeposit.get('note').value +"*"
 
     }
@@ -300,12 +324,12 @@ export class AccountInfoComponent implements OnInit {
       console.log(error);
     });
     this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
-    this.formWithDrawal.get('gameProduct').setValue(this.selectGameWithDrawal)
     this.formWithDrawal.get('status').setValue(this.defaultStatus)
     this.formWithDrawal.get('user').setValue(this.userId);
+    console.log(this.formWithDrawal.value)
     this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
       console.log(response)
-      var game = this.gameProduct.find((p: { _id: any; }) => p._id === this.selectGameWithDrawal);
+      var gameName = this.gameProductAll.find((p: { _id: any; }) => p._id === this.formWithDrawal.get('gameProduct').value);
 
       var senderName: string = ""
       var senderNumber: string = ""
@@ -337,7 +361,7 @@ export class AccountInfoComponent implements OnInit {
           + "Tên: *" + senderName + "* \n"
           + "Số tài nhận: *" + senderNumber + "* \n"
           + "Số tiên: *" + this.formWithDrawal.get('amount').value + "* \n"
-          + "Game: *" + game['name'] + "* \n"
+          + "Game: *" + gameName['name'] + "* \n"
 
       }
       console.log(meessage)

@@ -186,9 +186,11 @@
 
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="gameProduct"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
-                                        <select id="gameProduct" class="form-control" name="gameProduct" [(ngModel)]="selectGameDeposit" [ngModelOptions]="{standalone: true}">
-                              <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
-                            </select>
+                                        <!-- <select id="gameProduct" class="form-control" name="gameProduct" [(ngModel)]="selectGameDeposit" [ngModelOptions]="{standalone: true}">
+                              <option *ngFor="let game of gameProductAll" [value]="game._id">{{game.name}}</option>
+
+                            </select> -->
+                            <ng-select [items]="gameProductAll" bindLabel="name" bindValue="_id" formControlName="gameProduct"></ng-select>
                                     </div>
 
                                     <div class="form-group col-md-12 col-sm-12">
@@ -248,9 +250,10 @@
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="accountBankReceive"> Chọn sản phẩm game<span class="text-danger">(*)</span></label>
-                                        <select id="accountBankReceive" class="form-control" name="selectGameWithDrawal" [(ngModel)]="selectGameWithDrawal" [ngModelOptions]="{standalone: true}">
+                                        <!-- <select id="accountBankReceive" class="form-control" name="selectGameWithDrawal" [(ngModel)]="selectGameWithDrawal" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
-                            </select>
+                            </select> -->
+                            <ng-select [items]="gameProductAll" bindLabel="name" bindValue="_id" formControlName="gameProduct"></ng-select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
