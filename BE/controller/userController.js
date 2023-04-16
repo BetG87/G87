@@ -69,6 +69,12 @@ const userController =
             if (req.body.admin != null) {
                 user.admin = req.body.admin;
             }
+            if (req.body.numberPhone != null) {
+                user.numberPhone = req.body.numberPhone;
+            }
+            if (req.body.fullName != null) {
+                user.fullName = req.body.fullName;
+            }
             const updatedUser = await user.save();
             return res.status(200).json(updatedUser);
         }
@@ -103,7 +109,6 @@ const userController =
     },
     usernameisexist: async (req, res) => {
 		try {
-            console.log(req.body.username)
 			const user = await User.findOne({ username: req.body.username });
 			if (user) {
                 console.log(req.body.username)

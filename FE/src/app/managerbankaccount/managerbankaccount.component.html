@@ -30,7 +30,7 @@
                         <td class=" py-2 text-center">{{ accountBank.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ accountBank.ownerName }}</td>
                         <td class=" py-2 text-center">{{ accountBank.user?.username }}</td>
-                        <td class=" py-2 text-center">{{ accountBank.isActive }}</td>
+                        <td class=" py-2 text-center">{{ accountBank.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>
                         <td class=" py-2 text-center">
                             <a (click)="infoAccountBank(accountBank.bankAccountNumber) " class="text-primary"><i class="fa fa-info-circle"></i></a>
                         </td>
