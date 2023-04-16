@@ -11,6 +11,9 @@
                         <option *ngFor="let nameGame of allGameproduct" [value]="nameGame._id">{{nameGame.name}}</option>
                     </select> -->
                     <ng-select [items]="allUserName" bindLabel="username" bindValue="_id" formControlName="UserName"></ng-select>
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateTransaction.controls.UserName.errors">
+                        <div *ngIf="confirm &&  formAccountupdateTransaction.controls.UserName.errors.required">Xin hãy chọn tài khoản người dùng</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -18,19 +21,28 @@
                     <label for="nameGame" class="size1Rem">Game :</label>
                     <ng-select [items]="allGameproduct" bindLabel="name" bindValue="_id" formControlName="nameGame"></ng-select>
                 </div>
+                <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateTransaction.controls.nameGame.errors">
+                    <div *ngIf="confirm &&  formAccountupdateTransaction.controls.nameGame.errors.required">Xin hãy chọn tài khoản game</div>
+                </div>
             </div>
             <div class="col-md-12 col-sm-12">
                 <label for="AccountBankUser" class="size1Rem">Tài Khoản ngân hàng User : </label>
                 <ng-select [items]="listallBankAccount" bindLabel="fullNameBank" bindValue="_id" formControlName="AccountBankUser"></ng-select>
+                <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateTransaction.controls.AccountBankUser.errors">
+                    <div *ngIf="confirm &&  formAccountupdateTransaction.controls.AccountBankUser.errors.required">Xin hãy chọn tài khoản ngân hàng</div>
+                </div>
             </div>
-            <div class="col-md-12 col-sm-12">
+            <div class="col-md-12 col-sm-12" [hidden]="formIsHidden">
                 <label for="AccountBankAdmin" class="size1Rem">Tài Khoản ngân hàng  Admin : </label>
-                <ng-select [items]="listallBankAccount" bindLabel="fullNameBank" bindValue="_id" formControlName="AccountBankAdmin"></ng-select>
+                <ng-select [items]="allBankAccountAdmin" bindLabel="fullNameBank" bindValue="_id" formControlName="AccountBankAdmin"></ng-select>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="amount" class="size1Rem">Số tiền :</label>
                     <input type="number" formControlName="amount" id="amount" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdateTransaction.controls.amount.errors">
+                        <div *ngIf="confirm &&  formAccountupdateTransaction.controls.amount.errors.required">Xin hãy nhập số tiền</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -42,7 +54,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="type" class="size1Rem">Loại chuyển khoản :</label>
-                    <select formControlName="type" id="type" class="form-control">
+                    <select formControlName="type" id="type" class="form-control" (ngModelChange)="onChange($event)">
                         <option value="deposit">Nạp Tiền</option>
                         <option value="withdrawal">Rút Tiền</option>
                     </select>
@@ -58,6 +70,6 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary mt-2 " (click)="confirm()">{{buttonConfirm}}</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
     <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
 </div>
