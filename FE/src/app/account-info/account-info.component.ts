@@ -362,7 +362,7 @@ export class AccountInfoComponent implements OnInit {
         message: "User: *" + this.username + " RÚT TIỀN*\n"
           + "Tên: *" + senderName + "* \n"
           + "Số tài nhận: *" + senderNumber + "* \n"
-          + "Số tiên: *" + this.formWithDrawal.get('amount').value + "* \n"
+          + "Số tiên: *" + this.vndFormatPipe.transform(this.formWithDrawal.get('amount').value) + "* \n"
           + "Game: *" + gameName['name'] + "* \n"
 
       }
