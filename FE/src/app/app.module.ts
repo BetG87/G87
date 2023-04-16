@@ -29,6 +29,9 @@ import { ManagertransactionComponent } from './managertransaction/managertransac
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MyModalupdatetransactionsComponent } from './my-modalupdatetransactions/my-modalupdatetransactions.component';
 import { ManagerbankaccountComponent } from './managerbankaccount/managerbankaccount.component';
+import { VndFormatPipe } from './vnd.pipe';
+import { VndFormatValueAccessorDirective } from './vnd-format-value-accessor.directive';
+import { InputNumberOnlyDirective } from './input-number-only-directive.directive';
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
 }
@@ -56,6 +59,9 @@ export function tokenGetter() {
     ManagertransactionComponent,
     MyModalupdatetransactionsComponent,
     ManagerbankaccountComponent,
+    VndFormatPipe,
+    VndFormatValueAccessorDirective,
+    InputNumberOnlyDirective,
 
   ],
   imports: [

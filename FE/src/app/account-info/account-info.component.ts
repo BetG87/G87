@@ -14,6 +14,7 @@ import { GameProduct } from '../entity/GameProduct';
 import { AccountInfo } from '../entity/AccountInfo';
 import { Transaction } from '../entity/transaction';
 import { MyModalComponent } from '../my-modal/my-modal.component';
+import { VndFormatPipe } from '../vnd.pipe';
 
 @Component({
   selector: 'app-account-info',
@@ -67,7 +68,8 @@ export class AccountInfoComponent implements OnInit {
     private cookieStore: CookieStorageService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private activeRoute: ActivatedRoute) {
+    private activeRoute: ActivatedRoute,
+    private vndFormatPipe :VndFormatPipe) {
     this.formAccountinfo = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
@@ -304,7 +306,7 @@ export class AccountInfoComponent implements OnInit {
         + "Số tài khoản người gửi: *" + senderNumber + "* \n"
         + "Tên người nhận: *" + recevieName + "* \n"
         + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
-        + "Số tiên: *" + this.formDeposit.get('amount').value + "* \n"
+        + "Số tiên: *" + this.vndFormatPipe.transform(this.formDeposit.get('amount').value) + "* \n"
         + "Game: *" + gameName + "* \n"
         + "Ghi chú: *" + this.formDeposit.get('note').value +"*"
 
