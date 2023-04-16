@@ -78,6 +78,7 @@ const userController =
     },changePassword: async (req, res) => {
         try {          
             const user = await User.findById(req.body._id);
+           
             const validPassword = await bcrypt.compare(
 				req.body.oldPassword,
 				user.password
@@ -102,12 +103,15 @@ const userController =
     },
     usernameisexist: async (req, res) => {
 		try {
+            console.log(req.body.username)
 			const user = await User.findOne({ username: req.body.username });
 			if (user) {
-				return res.status(200).json(true)
+                console.log(req.body.username)
+				return res.status(200).json({isexist:true})
+
 			}
             else{
-                return res.status(200).json(false)
+                return res.status(200).json({isexist:false})
             }
 			
 		}
@@ -115,14 +119,14 @@ const userController =
 			return res.status(500).json("abc");
 		}
 	},   
-    emailsexist: async (req, res) => {
+    emailisexist: async (req, res) => {
 		try {
 			const user = await User.findOne({ email: req.body.email });
 			if (user) {
-				return res.status(200).json(true)
+				return res.status(200).json({isexist:true})
 			}
             else{
-                return res.status(200).json(false)
+                return res.status(200).json({isexist:false})
             }
 			
 		}

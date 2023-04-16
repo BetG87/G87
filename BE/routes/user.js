@@ -13,5 +13,5 @@ router.post('/delete', middlewareController.verifyTokenAndAdminAuth, userControl
 router.post('/update', middlewareController.verifyTokenAndAdminAuth, userController.updateUser);
 router.post('/changepass', middlewareController.verifyTokenAndAdminAuth, userController.changePassword);
 router.post('/usernameisexist', userController.usernameisexist);
-router.post('/emailsexist', userController.emailsexist);
+router.post('/emailisexist', userController.emailisexist);
 module.exports = router

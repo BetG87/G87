@@ -33,7 +33,7 @@ export class MyModalupdateaccountComponent implements OnInit {
       numberPhone: [null, [Validators.required, Validators.minLength(8)]],
       typeAccount: [false, [Validators.required]],
       fullname: [null, [Validators.required, Validators.minLength(10)]],
-      email: [null, [Validators.required, Validators.email], Validators.minLength(10), Validators.maxLength(50)],
+      email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
       accountpassword: [null, [Validators.required, Validators.minLength(6)]],
       statusUser: [true, [Validators.required]],
       bankId: [null, [Validators.required]],
@@ -52,11 +52,11 @@ export class MyModalupdateaccountComponent implements OnInit {
       this.bankNameLists = response;
       this.formAccountupdate.controls['bankId'].setValue(this.bankNameLists[0]?._id)
     });
-    
+
   }
 
   Getdata() {
-    console.log(this.info[0].email)
+
     if (this.mode == "1") {
       this.formAccountupdate.controls['nameAccount'].setValue(this.info[0].username !== undefined ? this.info[0].username : "");
       this.formAccountupdate.controls['numberPhone'].setValue(this.info[0].numberPhone !== undefined ? this.info[0].numberPhone : "");
@@ -85,12 +85,12 @@ export class MyModalupdateaccountComponent implements OnInit {
         const message = {
           "username": this.formAccountupdate.controls['nameAccount'].value
         }
-        this.connectApi.post('v1/user/usernameisexist', message).subscribe((response: any) => {
+        this.connectApi.post('v1/user/usernameisexist', message).subscribe((response) => {
           console.log(response)
-          if (response) {
+          if (response['isexist']) {
             alert("Tài khoản này đã được sử dụng")
           } else {
-            this.fncheckmail
+            this.fncheckmail()
           }
         })
       }
@@ -102,7 +102,7 @@ export class MyModalupdateaccountComponent implements OnInit {
     }
     this.connectApi.post('v1/user/emailisexist', message).subscribe((response: any) => {
       console.log(response)
-      if (response) {
+      if (response['isexist']) {
         alert("Email này đã được sử dụng")
       } else {
         this.fncreateAccount()
