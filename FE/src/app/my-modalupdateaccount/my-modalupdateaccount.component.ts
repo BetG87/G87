@@ -27,23 +27,38 @@ export class MyModalupdateaccountComponent implements OnInit {
     private router: Router,
     private connectApi: ConnectApiService,
     private modalService: NgbModal) {
-    this.formAccountupdate = this.fb.group({
-      // id: [''],
-      nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
-      numberPhone: [null, [Validators.required, Validators.minLength(8)]],
-      typeAccount: [false, [Validators.required]],
-      fullname: [null, [Validators.required, Validators.minLength(10)]],
-      email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
-      accountpassword: [null, [Validators.required, Validators.minLength(6)]],
-      statusUser: [true, [Validators.required]],
-      bankId: [null, [Validators.required]],
-      bankAccountNumber: [null, [Validators.required, Validators.minLength(8)]]
-    });
+
   }
 
   ngOnInit(): void {
-    this.GetBank()
-    this.Getdata()
+    if (this.mode == "0") {
+      this.formAccountupdate = this.fb.group({
+        nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+        numberPhone: [null, [Validators.required, Validators.minLength(8)]],
+        typeAccount: [false, [Validators.required]],
+        fullname: [null, [Validators.required, Validators.minLength(10)]],
+        email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
+        statusUser: [true, [Validators.required]],
+        accountpassword: [null, [Validators.required, Validators.minLength(6)]],
+        bankId: [null, [Validators.required]],
+        bankAccountNumber: [null, [Validators.required, Validators.minLength(8)]]
+      });
+    } else {
+      this.formAccountupdate = this.fb.group({
+        nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+        numberPhone: [null, [Validators.required, Validators.minLength(8)]],
+        typeAccount: [false, [Validators.required]],
+        fullname: [null, [Validators.required, Validators.minLength(10)]],
+        email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
+        statusUser: [true, [Validators.required]],
+        accountpassword: [null]
+      });
+    }
+    if (this.mode == "0") {
+      this.GetBank()
+    } else {
+      this.Getdata()
+    }
   }
 
   GetBank() {
@@ -80,8 +95,7 @@ export class MyModalupdateaccountComponent implements OnInit {
 
       if (this.mode == "1") {
         this.fnupdateAccount()
-      }
-      else {
+      } else {
         const message = {
           "username": this.formAccountupdate.controls['nameAccount'].value
         }
@@ -119,9 +133,8 @@ export class MyModalupdateaccountComponent implements OnInit {
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
       if (result == true) {
-        const meessage = {
+        let meessage = {
           "_id": this.info[0]._id,
-          "username": this.formAccountupdate.controls['nameAccount'].value,
           "email": this.formAccountupdate.controls['email'].value,
           "password": this.formAccountupdate.controls['accountpassword'].value,
           "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
@@ -129,9 +142,13 @@ export class MyModalupdateaccountComponent implements OnInit {
           "admin": this.formAccountupdate.controls['typeAccount'].value,
           "isActive": this.formAccountupdate.controls['statusUser'].value
         }
+        if (this.formAccountupdate.controls['accountpassword'].value == '' || this.formAccountupdate.controls['accountpassword'].value == null) {
+          delete meessage['password'];
+        }
         console.log(meessage)
         this.connectApi.post('v1/user/update', meessage).subscribe((response: any) => {
           if (response) {
+            console.log(response)
             this.activeModal.close(true);
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
