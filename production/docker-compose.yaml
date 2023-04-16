@@ -10,7 +10,7 @@ services:
       - "8000"
     restart: unless-stopped
     environment:
-      - MONGODB_URL=mongodb+srv://tri72027:72027Tri@jwt.f62nqsw.mongodb.net/?retryWrites=true&w=majority
+      - MONGODB_URL=mongodb+srv://kelvinkel6886:mitthuy123456@g87.fbbhkmu.mongodb.net/g87
       - JWT_ACCESS_KEY=TRIG87
       - JWT_REFRESH_KEY=TRIG87
       - TELEGRAM_TOKEN=6115049677:AAG3TrLTgg8V0pGk-LTng6XYUDjwLQVc15Y
