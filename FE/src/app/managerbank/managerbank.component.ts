@@ -21,8 +21,8 @@ export class ManagerbankComponent  implements OnInit {
   currentPage = 1;
   pageSize = 5;
   pageSizes = [5, 10, 15, 20];
-  managerAccountBank: managerAccountBank[] = [];
-  filteredAccountsBank: any[] = [];
+  managerBank: managerAccountBank[] = [];
+  filteredBank: any[] = [];
   searchTerm: any;
 
 
@@ -43,11 +43,11 @@ export class ManagerbankComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    this.connectApi.get('v1/bankaccount/').subscribe((response: any) => {
+    this.connectApi.get('v1/bank/').subscribe((response: any) => {
       console.log(response)
-      this.managerAccountBank = response
-      this.filteredAccountsBank = [...this.managerAccountBank];
-      console.log(this.filteredAccountsBank)
+      this.managerBank = response
+      this.filteredBank = [...this.managerBank];
+      console.log(this.filteredBank)
     })
   }
   deleteAccountBank(idBank: any) {
@@ -63,73 +63,73 @@ export class ManagerbankComponent  implements OnInit {
     });
   }
   infoAccountBank(idBank: any) {
-    const infoBank = this.managerAccountBank.filter((item) => item.bankAccountNumber === idBank);
-    console.log(infoBank);
-    const modalRef = this.modalService.open(MyModalinfoaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.infoBank = infoBank[0];
-    modalRef.result.then((result: any) => {
+    // const infoBank = this.managerBank.filter((item) => item.bankAccountNumber === idBank);
+    // console.log(infoBank);
+    // const modalRef = this.modalService.open(MyModalinfoaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
+    // modalRef.componentInstance.infoBank = infoBank[0];
+    // modalRef.result.then((result: any) => {
 
-      console.log(result);
-    }).catch((error: any) => {
-      console.log(error);
-    });
+    //   console.log(result);
+    // }).catch((error: any) => {
+    //   console.log(error);
+    // });
   }
   updateAccountBank(idBank: any) {
-    const infoBank = this.managerAccountBank.filter((item) => item.bankAccountNumber === idBank);
-    console.log(infoBank);
-    const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.Tittle = "Cập Nhập Tài khoản ngân hàng";
-    modalRef.componentInstance.buttonConfirm = "Cập Nhập Tài khoản";
-    modalRef.componentInstance.infoBank = infoBank[0];
-    modalRef.componentInstance.mode = "1";
-    modalRef.result.then((result: any) => {
-      console.log(result);
-      if (result == true) {
-        this.ngOnInit()
-      }
-    }).catch((error: any) => {
-      console.log(error);
-    });
+    // const infoBank = this.managerBank.filter((item) => item.bankAccountNumber === idBank);
+    // console.log(infoBank);
+    // const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
+    // modalRef.componentInstance.Tittle = "Cập Nhập Tài khoản ngân hàng";
+    // modalRef.componentInstance.buttonConfirm = "Cập Nhập Tài khoản";
+    // modalRef.componentInstance.infoBank = infoBank[0];
+    // modalRef.componentInstance.mode = "1";
+    // modalRef.result.then((result: any) => {
+    //   console.log(result);
+    //   if (result == true) {
+    //     this.ngOnInit()
+    //   }
+    // }).catch((error: any) => {
+    //   console.log(error);
+    // });
 
   }
   search() {
-    console.log(this.managerAccountBank)
+    console.log(this.managerBank)
     if (!this.searchTerm) {
-      this.filteredAccountsBank = [...this.managerAccountBank];
+      this.filteredBank = [...this.managerBank];
 
     } else {
-      console.log(this.filteredAccountsBank)
-      console.log(this.managerAccountBank)
-      this.filteredAccountsBank = this.managerAccountBank.filter(accountBank => this.matchesSearchTerm(accountBank));
+      console.log(this.filteredBank)
+      console.log(this.managerBank)
+      this.filteredBank = this.managerBank.filter(accountBank => this.matchesSearchTerm(accountBank));
       this.currentPage = 1;
     }
   }
 
   matchesSearchTerm(accountBank: any) {
     console.log(accountBank)
-    accountBank.bankAccountNumber = accountBank.bankAccountNumber !== undefined ? accountBank.bankAccountNumber : "";
-    accountBank.ownerName = accountBank.ownerName !== undefined ? accountBank.ownerName : "";
-    accountBank.user = accountBank.user !== undefined ? accountBank.user : "";
+    accountBank.code = accountBank.code !== undefined ? accountBank.code : "";
+    accountBank.name = accountBank.ownerNnameame !== undefined ? accountBank.name : "";
+    accountBank.createdAt = accountBank.createdAt !== undefined ? accountBank.createdAt : "";
     console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
-    return accountBank.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
-      || accountBank.ownerName.toLowerCase().indexOf(searchTerm) > -1
-      || accountBank.user.toLowerCase().indexOf(searchTerm) > -1;
+    return accountBank.code.toLowerCase().indexOf(searchTerm) > -1
+      || accountBank.name.toLowerCase().indexOf(searchTerm) > -1
+      || accountBank.createdAt.toLowerCase().indexOf(searchTerm) > -1;
   }
 
   addBank() {
-    const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.mode = "0";
-    modalRef.componentInstance.Tittle = "Thêm Tài khoản ngân hàng";
-    modalRef.componentInstance.buttonConfirm = "Thêm Tài khoản";
-    modalRef.result.then((result: any) => {
-      console.log(result);
-      if (result == true) {
-        this.ngOnInit()
-      }
-    }).catch((error: any) => {
-      console.log(error);
-    });
+    // const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
+    // modalRef.componentInstance.mode = "0";
+    // modalRef.componentInstance.Tittle = "Thêm Tài khoản ngân hàng";
+    // modalRef.componentInstance.buttonConfirm = "Thêm Tài khoản";
+    // modalRef.result.then((result: any) => {
+    //   console.log(result);
+    //   if (result == true) {
+    //     this.ngOnInit()
+    //   }
+    // }).catch((error: any) => {
+    //   console.log(error);
+    // });
   }
 
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THÔNG <span class="styleUnderLine"> TIN NGÂN</span> HÀNG</i></h3>
         <div class=" col-md-12 d-flex justify-content-center my-4">
-            <button type="submit" class="btn btn-danger mt-2 " (click)="addBank()">THÊM TÀI KHOẢN NGÂN HÀNG</button>
+            <button type="submit" class="btn btn-danger mt-2 " (click)="addBank()">THÊM NGÂN HÀNG</button>
         </div>
         <div class="input-group mb-3 col-md-12">
             <input type="text" class="form-control " placeholder="Tìm kiếm..." [(ngModel)]="searchTerm" name="search">
@@ -15,30 +15,26 @@
                 <thead>
                     <tr class="borderstyle m-1">
                         <th class="px-4 text-center">Số Thứ Tự</th>
-                        <th class="px-4 text-center">Số Tài Khoản</th>
-                        <th class="px-4 text-center">Tên Chủ Tài Khoản</th>
-                        <th class="px-4 text-center">Tài khoản</th>
+                        <th class="px-4 text-center">Mã Ngân Hàng</th>
+                        <th class="px-4 text-center">Tên Ngân Hàng</th>
                         <th class="px-4 text-center">Trạng Thái</th>
-                        <th class="px-4 text-center">Thông tin</th>
+                        <th class="px-4 text-center">Ngày Tạo</th>
                         <th class="px-4 text-center">Cập nhật</th>
                         <th class="px-4 text-center">Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let accountBank of filteredAccountsBank.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
+                    <tr *ngFor="let bank of filteredBank.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
-                        <td class=" py-2 text-center">{{ accountBank.bankAccountNumber}}</td>
-                        <td class=" py-2 text-center">{{ accountBank.ownerName }}</td>
-                        <td class=" py-2 text-center">{{ accountBank.user?.username }}</td>
-                        <td class=" py-2 text-center">{{ accountBank.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>
-                        <td class=" py-2 text-center">
-                            <a (click)="infoAccountBank(accountBank.bankAccountNumber) " class="text-primary"><i class="fa fa-info-circle"></i></a>
+                        <td class=" py-2 text-center">{{ bank.code}}</td>
+                        <td class=" py-2 text-center">{{ bank.name }}</td>
+                        <td class=" py-2 text-center">{{ bank.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>
+                        <td class=" py-2 text-center">{{ bank.createdAt | date:'yyyy/MM/dd'}}</td>
+                        <td class="px-4 py-2 text-center">
+                            <a (click)="updateAccountBank(bank)" class="text-primary"><i class="fa fa-pencil"></i></a>
                         </td>
                         <td class="px-4 py-2 text-center">
-                            <a (click)="updateAccountBank(accountBank.bankAccountNumber)" class="text-primary"><i class="fa fa-pencil"></i></a>
-                        </td>
-                        <td class="px-4 py-2 text-center">
-                            <a (click)="deleteAccountBank(accountBank.bankAccountNumber)" class="text-primary"><i class="fa fa-trash"></i></a>
+                            <a (click)="deleteAccountBank(bank._id)" class="text-primary"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -50,7 +46,7 @@
           <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
         </select>
             <button *ngIf="currentPage > 1" (click)="currentPage = currentPage - 1" class="my-button"><i class="fa-solid fa-arrow-left"></i>  </button>
-            <button *ngIf="currentPage < (managerAccountBank.length / pageSize)" (click)="currentPage = currentPage + 1" class="my-button"><i class="fa-solid fa-arrow-right"></i></button>
+            <button *ngIf="currentPage < (managerBank.length / pageSize)" (click)="currentPage = currentPage + 1" class="my-button"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 </div>
