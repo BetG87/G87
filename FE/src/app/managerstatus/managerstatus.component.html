@@ -1,0 +1,54 @@
+<div class="container col-sm-12" style="min-height: 800px;">
+  <div class="row">
+      <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>LỊCH SỬ <span class="styleUnderLine"> NẠP RÚT </span> TÀI KHOẢN</i></h3>
+      <div class=" col-md-12 d-flex justify-content-center my-4">
+          <button type="submit" class="btn btn-danger mt-2 " (click)="addStatus()">THÊM DỮ LIỆU TÀI KHOẢN</button>
+      </div>
+      <div class="input-group mb-3 col-md-12 ">
+          <input type="text" class="form-control " placeholder="Tìm kiếm..." [(ngModel)]="searchTerm" name="search">
+          <div class="input-group-append">
+              <button class="btn btn-primary" type="submit" (click)="search()">Tìm kiếm</button>
+          </div>
+      </div>
+      <div class="input-group  col-md-12 d-flex  my-4" *ngIf="statusLoaded">
+          <table class="border-top-0" style="width: 100%;">
+              <thead>
+                  <tr class="borderstyle m-1">
+                      <th class="px-4 text-center">Số Thứ Tự</th>
+                      <th class="px-4 text-center">ID</th>
+                      <th class="px-4 text-center">Name </th>
+                      <th class="px-4 text-center">Trạng Thái</th>
+                      <th class="px-4 text-center">Ngày Tạo</th>
+                      <th class="px-4 text-center">Cập nhật</th>
+                      <th class="px-4 text-center">Xoá</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let status of fullData.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
+                      <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
+                      <td class=" py-2 text-center">{{ status.user?.username}}</td>
+                      <td class=" py-2 text-center">{{ status.bankAccount?.ownerName}}-{{status.bankAccount?.bankAccountNumber}}</td>
+                      <td class=" py-2 text-center">{{ status.bankAccountAdmin?.bankAccountNumber}}</td>
+                      <td class=" py-2 text-center">{{ status.amount }}</td>
+                      <td class=" py-2 text-center">{{ status.date | date:'yyyy/MM/dd'}}</td>
+                      <td class=" py-2 text-center">{{ status.status?.name}}</td>
+                      <td class=" py-2 text-center">
+                          <span *ngIf="status.type === 'deposit'">Nạp tiền</span>
+                          <span *ngIf="status.type === 'withdrawal'">Rút tiền</span></td>
+                      <td class="px-4 py-2 text-center">
+                          <a (click)="updateStatus(status)" class="text-primary"><i class="fa fa-pencil"></i></a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div class="col-md-12 d-flex justify-content-end">
+          <span class="px-3 padding"> Chọn </span>
+          <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="mx-3 pageselect">
+        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+      </select>
+          <button *ngIf="currentPage > 1" (click)="currentPage = currentPage - 1" class="my-button"><i class="fa-solid fa-arrow-left"></i>  </button>
+          <button *ngIf="currentPage < (managerStatus.length / pageSize)" (click)="currentPage = currentPage + 1" class="my-button"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+  </div>
+</div>
