@@ -33,6 +33,7 @@ import { VndFormatPipe } from './vnd.pipe';
 import { VndFormatValueAccessorDirective } from './vnd-format-value-accessor.directive';
 import { InputNumberOnlyDirective } from './input-number-only-directive.directive';
 import { ManagerstatusComponent } from './managerstatus/managerstatus.component';
+import { ManagerbankComponent } from './managerbank/managerbank.component';
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
 }
@@ -64,6 +65,7 @@ export function tokenGetter() {
     VndFormatValueAccessorDirective,
     InputNumberOnlyDirective,
     ManagerstatusComponent,
+    ManagerbankComponent
 
   ],
   imports: [
