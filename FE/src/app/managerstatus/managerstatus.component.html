@@ -26,18 +26,16 @@
               <tbody>
                   <tr *ngFor="let status of fullData.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                       <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
-                      <td class=" py-2 text-center">{{ status.user?.username}}</td>
-                      <td class=" py-2 text-center">{{ status.bankAccount?.ownerName}}-{{status.bankAccount?.bankAccountNumber}}</td>
-                      <td class=" py-2 text-center">{{ status.bankAccountAdmin?.bankAccountNumber}}</td>
-                      <td class=" py-2 text-center">{{ status.amount }}</td>
-                      <td class=" py-2 text-center">{{ status.date | date:'yyyy/MM/dd'}}</td>
-                      <td class=" py-2 text-center">{{ status.status?.name}}</td>
-                      <td class=" py-2 text-center">
-                          <span *ngIf="status.type === 'deposit'">Nạp tiền</span>
-                          <span *ngIf="status.type === 'withdrawal'">Rút tiền</span></td>
+                      <td class=" py-2 text-center">{{status.id}}</td>
+                      <td class=" py-2 text-center">{{status.name}}</td>
+                      <td class=" py-2 text-center">{{status.isActive? "Đang sử dụng":"Ngưng sử dụng"}}</td>
+                      <td class=" py-2 text-center">{{status.createdAt | date:'yyyy/MM/dd'}}</td>
                       <td class="px-4 py-2 text-center">
                           <a (click)="updateStatus(status)" class="text-primary"><i class="fa fa-pencil"></i></a>
                       </td>
+                      <td class="px-4 py-2 text-center">
+                        <a (click)="deleteAccountBank(status)" class="text-primary"><i class="fa fa-trash"></i></a>
+                    </td>
                   </tr>
               </tbody>
           </table>

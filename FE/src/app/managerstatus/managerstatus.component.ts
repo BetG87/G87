@@ -32,14 +32,60 @@ export class ManagerstatusComponent {
 
     }
 
+    ngOnInit() {
+      this.filteredStatus = [];
+      this.fullData = [];
+      this.GetStatus()
+    }
+
     addStatus(){
+
+    }
+
+    updateStatus(status:Status){
+
+    }
+    deleteAccountBank(status:Status)
+    {
+
+    }
+    GetStatus(){
+      this.connectApi.get('v1/status').subscribe((response: any) => {
+        console.log(response)
+        this.managerStatus = response
+        this.filteredStatus = [...this.managerStatus];
+        console.log(this.filteredStatus)
+        this.GetfullData(this.filteredStatus)
+      })
+    }
+
+    async GetfullData(datalist: any[]) {
+      datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      console.log(datalist)
+      this.fullData = datalist;
+      this.currentPage = 1;
+      this.statusLoaded = true;
+      console.log(this.fullData)
 
     }
     search()
     {
-
+      console.log(this.fullData)
+      if (!this.searchTerm) {
+        this.fullData = [...this.managerStatus];
+      } else {
+        this.fullData = this.managerStatus.filter(status => this.matchesSearchTerm(status));
+        this.fullData .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        this.currentPage = 1;
+      }
     }
-    updateStatus(status:Status){
-
+    matchesSearchTerm(status: any) {
+      status.id = status.id !== undefined ? status.id : "";
+      status.name = status.name !== undefined ? status.name : "";
+      status.createdAt = status.createdAt !== undefined ? status.createdAt : "";
+      console.log(this.searchTerm)
+      const searchTerm = this.searchTerm.toLowerCase();
+      return status.name.toLowerCase().indexOf(searchTerm) > -1
+        || status.createdAt.toLowerCase().indexOf(searchTerm) > -1
     }
 }
