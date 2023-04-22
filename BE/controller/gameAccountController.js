@@ -65,4 +65,4 @@ const gameAccountController = {
     }
 }
 
-module.exports = gameAccountController;
+module.exports = gameAccountController;  

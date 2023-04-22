@@ -15,7 +15,6 @@
               <thead>
                   <tr class="borderstyle m-1">
                       <th class="px-4 text-center">Số Thứ Tự</th>
-                      <th class="px-4 text-center">ID</th>
                       <th class="px-4 text-center">Name </th>
                       <th class="px-4 text-center">Trạng Thái</th>
                       <th class="px-4 text-center">Ngày Tạo</th>
@@ -26,7 +25,6 @@
               <tbody>
                   <tr *ngFor="let status of fullData.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                       <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
-                      <td class=" py-2 text-center">{{status.id}}</td>
                       <td class=" py-2 text-center">{{status.name}}</td>
                       <td class=" py-2 text-center">{{status.isActive? "Đang sử dụng":"Ngưng sử dụng"}}</td>
                       <td class=" py-2 text-center">{{status.createdAt | date:'yyyy/MM/dd'}}</td>

@@ -8,6 +8,7 @@ import { CookieStorageService } from '../Services/StorageService/cookie-storage.
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { Status } from '../entity/status';
+import { MyModalupdatestatusComponent } from '../my-modalupdatestatus/my-modalupdatestatus.component';
 
 @Component({
   selector: 'app-managerstatus',
@@ -39,11 +40,35 @@ export class ManagerstatusComponent {
     }
 
     addStatus(){
-
+      const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
+      modalRef.componentInstance.Tittle = "Tạo Mới Trạng Thái";
+      modalRef.componentInstance.buttonConfirm = "Đăng ký";
+      modalRef.result.then((result: any) => {
+        if (result == true) {
+          console.log(result)
+          this.ngOnInit()
+        }
+        console.log(result);
+      }).catch((error: any) => {
+        console.log(error);
+      });
     }
 
     updateStatus(status:Status){
-
+      const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
+      modalRef.componentInstance.mode = "1";
+      modalRef.componentInstance.infoStatus = status;
+      modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin tài khoản";
+      modalRef.componentInstance.buttonConfirm = "Cập Nhập";
+      modalRef.result.then((result: any) => {
+        if (result == true) {
+          console.log(result)
+          this.ngOnInit()
+        }
+        console.log(result);
+      }).catch((error: any) => {
+        console.log(error);
+      });
     }
     deleteAccountBank(status:Status)
     {
