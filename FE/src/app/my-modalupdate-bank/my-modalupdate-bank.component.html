@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h4 class="modal-title">Thông Tin Ngân Hàng</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formBank" (ngSubmit)="onSubmit()" class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="codeBank" class="size1Rem">Mã ngân hàng :</label>
+                    <input type="text" formControlName="codeBank" id="codeBank" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="nameBank" class="size1Rem">Tên ngân hàng : </label>
+                    <input type="text" formControlName="nameBank" id="nameBank" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="statusBank" class="size1Rem">Trạng thái tài khoản : </label>
+                    <select id="statusBank" class="form-control" name="statusBank" formControlName="statusBank">
+                            <option value="true">Đang sử dụng</option>
+                            <option value="false">Ngừng sử dụng</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
+        <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
+    </div>
+</div>

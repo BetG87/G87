@@ -35,6 +35,8 @@ import { InputNumberOnlyDirective } from './input-number-only-directive.directiv
 import { ManagerstatusComponent } from './managerstatus/managerstatus.component';
 import { ManagerbankComponent } from './managerbank/managerbank.component';
 import { MyModalupdatestatusComponent } from './my-modalupdatestatus/my-modalupdatestatus.component';
+import { MyModalupdateBankComponent } from './my-modalupdate-bank/my-modalupdate-bank.component';
+
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
 }
@@ -67,7 +69,9 @@ export function tokenGetter() {
     InputNumberOnlyDirective,
     ManagerstatusComponent,
     ManagerbankComponent,
-    MyModalupdatestatusComponent
+    MyModalupdatestatusComponent,
+    MyModalupdateBankComponent
+
 
   ],
   imports: [

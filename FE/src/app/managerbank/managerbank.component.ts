@@ -10,6 +10,7 @@ import { managerAccountBank } from '../entity/managerAccountBank';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { MyModalinfoaccountBankComponent } from '../my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
 import { MyModalupdateaccountBankComponent } from '../my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
+import { MyModalupdateBankComponent } from '../my-modalupdate-bank/my-modalupdate-bank.component';
 
 @Component({
   selector: 'app-managerbank',
@@ -48,48 +49,38 @@ export class ManagerbankComponent  implements OnInit {
       this.managerBank = response
       this.filteredBank = [...this.managerBank];
       console.log(this.filteredBank)
+      console.log(this.managerBank)
     })
   }
   deleteAccountBank(idBank: any) {
-    const title = "Xóa tài khoản ngân hàng";
-    const content = "Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?";
-    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.title = title;
-    modalRef.componentInstance.content = content;
+    // const title = "Xóa tài khoản ngân hàng";
+    // const content = "Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?";
+    // const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
+    // modalRef.componentInstance.title = title;
+    // modalRef.componentInstance.content = content;
+    // modalRef.result.then((result: any) => {
+    //   console.log(result);
+    // }).catch((error: any) => {
+    //   console.log(error);
+    // });
+  }
+
+  updateAccountBank(infoBank: any) {
+  
+    console.log(infoBank);
+    const modalRef = this.modalService.open(MyModalupdateBankComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.Tittle = "Cập Nhập ngân hàng";
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập ";
+    modalRef.componentInstance.infoBank = infoBank;
+    modalRef.componentInstance.mode = "1";
     modalRef.result.then((result: any) => {
       console.log(result);
+      if (result == true) {
+        this.ngOnInit()
+      }
     }).catch((error: any) => {
       console.log(error);
     });
-  }
-  infoAccountBank(idBank: any) {
-    // const infoBank = this.managerBank.filter((item) => item.bankAccountNumber === idBank);
-    // console.log(infoBank);
-    // const modalRef = this.modalService.open(MyModalinfoaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    // modalRef.componentInstance.infoBank = infoBank[0];
-    // modalRef.result.then((result: any) => {
-
-    //   console.log(result);
-    // }).catch((error: any) => {
-    //   console.log(error);
-    // });
-  }
-  updateAccountBank(idBank: any) {
-    // const infoBank = this.managerBank.filter((item) => item.bankAccountNumber === idBank);
-    // console.log(infoBank);
-    // const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    // modalRef.componentInstance.Tittle = "Cập Nhập Tài khoản ngân hàng";
-    // modalRef.componentInstance.buttonConfirm = "Cập Nhập Tài khoản";
-    // modalRef.componentInstance.infoBank = infoBank[0];
-    // modalRef.componentInstance.mode = "1";
-    // modalRef.result.then((result: any) => {
-    //   console.log(result);
-    //   if (result == true) {
-    //     this.ngOnInit()
-    //   }
-    // }).catch((error: any) => {
-    //   console.log(error);
-    // });
 
   }
   search() {
@@ -108,7 +99,7 @@ export class ManagerbankComponent  implements OnInit {
   matchesSearchTerm(accountBank: any) {
     console.log(accountBank)
     accountBank.code = accountBank.code !== undefined ? accountBank.code : "";
-    accountBank.name = accountBank.ownerNnameame !== undefined ? accountBank.name : "";
+    accountBank.name = accountBank.name !== undefined ? accountBank.name : "";
     accountBank.createdAt = accountBank.createdAt !== undefined ? accountBank.createdAt : "";
     console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
@@ -118,18 +109,18 @@ export class ManagerbankComponent  implements OnInit {
   }
 
   addBank() {
-    // const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    // modalRef.componentInstance.mode = "0";
-    // modalRef.componentInstance.Tittle = "Thêm Tài khoản ngân hàng";
-    // modalRef.componentInstance.buttonConfirm = "Thêm Tài khoản";
-    // modalRef.result.then((result: any) => {
-    //   console.log(result);
-    //   if (result == true) {
-    //     this.ngOnInit()
-    //   }
-    // }).catch((error: any) => {
-    //   console.log(error);
-    // });
+    const modalRef = this.modalService.open(MyModalupdateBankComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.mode = "0";
+    modalRef.componentInstance.Tittle = "Thêm ngân hàng";
+    modalRef.componentInstance.buttonConfirm = "Thêm mới";
+    modalRef.result.then((result: any) => {
+      console.log(result);
+      if (result == true) {
+        this.ngOnInit()
+      }
+    }).catch((error: any) => {
+      console.log(error);
+    });
   }
 
 }
