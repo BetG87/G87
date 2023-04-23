@@ -124,7 +124,7 @@ export class MyModalupdatestatusComponent {
           "name": this.formStatus.controls['name'].value,
         }
         console.log(meessage)
-        this.connectApi.post('v1/status/', meessage).subscribe((response: any) => {
+        this.connectApi.post('v1/status', meessage).subscribe((response: any) => {
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',

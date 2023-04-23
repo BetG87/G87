@@ -3,7 +3,7 @@ const Status = require('../models/Status')
 const statusController = {
     addStatus: async (req, res) => {
         try {
-            console.log('1')
+            console.log('2')
             const newStatus = new Status(req.body);
             const savedStatus = await newStatus.save();
             return res.status(200).json(savedStatus);

@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder } from '@angular/forms';
 import { Status } from '../entity/status';
 import { MyModalupdatestatusComponent } from '../my-modalupdatestatus/my-modalupdatestatus.component';
+import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-managerstatus',
@@ -70,8 +72,30 @@ export class ManagerstatusComponent {
         console.log(error);
       });
     }
-    deleteAccountBank(status:Status)
+    deleteStatus(status:Status)
     {
+      const title = "Xóa Trạng Thái";
+    const content = "Bạn có chắc chắn muốn xóa Trạng thái này?";
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.content = content;
+    modalRef.result.then((result: any) => {
+      if (result == true) {
+        const meessage = {
+          "_id": status?._id
+        }
+        console.log(meessage)
+        this.connectApi.post('v1/status/delete', meessage).subscribe((response: any) => {
+          console.log(response)
+          this.ngOnInit()
+        })
+
+      } else
+        console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
+
 
     }
     GetStatus(){
