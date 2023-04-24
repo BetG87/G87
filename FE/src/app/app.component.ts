@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataShareService } from './Services/DataShare/data-share.service';
 import { CookieStorageService } from './Services/StorageService/cookie-storage.service';
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
     this.checkInit();
   }
   navbarOpen = false;
+  @ViewChild('login') loginElement: ElementRef | undefined;
 
   constructor(private dataShare: DataShareService, private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService, private route: Router,
@@ -45,6 +46,12 @@ export class AppComponent implements OnInit {
     window.location.reload();
   }
   toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+    if (this.loginElement && this.navbarOpen) {
+      this.navbarOpen = false;
+    }
+  }
+  toggleNavbarmenu() {
     this.navbarOpen = !this.navbarOpen;
   }
 
