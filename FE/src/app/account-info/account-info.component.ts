@@ -15,6 +15,7 @@ import { AccountInfo } from '../entity/AccountInfo';
 import { Transaction } from '../entity/transaction';
 import { MyModalComponent } from '../my-modal/my-modal.component';
 import { VndFormatPipe } from '../vnd.pipe';
+import { GameAccount } from '../entity/GameAccount';
 
 @Component({
   selector: 'app-account-info',
@@ -61,6 +62,7 @@ export class AccountInfoComponent implements OnInit {
   currentPage = 1;
   pageSize = 5;
   pageSizes = [5, 10, 15, 20];
+  tkGame: any[] = [];
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,
@@ -138,13 +140,17 @@ export class AccountInfoComponent implements OnInit {
       {
           if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
             // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-            const filteredUsers = this.gameAccount.filter(user => {
+            const filteredUsers :any = this.gameAccount.filter(user => {
               const product = this.selectGame === user['gameProduct'];
+
+
               return product;
 
             });
-            this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
-            this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
+            this.tkGame.push(filteredUsers)
+            this.tkGame = this.tkGame[0]
+            this.formAccountinfo.get('gameAccount').setValue(this.tkGame[0]['_id']);
+            this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
           } else {
           }
       }else
@@ -230,6 +236,7 @@ export class AccountInfoComponent implements OnInit {
 
 
   onGameChange(event: any): void {
+    this.tkGame = []
     if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
       // Sử dụng gameProduct và gameAccount để lọc dữ liệu
       const filteredUsers = this.gameAccount.filter(user => {
@@ -237,11 +244,22 @@ export class AccountInfoComponent implements OnInit {
         return product;
 
       });
-      this.formAccountinfo.get('gameAccount').setValue(filteredUsers[0]['username']);
-      this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
+
+      this.tkGame.push(filteredUsers)
+      this.tkGame = this.tkGame[0]
+      this.formAccountinfo.get('gameAccount').setValue(this.tkGame[0]['_id']);
+      this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
     } else {
       console.log('Không có dữ liệu để lọc');
     }
+  }
+  onTKChange(event: any):void {
+
+    const filteredUsers = this.gameAccount.filter(user => {
+      const product = event === user['_id'];
+      return product;
+    });
+    this.formAccountinfo.get('gamePassword').setValue(filteredUsers[0]['password']);
   }
 
   addBank() {
