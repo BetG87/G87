@@ -140,14 +140,20 @@ export class AccountInfoComponent implements OnInit {
       {
           if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
             // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-            const filteredUsers :any = this.gameAccount.filter(user => {
-              const product = this.selectGame === user['gameProduct'];
-
-
-              return product;
-
+            const filteredUsers :any = this.gameAccount.filter((user: any) => {
+              console.log(user)
+              if(user.isActive)
+              {
+                const product = this.selectGame === user['gameProduct'];
+                return product;
+              }
+              else
+              {
+                return false
+              }
             });
             this.tkGame.push(filteredUsers)
+            console.log(filteredUsers)
             this.tkGame = this.tkGame[0]
             this.formAccountinfo.get('gameAccount').setValue(this.tkGame[0]['_id']);
             this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
@@ -239,9 +245,16 @@ export class AccountInfoComponent implements OnInit {
     this.tkGame = []
     if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
       // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-      const filteredUsers = this.gameAccount.filter(user => {
-        const product = event === user['gameProduct'];
-        return product;
+      const filteredUsers = this.gameAccount.filter((user:any) => {
+        if(user.isActive)
+        {
+          const product = this.selectGame === user['gameProduct'];
+          return product;
+        }
+        else
+        {
+          return false
+        }
 
       });
 

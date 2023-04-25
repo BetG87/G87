@@ -53,7 +53,18 @@ export class HomeComponent implements OnInit {
     this.statusLasvegas = "VÀO GAME";
     this.checkInit();
     this.connectApi.get("v1/gameproduct").subscribe((response: any) => {
-      this.gameProductAll = response
+      this.gameProductAll = response.filter((game:any) =>{
+          if(game?.isActive)
+          {
+            return true
+          }
+          else
+          {
+            return false
+          }
+      })
+
+
     })
 
     if(this.isLoggedIn)
