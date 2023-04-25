@@ -109,12 +109,12 @@ export class ManagerbankaccountComponent implements OnInit {
     console.log(accountBank)
     accountBank.bankAccountNumber = accountBank.bankAccountNumber !== undefined ? accountBank.bankAccountNumber : "";
     accountBank.ownerName = accountBank.ownerName !== undefined ? accountBank.ownerName : "";
-    accountBank.user = accountBank.user !== undefined ? accountBank.user : "";
+    accountBank.user.username = accountBank.user?.username !== undefined ? accountBank.user?.username : "";
     console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return accountBank.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
       || accountBank.ownerName.toLowerCase().indexOf(searchTerm) > -1
-      || accountBank.user.toLowerCase().indexOf(searchTerm) > -1;
+      || accountBank.user.username.toLowerCase().indexOf(searchTerm) > -1;
   }
 
   addBank() {

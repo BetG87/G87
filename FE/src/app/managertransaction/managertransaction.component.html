@@ -29,7 +29,7 @@
                     <tr *ngFor="let transaction of fullData.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                         <td class=" py-2 text-center">{{ transaction.user?.username}}</td>
-                        <td class=" py-2 text-center">{{ transaction.bankAccount?.ownerName}}-{{transaction.bankAccount?.bankAccountNumber}}</td>
+                        <td class=" py-2 text-center">{{ transaction.bankAccount?.ownerName}}-{{ transaction.bankAccount?.namebank}} - {{transaction.bankAccount?.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ transaction.bankAccountAdmin?.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ transaction.amount }}</td>
                         <td class=" py-2 text-center">{{ transaction.date | date:'yyyy/MM/dd'}}</td>

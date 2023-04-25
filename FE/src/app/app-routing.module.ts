@@ -12,6 +12,7 @@ import { ManagertransactionComponent } from './managertransaction/managertransac
 import { RoleGuardService } from './Services/Security/role-guard.service';
 import { ManagerstatusComponent } from './managerstatus/managerstatus.component';
 import { ManagerbankComponent } from './managerbank/managerbank.component';
+import { ManagergameProductComponent } from './managergame-product/managergame-product.component';
 const routes: Routes = [
   {
     path: '',
@@ -81,8 +82,17 @@ const routes: Routes = [
     {
       expectedRole: true
     },
+  },
+  {
+    path: 'managergame',
+    component: ManagergameProductComponent, canActivate: [RoleGuardService],
+    data:
+    {
+      expectedRole: true
+    },
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

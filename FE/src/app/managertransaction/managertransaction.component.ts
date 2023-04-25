@@ -28,6 +28,7 @@ export class ManagertransactionComponent implements OnInit {
   filteredTransactions: any[] = [];
   searchTerm: any;
   fullData: any[] = [];
+  allBank: any[] = [];
   transactionsLoaded: boolean = false;
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -47,7 +48,8 @@ export class ManagertransactionComponent implements OnInit {
   async ngOnInit() {
     this.filteredTransactions = [];
     this.fullData = [];
-    this.GetTransaction()
+    this.GetTransaction();
+   
   }
 
   GetTransaction() {
@@ -56,7 +58,8 @@ export class ManagertransactionComponent implements OnInit {
       this.managerTransaction = response
       this.filteredTransactions = [...this.managerTransaction];
       console.log(this.filteredTransactions)
-      this.GetfullData(this.filteredTransactions)
+      this.GetBankAccount() 
+     
     })
   }
 
@@ -153,7 +156,21 @@ export class ManagertransactionComponent implements OnInit {
       console.log(error);
     });
   }
-  handleError(error: any) {
+ 
+  GetBankAccount() {
+    this.connectApi.get('v1/bank').subscribe((response: any) => {
+      this.allBank = response
+        for (let i = 0; i < this.filteredTransactions.length; i++) {
+          const bankId = this.filteredTransactions[i].bankAccount.bankId;
+          const bankAccount = this.allBank.find(g => g._id === bankId);
+          if (bankAccount) {
+            this.filteredTransactions[i].bankAccount.namebank = bankAccount.name;
+          }
+        }
+        console.log(this.filteredTransactions)
+        this.GetfullData(this.filteredTransactions)
+    })
+
   }
 }
 

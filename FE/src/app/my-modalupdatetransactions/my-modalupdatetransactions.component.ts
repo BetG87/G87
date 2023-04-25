@@ -179,6 +179,10 @@ export class MyModalupdatetransactionsComponent implements OnInit {
           "user": this.formAccountupdateTransaction.controls['UserName'].value,
           "note": this.formAccountupdateTransaction.controls['note'].value
         }
+
+        if (this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == '' || this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == null) {
+          delete meessage['bankAccountAdmin'];
+        }
         console.log(meessage)
         this.connectApi.post('v1/transaction/update', meessage).subscribe((response: any) => {
           this.activeModal.close(true);

@@ -19,10 +19,12 @@ export class LoginComponent implements OnInit {
   public isSignUpFailed = false;
   public errorMessage = '';
 
+
   public formLogin: FormGroup | any;
   isLoggedIn: boolean = false;
   isLoginFailed: boolean = true;
   isAdmin: boolean = false;
+  showPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +38,8 @@ export class LoginComponent implements OnInit {
     this.formLogin = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      showPassword: [false]
+
     });
   }
 
@@ -102,12 +106,11 @@ export class LoginComponent implements OnInit {
               console.log(error);
             });
         }
-        else
-        {
+        else {
           window.location.href = '/';
         }
 
-      },(response) => {
+      }, (response) => {
         const modalRef = this.modalService.open(MyModalComponent, {
           size: 'sm',
           backdrop: 'static',
@@ -128,5 +131,8 @@ export class LoginComponent implements OnInit {
 
   clickInput() {
     console.log('event');
+  }
+  checkPassword() {
+    this.formLogin.get('password').value
   }
 }
