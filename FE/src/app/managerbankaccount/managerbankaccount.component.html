@@ -32,13 +32,13 @@
                         <td class=" py-2 text-center">{{ accountBank.user?.username }}</td>
                         <td class=" py-2 text-center">{{ accountBank.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>
                         <td class=" py-2 text-center">
-                            <a (click)="infoAccountBank(accountBank.bankAccountNumber) " class="text-primary"><i class="fa fa-info-circle"></i></a>
+                            <a (click)="infoAccountBank(accountBank) " class="text-primary"><i class="fa fa-info-circle"></i></a>
                         </td>
                         <td class="px-4 py-2 text-center">
-                            <a (click)="updateAccountBank(accountBank.bankAccountNumber)" class="text-primary"><i class="fa fa-pencil"></i></a>
+                            <a (click)="updateAccountBank(accountBank)" class="text-primary"><i class="fa fa-pencil"></i></a>
                         </td>
                         <td class="px-4 py-2 text-center">
-                            <a (click)="deleteAccountBank(accountBank.bankAccountNumber)" class="text-primary"><i class="fa fa-trash"></i></a>
+                            <a (click)="deleteAccountBank(accountBank._id)" class="text-primary"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>

@@ -48,6 +48,7 @@ export class ManagerbankComponent  implements OnInit {
       console.log(response)
       this.managerBank = response
       this.filteredBank = [...this.managerBank];
+      this.filteredBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       console.log(this.filteredBank)
       console.log(this.managerBank)
     })
@@ -92,6 +93,7 @@ export class ManagerbankComponent  implements OnInit {
       console.log(this.filteredBank)
       console.log(this.managerBank)
       this.filteredBank = this.managerBank.filter(accountBank => this.matchesSearchTerm(accountBank));
+      this.filteredBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       this.currentPage = 1;
     }
   }

@@ -47,6 +47,7 @@ export class ManagerbankaccountComponent implements OnInit {
       console.log(response)
       this.managerAccountBank = response
       this.filteredAccountsBank = [...this.managerAccountBank];
+      this.filteredAccountsBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       console.log(this.filteredAccountsBank)
     })
   }
@@ -57,16 +58,25 @@ export class ManagerbankaccountComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
+      if (result == true){
+        const meessage = {
+          "_id": idBank
+        }
+        this.connectApi.post('v1/bankaccount/delete',meessage).subscribe((response: any) => {
+          console.log(response)
+          this.ngOnInit()
+        })
+      } 
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
     });
   }
-  infoAccountBank(idBank: any) {
-    const infoBank = this.managerAccountBank.filter((item) => item.bankAccountNumber === idBank);
+  infoAccountBank(infoBank: any) {
+  
     console.log(infoBank);
     const modalRef = this.modalService.open(MyModalinfoaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.infoBank = infoBank[0];
+    modalRef.componentInstance.infoBank = infoBank;
     modalRef.result.then((result: any) => {
 
       console.log(result);
@@ -74,13 +84,12 @@ export class ManagerbankaccountComponent implements OnInit {
       console.log(error);
     });
   }
-  updateAccountBank(idBank: any) {
-    const infoBank = this.managerAccountBank.filter((item) => item.bankAccountNumber === idBank);
+  updateAccountBank(infoBank: any) {
     console.log(infoBank);
     const modalRef = this.modalService.open(MyModalupdateaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.Tittle = "Cập Nhập Tài khoản ngân hàng";
     modalRef.componentInstance.buttonConfirm = "Cập Nhập Tài khoản";
-    modalRef.componentInstance.infoBank = infoBank[0];
+    modalRef.componentInstance.infoBank = infoBank;
     modalRef.componentInstance.mode = "1";
     modalRef.result.then((result: any) => {
       console.log(result);
@@ -101,6 +110,7 @@ export class ManagerbankaccountComponent implements OnInit {
       console.log(this.filteredAccountsBank)
       console.log(this.managerAccountBank)
       this.filteredAccountsBank = this.managerAccountBank.filter(accountBank => this.matchesSearchTerm(accountBank));
+      this.filteredAccountsBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       this.currentPage = 1;
     }
   }

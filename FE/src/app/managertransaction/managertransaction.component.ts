@@ -49,7 +49,7 @@ export class ManagertransactionComponent implements OnInit {
     this.filteredTransactions = [];
     this.fullData = [];
     this.GetTransaction();
-   
+
   }
 
   GetTransaction() {
@@ -58,8 +58,8 @@ export class ManagertransactionComponent implements OnInit {
       this.managerTransaction = response
       this.filteredTransactions = [...this.managerTransaction];
       console.log(this.filteredTransactions)
-      this.GetBankAccount() 
-     
+      this.GetBankAccount()
+
     })
   }
 
@@ -96,8 +96,8 @@ export class ManagertransactionComponent implements OnInit {
       this.fullData = [...this.managerTransaction];
     } else {
       this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
-      this.fullData .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      this.currentPage = 1; 
+      this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      this.currentPage = 1;
     }
   }
 
@@ -156,19 +156,19 @@ export class ManagertransactionComponent implements OnInit {
       console.log(error);
     });
   }
- 
+
   GetBankAccount() {
     this.connectApi.get('v1/bank').subscribe((response: any) => {
       this.allBank = response
-        for (let i = 0; i < this.filteredTransactions.length; i++) {
-          const bankId = this.filteredTransactions[i].bankAccount.bankId;
-          const bankAccount = this.allBank.find(g => g._id === bankId);
-          if (bankAccount) {
-            this.filteredTransactions[i].bankAccount.namebank = bankAccount.name;
-          }
+      for (let i = 0; i < this.filteredTransactions.length; i++) {
+        const bankId = this.filteredTransactions[i].bankAccount.bankId;
+        const bankAccount = this.allBank.find(g => g._id === bankId);
+        if (bankAccount) {
+          this.filteredTransactions[i].bankAccount.namebank = bankAccount.name;
         }
-        console.log(this.filteredTransactions)
-        this.GetfullData(this.filteredTransactions)
+      }
+      console.log(this.filteredTransactions)
+      this.GetfullData(this.filteredTransactions)
     })
 
   }
