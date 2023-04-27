@@ -39,7 +39,6 @@ export class MyModalupdateProductComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
     if (this.mode == "1") {
       console.log(this.infoGame)
       if (this.infoGame) {

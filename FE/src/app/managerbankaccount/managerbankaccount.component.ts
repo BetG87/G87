@@ -10,6 +10,7 @@ import { managerAccountBank } from '../entity/managerAccountBank';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { MyModalinfoaccountBankComponent } from '../my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
 import { MyModalupdateaccountBankComponent } from '../my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-managerbankaccount',
@@ -58,22 +59,40 @@ export class ManagerbankaccountComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-      if (result == true){
+      if (result == true) {
         const meessage = {
           "_id": idBank
         }
-        this.connectApi.post('v1/bankaccount/delete',meessage).subscribe((response: any) => {
+        this.connectApi.post('v1/bankaccount/delete', meessage).subscribe((response: any) => {
           console.log(response)
-          this.ngOnInit()
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Tài Khoản Ngân Hàng';
+            modalRef.componentInstance.contentNotification =
+              'Xóa tài khoản ngân hàng thành công';
+            modalRef.componentInstance.command = "deleteBank";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
         })
-      } 
+      }
       console.log(result);
     }).catch((error: any) => {
       console.log(error);
     });
   }
   infoAccountBank(infoBank: any) {
-  
+
     console.log(infoBank);
     const modalRef = this.modalService.open(MyModalinfoaccountBankComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoBank = infoBank;

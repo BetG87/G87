@@ -155,7 +155,6 @@ export class MyModalupdateaccountBankComponent implements OnInit {
     modalRef.result.then((result: any) => {
       if (result == true) {
         const meessage = {
-          "_id": this.infoBank._id,
           "user": this.formAccountinfoBank.controls['userName'].value,
           "bankAccountNumber": this.formAccountinfoBank.controls['accountBank'].value,
           "ownerName": this.formAccountinfoBank.controls['nameAccountBank'].value,

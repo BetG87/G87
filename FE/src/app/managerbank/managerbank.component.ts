@@ -11,6 +11,7 @@ import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-m
 import { MyModalinfoaccountBankComponent } from '../my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
 import { MyModalupdateaccountBankComponent } from '../my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
 import { MyModalupdateBankComponent } from '../my-modalupdate-bank/my-modalupdate-bank.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-managerbank',
@@ -54,16 +55,42 @@ export class ManagerbankComponent  implements OnInit {
     })
   }
   deleteAccountBank(idBank: any) {
-    // const title = "Xóa tài khoản ngân hàng";
-    // const content = "Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?";
-    // const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
-    // modalRef.componentInstance.title = title;
-    // modalRef.componentInstance.content = content;
-    // modalRef.result.then((result: any) => {
-    //   console.log(result);
-    // }).catch((error: any) => {
-    //   console.log(error);
-    // });
+    const title = "Xóa tài khoản ngân hàng";
+    const content = "Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?";
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.content = content;
+    modalRef.result.then((result: any) => {
+      console.log(result);
+      if (result) {
+        const message = {
+          "_id": idBank
+        }
+        this.connectApi.post('v1/bankaccount/delete', message).subscribe((response: any) => {
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Tài Khoản Ngân Hàng';
+            modalRef.componentInstance.contentNotification =
+              'Xóa tài khoản Ngân Hàng thành công';
+            modalRef.componentInstance.command = "deleteAccountBank";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
+        })
+      }
+    }).catch((error: any) => {
+      console.log(error);
+    });
   }
 
   updateAccountBank(infoBank: any) {

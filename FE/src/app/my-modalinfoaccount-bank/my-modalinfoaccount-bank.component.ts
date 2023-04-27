@@ -25,8 +25,8 @@ export class MyModalinfoaccountBankComponent implements OnInit {
       nameAccountBank: [''],
       userBank: [''],
       statusAccount: [''],
-      typeAccount :  [''],
-      bankId :  [''],
+      typeAccount: [''],
+      bankId: [''],
 
     });
 
@@ -38,12 +38,8 @@ export class MyModalinfoaccountBankComponent implements OnInit {
     this.GetBank()
     this.GetUser()
     console.log(this.infoBank)
-
-    
-
-
   }
-  GetBank(){
+  GetBank() {
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
       this.bankNameLists = response;
@@ -65,15 +61,11 @@ export class MyModalinfoaccountBankComponent implements OnInit {
         console.log(this.infoBank)
       }
     })
-  
   }
-
-
   closeModal() {
     this.activeModal.close(true);
   }
   confirm() {
     this.activeModal.close(false);
   }
-
 }

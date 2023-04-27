@@ -103,7 +103,7 @@ export class MyModalupdateaccountGameComponent implements OnInit {
         console.log(meessage)
         this.connectApi.post('v1/gameaccount/update', meessage).subscribe((response: any) => {
           if (response) {
-            if (response) {
+            if (response == "Update successfully" ) {
               const modalRef = this.modalService.open(MyModalComponent, {
                 size: 'sm',
                 backdrop: 'static',

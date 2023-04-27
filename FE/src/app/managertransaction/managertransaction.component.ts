@@ -12,6 +12,8 @@ import { MyModalupdatetransactionsComponent } from '../my-modalupdatetransaction
 import { forkJoin, of } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
+import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 
 @Component({
@@ -72,12 +74,10 @@ export class ManagertransactionComponent implements OnInit {
     console.log(this.fullData)
 
   }
-  updateTransaction(idaccounttransaction: any) {
-    const infoTransactions = this.filteredTransactions.filter((item) => item._id === idaccounttransaction);
-    console.log(infoTransactions[0]);
+  updateTransaction(accounttransaction: any) {
     const modalRef = this.modalService.open(MyModalupdatetransactionsComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.infoTransactions = infoTransactions[0];
-    console.log(infoTransactions[0])
+    modalRef.componentInstance.infoTransactions = accounttransaction;
+    console.log(accounttransaction)
     modalRef.componentInstance.mode = "1";
     modalRef.componentInstance.Tittle = "Cập Nhập Giao Dịch";
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
@@ -110,20 +110,10 @@ export class ManagertransactionComponent implements OnInit {
     let searchamount
     let nameStatus
     let date
-    if (accounttransaction.user !== undefined) {
-      accounttransaction.user.username = accounttransaction.user.username !== undefined ? accounttransaction.user.username : "";
-      searchName = accounttransaction.user.username.toLowerCase().indexOf(searchTerm) > -1
-    }
-    if (accounttransaction.bankAccount !== undefined) {
-      accounttransaction.bankAccount.ownerName = accounttransaction.bankAccount.ownerName !== undefined ? accounttransaction.bankAccount.ownerName : "";
-      accounttransaction.bankAccount.bankAccountNumber = accounttransaction.bankAccount.bankAccountNumber !== undefined ? accounttransaction.bankAccount.bankAccountNumber : "";
-      searchownerName = accounttransaction.bankAccount.ownerName.toLowerCase().indexOf(searchTerm) > -1
-      searchbankAccountNumberuser = accounttransaction.bankAccount.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
-    }
-    if (accounttransaction.bankAccountAdmin !== undefined) {
-      accounttransaction.bankAccountAdmin.bankAccountNumber = accounttransaction.bankAccountAdmin.bankAccountNumber !== undefined ? accounttransaction.bankAccountAdmin.bankAccountNumber : "";
-      searchbankAccountNumberAdmin = accounttransaction.bankAccountAdmin.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
-    }
+    searchName = accounttransaction.user?.username.toLowerCase().indexOf(searchTerm) > -1
+    searchownerName = accounttransaction.bankAccount?.ownerName.toLowerCase().indexOf(searchTerm) > -1
+    searchbankAccountNumberuser = accounttransaction.bankAccount?.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
+    searchbankAccountNumberAdmin = accounttransaction.bankAccountAdmin?.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
     accounttransaction.amount = accounttransaction.amount !== undefined ? accounttransaction.amount : "";
     searchamount = accounttransaction.amount.toLowerCase().indexOf(searchTerm) > -1
     accounttransaction.nameStatus = accounttransaction.status.name !== undefined ? accounttransaction.status.name : "";
@@ -170,7 +160,47 @@ export class ManagertransactionComponent implements OnInit {
       console.log(this.filteredTransactions)
       this.GetfullData(this.filteredTransactions)
     })
+  }
 
+  deleteTransaction(id: any) {
+    const title = "Xóa Giao Dịch";
+    const content = "Bạn có chắc chắn muốn xóa giao dịch này?";
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.content = content;
+    modalRef.result.then((result: any) => {
+      if (result == true) {
+        const message = {
+          "_id": id
+        }
+        console.log(message)
+        this.connectApi.post('v1/transaction/delete', message).subscribe((response: any) => {
+          console.log(response)
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Giao Dịch';
+            modalRef.componentInstance.contentNotification =
+              'Xóa giao dịch thành công';
+            modalRef.componentInstance.command = "deleteTransaction";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
+        })
+      } else
+        console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
   }
 }
 

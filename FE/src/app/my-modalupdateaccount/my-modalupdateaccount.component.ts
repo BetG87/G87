@@ -175,8 +175,8 @@ export class MyModalupdateaccountComponent implements OnInit {
 
   }
   fncreateAccount() {
-    const title = "Tạo Mới Tài Khoản";
-    const content = "Bạn có muốn tạo mới tài khoản này?";
+    const title = "Đăng Kí Tài Khoản";
+    const content = "Bạn có muốn đăng kí tài khoản này?";
     const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
@@ -218,16 +218,5 @@ export class MyModalupdateaccountComponent implements OnInit {
       console.log(error);
     });
   }
-  // checkForm() {
-  //   let formValid = true;
-  //   const controls = this.formAccountupdate.controls;
-  //   for (const name in controls) {
-  //     if (controls[name].value === '') {
-  //       formValid = false;
-  //       break;
-  //     }
-  //   }
-  //   return formValid;
-  // }
 
 }

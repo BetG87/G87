@@ -41,8 +41,6 @@ export class MyModalinfoaccountGameComponent implements OnInit {
       this.GameProduct = response
       this.listGameProduct = [...this.GameProduct];
       console.log(this.infoGame)
-
-
       const gameProduct = this.infoGame.gameProduct;
       const game = this.listGameProduct.find(g => g._id === gameProduct);
       if (game) {
@@ -58,10 +56,7 @@ export class MyModalinfoaccountGameComponent implements OnInit {
       this.formAccountinfoGame.controls['statusAccount'].setValue(this.infoGame.isActive !== false ? 'Đang sử dụng' : 'Ngưng sử dụng');
       this.formAccountinfoGame.controls['password'].setValue(this.infoGame.password !== undefined ? this.infoGame.password : "");
       console.log(this.infoGame)
-
     }
-
-
   }
 
   closeModal() {
@@ -70,5 +65,4 @@ export class MyModalinfoaccountGameComponent implements OnInit {
   confirm() {
     this.activeModal.close(false);
   }
-
 }

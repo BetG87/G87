@@ -33,108 +33,121 @@ export class ManagerstatusComponent {
     private cookieStore: CookieStorageService,
     private modalService: NgbModal, private fb: FormBuilder) {
 
-    }
+  }
 
-    ngOnInit() {
-      this.filteredStatus = [];
-      this.fullData = [];
-      this.GetStatus()
-    }
+  ngOnInit() {
+    this.filteredStatus = [];
+    this.fullData = [];
+    this.GetStatus()
+  }
 
-    addStatus(){
-      const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
-      modalRef.componentInstance.Tittle = "Tạo Mới Trạng Thái";
-      modalRef.componentInstance.buttonConfirm = "Đăng ký";
-      modalRef.result.then((result: any) => {
-        if (result == true) {
-          console.log(result)
-          this.ngOnInit()
-        }
-        console.log(result);
-      }).catch((error: any) => {
-        console.log(error);
-      });
-    }
+  addStatus() {
+    const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.Tittle = "Tạo Mới Trạng Thái";
+    modalRef.componentInstance.buttonConfirm = "Đăng ký";
+    modalRef.result.then((result: any) => {
+      if (result == true) {
+        console.log(result)
+        this.ngOnInit()
+      }
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
+  }
 
-    updateStatus(status:Status){
-      const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
-      modalRef.componentInstance.mode = "1";
-      modalRef.componentInstance.infoStatus = status;
-      modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin tài khoản";
-      modalRef.componentInstance.buttonConfirm = "Cập Nhập";
-      modalRef.result.then((result: any) => {
-        if (result == true) {
-          console.log(result)
-          this.ngOnInit()
-        }
-        console.log(result);
-      }).catch((error: any) => {
-        console.log(error);
-      });
-    }
-    deleteStatus(status:Status)
-    {
-      const title = "Xóa Trạng Thái";
+  updateStatus(status: Status) {
+    const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.mode = "1";
+    modalRef.componentInstance.infoStatus = status;
+    modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin tài khoản";
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập";
+    modalRef.result.then((result: any) => {
+      if (result == true) {
+        console.log(result)
+        this.ngOnInit()
+      }
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
+  }
+  deleteStatus(status: Status) {
+    const title = "Xóa Trạng Thái";
     const content = "Bạn có chắc chắn muốn xóa Trạng thái này?";
     const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "sm", backdrop: "static", keyboard: false });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
       if (result == true) {
-        const meessage = {
+        const message = {
           "_id": status?._id
         }
-        console.log(meessage)
-        this.connectApi.post('v1/status/delete', meessage).subscribe((response: any) => {
+        console.log(message)
+        this.connectApi.post('v1/status/delete', message).subscribe((response: any) => {
           console.log(response)
-          this.ngOnInit()
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Trạng Thái';
+            modalRef.componentInstance.contentNotification =
+              'Xóa trạng thái thành công';
+            modalRef.componentInstance.command = "deleteStatus";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
         })
-
       } else
         console.log(result);
     }).catch((error: any) => {
       console.log(error);
     });
+  }
+  GetStatus() {
+    this.connectApi.get('v1/status').subscribe((response: any) => {
+      console.log(response)
+      this.managerStatus = response
+      this.filteredStatus = [...this.managerStatus];
+      console.log(this.filteredStatus)
+      this.GetfullData(this.filteredStatus)
+    })
+  }
 
+  async GetfullData(datalist: any[]) {
+    datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    console.log(datalist)
+    this.fullData = datalist;
+    this.currentPage = 1;
+    this.statusLoaded = true;
+    console.log(this.fullData)
 
-    }
-    GetStatus(){
-      this.connectApi.get('v1/status').subscribe((response: any) => {
-        console.log(response)
-        this.managerStatus = response
-        this.filteredStatus = [...this.managerStatus];
-        console.log(this.filteredStatus)
-        this.GetfullData(this.filteredStatus)
-      })
-    }
-
-    async GetfullData(datalist: any[]) {
-      datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      console.log(datalist)
-      this.fullData = datalist;
+  }
+  search() {
+    console.log(this.fullData)
+    if (!this.searchTerm) {
+      this.fullData = [...this.managerStatus];
+    } else {
+      this.fullData = this.managerStatus.filter(status => this.matchesSearchTerm(status));
+      this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       this.currentPage = 1;
-      this.statusLoaded = true;
-      console.log(this.fullData)
-
     }
-    search()
-    {
-      console.log(this.fullData)
-      if (!this.searchTerm) {
-        this.fullData = [...this.managerStatus];
-      } else {
-        this.fullData = this.managerStatus.filter(status => this.matchesSearchTerm(status));
-        this.fullData .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        this.currentPage = 1;
-      }
-    }
-    matchesSearchTerm(status: any) {
-      status.id = status.id !== undefined ? status.id : "";
-      status.name = status.name !== undefined ? status.name : "";
-      status.createdAt = status.createdAt !== undefined ? status.createdAt : "";
-      console.log(this.searchTerm)
-      const searchTerm = this.searchTerm.toLowerCase();
-      return status.name.toLowerCase().indexOf(searchTerm) > -1
-        || status.createdAt.toLowerCase().indexOf(searchTerm) > -1
-    }
+  }
+  matchesSearchTerm(status: any) {
+    status.id = status.id !== undefined ? status.id : "";
+    status.name = status.name !== undefined ? status.name : "";
+    status.createdAt = status.createdAt !== undefined ? status.createdAt : "";
+    console.log(this.searchTerm)
+    const searchTerm = this.searchTerm.toLowerCase();
+    return status.name.toLowerCase().indexOf(searchTerm) > -1
+      || status.createdAt.toLowerCase().indexOf(searchTerm) > -1
+  }
 }

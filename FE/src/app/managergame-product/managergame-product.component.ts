@@ -12,6 +12,7 @@ import { MyModalinfoaccountGameComponent } from '../my-modalinfoaccount-game/my-
 import { MyModalupdateaccountGameComponent } from '../my-modalupdateaccount-game/my-modalupdateaccount-game.component';
 import { GameProduct } from '../entity/GameProduct';
 import { MyModalupdateProductComponent } from '../my-modalupdate-product/my-modalupdate-product.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-managergame-product',
@@ -63,9 +64,34 @@ export class ManagergameProductComponent implements OnInit {
         }
         console.log(meessage)
         this.connectApi.post('v1/gameproduct/delete', meessage).subscribe((response: any) => {
-          console.log(response)
+          if (result == true) {
+            const meessage = {
+              "_id": idGame
+            }
+            console.log(meessage)
+            this.connectApi.post('v1/gameaccount/delete', meessage).subscribe((response: any) => {
+              if (response == "Delete successfully") {
+                const modalRef = this.modalService.open(MyModalComponent, {
+                  size: 'sm',
+                  backdrop: 'static',
+                  keyboard: false,
+                });
+                modalRef.componentInstance.Notification =
+                  'Thông Báo Xóa Tài Khoản Game';
+                modalRef.componentInstance.contentNotification =
+                  'Xóa tài khoản Game thành công';
+                modalRef.componentInstance.command = "deleteAccountGame";
+                modalRef.result
+                  .then((result: any) => {
+                    this.ngOnInit()
+                  })
+                  .catch((error: any) => {
+                    console.log(error);
+                  });
+              }
+            })
+          }
         })
-        this.ngOnInit()
       } else
         console.log(result);
     }).catch((error: any) => {

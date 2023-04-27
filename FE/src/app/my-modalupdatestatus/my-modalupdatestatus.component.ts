@@ -19,7 +19,7 @@ export class MyModalupdatestatusComponent {
   allUserName: any[] = [];
   confirm: boolean = false;
   Tittle: string = "";
-  buttonConfirm :string = "";
+  buttonConfirm: string = "";
 
   constructor(public activeModal: NgbActiveModal,
     private router: Router,
@@ -32,16 +32,12 @@ export class MyModalupdatestatusComponent {
     });
 
   }
-
-
   public onSubmit(): void {
-
   }
   ngOnInit(): void {
     if (this.mode == "1") {
       this.GetData()
     }
-
   }
   GetData() {
     if (this.infoStatus) {
@@ -54,10 +50,6 @@ export class MyModalupdatestatusComponent {
   closeModal() {
     this.activeModal.close(true);
   }
-  // confirm() {
-  //   this.formAccountinfoStatus.controls['userBank'].setValue(this.infoStatus.user !== undefined ? this.infoStatus.user._id : "");
-  //   this.activeModal.close(false);
-  // }
   btnconfirm() {
     this.confirm = true
     if (this.confirm && this.formStatus.valid) {
@@ -77,7 +69,7 @@ export class MyModalupdatestatusComponent {
     modalRef.result.then((result: any) => {
       if (result == true) {
         const meessage = {
-          "_id":this.infoStatus['_id'],
+          "_id": this.infoStatus['_id'],
           "name": this.formStatus.controls['name'].value,
           "isActive": this.formStatus.controls['isActive'].value
         }
@@ -94,7 +86,7 @@ export class MyModalupdatestatusComponent {
                 'Thông Báo Cập Nhập';
               modalRef.componentInstance.contentNotification =
                 'Cập nhập Trạng thái thành công';
-              modalRef.componentInstance.command = "updateBank";
+              modalRef.componentInstance.command = "updatestatus";
               modalRef.result
                 .then((result: any) => {
                   this.activeModal.close(true);
@@ -134,7 +126,7 @@ export class MyModalupdatestatusComponent {
             modalRef.componentInstance.Notification =
               'Thông Báo Tạo Mới';
             modalRef.componentInstance.contentNotification =
-              'Tạo Trạng thái thành công';
+              'Tạo mới trạng thái thành công';
             modalRef.result
               .then((result: any) => {
                 this.activeModal.close(true);

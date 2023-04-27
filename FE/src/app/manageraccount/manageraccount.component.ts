@@ -10,6 +10,7 @@ import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 import { MyModalinfoaccountComponent } from '../my-modalinfoaccount/my-modalinfoaccount.component';
 import { MyModalupdateaccountComponent } from '../my-modalupdateaccount/my-modalupdateaccount.component';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-manageraccount',
@@ -64,12 +65,36 @@ export class ManageraccountComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-
       console.log(result);
+      if (result) {
+        const message = {
+          "_id": _id
+        }
+        this.connectApi.post('v1/user/delete', message).subscribe((response: any) => {
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Tài Khoản';
+            modalRef.componentInstance.contentNotification =
+              'Xóa tài khoản thành công';
+            modalRef.componentInstance.command = "deleteUser";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
+        })
+      }
     }).catch((error: any) => {
       console.log(error);
     });
-
   }
   infoAccount(_id: any) {
     const info = this.managerAccount.filter((item) => item._id === _id);

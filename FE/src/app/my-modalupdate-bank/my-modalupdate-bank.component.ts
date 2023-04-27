@@ -52,7 +52,6 @@ export class MyModalupdateBankComponent implements OnInit {
     this.activeModal.close(false);
   }
 
-
   btnconfirm() {
     this.confirm = true
 
@@ -64,7 +63,6 @@ export class MyModalupdateBankComponent implements OnInit {
       }
     }
   }
-
 
   fnupdateAccount() {
     const title = "Cập Nhập ngân hàng";

@@ -11,6 +11,7 @@ import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-m
 import { MyModalinfoaccountGameComponent } from '../my-modalinfoaccount-game/my-modalinfoaccount-game.component';
 import { MyModalupdateaccountGameComponent } from '../my-modalupdateaccount-game/my-modalupdateaccount-game.component';
 import { GameProduct } from '../entity/GameProduct';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
   selector: 'app-managergame',
@@ -79,10 +80,10 @@ export class ManagergameComponent implements OnInit {
               this.filteredAccountsGame[i].nameAccount = account.username;
             }
           }
-          this.GetfullData( this.filteredAccountsGame)
+          this.GetfullData(this.filteredAccountsGame)
           // this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
           // this.filteredAccountsGame = [...this.filteredAccountsGame];
-        
+
           // this.currentPage = 1
         })
       })
@@ -110,11 +111,27 @@ export class ManagergameComponent implements OnInit {
         }
         console.log(meessage)
         this.connectApi.post('v1/gameaccount/delete', meessage).subscribe((response: any) => {
-          console.log(response)
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Tài Khoản Game';
+            modalRef.componentInstance.contentNotification =
+              'Xóa tài khoản Game thành công';
+            modalRef.componentInstance.command = "deleteAccountGame";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          }
         })
-        this.ngOnInit()
-      } else
-        console.log(result);
+      }
     }).catch((error: any) => {
       console.log(error);
     });
