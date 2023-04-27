@@ -1,11 +1,10 @@
-const User = require('../models/User');
+const { User, GameAccount, BankAccount, GameProduct } = require('../models');
 const bcrypt = require('bcrypt')
 
 const userController =
 {
-        //GET ALL USERS
-    getAllUser: async (req, res) =>
-        {
+    //GET ALL USERS
+    getAllUser: async (req, res) => {
         try {
             const user = await User.find();
 
@@ -27,6 +26,16 @@ const userController =
     },
     deletedUser: async (req, res) => {
         try {
+            await GameAccount.updateMany(
+                { user: req.params.id },
+                {
+                    user: null
+                })
+            await BankAccount.updateMany(
+                { user: req.params.id },
+                {
+                    user: null
+                })
             const user = await User.findById(req.body._id)
             user.isActive = false;
             user.save()
@@ -40,9 +49,9 @@ const userController =
         try {
             const user = await User.findById(req.body._id);
             if (req.body.password != null) {
-                    const salt = await bcrypt.genSalt(10);
-                    const hashed = await bcrypt.hash(req.body.password, salt);
-                    user.password = hashed;
+                const salt = await bcrypt.genSalt(10);
+                const hashed = await bcrypt.hash(req.body.password, salt);
+                user.password = hashed;
             }
 
             if (req.body.email != null) {
@@ -81,65 +90,65 @@ const userController =
         catch (err) {
             return res.status(500).json(err)
         }
-    },changePassword: async (req, res) => {
-        try {          
+    }, changePassword: async (req, res) => {
+        try {
             const user = await User.findById(req.body._id);
-           
+
             const validPassword = await bcrypt.compare(
-				req.body.oldPassword,
-				user.password
-			)
-			if (!validPassword) {
-				return res.status(404).json("Wrong password")
-			}
-            else{
+                req.body.oldPassword,
+                user.password
+            )
+            if (!validPassword) {
+                return res.status(404).json("Wrong password")
+            }
+            else {
                 if (req.body.newPassword != null) {
                     const salt = await bcrypt.genSalt(10);
                     const hashed = await bcrypt.hash(req.body.newPassword, salt);
                     user.password = hashed;
-            }
+                }
                 const updatedUser = await user.save();
                 return res.status(200).json("Change Password succcessfully");
             }
-            
+
         }
         catch (err) {
             return res.status(500).json(err)
         }
     },
     usernameisexist: async (req, res) => {
-		try {
-			const user = await User.findOne({ username: req.body.username });
-			if (user) {
+        try {
+            const user = await User.findOne({ username: req.body.username });
+            if (user) {
                 console.log(req.body.username)
-				return res.status(200).json({isexist:true})
+                return res.status(200).json({ isexist: true })
 
-			}
-            else{
-                return res.status(200).json({isexist:false})
             }
-			
-		}
-		catch (err) {
-			return res.status(500).json("abc");
-		}
-	},   
+            else {
+                return res.status(200).json({ isexist: false })
+            }
+
+        }
+        catch (err) {
+            return res.status(500).json("abc");
+        }
+    },
     emailisexist: async (req, res) => {
-		try {
-			const user = await User.findOne({ email: req.body.email });
-			if (user) {
-				return res.status(200).json({isexist:true})
-			}
-            else{
-                return res.status(200).json({isexist:false})
+        try {
+            const user = await User.findOne({ email: req.body.email });
+            if (user) {
+                return res.status(200).json({ isexist: true })
             }
-			
-		}
-		catch (err) {
-			return res.status(500).json("abc");
-		}
-	}
-    
+            else {
+                return res.status(200).json({ isexist: false })
+            }
+
+        }
+        catch (err) {
+            return res.status(500).json("abc");
+        }
+    }
+
 }
 
 module.exports = userController;

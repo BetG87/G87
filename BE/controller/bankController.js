@@ -1,4 +1,4 @@
-const Bank = require('../models/Bank')
+const {Bank,BankAccount} = require('../models')
 
 const bankController = {
     addBank: async (req, res) => {
@@ -41,10 +41,13 @@ const bankController = {
     },
     deleteBank: async (req, res) => {
         try {
-
-            const bank = await Bank.findById(req.body._id);
-            bank.isActive = false
-            bank.save()
+            await BankAccount.updateMany(
+                { bankId: req.params.id },
+                {
+                    bankId: null
+                })
+            
+            const bank = await Bank.findByIdAndDelete(req.body._id);
             return res.status(200).json("Delete successfully")
         }
         catch (err) {

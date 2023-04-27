@@ -54,9 +54,12 @@ const gameAccountController = {
     },
     deleteGameAccount: async (req, res) => {
         try {
-            const gameAccount = await GameAccount.findById(req.body._id);
-            gameAccount.isActive = false
-            gameAccount.save()
+            await User.updateMany(
+                { gameAccounts: req.body._id},
+                {
+                    $pull: { gameAccounts: req.body._id }
+                })
+            const gameAccount = await GameAccount.findByIdAndDelete(req.body._id);
             return res.status(200).json("Delete successfully")
         }
         catch (err) {

@@ -56,9 +56,12 @@ const bankAccountController = {
     },
     deleteBankAccount: async (req, res) => {
         try {
-            const bankAccount = await BankAccount.findById(req.body._id);
-            bankAccount.isActive = false
-            bankAccount.save()
+            await User.updateMany(
+                { bankAccounts: req.body._id},
+                {
+                    $pull: { bankAccounts: req.body._id }
+                })
+            const bankAccount = await BankAccount.findByIdAndDelete(req.body._id);
             return res.status(200).json("Delete successfully")
         }
         catch (err) {

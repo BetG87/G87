@@ -1,4 +1,4 @@
-const GameProduct = require('../models/GameProduct')
+const { GameProduct, GameAccount } = require('../models')
 
 const gameProductController = {
     addGameProduct: async (req, res) => {
@@ -41,7 +41,17 @@ const gameProductController = {
     deleteGameProduct: async (req, res) => {
         try {
 
-            const gameProduct = await GameProduct.findById(req.body._id);
+            await GameAccount.updateMany(
+                { gameProduct: req.body._id },
+                {
+                    $pull: { gameProduct: req.body._id }
+                })
+            await User.updateMany(
+                { gameProduct: req.body._id },
+                {
+                    $pull: { gameProduct: req.body._id }
+                })
+            const gameProduct = await GameProduct.findByIdAndDelete(req.body._id);
             gameProduct.isActive = false
             gameProduct.save()
             return res.status(200).json("Delete successfully")
