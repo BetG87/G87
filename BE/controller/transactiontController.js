@@ -54,9 +54,7 @@ const transactionController = {
     },
     deleteTransaction: async (req, res) => {
         try {
-            const transaction = await Transaction.findById(req.body._id);
-            transaction.isActive = false
-            transaction.save()
+            const transaction = await Transaction.findByIdAndDelete(req.body._id);
             return res.status(200).json("Delete successfully")
         }
         catch (err) {

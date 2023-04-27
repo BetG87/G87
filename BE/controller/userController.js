@@ -1,6 +1,7 @@
-const  User  = require('../models/User');
-const  GameAccount  = require('../models/GameAccount');
-const  BankAccount  = require('../models/BankAccount');
+const User = require('../models/User');
+const GameAccount = require('../models/GameAccount');
+const BankAccount = require('../models/BankAccount');
+const Transaction = require('../models/TransactionSchema')
 const bcrypt = require('bcrypt')
 
 const userController =
@@ -34,6 +35,11 @@ const userController =
                     user: null
                 })
             await BankAccount.updateMany(
+                { user: req.params.id },
+                {
+                    user: null
+                })
+            await Transaction.updateMany(
                 { user: req.params.id },
                 {
                     user: null

@@ -1,6 +1,6 @@
-const  GameProduct = require('../models/GameProduct')
-const  GameAccount= require('../models/GameAccount')
-const  Transaction= require('../models/TransactionSchema')
+const GameProduct = require('../models/GameProduct')
+const GameAccount = require('../models/GameAccount')
+const Transaction = require('../models/TransactionSchema')
 
 const gameProductController = {
     addGameProduct: async (req, res) => {
@@ -53,9 +53,12 @@ const gameProductController = {
                 {
                     $pull: { gameProduct: req.body._id }
                 })
+            await Transaction.updateMany(
+                { gameProduct: req.body._id },
+                {
+                    $pull: { gameProduct: req.body._id }
+                })
             const gameProduct = await GameProduct.findByIdAndDelete(req.body._id);
-            gameProduct.isActive = false
-            gameProduct.save()
             return res.status(200).json("Delete successfully")
         }
         catch (err) {

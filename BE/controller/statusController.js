@@ -1,5 +1,10 @@
 const Status = require('../models/Status')
-
+const BankAccount = require('../models/BankAccount')
+const Bank = require('../models/Bank')
+const User = require('../models/User');
+const GameAccount = require('../models/GameAccount');
+const GameProduct = require('../models/GameProduct')
+const Transaction = require('../models/TransactionSchema')
 const statusController = {
     addStatus: async (req, res) => {
         try {
@@ -41,7 +46,36 @@ const statusController = {
     },
     deleteStatus: async (req, res) => {
         try {
-
+            await GameAccount.updateMany(
+                { status: req.body._id },
+                {
+                    $pull: { status: req.body._id }
+                })
+            await User.updateMany(
+                { status: req.body._id },
+                {
+                    $pull: { status: req.body._id }
+                })
+            await Transaction.updateMany(
+                { status: req.body._id },
+                {
+                    $pull: { status: req.body._id }
+                })
+            await BankAccount.updateMany(
+                { status: req.body._id },
+                {
+                    $pull: { status: req.body._id }
+                })
+            await GameProduct.updateMany(
+                { status: req.body._id },
+                {
+                    $pull: { status: req.body._id }
+                })
+            await Bank.updateMany(
+                { status: req.body._id },
+                {
+                    $pull: { status: req.body._id }
+                })
             const status = await Status.findById(req.body._id);
             status.isActive = false
             status.save()
