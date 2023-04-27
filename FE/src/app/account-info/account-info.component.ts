@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '../entity/account';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { DataShareService } from '../Services/DataShare/data-share.service';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
@@ -10,12 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import decode from 'jwt-decode'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyAddbankComponent } from '../my-addbank/my-addbank.component';
-import { GameProduct } from '../entity/GameProduct';
-import { AccountInfo } from '../entity/AccountInfo';
 import { Transaction } from '../entity/transaction';
 import { MyModalComponent } from '../my-modal/my-modal.component';
 import { VndFormatPipe } from '../vnd.pipe';
-import { GameAccount } from '../entity/GameAccount';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-account-info',
@@ -38,11 +35,11 @@ export class AccountInfoComponent implements OnInit {
   statusSend: any;
   noteSend: any;
   gameProduct: any;
-  gameProductAll : any;
+  gameProductAll: any;
   gameAccount: [] = [];
   selectGame: any;
   selectGameDeposit: any
-  selectGameWithDrawal:any
+  selectGameWithDrawal: any
   isborderli = [true, false, false, false, false, false];
   selectedTab: number = 0;
   username?: string;
@@ -55,7 +52,7 @@ export class AccountInfoComponent implements OnInit {
   accountBankAdmin: Account[] = [];
   userId: string = "";
   accounts: Account[] = [];
-  allStatus:any
+  allStatus: any
   defaultStatus: any;
   depositTransaction: Transaction[] = []
   withDrawalTransaction: Transaction[] = []
@@ -71,7 +68,7 @@ export class AccountInfoComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
-    private vndFormatPipe :VndFormatPipe) {
+    private vndFormatPipe: VndFormatPipe) {
     this.formAccountinfo = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
@@ -116,8 +113,7 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkInit();
-    if(this.isLoggedIn)
-    {
+    if (this.isLoggedIn) {
       this.connectApi.get('v1/bank').subscribe((response) => {
         this.bankNameLists = response;
       });
@@ -128,27 +124,24 @@ export class AccountInfoComponent implements OnInit {
       });
       this.connectApi.get('v1/status').subscribe((response: any) => {
         this.allStatus = response
-        this.defaultStatus =response[0]['_id']
-        })
+        this.defaultStatus = response[0]['_id']
+      })
       this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
         var bankAccount = response['bankAccounts']
         this.formAccountinfo.patchValue(response);
         this.gameProduct = response['gameProduct'];
         this.selectGame = this.gameProduct![0]?._id
         this.gameAccount = response['gameAccounts']
-        if (response['gameProduct'] != null && this.gameAccount == response['gameAccounts'])
-      {
+        if (response['gameProduct'] != null && this.gameAccount == response['gameAccounts']) {
           if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
             // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-            const filteredUsers :any = this.gameAccount.filter((user: any) => {
+            const filteredUsers: any = this.gameAccount.filter((user: any) => {
               console.log(user)
-              if(user.isActive)
-              {
+              if (user.isActive) {
                 const product = this.selectGame === user['gameProduct'];
                 return product;
               }
-              else
-              {
+              else {
                 return false
               }
             });
@@ -159,10 +152,9 @@ export class AccountInfoComponent implements OnInit {
             this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
           } else {
           }
-      }else
-      {
+        } else {
 
-      }
+        }
 
         bankAccount.filter((bankA: any) => {
           var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
@@ -189,7 +181,7 @@ export class AccountInfoComponent implements OnInit {
         })
 
         this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
-          response.filter((de :any) => {
+          response.filter((de: any) => {
             if (de['type'] == 'deposit') {
               var value = new Transaction();
               value.amount = de['amount']
@@ -245,14 +237,12 @@ export class AccountInfoComponent implements OnInit {
     this.tkGame = []
     if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
       // Sử dụng gameProduct và gameAccount để lọc dữ liệu
-      const filteredUsers = this.gameAccount.filter((user:any) => {
-        if(user.isActive)
-        {
+      const filteredUsers = this.gameAccount.filter((user: any) => {
+        if (user.isActive) {
           const product = this.selectGame === user['gameProduct'];
           return product;
         }
-        else
-        {
+        else {
           return false
         }
 
@@ -266,7 +256,7 @@ export class AccountInfoComponent implements OnInit {
       console.log('Không có dữ liệu để lọc');
     }
   }
-  onTKChange(event: any):void {
+  onTKChange(event: any): void {
 
     const filteredUsers = this.gameAccount.filter(user => {
       const product = event === user['_id'];
@@ -290,16 +280,16 @@ export class AccountInfoComponent implements OnInit {
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
     this.formDeposit.get('status').setValue(this.defaultStatus)
     this.formDeposit.get('user').setValue(this.userId);
-      this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
-        const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
-        modalRef.componentInstance.Notification = "Nạp Tiền";
-        modalRef.componentInstance.contentNotification = "  Yêu cầu nap tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
-        modalRef.result.then((result: any) => {
-          console.log(result);
-        }).catch((error: any) => {
-          console.log(error);
-        });
-      })
+    this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
+      const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+      modalRef.componentInstance.Notification = "Nạp Tiền";
+      modalRef.componentInstance.contentNotification = "  Yêu cầu nap tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+      modalRef.result.then((result: any) => {
+        console.log(result);
+      }).catch((error: any) => {
+        console.log(error);
+      });
+    })
     var senderName: string = ""
     var senderNumber: string = ""
 
@@ -320,11 +310,9 @@ export class AccountInfoComponent implements OnInit {
         recevieNumber = value['numberBank']
       }
     })
-    var gameName :string = ""
-    this.gameProductAll.filter((value:any)=>
-    {
-      if(value['_id']== this.formDeposit.get('gameProduct').value)
-      {
+    var gameName: string = ""
+    this.gameProductAll.filter((value: any) => {
+      if (value['_id'] == this.formDeposit.get('gameProduct').value) {
         gameName = value['name']
         console.log(gameName)
       }
@@ -339,10 +327,10 @@ export class AccountInfoComponent implements OnInit {
         + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
         + "Số tiên: *" + this.vndFormatPipe.transform(this.formDeposit.get('amount').value) + "* \n"
         + "Game: *" + gameName + "* \n"
-        + "Ghi chú: *" + this.formDeposit.get('note').value +"*"
+        + "Ghi chú: *" + this.formDeposit.get('note').value + "*"
 
     }
-    console.log (meessage)
+    console.log(meessage)
     this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
       console.log(response)
     })
@@ -420,46 +408,70 @@ export class AccountInfoComponent implements OnInit {
   }
 
   changePass() {
-      var obj = {
-        _id: this.userId,
-        oldPassword: this.formChangePass.get('oldPass').value,
-        newPassword: this.formChangePass.get('password').value,
-      }
-      this.connectApi.post('v1/user/changepass', obj).subscribe((response: any) => {
-        const modalRef = this.modalService.open(MyModalComponent, {
-          size: 'sm',
-          backdrop: 'static',
-          keyboard: false,
+    var obj = {
+      _id: this.userId,
+      oldPassword: this.formChangePass.get('oldPass').value,
+      newPassword: this.formChangePass.get('password').value,
+    }
+    this.connectApi.post('v1/user/changepass', obj).subscribe((response: any) => {
+      const modalRef = this.modalService.open(MyModalComponent, {
+        size: 'sm',
+        backdrop: 'static',
+        keyboard: false,
+      });
+      modalRef.componentInstance.Notification = 'Đổi mật khẩu';
+      modalRef.componentInstance.contentNotification =
+        ' Bạn đã đổi mật khẩu thành công. Xin vui lòng đăng nhập lại';
+      modalRef.result
+        .then((result: any) => {
+          this.sessionStore.signOut();
+          this.dataShare.setToken('');
+          this.dataShare.setDataUser(null);
+          window.location.href = '/';
+        })
+        .catch((error: any) => {
+          console.log(error);
         });
-        modalRef.componentInstance.Notification = 'Đổi mật khẩu';
-        modalRef.componentInstance.contentNotification =
-          ' Bạn đã đổi mật khẩu thành công. Xin vui lòng đăng nhập lại';
-        modalRef.result
-          .then((result: any) => {
-            this.sessionStore.signOut();
-            this.dataShare.setToken('');
-            this.dataShare.setDataUser(null);
-            window.location.href = '/';
-          })
-          .catch((error: any) => {
-            console.log(error);
-          });
-      }, (reponse) =>
-      {
-        const modalRef = this.modalService.open(MyModalComponent, {
-          size: 'sm',
-          backdrop: 'static',
-          keyboard: false,
+    }, (reponse) => {
+      const modalRef = this.modalService.open(MyModalComponent, {
+        size: 'sm',
+        backdrop: 'static',
+        keyboard: false,
+      });
+      modalRef.componentInstance.Notification = 'Đổi mật khẩu';
+      modalRef.componentInstance.contentNotification =
+        ' Bạn đã đổi mật không thành công khẩu thành công.';
+      modalRef.result
+        .then((result: any) => {
+        })
+        .catch((error: any) => {
+          console.log(error);
         });
-        modalRef.componentInstance.Notification = 'Đổi mật khẩu';
-        modalRef.componentInstance.contentNotification =
-          ' Bạn đã đổi mật không thành công khẩu thành công.';
-        modalRef.result
-          .then((result: any) => {
-          })
-          .catch((error: any) => {
-            console.log(error);
-          });
-      })
+    })
   }
+
+  @ViewChild('myInputpass', { static: false }) myInputpass: ElementRef | undefined;
+  @ViewChild('myInputaccount', { static: false }) myInputaccount: NgSelectComponent | undefined;
+
+
+  copyToClipboardAccount() {
+    if (this.myInputaccount) {
+      var selectedValue: any
+      selectedValue = this.myInputaccount.selectedItems[0].label;
+      const textarea = document.createElement('textarea');
+      textarea.value = selectedValue;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+  }
+  copyToClipboardPass() {
+    if (this.myInputpass) {
+      console.log(this.myInputpass)
+      this.myInputpass.nativeElement.select();
+      document.execCommand('copy');
+    }
+  }
+
 }

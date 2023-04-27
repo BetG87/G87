@@ -41,7 +41,7 @@
                             <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
 
                           </select> -->
-                          <ng-select [items]="gameProduct" bindLabel="name" bindValue="_id" [(ngModel)]="selectGame" (ngModelChange)="onGameChange($event)" [ngModelOptions]="{standalone: true}"></ng-select>
+                                    <ng-select [items]="gameProduct" bindLabel="name" bindValue="_id" [(ngModel)]="selectGame" (ngModelChange)="onGameChange($event)" [ngModelOptions]="{standalone: true}"></ng-select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -54,16 +54,16 @@
                                 <div class="form-group col-md-12">
                                     <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
                                     <!-- <input type="text" formControlName="gameAccount" id="gameAccount" class="form-control"> -->
-                                    <ng-select [items]="tkGame"   formControlName="gameAccount" bindLabel="username" bindValue="_id" (ngModelChange)="onTKChange($event)" ></ng-select>
-                                    <button class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
+                                    <ng-select #myInputaccount [items]="tkGame" formControlName="gameAccount" bindLabel="username" bindValue="_id" (ngModelChange)="onTKChange($event)"></ng-select>
+                                    <button (click)="copyToClipboardAccount()" class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
                                 </div>
                             </div>
                             <div class="col-md-6"></div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group col-md-12">
                                     <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
-                                    <input type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
-                                    <button class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
+                                    <input #myInputpass type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
+                                    <button (click)="copyToClipboardPass()" class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
                                 </div>
                             </div>
                         </div>
@@ -116,45 +116,45 @@
             </div>
         </div>
         <div id="tab2" *ngIf="selectedTab === 2">
-          <form [formGroup]="formChangePass" (ngSubmit)="changePass()" class="container">
-            <div class="row">
-                <div class="col-md-10 col-sm-12">
-                    <div class="row">
-                        <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THAY<span class="styleUnderLine"> ĐỔI MẬT</span> KHẨU</i></h3>
-                        <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="oldPass"> Mật khẩu cũ<span class="text-danger">(*)</span></label>
-                            <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
-                            <div *ngIf="formChangePass.get('oldPass').invalid && (formChangePass.get('oldPass').dirty || formChangePass.get('oldPass').touched)" class="invalid-feedback">
-                                <div *ngIf="formChangePass.get('oldPass').errors.required">Vui lòng mật khẩu cũ</div>
+            <form [formGroup]="formChangePass" (ngSubmit)="changePass()" class="container">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="text-danger col-12  d-flex justify-content-center mb-4"><i>THAY<span class="styleUnderLine"> ĐỔI MẬT</span> KHẨU</i></h3>
+                            <div class=" col-12 d-flex justify-content-center my-4 ">Vui lòng cung cấp đầy đủ thông tin phía bên dưới, để thực hiện yêu cầu:</div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="oldPass"> Mật khẩu cũ<span class="text-danger">(*)</span></label>
+                                <input type="text" formControlName="oldPass" id="oldPass" class="form-control">
+                                <div *ngIf="formChangePass.get('oldPass').invalid && (formChangePass.get('oldPass').dirty || formChangePass.get('oldPass').touched)" class="invalid-feedback">
+                                    <div *ngIf="formChangePass.get('oldPass').errors.required">Vui lòng mật khẩu cũ</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="password">Mật khẩu mới (6 ký tự)<span class="text-danger">(*)</span></label>
-                            <input type="text" formControlName="password" id="password" class="form-control">
-                            <div *ngIf="formChangePass.get('password').invalid && (formChangePass.get('password').dirty || formChangePass.get('password').touched)" class="invalid-feedback">
-                                <div *ngIf="formChangePass.get('password').errors.required">Vui lòng nhập mật khẩu</div>
-                                <div *ngIf="formChangePass.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="password">Mật khẩu mới (6 ký tự)<span class="text-danger">(*)</span></label>
+                                <input type="text" formControlName="password" id="password" class="form-control">
+                                <div *ngIf="formChangePass.get('password').invalid && (formChangePass.get('password').dirty || formChangePass.get('password').touched)" class="invalid-feedback">
+                                    <div *ngIf="formChangePass.get('password').errors.required">Vui lòng nhập mật khẩu</div>
+                                    <div *ngIf="formChangePass.get('password').errors.minlength">Mật khẩu phải chứa ít nhất 6 ký tự</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
-                            <input type="text" formControlName="confirmPassword" id="confirmPassword" class="form-control">
-                            <div *ngIf="formChangePass.get('confirmPassword').invalid && (formChangePass.get('confirmPassword').dirty || formChangePass.get('confirmPassword').touched)" class="invalid-feedback">
-                                <div *ngIf="formChangePass.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
-                                <div *ngIf="formChangePass.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+                            <div class="col-md-6"></div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="confirmPassword">Nhập lại mật khẩu<span class="text-danger">(*)</span></label>
+                                <input type="text" formControlName="confirmPassword" id="confirmPassword" class="form-control">
+                                <div *ngIf="formChangePass.get('confirmPassword').invalid && (formChangePass.get('confirmPassword').dirty || formChangePass.get('confirmPassword').touched)" class="invalid-feedback">
+                                    <div *ngIf="formChangePass.get('confirmPassword').errors.required">Vui lòng nhập lại mật khẩu</div>
+                                    <div *ngIf="formChangePass.get('confirmPassword').errors.matchingPasswords">Mật khẩu không khớp</div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class=" col-md-12 d-flex justify-content-center my-4">
-                            <button type="submit" class="btn btn-danger mt-2 ">LƯU THÔNG TIN</button>
-                        </div>
+                            <div class=" col-md-12 d-flex justify-content-center my-4">
+                                <button type="submit" class="btn btn-danger mt-2 ">LƯU THÔNG TIN</button>
+                            </div>
 
+                        </div>
                     </div>
+                    <div class="col-md-2 col-sm-12"></div>
                 </div>
-                <div class="col-md-2 col-sm-12"></div>
-            </div>
             </form>
         </div>
         <div id="tab3" *ngIf="selectedTab === 3">
@@ -193,7 +193,7 @@
                               <option *ngFor="let game of gameProductAll" [value]="game._id">{{game.name}}</option>
 
                             </select> -->
-                            <ng-select [items]="gameProductAll" bindLabel="name" bindValue="_id" formControlName="gameProduct"></ng-select>
+                                        <ng-select [items]="gameProductAll" bindLabel="name" bindValue="_id" formControlName="gameProduct"></ng-select>
                                     </div>
 
                                     <div class="form-group col-md-12 col-sm-12">
@@ -256,7 +256,7 @@
                                         <!-- <select id="accountBankReceive" class="form-control" name="selectGameWithDrawal" [(ngModel)]="selectGameWithDrawal" [ngModelOptions]="{standalone: true}">
                               <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
                             </select> -->
-                            <ng-select [items]="gameProductAll" bindLabel="name" bindValue="_id" formControlName="gameProduct"></ng-select>
+                                        <ng-select [items]="gameProductAll" bindLabel="name" bindValue="_id" formControlName="gameProduct"></ng-select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
