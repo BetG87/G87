@@ -1,4 +1,6 @@
-const { User, GameAccount, BankAccount, GameProduct } = require('../models');
+const  User  = require('../models/User');
+const  GameAccount  = require('../models/GameAccount');
+const  BankAccount  = require('../models/BankAccount');
 const bcrypt = require('bcrypt')
 
 const userController =

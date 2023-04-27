@@ -1,4 +1,5 @@
-const {Bank,BankAccount} = require('../models')
+const Bank = require('../models/Bank')
+const BankAccount = require('../models/BankAccount')
 
 const bankController = {
     addBank: async (req, res) => {

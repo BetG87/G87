@@ -1,5 +1,6 @@
-const { User, BankAccount, Transaction } = require('../models')
-
+const  User  = require('../models/User')
+const BankAccount  = require('../models/BankAccount')
+const Transaction  = require('../models/TransactionSchema')
 const bankAccountController = {
     addBankAccount: async (req, res) => {
         try {

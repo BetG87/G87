@@ -1,4 +1,6 @@
-const { GameProduct, GameAccount } = require('../models')
+const  GameProduct = require('../models/GameProduct')
+const  GameAccount= require('../models/GameAccount')
+const  Transaction= require('../models/TransactionSchema')
 
 const gameProductController = {
     addGameProduct: async (req, res) => {

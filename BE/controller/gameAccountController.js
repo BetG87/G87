@@ -1,6 +1,5 @@
 const GameAccount = require('../models/GameAccount')
 const User = require('../models/User');
-const { use } = require('../routes/user');
 
 const gameAccountController = {
     addBankAccount: async (req, res) => {
