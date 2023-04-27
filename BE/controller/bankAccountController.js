@@ -1,5 +1,4 @@
-const BankAccount = require('../models/BankAccount')
-const User = require('../models/User')
+const { User, BankAccount, Transaction } = require('../models')
 
 const bankAccountController = {
     addBankAccount: async (req, res) => {
@@ -57,9 +56,19 @@ const bankAccountController = {
     deleteBankAccount: async (req, res) => {
         try {
             await User.updateMany(
-                { bankAccounts: req.body._id},
+                { bankAccounts: req.body._id },
                 {
                     $pull: { bankAccounts: req.body._id }
+                })
+            await Transaction.updateMany(
+                { bankAccount: req.body._id, },
+                {
+                    $pull: { bankAccount: req.body._id }
+                })
+            await Transaction.updateMany(
+                { bankAccountAdmin: req.body._id, },
+                {
+                    $pull: { bankAccountAdmin: req.body._id }
                 })
             const bankAccount = await BankAccount.findByIdAndDelete(req.body._id);
             return res.status(200).json("Delete successfully")
