@@ -3,6 +3,10 @@
     height: 85%;
 }
 
+.w-80 {
+    width: 80%;
+}
+
 .change-Location {
     font-size: 0.875rem;
     border-radius: 18px;
@@ -16,7 +20,8 @@
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%;
+    // padding-bottom: 51.25%;
+    height: 96%;
     /* 16:9 aspect ratio */
 }
 
