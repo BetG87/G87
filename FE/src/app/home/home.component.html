@@ -1,8 +1,8 @@
-<div class="container ">
+<div class="container mb-4 ">
     <app-carousel></app-carousel>
 
 
-    <div  class="d-flex justify-content-around mt-1 ">
+    <div class="d-flex justify-content-around mt-1 ">
         <a class="text-center" (click)="routeInfo(3)">
             <img src="assets/images/addmoney.png" class="img-fluid imgingame">
         </a>
@@ -45,25 +45,27 @@
     <button *ngIf="isLoggedIn && hasAccount">Tài khoản</button>
     <button *ngIf="isLoggedIn && !hasAccount" (click)="requestAccount()">Yêu cầu tài khoản</button>
   </div>-->
-  <div class="row   justify-content-center">
-    <div class="col-md-3 col-6 d-flex justify-content-center  "  *ngFor="let item of gameProductAll">
-      <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
-        <img [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
-      </a>
-      <img  *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
-      <button  *ngIf="isLoggedIn" type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88(item._id,gameUserId.includes(item!._id!.toString()))" id="{{item.name}}">
+    <div class="row  justify-content-center">
+        <div class="col-md-3 col-6 d-flex justify-content-center  " *ngFor="let item of gameProductAll">
+            <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
+                <img [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
+            </a>
+            <img *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
+            <button *ngIf="isLoggedIn" type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88(item._id,gameUserId.includes(item!._id!.toString()))" id="{{item.name}}">
         {{!isLoggedIn ? "Vào Game": gameUserId.includes(item!._id!.toString())?"Tài Khoản":"Yêu cầu Tài Khoản"}}</button>
 
+        </div>
     </div>
-</div>
 
     <div class="row">
-        <div class="col-8">
-
+        <div class="col-8 col-8 mt-4">
+            <div class="video-container">
+                <iframe [src]="videoUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
         <div class="col-4">
             <div class="d-flex flex-column mt-1 ">
-                <a class="text-center" >
+                <a class="text-center">
                     <img src="assets/images/24.png" class="img-fluid m-2 p-2">
                 </a>
                 <a class="text-center" href="https://example.com">
