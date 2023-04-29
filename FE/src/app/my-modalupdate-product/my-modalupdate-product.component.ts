@@ -47,7 +47,6 @@ export class MyModalupdateProductComponent implements OnInit {
         this.formupdateGame.controls['linkImage'].setValue(this.infoGame.linkImage !== undefined ? this.infoGame.linkImage : "");
         this.formupdateGame.controls['linkGame'].setValue(this.infoGame.linkGame !== undefined ? this.infoGame.linkGame : "");
         this.formupdateGame.controls['statusGame'].setValue(this.infoGame.isActive !== undefined ? this.infoGame.isActive : true);
-        this.formupdateGame.get('nameGame').disable();
         console.log(this.infoGame)
       }
     }
