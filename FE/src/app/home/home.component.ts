@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
     private cookieStore: CookieStorageService,
     private sanitizer: DomSanitizer
   ) {
-    this.videoId = "6fIj4UwdSYo";
+    this.videoId = "VgzRNVBFvbQ";
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.videoId}`);
     this.statusBong88 = "VÀO GAME";
     this.status3in1bet = "VÀO GAME";
