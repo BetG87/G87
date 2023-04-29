@@ -1,6 +1,7 @@
 const GameProduct = require('../models/GameProduct')
 const GameAccount = require('../models/GameAccount')
 const Transaction = require('../models/TransactionSchema')
+const User = require('../models/User');
 
 const gameProductController = {
     addGameProduct: async (req, res) => {
@@ -42,7 +43,6 @@ const gameProductController = {
     },
     deleteGameProduct: async (req, res) => {
         try {
-
             await GameAccount.updateMany(
                 { gameProduct: req.body._id },
                 {
