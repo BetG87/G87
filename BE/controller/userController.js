@@ -47,7 +47,7 @@ const userController =
             const user = await User.findById(req.body._id)
             user.isActive = false;
             user.save()
-            return res.status(200).json("Delete successfuly")
+            return res.status(200).json("Delete successfully")
         }
         catch (err) {
             return res.status(500).json(err)
@@ -116,7 +116,7 @@ const userController =
                     user.password = hashed;
                 }
                 const updatedUser = await user.save();
-                return res.status(200).json("Change Password succcessfully");
+                return res.status(200).json("Change Password successfully");
             }
 
         }
