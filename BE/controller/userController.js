@@ -44,9 +44,7 @@ const userController =
                 {
                     user: null
                 })
-            const user = await User.findById(req.body._id)
-            user.isActive = false;
-            user.save()
+            const user = await User.findByIdAndDelete(req.body._id)
             return res.status(200).json("Delete successfully")
         }
         catch (err) {
