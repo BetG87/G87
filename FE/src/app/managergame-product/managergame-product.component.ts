@@ -64,32 +64,25 @@ export class ManagergameProductComponent implements OnInit {
         }
         console.log(meessage)
         this.connectApi.post('v1/gameproduct/delete', meessage).subscribe((response: any) => {
-          if (result == true) {
-            const meessage = {
-              "_id": idGame
-            }
-            console.log(meessage)
-            this.connectApi.post('v1/gameaccount/delete', meessage).subscribe((response: any) => {
-              if (response == "Delete successfully") {
-                const modalRef = this.modalService.open(MyModalComponent, {
-                  size: 'sm',
-                  backdrop: 'static',
-                  keyboard: false,
-                });
-                modalRef.componentInstance.Notification =
-                  'Thông Báo Xóa Tài Khoản Game';
-                modalRef.componentInstance.contentNotification =
-                  'Xóa tài khoản Game thành công';
-                modalRef.componentInstance.command = "deleteAccountGame";
-                modalRef.result
-                  .then((result: any) => {
-                    this.ngOnInit()
-                  })
-                  .catch((error: any) => {
-                    console.log(error);
-                  });
-              }
-            })
+          console.log(response)
+          if (response == "Delete successfully") {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
+            });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Xóa Tài Khoản Game';
+            modalRef.componentInstance.contentNotification =
+              'Xóa tài khoản Game thành công';
+            modalRef.componentInstance.command = "deleteAccountGame";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
           }
         })
       } else

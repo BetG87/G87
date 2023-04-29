@@ -60,7 +60,7 @@ export class ManagerstatusComponent {
     const modalRef = this.modalService.open(MyModalupdatestatusComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.mode = "1";
     modalRef.componentInstance.infoStatus = status;
-    modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin tài khoản";
+    modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin trạng thái";
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {

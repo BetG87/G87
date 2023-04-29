@@ -1,31 +1,31 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{Tittle}}</h4>
+    <h4 class="modal-title">{{Tittle}}</h4>
 </div>
 <div class="modal-body">
-  <form [formGroup]="formStatus" (ngSubmit)="onSubmit()" class="container">
-      <div class="row">
-          <div class="col-md-6 col-sm-12">
-              <div class="form-group col-md-12">
-                  <label for="name" class="size1Rem">Tên Trạng Thái :</label>
-                  <input type="text" formControlName="name" id="name" class="form-control">
-                  <div class="col alert alert-danger" *ngIf="confirm && formStatus.controls.name.errors">
-                      <div *ngIf="confirm &&  formStatus.controls.name.errors.required">Xin hãy nhập số tài khoản</div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-              <div class="form-group col-md-12">
-                  <label for="isActive" class="size1Rem">Trạng thái: </label>
-                  <select id="isActive" class="form-control" name="isActive" formControlName="isActive">
+    <form [formGroup]="formStatus" (ngSubmit)="onSubmit()" class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="name" class="size1Rem">Tên Trạng Thái :</label>
+                    <input type="text" formControlName="name" id="name" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formStatus.controls.name.errors">
+                        <div *ngIf="confirm &&  formStatus.controls.name.errors.required">Xin hãy nhập trạng thái</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="isActive" class="size1Rem">Trạng thái: </label>
+                    <select id="isActive" class="form-control" name="isActive" formControlName="isActive">
                           <option value="true">Đang sử dụng</option>
                           <option value="false">Ngừng sử dụng</option>
                   </select>
-              </div>
-          </div>
-      </div>
-  </form>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="modal-footer">
-  <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
-  <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
 </div>

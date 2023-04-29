@@ -8,8 +8,6 @@ import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { managerAccountBank } from '../entity/managerAccountBank';
 import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
-import { MyModalinfoaccountBankComponent } from '../my-modalinfoaccount-bank/my-modalinfoaccount-bank.component';
-import { MyModalupdateaccountBankComponent } from '../my-modalupdateaccount-bank/my-modalupdateaccount-bank.component';
 import { MyModalupdateBankComponent } from '../my-modalupdate-bank/my-modalupdate-bank.component';
 import { MyModalComponent } from '../my-modal/my-modal.component';
 
@@ -66,7 +64,7 @@ export class ManagerbankComponent  implements OnInit {
         const message = {
           "_id": idBank
         }
-        this.connectApi.post('v1/bankaccount/delete', message).subscribe((response: any) => {
+        this.connectApi.post('v1/bank/delete', message).subscribe((response: any) => {
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -94,7 +92,6 @@ export class ManagerbankComponent  implements OnInit {
   }
 
   updateAccountBank(infoBank: any) {
-  
     console.log(infoBank);
     const modalRef = this.modalService.open(MyModalupdateBankComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.Tittle = "Cập Nhập ngân hàng";
@@ -115,7 +112,6 @@ export class ManagerbankComponent  implements OnInit {
     console.log(this.managerBank)
     if (!this.searchTerm) {
       this.filteredBank = [...this.managerBank];
-
     } else {
       console.log(this.filteredBank)
       console.log(this.managerBank)

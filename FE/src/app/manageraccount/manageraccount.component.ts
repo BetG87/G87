@@ -71,6 +71,7 @@ export class ManageraccountComponent implements OnInit {
           "_id": _id
         }
         this.connectApi.post('v1/user/delete', message).subscribe((response: any) => {
+          console.log(response)
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',

@@ -136,11 +136,10 @@ export class ManagergameComponent implements OnInit {
       console.log(error);
     });
   }
-  infoAccountGame(idGame: any) {
-    const infoGame = this.managerAccountGame.filter((item) => item._id === idGame);
-    console.log(infoGame);
+  infoAccountGame(Game: any) {
+    console.log(Game);
     const modalRef = this.modalService.open(MyModalinfoaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.infoGame = infoGame[0];
+    modalRef.componentInstance.infoGame = Game;
     modalRef.result.then((result: any) => {
 
       console.log(result);
@@ -148,11 +147,10 @@ export class ManagergameComponent implements OnInit {
       console.log(error);
     });
   }
-  updateAccountGame(idGame: any) {
-    const infoGame = this.managerAccountGame.filter((item) => item._id === idGame);
-    console.log(infoGame);
+  updateAccountGame(Game: any) {
+    console.log(Game);
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.infoGame = infoGame[0];
+    modalRef.componentInstance.infoGame = Game;
     modalRef.componentInstance.mode = "1";
     modalRef.componentInstance.TittleGame = "Cập Nhập Tài Khoản Game";
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
