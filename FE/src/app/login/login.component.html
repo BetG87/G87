@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 my-3 position-relative">
-                        <input [type]="formLogin.get('showPassword').value ? 'text' : 'password'" formControlName="password" id="password" class="form-control" (change)="checkPassword()">
+                        <input autocomplete="off" [type]="formLogin.get('showPassword').value ? 'text' : 'password'" formControlName="password" id="password" class="form-control" (change)="checkPassword()">
                         <span class="input-group-text position-absolute top-50 end-0 translate-middle-y" (click)="formLogin.get('showPassword').setValue(!formLogin.get('showPassword').value)">
                             <i class="fa-solid fa-eye-slash" *ngIf="!formLogin.get('showPassword').value"></i>
                             <i class="fa-solid fa-eye"  *ngIf="formLogin.get('showPassword').value"></i>
