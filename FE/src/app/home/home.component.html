@@ -1,19 +1,103 @@
-<div class="container mb-4 ">
+<div class="container">
+  <app-carousel></app-carousel>
+
+  <div class="d-flex justify-content-around mt-1">
+    <a class="text-center" (click)="routeInfo(3)">
+      <img src="assets/images/addmoney.png" class="img-fluid imgingame" />
+    </a>
+    <a class="text-center" (click)="routeInfo(0)">
+      <img src="assets/images/movegame.png" class="img-fluid imgingame" />
+    </a>
+    <a class="text-center" (click)="routeInfo(4)">
+      <img src="assets/images/money.png" class="img-fluid imgingame" />
+    </a>
+  </div>
+
+  <!-- <div class="row   justify-content-center">
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/1Bong88.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #Bong88 id="Bong88">{{statusBong88}}</button>
+        </div>
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/2SBOBET.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame2SBOBET()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #2SBOBET id="2SBOBET">{{status2SBOBET}}</button>
+        </div>
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/3in1bet.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGame3in1bet()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #3in1bet id="3in1bet">{{status3in1bet}}</button>
+        </div>
+        <div class="col-md-3 col-6 d-flex justify-content-center">
+            <img src="assets/images/Lasvegas.jpg" alt="Image Description" class="img-thumbnail d-block ">
+            <button type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1 " (click)="addGameLasvegas()" [routerLink]="isLinkEnabled ? '/register' : null" routerLinkActive="active" #Lasvegas id="Lasvegas">{{statusLasvegas}}</button>
+        </div>
+    </div> -->
+  <!--<div class="row   justify-content-center" *ngFor="let item of data">
+    <a *ngIf="!isLoggedIn" [routerLink]="['/register']">
+      <img [src]="item.image">
+    </a>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? item.link : '/account-info'">
+      <img [src]="item.image">
+    </a>
+    <a [href]="isLoggedIn ? item.link : defaultLink">Link</a>
+    <button *ngIf="!isLoggedIn" (click)="playGame()">Vào game</button>
+    <button *ngIf="isLoggedIn && hasAccount">Tài khoản</button>
+    <button *ngIf="isLoggedIn && !hasAccount" (click)="requestAccount()">Yêu cầu tài khoản</button>
+  </div>-->
+  <div class="row justify-content-center">
+    <div
+      class="col-md-3 col-6 d-flex justify-content-center"
+      *ngFor="let item of gameProductAll"
+    >
+      <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
+        <img
+          [src]="item.linkImage"
+          alt="Image Description"
+          class="img-thumbnail d-block"
+          [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()"
+          routerLinkActive="active"
+        />
+      </a>
+      <img
+        *ngIf="!isLoggedIn"
+        [src]="item.linkImage"
+        alt="Image Description"
+        class="img-thumbnail d-block"
+        [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()"
+        routerLinkActive="active"
+      />
+      <button
+        *ngIf="isLoggedIn"
+        type="submit"
+        class="btn btn-danger mt-2 change-Location px-3 py-1"
+        (click)="
+          addGameBong88(item._id, gameUserId.includes(item!._id!.toString()))
+        "
+        id="{{ item.name }}"
+      >
+        {{
+          !isLoggedIn
+            ? "Vào Game"
+            : gameUserId.includes(item!._id!.toString())
+            ? "Tài Khoản"
+            : "Yêu cầu Tài Khoản"
+        }}
+      </button>
+    </div>
+  </div>
+  <div class="container mb-4">
     <app-carousel></app-carousel>
 
-
-    <div class="d-flex justify-content-around mt-1 ">
-        <a class="text-center" (click)="routeInfo(3)">
-            <img src="assets/images/addmoney.png" class="img-fluid imgingame">
-        </a>
-        <a class="text-center" (click)="routeInfo(0)">
-            <img src="assets/images/movegame.png" class="img-fluid imgingame">
-        </a>
-        <a class="text-center" (click)="routeInfo(4)">
-            <img src="assets/images/money.png" class="img-fluid imgingame">
-        </a>
+    <div class="d-flex justify-content-around mt-1">
+      <a class="text-center" (click)="routeInfo(3)">
+        <img src="assets/images/addmoney.png" class="img-fluid imgingame" />
+      </a>
+      <a class="text-center" (click)="routeInfo(0)">
+        <img src="assets/images/movegame.png" class="img-fluid imgingame" />
+      </a>
+      <a class="text-center" (click)="routeInfo(4)">
+        <img src="assets/images/money.png" class="img-fluid imgingame" />
+      </a>
     </div>
-
 
     <!-- <div class="row   justify-content-center">
         <div class="col-md-3 col-6 d-flex justify-content-center">
@@ -45,39 +129,78 @@
     <button *ngIf="isLoggedIn && hasAccount">Tài khoản</button>
     <button *ngIf="isLoggedIn && !hasAccount" (click)="requestAccount()">Yêu cầu tài khoản</button>
   </div>-->
-    <div class="row  justify-content-center">
-        <div class="col-md-3 col-6 d-flex justify-content-center  " *ngFor="let item of gameProductAll">
-            <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
-                <img [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
-            </a>
-            <img *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block " [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active">
-            <button *ngIf="isLoggedIn" type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="addGameBong88(item._id,gameUserId.includes(item!._id!.toString()))" id="{{item.name}}">
-        {{!isLoggedIn ? "Vào Game": gameUserId.includes(item!._id!.toString())?"Tài Khoản":"Yêu cầu Tài Khoản"}}</button>
-
-        </div>
+    <div class="row justify-content-center">
+      <div
+        class="col-md-3 col-6 d-flex justify-content-center"
+        *ngFor="let item of gameProductAll"
+      >
+        <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
+          <img
+            [src]="item.linkImage"
+            alt="Image Description"
+            class="img-thumbnail d-block"
+            [routerLink]="
+              !isLoggedIn ? '/register' : item?.linkGame?.toString()
+            "
+            routerLinkActive="active"
+          />
+        </a>
+        <img
+          *ngIf="!isLoggedIn"
+          [src]="item.linkImage"
+          alt="Image Description"
+          class="img-thumbnail d-block"
+          [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()"
+          routerLinkActive="active"
+        />
+        <button
+          *ngIf="isLoggedIn"
+          type="submit"
+          class="btn btn-danger mt-2 change-Location px-3 py-1"
+          (click)="
+            addGameBong88(item._id, gameUserId.includes(item!._id!.toString()))
+          "
+          id="{{ item.name }}"
+        >
+          {{
+            !isLoggedIn
+              ? "Vào Game"
+              : gameUserId.includes(item!._id!.toString())
+              ? "Tài Khoản"
+              : "Yêu cầu Tài Khoản"
+          }}
+        </button>
+      </div>
     </div>
 
     <div class="row">
-        <div class="col-8 col-8 mt-4">
-            <div class="video-container mt-2">
-                <iframe [src]="videoUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+      <div class="col-8 col-8 mt-4">
+        <div class="video-container mt-2">
+          <iframe
+            [src]="videoUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column mt-4 ">
-                <a class="text-center">
-                    <img src="assets/images/chattructuyen.png" class="img-fluid w-80 m-2">
-                </a>
-                <a class="text-center" href="https://example.com">
-                    <img src="assets/images/zalo.png" class="img-fluid w-80 m-2">
-                </a>
-                <a class="text-center" href="https://example.com">
-                    <img src="assets/images/huongdan.png" class="img-fluid w-80 m-2">
-                </a>
-                <a class="text-center" href="https://example.com">
-                    <img src="assets/images/telegram.png" class="img-fluid w-80 m-2">
-                </a>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column mt-4">
+          <a class="text-center" href="https://example.com">
+            <img src="assets/images/zalo.png" class="img-fluid w-80 m-2" />
+          </a>
+          <a class="text-center">
+            <img src="assets/images/fb.png" class="img-fluid w-80 m-2" />
+          </a>
+
+          <a class="text-center" href="https://example.com">
+            <img src="assets/images/huongdan.png" class="img-fluid w-80 m-2" />
+          </a>
+          <a class="text-center" href="https://example.com">
+            <img src="assets/images/telegram.png" class="img-fluid w-80 m-2" />
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </div>
