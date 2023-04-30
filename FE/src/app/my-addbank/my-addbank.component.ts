@@ -31,6 +31,7 @@ export class MyAddbankComponent implements OnInit {
   bankName = '';
   selectedBank: any;
   bankNameLists: any;
+  bankNamefullLists: any;
 
   onBankChange(event: any): void {
     this.bankAccount.get('bankId').setValue(event);
@@ -39,7 +40,8 @@ export class MyAddbankComponent implements OnInit {
 
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
-      this.bankNameLists = response;
+      this.bankNamefullLists = response;
+      this.bankNameLists= this.bankNamefullLists.filter((g: { isActive: boolean; }) => g.isActive === true);
       this.selectedBank = this.bankNameLists[0]._id;
     });
   }

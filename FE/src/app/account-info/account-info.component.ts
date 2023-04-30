@@ -36,6 +36,7 @@ export class AccountInfoComponent implements OnInit {
   noteSend: any;
   gameProduct: any;
   gameProductAll: any;
+  gameProductFullAll: any;
   gameAccount: [] = [];
   selectGame: any;
   selectGameDeposit: any
@@ -118,7 +119,8 @@ export class AccountInfoComponent implements OnInit {
         this.bankNameLists = response;
       });
       this.connectApi.get('v1/gameproduct').subscribe((response) => {
-        this.gameProductAll = response;
+        this.gameProductFullAll = response;
+        this.gameProductAll = this.gameProductFullAll.filter((g: { isActive: boolean; }) => g.isActive === true);
         this.formDeposit.get('gameProduct').setValue(this.gameProductAll[0]?._id)
         this.formWithDrawal.get('gameProduct').setValue(this.gameProductAll[0]?._id)
       });
@@ -316,6 +318,7 @@ export class AccountInfoComponent implements OnInit {
         gameName = value['name']
         console.log(gameName)
       }
+      console.log(this.gameProductAll)
       console.log(this.formDeposit.get('gameProduct').value)
     })
     console.log(this.formDeposit.patchValue)
@@ -440,7 +443,7 @@ export class AccountInfoComponent implements OnInit {
       });
       modalRef.componentInstance.Notification = 'Đổi mật khẩu';
       modalRef.componentInstance.contentNotification =
-        ' Bạn đã đổi mật không thành công khẩu thành công.';
+        ' Bạn đã đổi mật khẩu không thành công.';
       modalRef.result
         .then((result: any) => {
         })
