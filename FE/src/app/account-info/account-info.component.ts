@@ -181,39 +181,9 @@ export class AccountInfoComponent implements OnInit {
           })
           this.accountBankReceive = this.accountBankAdmin[0]?._id
         })
-
-        this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
-          response.filter((de: any) => {
-            if (de['type'] == 'deposit') {
-              var value = new Transaction();
-              value.amount = de['amount']
-              value.date = de['date']
-              value.note = de['note']
-              this.allStatus.filter((status: any) => {
-                if (de['status'] == status['_id']) {
-                  value.status = status['name']
-                }
-
-              })
-
-              this.depositTransaction.push(value)
-            }
-            else {
-              var value = new Transaction();
-              value.amount = de['amount']
-              value.date = de['date']
-              this.allStatus.filter((status: any) => {
-                if (de['status'] == status['_id']) {
-                  value.status = status['name']
-                }
-              })
-              this.withDrawalTransaction.push(value)
-            }
-          })
-        })
       });
+      this.getTransaction()
     }
-
     const tabValue = this.activeRoute.snapshot.queryParamMap.get('tab');
     if (tabValue !== null) {
       const parsedValue = parseInt(tabValue, 10);
@@ -222,6 +192,39 @@ export class AccountInfoComponent implements OnInit {
       }
     }
 
+  }
+
+  getTransaction() {
+    this.depositTransaction = []
+    this.withDrawalTransaction = []
+    this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
+      response.filter((de: any) => {
+        if (de['type'] == 'deposit') {
+          var value = new Transaction();
+          value.amount = de['amount']
+          value.date = de['date']
+          value.note = de['note']
+          this.allStatus.filter((status: any) => {
+            if (de['status'] == status['_id']) {
+              value.status = status['name']
+            }
+          })
+
+          this.depositTransaction.push(value)
+        }
+        else {
+          var value = new Transaction();
+          value.amount = de['amount']
+          value.date = de['date']
+          this.allStatus.filter((status: any) => {
+            if (de['status'] == status['_id']) {
+              value.status = status['name']
+            }
+          })
+          this.withDrawalTransaction.push(value)
+        }
+      })
+    })
   }
   public onSubmit(): void {
 
@@ -270,8 +273,10 @@ export class AccountInfoComponent implements OnInit {
   addBank() {
     const modalRef = this.modalService.open(MyAddbankComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.result.then((result: any) => {
-
       console.log(result);
+      if (result === true){
+        
+      }
     }).catch((error: any) => {
       console.log(error);
     });
@@ -285,9 +290,12 @@ export class AccountInfoComponent implements OnInit {
     this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
       const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
       modalRef.componentInstance.Notification = "Nạp Tiền";
-      modalRef.componentInstance.contentNotification = "  Yêu cầu nap tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+      modalRef.componentInstance.contentNotification = "  Yêu cầu nạp tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
       modalRef.result.then((result: any) => {
         console.log(result);
+        if (result === true) {
+          this.getTransaction()
+        }
       }).catch((error: any) => {
         console.log(error);
       });
@@ -344,6 +352,9 @@ export class AccountInfoComponent implements OnInit {
     modalRef.componentInstance.contentNotification = " Yêu cầu rút tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
     modalRef.result.then((result: any) => {
       console.log(result);
+      if (result === true) {
+        this.getTransaction()
+      }
     }).catch((error: any) => {
       console.log(error);
     });

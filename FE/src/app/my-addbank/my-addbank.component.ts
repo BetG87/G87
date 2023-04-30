@@ -55,7 +55,7 @@ export class MyAddbankComponent implements OnInit {
       console.log(response)
 
     });
-    this.activeModal.close();
+    this.activeModal.close(true);
 
   }
   close = () => {

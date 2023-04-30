@@ -33,7 +33,7 @@
                         <td class=" py-2 text-center">{{ transaction.bankAccount?.ownerName}}-{{ transaction.bankAccount?.namebank}} - {{transaction.bankAccount?.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ transaction.bankAccountAdmin?.bankAccountNumber}}</td>
                         <td class=" py-2 text-center">{{ transaction.amount }}</td>
-                        <td class=" py-2 text-center">{{ transaction.date | date:'yyyy/MM/dd'}}</td>
+                        <td class=" py-2 text-center">{{ transaction.date | date:'yyyy/MM/dd hh:mm:ss'}}</td>
                         <td class=" py-2 text-center">{{ transaction.status?.name}}</td>
                         <td class=" py-2 text-center">
                             <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>
