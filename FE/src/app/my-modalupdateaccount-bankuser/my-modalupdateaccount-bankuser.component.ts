@@ -14,9 +14,7 @@ import { MyModalComponent } from '../my-modal/my-modal.component';
 export class MyModalupdateaccountBankuserComponent implements OnInit {
   public formAccountinfoBank: FormGroup | any
   infoBank: any | undefined;
-  mode: string = "0";
   bankNameLists: any;
-  allUserName: any[] = [];
   confirm: boolean = false;
   Tittle: string = "";
   buttonConfirm :string = "";
