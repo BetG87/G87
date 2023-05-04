@@ -275,7 +275,7 @@ export class AccountInfoComponent implements OnInit {
     modalRef.result.then((result: any) => {
       console.log(result);
       if (result === true){
-        
+
       }
     }).catch((error: any) => {
       console.log(error);
@@ -302,13 +302,14 @@ export class AccountInfoComponent implements OnInit {
     })
     var senderName: string = ""
     var senderNumber: string = ""
-
+    var bankName: string = ""
     this.accounts.filter((value: any) => {
 
       if (value['_id'] == this.accountBankSend) {
+        console.log(value)
         senderName = value['nameAccount']
         senderNumber = value['numberBank']
-
+        bankName = value['nameBank']
       }
     })
     var recevieName: string = ""
@@ -326,14 +327,12 @@ export class AccountInfoComponent implements OnInit {
         gameName = value['name']
         console.log(gameName)
       }
-      console.log(this.gameProductAll)
-      console.log(this.formDeposit.get('gameProduct').value)
     })
-    console.log(this.formDeposit.patchValue)
     const meessage = {
       message: "User: *" + this.username + " NẠP TIỀN*\n"
         + "Tên người gửi: *" + senderName + "* \n"
         + "Số tài khoản người gửi: *" + senderNumber + "* \n"
+        + "Tên ngân hàng: *" + bankName + "* \n"
         + "Tên người nhận: *" + recevieName + "* \n"
         + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
         + "Số tiên: *" + this.vndFormatPipe.transform(this.formDeposit.get('amount').value) + "* \n"
@@ -368,33 +367,19 @@ export class AccountInfoComponent implements OnInit {
 
       var senderName: string = ""
       var senderNumber: string = ""
-      console.log(this.accounts)
-      console.log(this.accountBankSend)
+      var bankName: string = ""
       this.accounts.filter((value: any) => {
-        console.log(value)
-        console.log("C" + value['_id'])
-        console.log("D:" + this.accountBankSend)
         if (value['_id'] == this.accountBankSend) {
           senderName = value['nameAccount']
           senderNumber = value['numberBank']
-
-        }
-      })
-      var recevieName: string = ""
-      var recevieNumber: string = ""
-      console.log(this.accountBankAdmin)
-      console.log(this.accountBankReceive)
-      this.accountBankAdmin.filter((value: any) => {
-        if (value['_id'] == this.accountBankReceive) {
-
-          recevieName = value['nameAccount']
-          recevieNumber = value['numberBank']
+          bankName = value['nameBank']
         }
       })
       const meessage = {
         message: "User: *" + this.username + " RÚT TIỀN*\n"
           + "Tên: *" + senderName + "* \n"
           + "Số tài nhận: *" + senderNumber + "* \n"
+          + "Tên ngân hàng: *" + bankName + "* \n"
           + "Số tiên: *" + this.vndFormatPipe.transform(this.formWithDrawal.get('amount').value) + "* \n"
           + "Game: *" + gameName['name'] + "* \n"
 

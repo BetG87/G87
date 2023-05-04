@@ -92,12 +92,6 @@ export class RegisterComponent implements OnInit {
 
   register = () => {
 
-
-
   }
-
-
-
-
 
 }
