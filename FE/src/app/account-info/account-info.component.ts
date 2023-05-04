@@ -13,6 +13,7 @@ import { Transaction } from '../entity/transaction';
 import { MyModalComponent } from '../my-modal/my-modal.component';
 import { VndFormatPipe } from '../vnd.pipe';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { MyModalupdateaccountBankuserComponent } from '../my-modalupdateaccount-bankuser/my-modalupdateaccount-bankuser.component';
 
 @Component({
   selector: 'app-account-info',
@@ -147,9 +148,11 @@ export class AccountInfoComponent implements OnInit {
                 return false
               }
             });
+            this.tkGame = []
             this.tkGame.push(filteredUsers)
             console.log(filteredUsers)
             this.tkGame = this.tkGame[0]
+            console.log(this.tkGame)
             this.formAccountinfo.get('gameAccount').setValue(this.tkGame[0]['_id']);
             this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
           } else {
@@ -157,7 +160,7 @@ export class AccountInfoComponent implements OnInit {
         } else {
 
         }
-
+        this.accounts = []
         bankAccount.filter((bankA: any) => {
           var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
           var value = new Account();
@@ -166,9 +169,10 @@ export class AccountInfoComponent implements OnInit {
           value.nameBank = bankC['name'];
           value.numberBank = bankA['bankAccountNumber'];
           this.accounts.push(value);
-
         })
+        console.log(this.accounts)
         this.accountBankSend = this.accounts[0]?._id
+        this.accountBankAdmin = []
         this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
           response.filter((bankA: any) => {
             var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
@@ -197,6 +201,7 @@ export class AccountInfoComponent implements OnInit {
   getTransaction() {
     this.depositTransaction = []
     this.withDrawalTransaction = []
+    
     this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
       response.filter((de: any) => {
         if (de['type'] == 'deposit') {
@@ -274,7 +279,7 @@ export class AccountInfoComponent implements OnInit {
     const modalRef = this.modalService.open(MyAddbankComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.result.then((result: any) => {
       console.log(result);
-      if (result === true){
+      if (result === true) {
 
       }
     }).catch((error: any) => {
@@ -471,6 +476,27 @@ export class AccountInfoComponent implements OnInit {
       this.myInputpass.nativeElement.select();
       document.execCommand('copy');
     }
+  }
+
+  updateAccount(account: any) {
+    const modalRef = this.modalService.open(MyModalupdateaccountBankuserComponent, { size: "lg", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.mode = "1";
+    modalRef.componentInstance.infoBank = account;
+    modalRef.componentInstance.Tittle = "Chỉnh sửa thông tin tài khoản";
+    modalRef.componentInstance.buttonConfirm = "Cập Nhập";
+    modalRef.result.then((result: any) => {
+      if (result == true) {
+        console.log(result)
+
+        // const queryParams = { tab: 1 };
+        // this.route.navigate(['/account-info'], { queryParams });
+        this.ngOnInit()
+        this.selectedTab = 1
+      }
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
   }
 
 }
