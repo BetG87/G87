@@ -38,6 +38,7 @@ import { MyModalupdatestatusComponent } from './my-modalupdatestatus/my-modalupd
 import { MyModalupdateBankComponent } from './my-modalupdate-bank/my-modalupdate-bank.component';
 import { ManagergameProductComponent } from './managergame-product/managergame-product.component';
 import { MyModalupdateProductComponent } from './my-modalupdate-product/my-modalupdate-product.component';
+import { MyModalupdateaccountBankuserComponent } from './my-modalupdateaccount-bankuser/my-modalupdateaccount-bankuser.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
@@ -74,7 +75,8 @@ export function tokenGetter() {
     MyModalupdatestatusComponent,
     MyModalupdateBankComponent,
     ManagergameProductComponent,
-    MyModalupdateProductComponent
+    MyModalupdateProductComponent,
+    MyModalupdateaccountBankuserComponent
 
 
   ],

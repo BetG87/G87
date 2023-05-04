@@ -90,6 +90,7 @@
                                         <th class="px-4 text-center">Tên Chủ Tài Khoản</th>
                                         <th class="px-4 text-center">Ngân Hàng</th>
                                         <th class="px-4 text-center">Số Tài Khoản</th>
+                                        <th class="px-4 text-center">cập nhập tài khoản</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,6 +99,9 @@
                                         <td class="px-4  py-2 text-center">{{ account.nameAccount }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.nameBank }}</td>
                                         <td class="px-4  py-2 text-center">{{ account.numberBank }}</td>
+                                        <td class="px-4 py-2 text-center">
+                                            <a (click)="updateAccount(account)" class="text-primary"><i class="fa fa-pencil"></i></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

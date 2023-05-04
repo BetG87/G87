@@ -20,6 +20,7 @@
                         <th class="px-4 text-center">Số điện thoại</th>
                         <th class="px-4 text-center">Tên đầy đủ</th>
                         <th class="px-4 text-center">Loại tài khoản</th>
+                        <th class="px-4 text-center">Ngày tạo tài khoản</th>
                         <th class="px-4 text-center">Thông tin</th>
                         <th class="px-4 text-center">Cập nhật</th>
                         <th class="px-4 text-center">Xóa</th>
@@ -33,6 +34,7 @@
                         <td class=" py-2 text-center">{{ account.numberPhone }}</td>
                         <td class=" py-2 text-center">{{ account.fullName }}</td>
                         <td class=" py-2 text-center">{{ account.admin ? 'admin' : 'thường' }} </td>
+                        <td class=" py-2 text-center">{{ account.updatedAt | date:'yyyy/MM/dd hh:mm:ss' }}</td>
                         <td class=" py-2 text-center">
                             <a (click)="infoAccount(account._id) " class="text-primary"><i class="fa fa-info-circle"></i></a>
                         </td>
