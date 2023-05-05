@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   gameProduct: GameProduct[] | undefined;
   gameProductAll: GameProduct[] | undefined;
   gameUserId: string[] = [];
+  notification: any ;
   videoId: string | undefined;
   videoUrl: any;
   isStatus = [false, false, false, false];
@@ -83,7 +84,10 @@ export class HomeComponent implements OnInit {
         }
       });
     }
-
+    this.connectApi.get("v1/notification").subscribe((response: any) => {
+      console.log(response);
+      this.notification = response
+    });
   }
   ngOnInit(): void {
 

@@ -1,6 +1,8 @@
 <div class="container mb-4">
     <app-carousel></app-carousel>
+    <marquee> <span *ngFor="let message of notification; let i = index" class="alert text-center text-red">{{i+1}}. {{ message?.content }}</span>
 
+    </marquee>
     <div class="d-flex justify-content-around mt-1">
         <a class="text-center" (click)="routeInfo(3)">
             <img src="assets/images/addmoney.png" class="img-fluid imgingame" />

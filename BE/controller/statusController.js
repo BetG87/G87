@@ -8,7 +8,6 @@ const Transaction = require('../models/TransactionSchema')
 const statusController = {
     addStatus: async (req, res) => {
         try {
-            console.log('2')
             const newStatus = new Status(req.body);
             const savedStatus = await newStatus.save();
             return res.status(200).json(savedStatus);

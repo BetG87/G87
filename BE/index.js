@@ -12,7 +12,7 @@ const bankAccountRoute = require('./routes/bankAccount')
 const gameAccountRoute = require('./routes/gameAccount')
 const transactionRoute = require('./routes/transaction')
 const telegramRoute = require('./routes/telegram')
-
+const notificationRoute = require('./routes/notification')
 
 const app = express();
 
@@ -21,9 +21,6 @@ const app = express();
 app.use(cors());
 app.use(cookieparser());
 app.use(express.json());
-app.use(express.static('dist'));
-
-
 
 //ROUTES
 app.use("/v1/auth", authRoute);
@@ -35,6 +32,8 @@ app.use("/v1/bankaccount", bankAccountRoute);
 app.use("/v1/gameaccount", gameAccountRoute);
 app.use("/v1/transaction", transactionRoute);
 app.use("/v1/telegram", telegramRoute);
+app.use("/v1/notification", notificationRoute);
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URL);
