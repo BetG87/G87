@@ -19,8 +19,10 @@ export class RegisterComponent implements OnInit {
   public isSignUpFailed = false;
   public errorMessage = '';
   confirm: boolean = false
-  showerrorconfirm = ''
-  public formRegister: FormGroup | any
+  showerrorconfirm = '' ;
+  public formRegister: FormGroup | any ;
+  gameProductAll: any;
+  gameProductFullAll: any;
 
 
   constructor(private fb: FormBuilder,
@@ -56,6 +58,10 @@ export class RegisterComponent implements OnInit {
     console.log(event);
   }
   ngOnInit(): void {
+    this.connectApi.get('v1/gameproduct').subscribe((response) => {
+      this.gameProductFullAll = response;
+      this.gameProductAll = this.gameProductFullAll.filter((g: { isActive: boolean; }) => g.isActive === true);
+    });
  
   }
 

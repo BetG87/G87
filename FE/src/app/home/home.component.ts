@@ -118,7 +118,8 @@ export class HomeComponent implements OnInit {
       this.route.navigate(['/account-info'], { queryParams });
     }
     else {
-      this.route.navigate(['/register']);
+      // this.route.navigate(['/register']);
+      this.route.navigate(['/login']);
     }
   }
 }
