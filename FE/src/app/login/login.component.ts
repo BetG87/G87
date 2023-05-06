@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataShareService } from '../Services/DataShare/data-share.service';
 import { CookieStorageService } from '../Services/StorageService/cookie-storage.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   isLoginFailed: boolean = true;
   isAdmin: boolean = false;
   showPassword: boolean = false;
-
+  checkaccount = '0'
   constructor(
     private fb: FormBuilder,
     private connectApi: ConnectApiService,
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
     private route: Router,
     private dataShare: DataShareService,
     private cookieService: CookieStorageService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private activeRoute: ActivatedRoute
   ) {
     this.formLogin = this.fb.group({
       username: ['', Validators.required],
@@ -44,6 +45,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const checkValue = this.activeRoute.snapshot.queryParamMap.get('check');
+    if (checkValue != null) {
+      this.checkaccount = checkValue
+    }
     if (this.sessionStore.getToken()) {
       this.isLoggedIn = true;
       this.isAdmin = this.sessionStore.getUser().isAdmin;

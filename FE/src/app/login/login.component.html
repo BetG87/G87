@@ -31,6 +31,9 @@
                     <div class="col-md-12">
                         <div class=" col-md-12 d-flex justify-content-center mb-4">
                             <button type="submit" [disabled]="formLogin.invalid" class="btn btn-danger mt-2 ">Đăng nhập</button>
+                            <a class="nav-link nav-link-custom " routerLink="/register" routerLinkActive="active" style="margin-left: 5%;" *ngIf="checkaccount === '1'">
+                                <button class="btn btn-success mt-2 " type="button">Nhận vào đây để đăng ký</button>
+                            </a>
                         </div>
                     </div>
                 </div>

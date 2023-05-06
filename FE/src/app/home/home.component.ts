@@ -119,7 +119,9 @@ export class HomeComponent implements OnInit {
     }
     else {
       // this.route.navigate(['/register']);
-      this.route.navigate(['/login']);
+      const queryParams = { check: '1' };
+      this.route.navigate(['/login'], { queryParams });
+
     }
   }
 }

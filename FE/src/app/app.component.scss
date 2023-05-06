@@ -174,3 +174,26 @@ th {
 .padding {
     padding-top: 9px;
 }
+
+.iconawe {
+    font-size: 180%;
+    margin-top: 50%;
+}
+
+.img-thumbnail1 {
+    width: 35px;
+    height: 35px;
+    margin-top: 10px;
+}
+
+.picon {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .iconawe {
+        font-size: 180%;
+        margin-top: 10%;
+    }
+}
