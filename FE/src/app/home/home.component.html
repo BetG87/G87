@@ -1,6 +1,6 @@
 <div class="container mb-4">
     <app-carousel></app-carousel>
-    <marquee> <span *ngFor="let message of notification; let i = index" class="alert text-center text-red">{{i+1}}. {{ message?.content }}</span>
+    <marquee behavior=scroll direction="left" scrollamount="15"> <span *ngFor="let message of notification; let i = index" class="alert text-center text-red p-5">&emsp;&emsp;&emsp; {{i+1}}. {{ message?.content }}</span>
 
     </marquee>
     <div class="d-flex justify-content-around mt-1">
