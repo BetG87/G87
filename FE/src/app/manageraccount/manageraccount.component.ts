@@ -126,7 +126,6 @@ export class ManageraccountComponent implements OnInit {
     }).catch((error: any) => {
       console.log(error);
     });
-
   }
   search() {
     console.log(this.managerAccount)
