@@ -30,17 +30,17 @@ const userController =
     deletedUser: async (req, res) => {
         try {
             await GameAccount.updateMany(
-                { user: req.params.id },
+                { user: req.body._id },
                 {
                     user: null
                 })
             await BankAccount.updateMany(
-                { user: req.params.id },
+                { user: req.body._id },
                 {
                     user: null
                 })
             await Transaction.updateMany(
-                { user: req.params.id },
+                { user: req.body._id },
                 {
                     user: null
                 })

@@ -14,8 +14,7 @@ const gameAccountController = {
                 } else {
                     const user1 = await User.findOne({ _id: req.body.user });
                     await user1.updateOne({ $push: { gameProduct: req.body.gameProduct } })
-                }
-               
+                }              
             }
             
             return res.status(200).json(savedGameAccount);
