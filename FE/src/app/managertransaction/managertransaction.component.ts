@@ -110,14 +110,16 @@ export class ManagertransactionComponent implements OnInit {
     let searchamount
     let nameStatus
     let date
+    let note
     searchName = accounttransaction.user?.username.toLowerCase().indexOf(searchTerm) > -1
     searchownerName = accounttransaction.bankAccount?.ownerName.toLowerCase().indexOf(searchTerm) > -1
     searchbankAccountNumberuser = accounttransaction.bankAccount?.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
     searchbankAccountNumberAdmin = accounttransaction.bankAccountAdmin?.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
     accounttransaction.amount = accounttransaction.amount !== undefined ? accounttransaction.amount : "";
-    searchamount = accounttransaction.amount.toLowerCase().indexOf(searchTerm) > -1
-    accounttransaction.nameStatus = accounttransaction.status.name !== undefined ? accounttransaction.status.name : "";
-    nameStatus = accounttransaction.nameStatus.toLowerCase().indexOf(searchTerm) > -1;
+    searchamount = accounttransaction.amount?.toLowerCase().indexOf(searchTerm) > -1
+    accounttransaction.nameStatus = accounttransaction.status?.name !== undefined ? accounttransaction.status.name : "";
+    nameStatus = accounttransaction.nameStatus?.toLowerCase().indexOf(searchTerm) > -1;
+    note = accounttransaction.note?.toLowerCase().indexOf(searchTerm) > -1;
     const datePipe = new DatePipe('en-US');
     let formattedDate = datePipe.transform(accounttransaction.date, 'yyyy/MM/dd');
     if (formattedDate) {
@@ -130,6 +132,7 @@ export class ManagertransactionComponent implements OnInit {
       || searchamount
       || nameStatus
       || date
+      || note
   }
 
   addTransaction() {
