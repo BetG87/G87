@@ -9,4 +9,5 @@ router.get('/:id', tramsactionController.getById);
 router.get('/user/:id', tramsactionController.getByUserId);
 router.post('/delete', middlewareController.verifyTokenAndAdminAuth, tramsactionController.deleteTransaction);
 router.post('/update', middlewareController.verifyTokenAndAdminAuth, tramsactionController.updateTransaction);
+router.post('/checkstatusgreater2', tramsactionController.checkTransactionStatus);
 module.exports = router

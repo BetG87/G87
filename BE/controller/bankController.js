@@ -43,7 +43,7 @@ const bankController = {
     deleteBank: async (req, res) => {
         try {
             await BankAccount.updateMany(
-                { bankId: req.params.id },
+                { bankId: req.body._id },
                 {
                     bankId: null
                 })
