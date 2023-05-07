@@ -1,6 +1,6 @@
 FROM node:18.14.2-alpine
 
-WORKDIR /g87/backend
+WORKDIR /t89/backend
 
 COPY package*.json ./
 RUN npm cache clean --force
