@@ -7,7 +7,7 @@ import { SessionStorageService } from '../StorageService/session-storage.service
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    //'Access-Control-Allow-Origin': 'http://g87.bet',
+    //'Access-Control-Allow-Origin': 'http://t89.bet',
     'Access-Control-Allow-Origin': 'http://localhost:8000/',
     // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT',
     // 'Authorization': 'my-auth-token',
@@ -18,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ConnectApiService {
-  //private REST_API_SERVER = 'http://g87.bet'
+  //private REST_API_SERVER = 'http://t89.bet'
  private REST_API_SERVER = 'http://localhost:8000'
   // private REST_API_SERVER = 'http://localhost'
   constructor(private http: HttpClient) {

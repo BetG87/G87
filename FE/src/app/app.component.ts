@@ -12,7 +12,7 @@ import decode from 'jwt-decode';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'G87';
+  title = 'T89';
 
   username?: string;
   userId?: string;
