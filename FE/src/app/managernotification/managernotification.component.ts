@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Transaction } from '../entity/transaction';
 import { DataShareService } from '../Services/DataShare/data-share.service';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
 import { SessionStorageService } from '../Services/StorageService/session-storage.service';
@@ -12,11 +11,11 @@ import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-m
 import { MyModalComponent } from '../my-modal/my-modal.component';
 
 @Component({
-  selector: 'app-managerinfoupdate',
-  templateUrl: './managerinfoupdate.component.html',
-  styleUrls: ['./managerinfoupdate.component.scss']
+  selector: 'app-managernotification',
+  templateUrl: './managernotification.component.html',
+  styleUrls: ['./managernotification.component.scss']
 })
-export class ManagerinfoupdateComponent {
+export class ManagernotificationComponent{
   currentPage = 1;
   pageSize = 5;
   pageSizes = [5, 10, 15, 20];
@@ -150,4 +149,5 @@ export class ManagerinfoupdateComponent {
       || notification.createdAt.toLowerCase().indexOf(searchTerm) > -1
   }
 }
+
 

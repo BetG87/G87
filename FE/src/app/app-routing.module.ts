@@ -13,7 +13,7 @@ import { RoleGuardService } from './Services/Security/role-guard.service';
 import { ManagerstatusComponent } from './managerstatus/managerstatus.component';
 import { ManagerbankComponent } from './managerbank/managerbank.component';
 import { ManagergameProductComponent } from './managergame-product/managergame-product.component';
-import { ManagerinfoupdateComponent } from './managerinfoupdate/managerinfoupdate.component';
+import { ManagernotificationComponent } from './managernotification/managernotification.component';
 const routes: Routes = [
   {
     path: '',
@@ -93,8 +93,8 @@ const routes: Routes = [
     },
   },
   {
-    path: 'managerinfoupdate',
-    component: ManagerinfoupdateComponent, canActivate: [RoleGuardService],
+    path: 'managernotification',
+    component: ManagernotificationComponent, canActivate: [RoleGuardService],
     data:
     {
       expectedRole: true
