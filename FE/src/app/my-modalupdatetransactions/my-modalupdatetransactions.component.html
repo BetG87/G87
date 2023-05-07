@@ -47,8 +47,17 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
-                    <label for="status" class="size1Rem">Trạng thái :</label>
+                    <label for="status" class="size1Rem">Trạng thái giao dịch :</label>
                     <ng-select [items]="listallStatus" bindLabel="name" bindValue="_id" formControlName="status"></ng-select>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="isActive" class="size1Rem">Trạng thái :</label>
+                    <select id="isActive" class="form-control" name="isActive" formControlName="isActive">
+                        <option value="true">Đang sử dụng</option>
+                        <option value="false">Ngưng sử dụng</option>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">

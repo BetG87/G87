@@ -21,6 +21,7 @@
                         <th class="px-4 text-center">Số Tiền</th>
                         <th class="px-4 text-center">Ghi Chú</th>
                         <th class="px-4 text-center">Ngày Giao Dịch</th>
+                        <th class="px-4 text-center">Trạng Thái Giao Dịch</th>
                         <th class="px-4 text-center">Trạng Thái</th>
                         <th class="px-4 text-center">Nạp/Rút</th>
                         <th class="px-4 text-center">Cập nhật</th>
@@ -37,6 +38,9 @@
                         <td class=" py-2 text-center">{{ transaction.note }}</td>
                         <td class=" py-2 text-center">{{ transaction.date | date:'yyyy/MM/dd hh:mm:ss'}}</td>
                         <td class=" py-2 text-center">{{ transaction.status?.name}}</td>
+                        <td class=" py-2 text-center">
+                            <span *ngIf="transaction.isActive === true ">Đang sử dụng</span>
+                            <span *ngIf="transaction.isActive === false">Ngưng sử dụng</span></td>
                         <td class=" py-2 text-center">
                             <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>
                             <span *ngIf="transaction.type === 'withdrawal'">Rút tiền</span></td>

@@ -203,33 +203,37 @@ export class AccountInfoComponent implements OnInit {
     this.withDrawalTransaction = []
     
     this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
+      console.log(response)
       response.filter((de: any) => {
-        if (de['type'] == 'deposit') {
-          var value = new Transaction();
-          value.amount = de['amount']
-          value.date = de['date']
-          value.note = de['note']
-          this.allStatus.filter((status: any) => {
-            if (de['status'] == status['_id']) {
-              value.status = status['name']
-            }
-          })
-
-          this.depositTransaction.push(value)
-        }
-        else {
-          var value = new Transaction();
-          value.amount = de['amount']
-          value.date = de['date']
-          this.allStatus.filter((status: any) => {
-            if (de['status'] == status['_id']) {
-              value.status = status['name']
-            }
-          })
-          this.withDrawalTransaction.push(value)
-        }
+        if (de['isActive'] == true) {
+          if (de['type'] == 'deposit') {
+            var value = new Transaction();
+            value.amount = de['amount']
+            value.date = de['date']
+            value.note = de['note']
+            this.allStatus.filter((status: any) => {
+              if (de['status'] == status['_id']) {
+                value.status = status['name']
+              }
+            })
+  
+            this.depositTransaction.push(value)
+          }
+          else {
+            var value = new Transaction();
+            value.amount = de['amount']
+            value.date = de['date']
+            this.allStatus.filter((status: any) => {
+              if (de['status'] == status['_id']) {
+                value.status = status['name']
+              }
+            })
+            this.withDrawalTransaction.push(value)
+          }
+        }      
       })
     })
+
   }
   public onSubmit(): void {
 

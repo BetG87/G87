@@ -39,6 +39,8 @@ import { MyModalupdateBankComponent } from './my-modalupdate-bank/my-modalupdate
 import { ManagergameProductComponent } from './managergame-product/managergame-product.component';
 import { MyModalupdateProductComponent } from './my-modalupdate-product/my-modalupdate-product.component';
 import { MyModalupdateaccountBankuserComponent } from './my-modalupdateaccount-bankuser/my-modalupdateaccount-bankuser.component';
+import { ManagerinfoupdateComponent } from './managerinfoupdate/managerinfoupdate.component';
+import { MyModalupdateanotificationComponent } from './my-modalupdateanotification/my-modalupdateanotification.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
@@ -76,7 +78,9 @@ export function tokenGetter() {
     MyModalupdateBankComponent,
     ManagergameProductComponent,
     MyModalupdateProductComponent,
-    MyModalupdateaccountBankuserComponent
+    MyModalupdateaccountBankuserComponent,
+    ManagerinfoupdateComponent,
+    MyModalupdateanotificationComponent
 
 
   ],

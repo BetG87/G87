@@ -42,6 +42,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
       status: [null],
       type: ['deposit'],
       note: [''],
+      isActive: [true],
     });
   }
   public onSubmit(): void {
@@ -140,7 +141,8 @@ export class MyModalupdatetransactionsComponent implements OnInit {
         this.formAccountupdateTransaction.controls['status'].setValue(this.infoTransactions.status?._id !== undefined ? this.infoTransactions.status?._id : "");
         this.formAccountupdateTransaction.controls['type'].setValue(this.infoTransactions.type !== undefined ? this.infoTransactions.type : "");
         this.formAccountupdateTransaction.controls['note'].setValue(this.infoTransactions.note !== undefined ? this.infoTransactions.note : "");
-
+        this.formAccountupdateTransaction.controls['isActive'].setValue(this.infoTransactions.isActive !== undefined ? this.infoTransactions.isActive : true);
+        
         this.formAccountupdateTransaction.get('UserName').disable();
         this.formAccountupdateTransaction.get('nameGame').disable();
         this.formAccountupdateTransaction.get('AccountBankUser').disable();
@@ -177,7 +179,8 @@ export class MyModalupdatetransactionsComponent implements OnInit {
           "gameProduct": this.formAccountupdateTransaction.controls['nameGame'].value,
           "status": this.formAccountupdateTransaction.controls['status'].value,
           "user": this.formAccountupdateTransaction.controls['UserName'].value,
-          "note": this.formAccountupdateTransaction.controls['note'].value
+          "note": this.formAccountupdateTransaction.controls['note'].value,
+          "isActive": this.formAccountupdateTransaction.controls['isActive'].value        
         }
 
         if (this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == '' || this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == null) {
@@ -225,7 +228,8 @@ export class MyModalupdatetransactionsComponent implements OnInit {
           "gameProduct": this.formAccountupdateTransaction.controls['nameGame'].value,
           "status": this.formAccountupdateTransaction.controls['status'].value,
           "user": this.formAccountupdateTransaction.controls['UserName'].value,
-          "note": this.formAccountupdateTransaction.controls['note'].value
+          "note": this.formAccountupdateTransaction.controls['note'].value,
+          "isActive": this.formAccountupdateTransaction.controls['isActive'].value  
         }
         console.log(meessage)
         this.connectApi.post('v1/transaction/', meessage).subscribe((response: any) => {

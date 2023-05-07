@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{Tittle}}</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formnotification" (ngSubmit)="onSubmit()" class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="content" class="size1Rem">Nội dung thông báo :</label>
+                    <input type="text" formControlName="content" id="content" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formnotification.controls.content.errors">
+                        <div *ngIf="confirm &&  formnotification.controls.content.errors.required">Xin hãy nhập nội dung thông báo</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group col-md-12">
+                    <label for="isActive" class="size1Rem">Trạng thái: </label>
+                    <select id="isActive" class="form-control" name="isActive" formControlName="isActive">
+                        <option value="true">Đang sử dụng</option>
+                        <option value="false">Ngừng sử dụng</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary mt-2 " (click)="btnconfirm()">{{buttonConfirm}}</button>
+    <button type="submit" class="btn btn-primary mt-2 " (click)="closeModal()">Đóng</button>
+</div>
