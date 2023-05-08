@@ -14,6 +14,7 @@ import { MyModalComponent } from '../my-modal/my-modal.component';
 import { VndFormatPipe } from '../vnd.pipe';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { MyModalupdateaccountBankuserComponent } from '../my-modalupdateaccount-bankuser/my-modalupdateaccount-bankuser.component';
+import { MyModalconfirmationmsgComponent } from '../my-modalconfirmationmsg/my-modalconfirmationmsg.component';
 
 @Component({
   selector: 'app-account-info',
@@ -201,7 +202,7 @@ export class AccountInfoComponent implements OnInit {
   getTransaction() {
     this.depositTransaction = []
     this.withDrawalTransaction = []
-    
+
     this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
       console.log(response)
       response.filter((de: any) => {
@@ -216,7 +217,7 @@ export class AccountInfoComponent implements OnInit {
                 value.status = status['name']
               }
             })
-  
+
             this.depositTransaction.push(value)
           }
           else {
@@ -230,7 +231,7 @@ export class AccountInfoComponent implements OnInit {
             })
             this.withDrawalTransaction.push(value)
           }
-        }      
+        }
       })
     })
 
@@ -296,108 +297,132 @@ export class AccountInfoComponent implements OnInit {
     this.formDeposit.get('bankAccountAdmin').setValue(this.accountBankReceive);
     this.formDeposit.get('status').setValue(this.defaultStatus)
     this.formDeposit.get('user').setValue(this.userId);
-    this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
-      const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
-      modalRef.componentInstance.Notification = "Nạp Tiền";
-      modalRef.componentInstance.contentNotification = "  Yêu cầu nạp tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
-      modalRef.result.then((result: any) => {
-        console.log(result);
-        if (result === true) {
-          this.getTransaction()
-        }
-      }).catch((error: any) => {
-        console.log(error);
-      });
-    })
-    var senderName: string = ""
-    var senderNumber: string = ""
-    var bankName: string = ""
-    this.accounts.filter((value: any) => {
-
-      if (value['_id'] == this.accountBankSend) {
-        console.log(value)
-        senderName = value['nameAccount']
-        senderNumber = value['numberBank']
-        bankName = value['nameBank']
-      }
-    })
-    var recevieName: string = ""
-    var recevieNumber: string = ""
-    this.accountBankAdmin.filter((value: any) => {
-      if (value['_id'] == this.accountBankReceive) {
-
-        recevieName = value['nameAccount']
-        recevieNumber = value['numberBank']
-      }
-    })
-    var gameName: string = ""
-    this.gameProductAll.filter((value: any) => {
-      if (value['_id'] == this.formDeposit.get('gameProduct').value) {
-        gameName = value['name']
-        console.log(gameName)
-      }
-    })
-    const meessage = {
-      message: "User: *" + this.username + " NẠP TIỀN*\n"
-        + "Tên người gửi: *" + senderName + "* \n"
-        + "Số tài khoản người gửi: *" + senderNumber + "* \n"
-        + "Tên ngân hàng: *" + bankName + "* \n"
-        + "Tên người nhận: *" + recevieName + "* \n"
-        + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
-        + "Số tiên: *" + this.vndFormatPipe.transform(this.formDeposit.get('amount').value) + "* \n"
-        + "Game: *" + gameName + "* \n"
-        + "Ghi chú: *" + this.formDeposit.get('note').value + "*"
-
-    }
-    console.log(meessage)
-    this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
-      console.log(response)
-    })
-  }
-  withdrawalBank() {
-    const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
-    modalRef.componentInstance.Notification = "Rút TIền";
-    modalRef.componentInstance.contentNotification = " Yêu cầu rút tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+    const title = "Nạp tiền";
+    const content = "Bạn có chắc chắn muốn nạp tiền?";
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-      console.log(result);
-      if (result === true) {
-        this.getTransaction()
+      if (result == true) {
+        this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
+          const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+          modalRef.componentInstance.Notification = "Nạp Tiền";
+          modalRef.componentInstance.contentNotification = "  Yêu cầu nạp tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+          modalRef.result.then((result: any) => {
+            console.log(result);
+            if (result === true) {
+              var senderName: string = ""
+              var senderNumber: string = ""
+              var bankName: string = ""
+              this.accounts.filter((value: any) => {
+
+                if (value['_id'] == this.accountBankSend) {
+                  console.log(value)
+                  senderName = value['nameAccount']
+                  senderNumber = value['numberBank']
+                  bankName = value['nameBank']
+                }
+              })
+              var recevieName: string = ""
+              var recevieNumber: string = ""
+              this.accountBankAdmin.filter((value: any) => {
+                if (value['_id'] == this.accountBankReceive) {
+
+                  recevieName = value['nameAccount']
+                  recevieNumber = value['numberBank']
+                }
+              })
+              var gameName: string = ""
+              this.gameProductAll.filter((value: any) => {
+                if (value['_id'] == this.formDeposit.get('gameProduct').value) {
+                  gameName = value['name']
+                  console.log(gameName)
+                }
+              })
+              const meessage = {
+                message: "User: *" + this.username + " NẠP TIỀN*\n"
+                  + "Tên người gửi: *" + senderName + "* \n"
+                  + "Số tài khoản người gửi: *" + senderNumber + "* \n"
+                  + "Tên ngân hàng: *" + bankName + "* \n"
+                  + "Tên người nhận: *" + recevieName + "* \n"
+                  + "Số tài khoản người nhận: *" + recevieNumber + "* \n"
+                  + "Số tiên: *" + this.vndFormatPipe.transform(this.formDeposit.get('amount').value) + "* \n"
+                  + "Game: *" + gameName + "* \n"
+                  + "Ghi chú: *" + this.formDeposit.get('note').value + "*"
+
+              }
+              console.log(meessage)
+              this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
+                console.log(response)
+              })
+              this.getTransaction()
+            }
+          }).catch((error: any) => {
+            console.log(error);
+          });
+        })
       }
     }).catch((error: any) => {
       console.log(error);
     });
-    this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
-    this.formWithDrawal.get('status').setValue(this.defaultStatus)
-    this.formWithDrawal.get('user').setValue(this.userId);
-    console.log(this.formWithDrawal.value)
-    this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
-      console.log(response)
-      var gameName = this.gameProductAll.find((p: { _id: any; }) => p._id === this.formWithDrawal.get('gameProduct').value);
 
-      var senderName: string = ""
-      var senderNumber: string = ""
-      var bankName: string = ""
-      this.accounts.filter((value: any) => {
-        if (value['_id'] == this.accountBankSend) {
-          senderName = value['nameAccount']
-          senderNumber = value['numberBank']
-          bankName = value['nameBank']
-        }
-      })
-      const meessage = {
-        message: "User: *" + this.username + " RÚT TIỀN*\n"
-          + "Tên: *" + senderName + "* \n"
-          + "Số tài nhận: *" + senderNumber + "* \n"
-          + "Tên ngân hàng: *" + bankName + "* \n"
-          + "Số tiên: *" + this.vndFormatPipe.transform(this.formWithDrawal.get('amount').value) + "* \n"
-          + "Game: *" + gameName['name'] + "* \n"
+  }
+  withdrawalBank() {
+
+    const title = "Rút tiền";
+    const content = "Bạn có chắc chắn muốn rút tiền?";
+    const modalRef = this.modalService.open(MyModalconfirmationmsgComponent, { size: "sm", backdrop: "static", keyboard: false });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.content = content;
+    modalRef.result.then((result: any) => {
+      if (result == true) {
+        const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
+        modalRef.componentInstance.Notification = "Rút TIền";
+        modalRef.componentInstance.contentNotification = " Yêu cầu rút tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
+        modalRef.result.then((result: any) => {
+          console.log(result);
+          if (result === true) {
+            this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
+            this.formWithDrawal.get('status').setValue(this.defaultStatus)
+            this.formWithDrawal.get('user').setValue(this.userId);
+            console.log(this.formWithDrawal.value)
+            this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
+              console.log(response)
+              var gameName = this.gameProductAll.find((p: { _id: any; }) => p._id === this.formWithDrawal.get('gameProduct').value);
+
+              var senderName: string = ""
+              var senderNumber: string = ""
+              var bankName: string = ""
+              this.accounts.filter((value: any) => {
+                if (value['_id'] == this.accountBankSend) {
+                  senderName = value['nameAccount']
+                  senderNumber = value['numberBank']
+                  bankName = value['nameBank']
+                }
+              })
+              const meessage = {
+                message: "User: *" + this.username + " RÚT TIỀN*\n"
+                  + "Tên: *" + senderName + "* \n"
+                  + "Số tài nhận: *" + senderNumber + "* \n"
+                  + "Tên ngân hàng: *" + bankName + "* \n"
+                  + "Số tiên: *" + this.vndFormatPipe.transform(this.formWithDrawal.get('amount').value) + "* \n"
+                  + "Game: *" + gameName['name'] + "* \n"
+              }
+              this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
+                console.log(response)
+              })
+            })
+            this.getTransaction()
+          }
+        }).catch((error: any) => {
+          console.log(error);
+        });
 
       }
-      console.log(meessage)
-      this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
-        console.log(response)
-      })
-    })
+    }).catch((error: any) => {
+      console.log(error);
+    });
+
   }
   checkInit() {
     this.isLoggedIn = !!this.sessionStore.getToken();
