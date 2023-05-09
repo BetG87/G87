@@ -89,8 +89,7 @@ const transactionController = {
                 }
             ]);
 
-            console.log(result[0].count >= 2)
-            if (result[0].count >= 2) {
+            if (result[0].count >= 2 && result !=null) {
                 res.status(200).json(true);
             } else {
                 res.status(200).json(false);
