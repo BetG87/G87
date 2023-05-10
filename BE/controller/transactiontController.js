@@ -80,20 +80,20 @@ const transactionController = {
                         "statusInfo.name": "Chờ xử lý",
                         "isActive": true
                     }
-                },
-                {
-                    $group: {
-                        _id: req.body.user,
-                        count: { $sum: 1 }
-                    }
                 }
+                // ,
+                // {
+                //     $group: {
+                //         _id: req.body.user,
+                //         count: { $sum: 1 }
+                //     }
+                // }
             ]);
-
-            if (result[0].count >= 2 && result !=null) {
-                res.status(200).json(true);
-            } else {
-                res.status(200).json(false);
-            }
+                if (result.length >= 2) {
+                    res.status(200).json(true);
+                } else {
+                    res.status(200).json(false);
+                }   
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
