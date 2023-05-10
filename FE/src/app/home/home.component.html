@@ -55,14 +55,8 @@
             <img *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block" [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active" />
             <button *ngIf="isLoggedIn" type="submit" class="btn btn-danger mt-2 change-Location px-3 py-1" (click)="
             addGameBong88(item._id, gameUserId.includes(item!._id!.toString()))
-          " id="{{ item.name }}">
-          {{
-            !isLoggedIn
-              ? "Vào Game"
-              : gameUserId.includes(item!._id!.toString())
-              ? "Tài Khoản"
-              : "Yêu cầu Tài Khoản"
-          }}
+        " id="{{ item.name }}">
+        {{!isLoggedIn ? "Vào Game" : gameUserId.includes(item!._id!.toString()) ? "Tài Khoản"  : "Yêu cầu Tài Khoản" }}
         </button>
         </div>
     </div>
@@ -76,17 +70,17 @@
         </div>
         <div class="col-4 p-0">
             <div class="d-flex flex-column mt-4">
-                <a class="text-center" href="https://example.com">
+                <a class="text-center" href="http://zaloapp.com/qr/p/quap750ulfty" target="_blank">
                     <img src="assets/images/zalo.png" class="img-fluid w-80 m-2" />
                 </a>
-                <a class="text-center">
+                <a class="text-center" href="https://www.facebook.com/t89" target="_blank">
                     <img src="assets/images/fb.png" class="img-fluid w-80 m-2" />
                 </a>
 
-                <a class="text-center" href="https://example.com">
+                <a class="text-center" routerLink="/huong-dan" routerLinkActive="active">
                     <img src="assets/images/huongdan.png" class="img-fluid w-80 m-2" />
                 </a>
-                <a class="text-center" href="https://example.com">
+                <a class="text-center" href="https://t.me/ken11051990" target="_blank">
                     <img src="assets/images/telegram.png" class="img-fluid w-80 m-2" />
                 </a>
             </div>
