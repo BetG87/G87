@@ -142,7 +142,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
         this.formAccountupdateTransaction.controls['type'].setValue(this.infoTransactions.type !== undefined ? this.infoTransactions.type : "");
         this.formAccountupdateTransaction.controls['note'].setValue(this.infoTransactions.note !== undefined ? this.infoTransactions.note : "");
         this.formAccountupdateTransaction.controls['isActive'].setValue(this.infoTransactions.isActive !== undefined ? this.infoTransactions.isActive : true);
-        
+
         this.formAccountupdateTransaction.get('UserName').disable();
         this.formAccountupdateTransaction.get('nameGame').disable();
         this.formAccountupdateTransaction.get('AccountBankUser').disable();
@@ -180,7 +180,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
           "status": this.formAccountupdateTransaction.controls['status'].value,
           "user": this.formAccountupdateTransaction.controls['UserName'].value,
           "note": this.formAccountupdateTransaction.controls['note'].value,
-          "isActive": this.formAccountupdateTransaction.controls['isActive'].value        
+          "isActive": this.formAccountupdateTransaction.controls['isActive'].value
         }
 
         if (this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == '' || this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == null) {
@@ -220,35 +220,62 @@ export class MyModalupdatetransactionsComponent implements OnInit {
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
       if (result == true) {
-        const meessage = {
-          "amount": this.formAccountupdateTransaction.controls['amount'].value,
-          "type": this.formAccountupdateTransaction.controls['type'].value,
-          "bankAccount": this.formAccountupdateTransaction.controls['AccountBankUser'].value,
-          "bankAccountAdmin": this.formAccountupdateTransaction.controls['AccountBankAdmin'].value,
-          "gameProduct": this.formAccountupdateTransaction.controls['nameGame'].value,
-          "status": this.formAccountupdateTransaction.controls['status'].value,
+        const meesage = {
           "user": this.formAccountupdateTransaction.controls['UserName'].value,
-          "note": this.formAccountupdateTransaction.controls['note'].value,
-          "isActive": this.formAccountupdateTransaction.controls['isActive'].value  
+          "type": this.formAccountupdateTransaction.controls['type'].value
         }
-        console.log(meessage)
-        this.connectApi.post('v1/transaction/', meessage).subscribe((response: any) => {
-          this.activeModal.close(true);
-          const modalRef = this.modalService.open(MyModalComponent, {
-            size: 'sm',
-            backdrop: 'static',
-            keyboard: false,
-          });
-          modalRef.componentInstance.Notification =
-            'Thông Báo Đăng kí';
-          modalRef.componentInstance.contentNotification =
-            'Đăng kí giao dịch thành công';
-          modalRef.result
-            .then((result: any) => {
-            })
-            .catch((error: any) => {
-              console.log(error);
+        console.log(meesage)
+        this.connectApi.post('v1/transaction/checkstatusgreater2', meesage).subscribe((response: any) => {
+          if (response) {
+            const modalRef = this.modalService.open(MyModalComponent, {
+              size: 'sm',
+              backdrop: 'static',
+              keyboard: false,
             });
+            modalRef.componentInstance.Notification =
+              'Thông Báo Giao Dịch';
+            modalRef.componentInstance.contentNotification =
+              'Tài khoản của bạn đang có quá 2 lệnh đang chờ xử lý.Vui lòng liên hệ chăm sóc khách hàng';
+            modalRef.componentInstance.command = "depositStatus";
+            modalRef.result
+              .then((result: any) => {
+                this.ngOnInit()
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+          } else {
+            const meessage = {
+              "amount": this.formAccountupdateTransaction.controls['amount'].value,
+              "type": this.formAccountupdateTransaction.controls['type'].value,
+              "bankAccount": this.formAccountupdateTransaction.controls['AccountBankUser'].value,
+              "bankAccountAdmin": this.formAccountupdateTransaction.controls['AccountBankAdmin'].value,
+              "gameProduct": this.formAccountupdateTransaction.controls['nameGame'].value,
+              "status": this.formAccountupdateTransaction.controls['status'].value,
+              "user": this.formAccountupdateTransaction.controls['UserName'].value,
+              "note": this.formAccountupdateTransaction.controls['note'].value,
+              "isActive": this.formAccountupdateTransaction.controls['isActive'].value
+            }
+            console.log(meessage)
+            this.connectApi.post('v1/transaction/', meessage).subscribe((response: any) => {
+              this.activeModal.close(true);
+              const modalRef = this.modalService.open(MyModalComponent, {
+                size: 'sm',
+                backdrop: 'static',
+                keyboard: false,
+              });
+              modalRef.componentInstance.Notification =
+                'Thông Báo Đăng kí';
+              modalRef.componentInstance.contentNotification =
+                'Đăng kí giao dịch thành công';
+              modalRef.result
+                .then((result: any) => {
+                })
+                .catch((error: any) => {
+                  console.log(error);
+                });
+            })
+          }
         })
       } else
         console.log(result);

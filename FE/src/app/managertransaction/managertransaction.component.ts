@@ -52,6 +52,7 @@ export class ManagertransactionComponent implements OnInit {
     this.fullData = [];
     this.GetTransaction();
 
+
   }
 
   GetTransaction() {
@@ -72,6 +73,7 @@ export class ManagertransactionComponent implements OnInit {
     this.currentPage = 1;
     this.transactionsLoaded = true;
     console.log(this.fullData)
+    this.search()
 
   }
   updateTransaction(accounttransaction: any) {

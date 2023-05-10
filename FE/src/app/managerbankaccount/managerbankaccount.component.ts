@@ -50,6 +50,7 @@ export class ManagerbankaccountComponent implements OnInit {
       this.filteredAccountsBank = [...this.managerAccountBank];
       this.filteredAccountsBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       console.log(this.filteredAccountsBank)
+      
     })
   }
   deleteAccountBank(idBank: any) {
@@ -63,6 +64,7 @@ export class ManagerbankaccountComponent implements OnInit {
         const meessage = {
           "_id": idBank
         }
+        console.log(meessage)
         this.connectApi.post('v1/bankaccount/delete', meessage).subscribe((response: any) => {
           console.log(response)
           if (response == "Delete successfully") {
@@ -79,6 +81,7 @@ export class ManagerbankaccountComponent implements OnInit {
             modalRef.result
               .then((result: any) => {
                 this.ngOnInit()
+                this.search()
               })
               .catch((error: any) => {
                 console.log(error);
@@ -114,6 +117,7 @@ export class ManagerbankaccountComponent implements OnInit {
       console.log(result);
       if (result == true) {
         this.ngOnInit()
+        this.search()
       }
     }).catch((error: any) => {
       console.log(error);
@@ -135,15 +139,17 @@ export class ManagerbankaccountComponent implements OnInit {
   }
 
   matchesSearchTerm(accountBank: any) {
-    console.log(accountBank)
+    console.log(accountBank.user)
     accountBank.bankAccountNumber = accountBank.bankAccountNumber !== undefined ? accountBank.bankAccountNumber : "";
     accountBank.ownerName = accountBank.ownerName !== undefined ? accountBank.ownerName : "";
+    if (accountBank.user !== null){
     accountBank.user.username = accountBank.user?.username !== undefined ? accountBank.user?.username : "";
+  }
     console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return accountBank.bankAccountNumber.toLowerCase().indexOf(searchTerm) > -1
       || accountBank.ownerName.toLowerCase().indexOf(searchTerm) > -1
-      || accountBank.user.username.toLowerCase().indexOf(searchTerm) > -1;
+      || accountBank.user?.username.toLowerCase().indexOf(searchTerm) > -1;
   }
 
   addBank() {
@@ -155,6 +161,7 @@ export class ManagerbankaccountComponent implements OnInit {
       console.log(result);
       if (result == true) {
         this.ngOnInit()
+        this.search()
       }
     }).catch((error: any) => {
       console.log(error);
