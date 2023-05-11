@@ -17,7 +17,7 @@ header {
 }
 
 .nav-bg {
-    background-color: #276a81;
+    background-color: #233D67;
 }
 
 .nav-link {
@@ -72,9 +72,33 @@ navbar-expand-lg {
 
 /* Change the link color on hover */
 
+.btn-outline-success-out {
+    background: #F1002A;
+}
+
+.btn-outline-success-register {
+    background: #FF7144;
+}
+
 .navbar-li:hover {
     background-color: white;
     color: #555555;
+}
+
+.navbar-live {
+    background-color: #233D67;
+}
+
+.navbar-live:hover {
+    background-color: #325c9f !important;
+}
+
+.navbar-live:active {
+    color: white !important;
+}
+
+.navbar-live .active {
+    color: white !important;
 }
 
 .menuHeight {
@@ -189,6 +213,12 @@ th {
 .picon {
     margin-top: 0;
     margin-bottom: 0rem;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    background-color: #233D67;
+    ;
 }
 
 @media only screen and (max-width: 600px) {
