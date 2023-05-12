@@ -93,24 +93,25 @@ export class LoginComponent implements OnInit {
             .catch((error: any) => {
               console.log(error);
             });
-        } else if (response['gameAccounts'].length == 0) {
-          const modalRef = this.modalService.open(MyModalComponent, {
-            size: 'sm',
-            backdrop: 'static',
-            keyboard: false,
-          });
-          modalRef.componentInstance.Notification =
-            'Tài khoản chưa có tài khoản game';
-          modalRef.componentInstance.contentNotification =
-            ' Tài khoản của bạn chưa có tài khoản game. Xin vui lòng liên hệ với đội ngũ support';
-          modalRef.result
-            .then((result: any) => {
-              window.location.href = '/';
-            })
-            .catch((error: any) => {
-              console.log(error);
-            });
         }
+        // else if (response['gameAccounts'].length == 0) {
+        //   const modalRef = this.modalService.open(MyModalComponent, {
+        //     size: 'sm',
+        //     backdrop: 'static',
+        //     keyboard: false,
+        //   });
+        //   modalRef.componentInstance.Notification =
+        //     'Tài khoản chưa có tài khoản game';
+        //   modalRef.componentInstance.contentNotification =
+        //     ' Tài khoản của bạn chưa có tài khoản game. Xin vui lòng liên hệ với đội ngũ support';
+        //   modalRef.result
+        //     .then((result: any) => {
+        //       window.location.href = '/';
+        //     })
+        //     .catch((error: any) => {
+        //       console.log(error);
+        //     });
+        // }
         else {
           window.location.href = '/';
         }
