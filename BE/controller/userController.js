@@ -81,7 +81,7 @@ const userController =
             if (req.body.isActive != null) {
                 user.isActive = req.body.isActive;
             }
-            if (req.body.admin != null) {
+            if (req.body.role != null) {
                 user.role = req.body.role;
             }
             if (req.body.numberPhone != null) {
