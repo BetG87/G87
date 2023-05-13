@@ -30,8 +30,9 @@
                                     <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managerbank">Ngân hàng</button>
                                     <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managergame">Game</button>
                                     <button ngbDropdownItem *ngIf="role =='Sales' || role =='Admin'" routerLink="/managertransaction">Lịch sử nạp rút</button>
-                                    <button ngbDropdownItem *ngIf="role =='Admin'"routerLink="/managerstatus">Trạng thái</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managerstatus">Trạng thái</button>
                                     <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managernotification">Thông báo cập nhập</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/linkGame">Đường Dẫn Game</button>
                                 </div>
                             </li>
                         </ul>
@@ -72,11 +73,11 @@
             </div>
             <div class="col-md-4 col-12 text-center mt-4">
                 <div class="d-flex  flex-column align-items-center ">
-                    <div class="p-2">Trang chủ</div>
-                    <div class="p-2">Giới thiệu</div>
-                    <div class="p-2">Hướng dẫn</div>
-                    <div class="p-2">Liên kết</div>
-                    <div class="p-2">Hỗ trợ</div>
+                    <div class="p-2" routerLink="/">Trang chủ</div>
+                    <div class="p-2" routerLink="/about">Giới thiệu</div>
+                    <div class="p-2" routerLink="/huong-dan">Hướng dẫn</div>
+                    <div class="p-2" routerLink="/lien-ket">Liên kết</div>
+                    <div class="p-2" routerLink="/ho-tro">Hỗ trợ</div>
                 </div>
             </div>
             <div class="d-flex  flex-column  col-md-2 col-12 text-right mt-4">

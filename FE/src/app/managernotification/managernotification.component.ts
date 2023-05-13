@@ -131,9 +131,8 @@ export class ManagernotificationComponent{
   }
   search() {
     console.log(this.fullData)
-    if (!this.searchTerm) {
-      this.fullData = [...this.managerInfoUpdate];
-    } else {
+    this.fullData = [...this.managerInfoUpdate];
+    if (this.searchTerm) {
       this.fullData = this.managerInfoUpdate.filter(notification => this.matchesSearchTerm(notification));
       this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       this.currentPage = 1;

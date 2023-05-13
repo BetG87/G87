@@ -133,9 +133,8 @@ export class ManagerstatusComponent {
   }
   search() {
     console.log(this.fullData)
-    if (!this.searchTerm) {
-      this.fullData = [...this.managerStatus];
-    } else {
+    this.fullData = [...this.managerStatus];
+    if (this.searchTerm) {
       this.fullData = this.managerStatus.filter(status => this.matchesSearchTerm(status));
       this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       this.currentPage = 1;

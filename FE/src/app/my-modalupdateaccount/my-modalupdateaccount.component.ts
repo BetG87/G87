@@ -35,7 +35,7 @@ export class MyModalupdateaccountComponent implements OnInit {
       this.formAccountupdate = this.fb.group({
         nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
         numberPhone: [null, [Validators.required, Validators.minLength(8)]],
-        typeAccount: [false, [Validators.required]],
+        typeAccount: [null, [Validators.required]],
         fullname: [null, [Validators.required, Validators.minLength(10)]],
         email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
         statusUser: [true, [Validators.required]],
@@ -47,7 +47,7 @@ export class MyModalupdateaccountComponent implements OnInit {
       this.formAccountupdate = this.fb.group({
         nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
         numberPhone: [null, [Validators.required, Validators.minLength(8)]],
-        typeAccount: [false, [Validators.required]],
+        typeAccount: [null, [Validators.required]],
         fullname: [null, [Validators.required, Validators.minLength(10)]],
         email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
         statusUser: [true, [Validators.required]],
@@ -71,11 +71,11 @@ export class MyModalupdateaccountComponent implements OnInit {
   }
 
   Getdata() {
-
+    console.log(this.info)
     if (this.mode == "1") {
       this.formAccountupdate.controls['nameAccount'].setValue(this.info[0].username !== undefined ? this.info[0].username : "");
       this.formAccountupdate.controls['numberPhone'].setValue(this.info[0].numberPhone !== undefined ? this.info[0].numberPhone : "");
-      this.formAccountupdate.controls['typeAccount'].setValue(this.info[0].admin !== undefined ? this.info[0].admin : "");
+      this.formAccountupdate.controls['typeAccount'].setValue(this.info[0].role !== undefined ? this.info[0].role : "");
       this.formAccountupdate.controls['fullname'].setValue(this.info[0].fullName !== undefined ? this.info[0].fullName : "");
       this.formAccountupdate.controls['statusUser'].setValue(this.info[0].isActive !== undefined ? this.info[0].isActive : false);
       this.formAccountupdate.controls['email'].setValue(this.info[0].email !== undefined ? this.info[0].email : "");
@@ -139,7 +139,7 @@ export class MyModalupdateaccountComponent implements OnInit {
           "password": this.formAccountupdate.controls['accountpassword'].value,
           "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
           "fullName": this.formAccountupdate.controls['fullname'].value,
-          "admin": this.formAccountupdate.controls['typeAccount'].value,
+          "role": this.formAccountupdate.controls['typeAccount'].value,
           "isActive": this.formAccountupdate.controls['statusUser'].value
         }
         if (this.formAccountupdate.controls['accountpassword'].value == '' || this.formAccountupdate.controls['accountpassword'].value == null) {
@@ -188,7 +188,7 @@ export class MyModalupdateaccountComponent implements OnInit {
           "password": this.formAccountupdate.controls['accountpassword'].value,
           "numberPhone": this.formAccountupdate.controls['numberPhone'].value,
           "fullName": this.formAccountupdate.controls['fullname'].value,
-          "admin": this.formAccountupdate.controls['typeAccount'].value,
+          "role": this.formAccountupdate.controls['typeAccount'].value,
           "isActive": this.formAccountupdate.controls['statusUser'].value,
           "bankId": this.formAccountupdate.controls['bankId'].value,
           "bankAccountNumber": this.formAccountupdate.controls['bankAccountNumber'].value,

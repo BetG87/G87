@@ -129,10 +129,8 @@ export class ManageraccountComponent implements OnInit {
   }
   search() {
     console.log(this.managerAccount)
-    if (!this.searchTerm) {
-      this.filteredAccounts = [...this.managerAccount];
-
-    } else {
+    this.filteredAccounts = [...this.managerAccount];
+    if (this.searchTerm) {
       console.log(this.filteredAccounts)
       console.log(this.managerAccount)
       this.filteredAccounts = this.managerAccount.filter(account => this.matchesSearchTerm(account));

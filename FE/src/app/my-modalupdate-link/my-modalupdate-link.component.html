@@ -2,23 +2,14 @@
     <h4 class="modal-title">{{TittleGame}}</h4>
 </div>
 <div class="modal-body">
-    <form [formGroup]="formupdateGame" (ngSubmit)="onSubmit()" class="container">
+    <form [formGroup]="formupdateLinkGame" (ngSubmit)="onSubmit()" class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group col-md-12">
                     <label for="nameGame" class="size1Rem">Tên Game :</label>
                     <input type="text" formControlName="nameGame" id="nameGame" class="form-control">
-                    <div class="col alert alert-danger" *ngIf="confirm && formupdateGame.controls.nameGame.errors">
-                        <div *ngIf="confirm &&  formupdateGame.controls.nameGame.errors.required">Xin hãy nhập tên game</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-group col-md-12">
-                    <label for="linkImage" class="size1Rem">Đường dẫn Ảnh :</label>
-                    <input type="text" formControlName="linkImage" id="linkImage" class="form-control">
-                    <div class="col alert alert-danger" *ngIf="confirm && formupdateGame.controls.linkImage.errors">
-                        <div *ngIf="confirm &&  formupdateGame.controls.linkImage.errors.required">Xin hãy nhập đường dẫn ảnh</div>
+                    <div class="col alert alert-danger" *ngIf="confirm && formupdateLinkGame.controls.nameGame.errors">
+                        <div *ngIf="confirm &&  formupdateLinkGame.controls.nameGame.errors.required">Xin hãy nhập tên game</div>
                     </div>
                 </div>
             </div>
@@ -26,8 +17,8 @@
                 <div class="form-group col-md-12">
                     <label for="linkGame" class="size1Rem">Đường dẫn game :</label>
                     <input type="text" formControlName="linkGame" id="linkGame" class="form-control">
-                    <div class="col alert alert-danger" *ngIf="confirm && formupdateGame.controls.linkGame.errors">
-                        <div *ngIf="confirm &&  formupdateGame.controls.linkGame.errors.required">Xin hãy nhập đường dẫn game </div>
+                    <div class="col alert alert-danger" *ngIf="confirm && formupdateLinkGame.controls.linkGame.errors">
+                        <div *ngIf="confirm &&  formupdateLinkGame.controls.linkGame.errors.required">Xin hãy nhập đường dẫn game </div>
                     </div>
                 </div>
             </div>

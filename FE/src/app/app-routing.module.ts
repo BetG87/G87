@@ -14,6 +14,7 @@ import { ManagerstatusComponent } from './managerstatus/managerstatus.component'
 import { ManagerbankComponent } from './managerbank/managerbank.component';
 import { ManagergameProductComponent } from './managergame-product/managergame-product.component';
 import { ManagernotificationComponent } from './managernotification/managernotification.component';
+import { ManagerlinkComponent } from './managerlink/managerlink.component';
 const routes: Routes = [
   {
     path: '',
@@ -95,6 +96,14 @@ const routes: Routes = [
   {
     path: 'managernotification',
     component: ManagernotificationComponent, canActivate: [RoleGuardService],
+    data:
+    {
+      expectedRole: ['Admin']
+    },
+  },
+  {
+    path: 'linkGame',
+    component: ManagerlinkComponent, canActivate: [RoleGuardService],
     data:
     {
       expectedRole: ['Admin']

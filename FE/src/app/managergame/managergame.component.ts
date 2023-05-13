@@ -168,10 +168,8 @@ export class ManagergameComponent implements OnInit {
   search() {
     console.log(this.managerAccountGame)
     console.log(this.filteredAccountsGame)
-    if (!this.searchTerm) {
-      this.filteredAccountsGame = [...this.managerAccountGame];
-
-    } else {
+    this.filteredAccountsGame = [...this.managerAccountGame];
+    if (this.searchTerm) {
       console.log(this.filteredAccountsGame)
       console.log(this.managerAccountGame)
       this.filteredAccountsGame = this.filteredAccountsGame.filter(accountGame => this.matchesSearchTerm(accountGame));
