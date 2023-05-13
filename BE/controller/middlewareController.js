@@ -23,7 +23,7 @@ const middlewareController =
     },
     verifyTokenAndAdminAuth: (req, res, next) => {
         middlewareController.verifyToken(req, res, () => {
-            if (req.user.id == req.body._id || req.user.role =="Admin") {
+            if (req.user.id == req.body._id || req.user.role =="Admin" || req.user.role =="Sales") {
                 next();
             }
             else {
