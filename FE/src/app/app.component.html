@@ -20,18 +20,18 @@
                         <a class="nav-link nav-link-custom  text-white navbar-live" routerLink="/ho-tro" routerLinkActive="active">Hỗ trợ</a>
                     </li>
                     <nav>
-                        <ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-start " *ngIf="isLoggedIn && isAdmin">
+                        <ul ngbNav #nav="ngbNav" class="nav-tabs justify-content-start " *ngIf="isLoggedIn && (role =='Sales' || role =='Admin')">
                             <li ngbDropdown [ngbNavItem]="3" class="nav-item navbar-live ">
                                 <a href (click)="false" class="nav-link nav-bg  border-0 navbar-live rounded-0" routerLinkActive="active" ngbNavLink ngbDropdownToggle>Quản Lý</a>
                                 <div ngbDropdownMenu>
-                                    <button ngbDropdownItem routerLink="/manageraccount">Người dùng</button>
-                                    <button ngbDropdownItem routerLink="/managergameaccount">Tài khoản Game</button>
-                                    <button ngbDropdownItem routerLink="/managerbankaccount">Tài khoản Ngân Hàng</button>
-                                    <button ngbDropdownItem routerLink="/managerbank">Ngân hàng</button>
-                                    <button ngbDropdownItem routerLink="/managergame">Game</button>
-                                    <button ngbDropdownItem routerLink="/managertransaction">Lịch sử nạp rút</button>
-                                    <button ngbDropdownItem routerLink="/managerstatus">Trạng thái</button>
-                                    <button ngbDropdownItem routerLink="/managernotification">Thông báo cập nhập</button>
+                                    <button ngbDropdownItem *ngIf="role =='Sales' || role =='Admin'" routerLink="/manageraccount">Người dùng</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managergameaccount">Tài khoản Game</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managerbankaccount">Tài khoản Ngân Hàng</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managerbank">Ngân hàng</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managergame">Game</button>
+                                    <button ngbDropdownItem *ngIf="role =='Sales' || role =='Admin'" routerLink="/managertransaction">Lịch sử nạp rút</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'"routerLink="/managerstatus">Trạng thái</button>
+                                    <button ngbDropdownItem *ngIf="role =='Admin'" routerLink="/managernotification">Thông báo cập nhập</button>
                                 </div>
                             </li>
                         </ul>

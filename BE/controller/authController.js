@@ -42,7 +42,7 @@ const authController = {
 	generateAccessToken: (user) => {
 		return jwt.sign({
 			id: user.id,
-			admin: user.admin
+			role: user.role
 		},
 			process.env.JWT_ACCESS_KEY,
 			{
@@ -53,7 +53,7 @@ const authController = {
 	generateRefreshToken: (user) => {
 		return jwt.sign({
 			id: user.id,
-			admin: user.admin
+			role: user.role
 		},
 			process.env.JWT_REFRESH_KEY,
 			{

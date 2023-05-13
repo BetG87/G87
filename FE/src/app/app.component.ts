@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   username?: string;
   userId?: string;
   isLoggedIn: boolean = false;
-  isAdmin: boolean = false;
+  role: String ="User";
   ngOnInit(): void {
     this.checkInit();
   }
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     {
       this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
         console.log(response)
-        this.isAdmin = response['admin']
+        this.role = response['role']
       })
 
     }

@@ -29,14 +29,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    admin: {
-        type: Boolean,
-        default: false
+    role: {
+        type: String,
+        enum: ['User', 'Admin','Sales' ],
+        default: "User",
     },
     isActive: {
         type: Boolean,
         default: true,
-    },
+    },   
     bankAccounts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'BankAccount',

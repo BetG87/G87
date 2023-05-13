@@ -41,7 +41,7 @@ const routes: Routes = [
     component: ManageraccountComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin','Sales']
     }
   },
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
     component: ManagergameComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin']
     },
   },
   {
@@ -57,7 +57,7 @@ const routes: Routes = [
     component: ManagerbankaccountComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin']
     },
   },
   {
@@ -65,7 +65,7 @@ const routes: Routes = [
     component: ManagertransactionComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin','Sales']
     },
   },
   {
@@ -73,7 +73,7 @@ const routes: Routes = [
     component: ManagerstatusComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin']
     },
   } ,
   {
@@ -81,7 +81,7 @@ const routes: Routes = [
     component: ManagerbankComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin']
     },
   },
   {
@@ -89,7 +89,7 @@ const routes: Routes = [
     component: ManagergameProductComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin']
     },
   },
   {
@@ -97,10 +97,10 @@ const routes: Routes = [
     component: ManagernotificationComponent, canActivate: [RoleGuardService],
     data:
     {
-      expectedRole: true
+      expectedRole: ['Admin']
     },
   }
-  
+
 ];
 
 
