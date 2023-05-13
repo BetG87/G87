@@ -75,9 +75,7 @@ const statusController = {
                 {
                     $pull: { status: req.body._id }
                 })
-            const status = await Status.findById(req.body._id);
-            status.isActive = false
-            status.save()
+            const status = await Status.findByIdAndDelete(req.body._id);
             return res.status(200).json("Delete successfully")
         }
         catch (err) {
