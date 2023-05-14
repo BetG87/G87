@@ -32,6 +32,7 @@ export class ManagertransactionComponent implements OnInit {
   fullData: any[] = [];
   allBank: any[] = [];
   transactionsLoaded: boolean = false;
+  role? : String
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,
@@ -39,12 +40,8 @@ export class ManagertransactionComponent implements OnInit {
     private cookieStore: CookieStorageService,
     private modalService: NgbModal, private fb: FormBuilder) {
 
-    const getTokenac = this.sessionStore.getToken();
-    console.log(getTokenac)
-    if (getTokenac) {
-      this.getToken = getTokenac;
-      console.log('getToken:', this.getToken);
-    }
+    const user = this.sessionStore.getUser()
+    this.role = user['role']
   }
 
   async ngOnInit() {

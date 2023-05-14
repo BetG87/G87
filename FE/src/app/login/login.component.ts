@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
     }
     if (this.sessionStore.getToken()) {
       this.isLoggedIn = true;
-      this.isAdmin = this.sessionStore.getUser().isAdmin;
     }
   }
 
@@ -67,10 +66,12 @@ export class LoginComponent implements OnInit {
         this.sessionStore.saveUser({
           _id: response['_id'],
           username: response['username'],
+          role: response['role']
         });
         this.dataShare.setDataUser({
           _id: response['_id'],
           username: response['username'],
+          role: response['role']
         });
         this.isLoggedIn = true;
         this.isLoginFailed = false;

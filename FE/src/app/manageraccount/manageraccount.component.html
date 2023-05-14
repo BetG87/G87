@@ -21,9 +21,9 @@
                         <th class="px-4 text-center">Tên đầy đủ</th>
                         <th class="px-4 text-center">Loại tài khoản</th>
                         <th class="px-4 text-center">Ngày tạo tài khoản</th>
-                        <th class="px-4 text-center">Thông tin</th>
-                        <th class="px-4 text-center">Cập nhật</th>
-                        <th class="px-4 text-center">Xóa</th>
+                        <th class="px-4 text-center" *ngIf="role =='Admin'">Thông tin</th>
+                        <th class="px-4 text-center"*ngIf="role =='Admin'">Cập nhật</th>
+                        <th class="px-4 text-center"*ngIf="role =='Admin'">Xóa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,13 +35,13 @@
                         <td class=" py-2 text-center">{{ account.fullName }}</td>
                         <td class=" py-2 text-center">{{ account.role}} </td>
                         <td class=" py-2 text-center">{{ account.updatedAt | date:'yyyy/MM/dd hh:mm:ss' }}</td>
-                        <td class=" py-2 text-center">
+                        <td class=" py-2 text-center" *ngIf="role =='Admin'">
                             <a (click)="infoAccount(account._id) " class="text-primary"><i class="fa fa-info-circle"></i></a>
                         </td>
-                        <td class="px-4 py-2 text-center">
+                        <td class="px-4 py-2 text-center" *ngIf="role =='Admin'">
                             <a (click)="updateAccount(account._id)" class="text-primary"><i class="fa fa-pencil"></i></a>
                         </td>
-                        <td class="px-4 py-2 text-center">
+                        <td class="px-4 py-2 text-center" *ngIf="role =='Admin'">
                             <a (click)="deleteAccount(account._id)" class="text-primary"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

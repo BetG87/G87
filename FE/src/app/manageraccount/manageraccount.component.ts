@@ -25,6 +25,9 @@ export class ManageraccountComponent implements OnInit {
   managerAccount: managerAccount[] = [];
   filteredAccounts: any[] = [];
   searchTerm: any;
+  userId?: String;
+  username?: string;
+  role?: String;
 
   ngOnInit(): void {
 
@@ -46,16 +49,8 @@ export class ManageraccountComponent implements OnInit {
     private cookieStore: CookieStorageService,
     private modalService: NgbModal, private fb: FormBuilder) {
 
-
-    const getTokenac = this.sessionStore.getToken();
-    console.log(getTokenac)
-    if (getTokenac) {
-      this.getToken = getTokenac;
-
-      console.log('getToken:', this.getToken);
-    }
-
-
+    const user = this.sessionStore.getUser()
+    this.role = user['role']
   }
 
   deleteAccount(_id: any) {

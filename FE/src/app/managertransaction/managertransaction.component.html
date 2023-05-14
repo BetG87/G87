@@ -24,8 +24,8 @@
                         <th class="px-4 text-center">Trạng Thái Giao Dịch</th>
                         <th class="px-4 text-center">Trạng Thái</th>
                         <th class="px-4 text-center">Nạp/Rút</th>
-                        <th class="px-4 text-center">Cập nhật</th>
-                        <th class="px-4 text-center">Xoá</th>
+                        <th class="px-4 text-center" *ngIf="role =='Admin'">Cập nhật</th>
+                        <th class="px-4 text-center" *ngIf="role =='Admin'">Xoá</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,10 +44,10 @@
                         <td class=" py-2 text-center">
                             <span *ngIf="transaction.type === 'deposit'">Nạp tiền</span>
                             <span *ngIf="transaction.type === 'withdrawal'">Rút tiền</span></td>
-                        <td class="px-4 py-2 text-center">
+                        <td class="px-4 py-2 text-center" *ngIf="role =='Admin'">
                             <a (click)="updateTransaction(transaction)" class="text-primary"><i class="fa fa-pencil"></i></a>
                         </td>
-                        <td class="px-4 py-2 text-center">
+                        <td class="px-4 py-2 text-center" *ngIf="role =='Admin'">
                             <a (click)="deleteTransaction(transaction._id)" class="text-primary"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

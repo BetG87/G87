@@ -17,7 +17,7 @@ import { CommonModule, NgIf } from '@angular/common';
   providers: [NgbCarouselConfig],
 })
 export class CarouselComponent {
-  images = ['assets/images/slide1.png', 'assets/images/slide2.png', 'assets/images/slide3.png', 'assets/images/slide4.png'];
+  images = ['assets/images/slide1.jpg', 'assets/images/slide2.jpg', 'assets/images/slide3.jpg'];
   showNavigationArrows = true;
   showNavigationIndicators = true;
   interval = 50000

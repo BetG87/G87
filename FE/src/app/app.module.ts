@@ -43,6 +43,7 @@ import { MyModalupdateanotificationComponent } from './my-modalupdateanotificati
 import { ManagernotificationComponent } from './managernotification/managernotification.component';
 import { ManagerlinkComponent } from './managerlink/managerlink.component';
 import { MyModalupdateLinkComponent } from './my-modalupdate-link/my-modalupdate-link.component';
+import { RuleComponent } from './rule/rule.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
@@ -84,7 +85,8 @@ export function tokenGetter() {
     MyModalupdateanotificationComponent,
     ManagernotificationComponent,
     ManagerlinkComponent,
-    MyModalupdateLinkComponent
+    MyModalupdateLinkComponent,
+    RuleComponent
 
 
   ],

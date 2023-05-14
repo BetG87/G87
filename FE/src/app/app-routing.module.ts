@@ -15,6 +15,7 @@ import { ManagerbankComponent } from './managerbank/managerbank.component';
 import { ManagergameProductComponent } from './managergame-product/managergame-product.component';
 import { ManagernotificationComponent } from './managernotification/managernotification.component';
 import { ManagerlinkComponent } from './managerlink/managerlink.component';
+import { RuleComponent } from './rule/rule.component';
 const routes: Routes = [
   {
     path: '',
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'account-info',
     component: AccountInfoComponent,
+  },
+  {
+    path: 'rule',
+    component: RuleComponent,
   },
   {
     path: 'manageraccount',

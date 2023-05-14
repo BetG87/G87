@@ -34,11 +34,12 @@
 }
 .btn-link-game {
   justify-content: space-around;
-  margin: 3%;
-
-
+  margin: 1%;
 }
 
+.btn-link-game1 {
+  background: #FF7144;
+}
 @media only screen and (max-width: 1370px) {
     /* For mobile phones: */
     .change-Location {

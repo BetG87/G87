@@ -60,9 +60,13 @@
         </button>
         </div>
     </div>
-    <div class=" d-flex btn-link-game"aria-label="Button group">
-      <a *ngFor="let button of linkGame; let i = index" class="btn btn-danger btn-lg" [href]="button.linkGame" target="_blank">Link {{i+1}}</a>
-    </div>
+    <fieldset class="mt-3">
+      <legend class="text-primary text-center mb-0 ">Link dự phòng</legend>
+      <div class="p-3 d-flex btn-link-game" aria-label="Button group">
+        <a *ngFor="let button of linkGame; let i = index" class="btn btn-danger btn-lg mx-2" [href]="button.linkGame" target="_blank">Link {{i+1}}</a>
+      </div>
+    </fieldset>
+
     <div class="row ">
         <div class="col-8 col-8 mt-4 pt-1">
             <!-- <div class="video-container mt-2">
@@ -75,14 +79,14 @@
                 <a class="text-center" href="http://zaloapp.com/qr/p/quap750ulfty" target="_blank">
                     <img src="assets/images/zalo.png" class="img-fluid w-80 m-2" />
                 </a>
-                <a class="text-center" href="https://www.facebook.com/t89" target="_blank">
+                <a class="text-center" href="https://www.facebook.com/t89bet" target="_blank">
                     <img src="assets/images/fb.png" class="img-fluid w-80 m-2" />
                 </a>
 
                 <a class="text-center" routerLink="/huong-dan" routerLinkActive="active">
                     <img src="assets/images/huongdan.png" class="img-fluid w-80 m-2" />
                 </a>
-                <a class="text-center" href="https://t.me/ken11051990" target="_blank">
+                <a class="text-center" href="https://t.me/t89bet" target="_blank">
                     <img src="assets/images/telegram.png" class="img-fluid w-80 m-2" />
                 </a>
             </div>
