@@ -134,9 +134,9 @@ export class ManagernotificationComponent{
     this.fullData = [...this.managerInfoUpdate];
     if (this.searchTerm) {
       this.fullData = this.managerInfoUpdate.filter(notification => this.matchesSearchTerm(notification));
-      this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      this.currentPage = 1;
     }
+    this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    this.currentPage = 1;
   }
   matchesSearchTerm(notification: any) {
     notification.content = notification.content !== undefined ? notification.content : "";

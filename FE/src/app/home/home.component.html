@@ -44,12 +44,12 @@
     <button *ngIf="!isLoggedIn" (click)="playGame()">Vào game</button>
     <button *ngIf="isLoggedIn && hasAccount">Tài khoản</button>
     <button *ngIf="isLoggedIn && !hasAccount" (click)="requestAccount()">Yêu cầu tài khoản</button>
-  </div>-->
+    </div>-->
     <div class="row justify-content-center">
         <div class="col-md-3 col-6 d-flex justify-content-center" *ngFor="let item of gameProductAll">
             <a *ngIf="isLoggedIn" [href]="item?.linkGame?.toString()">
                 <img [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block" [routerLink]="
-              !isLoggedIn ? '/register' : item?.linkGame?.toString()
+                !isLoggedIn ? '/register' : item?.linkGame?.toString()
             " routerLinkActive="active" />
             </a>
             <img *ngIf="!isLoggedIn" [src]="item.linkImage" alt="Image Description" class="img-thumbnail d-block" [routerLink]="!isLoggedIn ? '/register' : item?.linkGame?.toString()" routerLinkActive="active" />
@@ -60,11 +60,11 @@
         </button>
         </div>
     </div>
-    <fieldset class="mt-3">
-      <legend class="text-primary text-center mb-0 ">Link dự phòng</legend>
-      <div class="p-3 d-flex btn-link-game" aria-label="Button group">
-        <a *ngFor="let button of linkGame; let i = index" class="btn btn-danger btn-lg mx-2" [href]="button.linkGame" target="_blank">Link {{i+1}}</a>
-      </div>
+    <fieldset class="mt-4 borderlink">
+        <legend class="text-primary text-center mb-0 change-Locationlink bg-white  d-flex justify-content-start ">Link dự phòng</legend>
+        <div class="p-3 d-flex btn-link-game" aria-label="Button group">
+            <a *ngFor="let button of linkGame; let i = index" class="btn btn-danger btn-lg mx-2" [href]="button.linkGame" target="_blank">Link {{i+1}}</a>
+        </div>
     </fieldset>
 
     <div class="row ">

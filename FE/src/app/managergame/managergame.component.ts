@@ -172,11 +172,11 @@ export class ManagergameComponent implements OnInit {
     if (this.searchTerm) {
       console.log(this.filteredAccountsGame)
       console.log(this.managerAccountGame)
-      this.filteredAccountsGame = this.filteredAccountsGame.filter(accountGame => this.matchesSearchTerm(accountGame));
-      this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      this.currentPage = 1;
+      this.filteredAccountsGame = this.filteredAccountsGame.filter(accountGame => this.matchesSearchTerm(accountGame));    
       console.log(this.filteredAccountsGame)
     }
+    this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    this.currentPage = 1;
   }
 
   matchesSearchTerm(accountGame: any) {

@@ -109,10 +109,10 @@ export class ManagerlinkComponent implements OnInit {
       console.log(this.filteredLinkGame)
       console.log(this.managerLinkGame)
       this.filteredLinkGame = this.filteredLinkGame.filter(Game => this.matchesSearchTerm(Game));
-      this.filteredLinkGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      this.currentPage = 1;
       console.log(this.filteredLinkGame)
     }
+    this.filteredLinkGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    this.currentPage = 1;
   }
 
   matchesSearchTerm(Game: any) {

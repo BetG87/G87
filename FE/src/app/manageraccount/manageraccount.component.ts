@@ -128,10 +128,10 @@ export class ManageraccountComponent implements OnInit {
     if (this.searchTerm) {
       console.log(this.filteredAccounts)
       console.log(this.managerAccount)
-      this.filteredAccounts = this.managerAccount.filter(account => this.matchesSearchTerm(account));
-      this.filteredAccounts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      this.currentPage = 1;
+      this.filteredAccounts = this.managerAccount.filter(account => this.matchesSearchTerm(account));      
     }
+    this.filteredAccounts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    this.currentPage = 1;
   }
 
   matchesSearchTerm(account: any) {
@@ -140,12 +140,14 @@ export class ManageraccountComponent implements OnInit {
     account.email = account.email !== undefined ? account.email : "";
     account.numberPhone = account.numberPhone !== undefined ? account.numberPhone : "";
     account.fullName = account.fullName !== undefined ? account.fullName : "";
+    account.role = account.role !== undefined ? account.role : "";
     console.log(this.searchTerm)
-    const searchTerm = this.searchTerm.toLowerCase();
+    const searchTerm = this.searchTerm.toLowerCase(); 
     return account.username.toLowerCase().indexOf(searchTerm) > -1
       || account.email.toLowerCase().indexOf(searchTerm) > -1
       || account.numberPhone.toLowerCase().indexOf(searchTerm) > -1
-      || account.fullName.toLowerCase().indexOf(searchTerm) > -1;
+      || account.fullName.toLowerCase().indexOf(searchTerm) > -1
+      || account.role.toLowerCase().indexOf(searchTerm) > -1;
   }
   addTransaction() {
     const modalRef = this.modalService.open(MyModalupdateaccountComponent, { size: "lg", backdrop: "static", keyboard: false });

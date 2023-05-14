@@ -117,11 +117,11 @@ export class ManagergameProductComponent implements OnInit {
     if (this.searchTerm) {
       console.log(this.filteredGame)
       console.log(this.managerGame)
-      this.filteredGame = this.filteredGame.filter(Game => this.matchesSearchTerm(Game));
-      this.filteredGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      this.currentPage = 1;
+      this.filteredGame = this.filteredGame.filter(Game => this.matchesSearchTerm(Game));     
       console.log(this.filteredGame)
     }
+    this.filteredGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    this.currentPage = 1;
   }
 
   matchesSearchTerm(Game: any) {

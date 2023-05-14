@@ -93,10 +93,10 @@ export class ManagertransactionComponent implements OnInit {
     console.log(this.fullData)
     this.fullData = [...this.managerTransaction];
     if (this.searchTerm) {
-      this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));
-      this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      this.currentPage = 1;
+      this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));    
     }
+    this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    this.currentPage = 1;
   }
 
   matchesSearchTerm(accounttransaction: any) {

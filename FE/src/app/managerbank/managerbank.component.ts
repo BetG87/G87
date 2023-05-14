@@ -114,10 +114,10 @@ export class ManagerbankComponent  implements OnInit {
     if (this.searchTerm) {    
       console.log(this.filteredBank)
       console.log(this.managerBank)
-      this.filteredBank = this.managerBank.filter(accountBank => this.matchesSearchTerm(accountBank));
-      this.filteredBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      this.currentPage = 1;
+      this.filteredBank = this.managerBank.filter(accountBank => this.matchesSearchTerm(accountBank));         
     }
+    this.filteredBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    this.currentPage = 1;
   }
 
   matchesSearchTerm(accountBank: any) {

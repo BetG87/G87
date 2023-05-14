@@ -136,9 +136,9 @@ export class ManagerstatusComponent {
     this.fullData = [...this.managerStatus];
     if (this.searchTerm) {
       this.fullData = this.managerStatus.filter(status => this.matchesSearchTerm(status));
-      this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      this.currentPage = 1;
     }
+    this.fullData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    this.currentPage = 1;
   }
   matchesSearchTerm(status: any) {
     status.id = status.id !== undefined ? status.id : "";
