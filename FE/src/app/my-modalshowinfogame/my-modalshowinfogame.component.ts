@@ -39,6 +39,13 @@ export class MyModalshowinfogameComponent implements OnInit {
     console.log(this.accountlist)
     this.tkGame = []
     if (this.accountlist.length > 0) {
+      this.accountlist = this.accountlist.filter((res: any) => {
+        if (res?.isActive) {
+          return true
+        }else{
+          return false
+        }
+      })
       this.tkGame = this.accountlist.map((account: { username: any; }) => account.username);
       this.fulltkGame = this.accountlist.map((account: { username: any; password: any; }) => ({ username: account.username, password: account.password }));
       this.formAccountinfo = this.fb.group({

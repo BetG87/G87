@@ -38,12 +38,12 @@ export class HomeComponent implements OnInit {
   gameProduct: GameProduct[] | undefined;
   gameProductAll: GameProduct[] | undefined;
   gameUserId: string[] = [];
-  notification: any ;
+  notification: any;
   videoId: string | undefined;
   videoUrl: any;
   isStatus = [false, false, false, false];
-  linkGame:any
-  fulldata : any
+  linkGame: any
+  fulldata: any
   constructor(
     private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -92,10 +92,23 @@ export class HomeComponent implements OnInit {
     }
     this.connectApi.get("v1/notification").subscribe((response: any) => {
       console.log(response);
-      this.notification = response
+      this.notification = response.filter((res: any) => {
+        if (res?.isActive) {
+          return true
+        }else{
+          return false
+        }
+      })
+      console.log(this.notification);
     });
     this.connectApi.get("v1/linkGame").subscribe((response: any) => {
-      this.linkGame = response
+      this.linkGame = response.filter((res: any) => {
+        if (res?.isActive) {
+          return true
+        }else{
+          return false
+        }
+      })
     });
   }
   ngOnInit(): void {
@@ -120,22 +133,22 @@ export class HomeComponent implements OnInit {
     console.log(id)
     console.log(action)
     // nếu action = true thì mở modal hiện tk mk, = false thì push tele
-if(action){
-  console.log(this.fulldata)
-  if(this.fulldata.gameAccounts != undefined){
-    const filteredGameAccounts  = this.fulldata.gameAccounts.filter((gameAccount: { gameProduct: any; }) => {
-      return gameAccount.gameProduct === id;
-    });
-    console.log(filteredGameAccounts)
-  const modalRef = this.modalService.open(MyModalshowinfogameComponent, { size: "sm", backdrop: "static", keyboard: false });
-  modalRef.componentInstance.accountlist = filteredGameAccounts;
-    modalRef.result.then((result: any) => {
-      console.log(result);
-    }).catch((error: any) => {
-      console.log(error);
-    });
-  }
-}
+    if (action) {
+      console.log(this.fulldata)
+      if (this.fulldata.gameAccounts != undefined) {
+        const filteredGameAccounts = this.fulldata.gameAccounts.filter((gameAccount: { gameProduct: any; }) => {
+          return gameAccount.gameProduct === id;
+        });
+        console.log(filteredGameAccounts)
+        const modalRef = this.modalService.open(MyModalshowinfogameComponent, { size: "sm", backdrop: "static", keyboard: false });
+        modalRef.componentInstance.accountlist = filteredGameAccounts;
+        modalRef.result.then((result: any) => {
+          console.log(result);
+        }).catch((error: any) => {
+          console.log(error);
+        });
+      }
+    }
 
 
 

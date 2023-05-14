@@ -163,6 +163,7 @@ export class AccountInfoComponent implements OnInit {
         }
         this.accounts = []
         bankAccount.filter((bankA: any) => {
+          if (bankA?.isActive) {    
           var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
           var value = new Account();
           value._id = bankA["_id"]
@@ -170,6 +171,10 @@ export class AccountInfoComponent implements OnInit {
           value.nameBank = bankC['name'];
           value.numberBank = bankA['bankAccountNumber'];
           this.accounts.push(value);
+          return true
+          }else{
+            return false
+          }
         })
         console.log(this.accounts)
         this.accountBankSend = this.accounts[0]?._id
