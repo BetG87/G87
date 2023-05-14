@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
   videoId: string | undefined;
   videoUrl: any;
   isStatus = [false, false, false, false];
+  linkGame:any
   constructor(
     private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -87,6 +88,9 @@ export class HomeComponent implements OnInit {
     this.connectApi.get("v1/notification").subscribe((response: any) => {
       console.log(response);
       this.notification = response
+    });
+    this.connectApi.get("v1/linkGame").subscribe((response: any) => {
+      this.linkGame = response
     });
   }
   ngOnInit(): void {
