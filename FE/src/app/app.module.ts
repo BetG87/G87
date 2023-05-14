@@ -44,6 +44,7 @@ import { ManagernotificationComponent } from './managernotification/managernotif
 import { ManagerlinkComponent } from './managerlink/managerlink.component';
 import { MyModalupdateLinkComponent } from './my-modalupdate-link/my-modalupdate-link.component';
 import { RuleComponent } from './rule/rule.component';
+import { MyModalshowinfogameComponent } from './my-modalshowinfogame/my-modalshowinfogame.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
@@ -86,7 +87,8 @@ export function tokenGetter() {
     ManagernotificationComponent,
     ManagerlinkComponent,
     MyModalupdateLinkComponent,
-    RuleComponent
+    RuleComponent,
+    MyModalshowinfogameComponent
 
 
   ],

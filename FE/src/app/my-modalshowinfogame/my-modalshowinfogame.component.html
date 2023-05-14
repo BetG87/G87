@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h4 class="modal-title decorationHeader"> TÀI KHOẢN GAME</h4>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <form [formGroup]="formAccountinfo" class="container">
+            <div class="col-md-12">
+                <div class="form-group col-md-12">
+                    <label for="gameAccount" class="size1Rem">Tài khoản game : </label>
+                    <ng-select #myInputaccount [items]="tkGame" formControlName="gameAccount" bindLabel="." bindValue="." (ngModelChange)="onTKChange($event)"></ng-select>
+                    <button (click)="copyToClipboardAccount()" class=" bg-copy rounded  m-1 border-0"><i class="fa fa-copy "></i><span class="text-light"> Copy tài khoản game</span></button>
+                </div>
+            </div>
+            <div class="col-md-12 ">
+                <div class="form-group col-md-12">
+                    <label for="gamePassword" class="size1Rem">Mật khẩu game : </label>
+                    <input #myInputpass type="text" formControlName="gamePassword" id="gamePassword" class="form-control">
+                    <button (click)="copyToClipboardPass()" class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="d-flex justify-content-end"><span class="textbank" (click)="close()">Đã Hiểu</span></div>
+</div>

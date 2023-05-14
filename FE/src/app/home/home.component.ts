@@ -8,6 +8,7 @@ import {
 import {
   NgbCarouselConfig,
   NgbCarouselModule,
+  NgbModal,
 } from "@ng-bootstrap/ng-bootstrap";
 import { DataShareService } from "../Services/DataShare/data-share.service";
 import { ConnectApiService } from "../Services/Web/connect-api.service";
@@ -17,6 +18,7 @@ import { Router } from "@angular/router";
 import { GameProduct } from "../entity/GameProduct";
 import decode from "jwt-decode";
 import { DomSanitizer } from '@angular/platform-browser';
+import { MyModalshowinfogameComponent } from "../my-modalshowinfogame/my-modalshowinfogame.component";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
   videoUrl: any;
   isStatus = [false, false, false, false];
   linkGame:any
+  fulldata : any
   constructor(
     private dataShare: DataShareService,
     private connectApi: ConnectApiService,
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit {
     private renderer: Renderer2,
     private el: ElementRef,
     private cookieStore: CookieStorageService,
+    private modalService: NgbModal,
     private sanitizer: DomSanitizer
   ) {
     this.videoId = "VgzRNVBFvbQ";
@@ -74,6 +78,7 @@ export class HomeComponent implements OnInit {
     if (this.isLoggedIn) {
       this.connectApi.get("v1/user/" + this.userId).subscribe((response: any) => {
         console.log(response);
+        this.fulldata = response
         this.isLinkEnabled = false;
         this.isAdmin = response['admin']
         this.gameProduct = response.gameProduct;
@@ -115,6 +120,26 @@ export class HomeComponent implements OnInit {
     console.log(id)
     console.log(action)
     // nếu action = true thì mở modal hiện tk mk, = false thì push tele
+if(action){
+  console.log(this.fulldata)
+  if(this.fulldata.gameAccounts != undefined){
+    const filteredGameAccounts  = this.fulldata.gameAccounts.filter((gameAccount: { gameProduct: any; }) => {
+      return gameAccount.gameProduct === id;
+    });
+    console.log(filteredGameAccounts)
+  const modalRef = this.modalService.open(MyModalshowinfogameComponent, { size: "sm", backdrop: "static", keyboard: false });
+  modalRef.componentInstance.accountlist = filteredGameAccounts;
+    modalRef.result.then((result: any) => {
+      console.log(result);
+    }).catch((error: any) => {
+      console.log(error);
+    });
+  }
+}
+
+
+
+
   }
   routeInfo(index: number) {
     if (this.isLoggedIn) {
