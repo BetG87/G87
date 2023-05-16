@@ -47,6 +47,9 @@ import { RuleComponent } from './rule/rule.component';
 import { MyModalshowinfogameComponent } from './my-modalshowinfogame/my-modalshowinfogame.component';
 import { SupportComponent } from './support/support.component';
 import { GuideComponent } from './guide/guide.component';
+import { AboutdepositComponent } from './aboutdeposit/aboutdeposit.component';
+import { AboutloginComponent } from './aboutlogin/aboutlogin.component';
+import { AboutaccountgameComponent } from './aboutaccountgame/aboutaccountgame.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("auth-token");
@@ -92,7 +95,10 @@ export function tokenGetter() {
     RuleComponent,
     MyModalshowinfogameComponent,
     SupportComponent,
-    GuideComponent
+    GuideComponent,
+    AboutdepositComponent,
+    AboutloginComponent,
+    AboutaccountgameComponent
 
 
   ],

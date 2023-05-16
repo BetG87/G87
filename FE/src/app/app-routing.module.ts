@@ -18,6 +18,9 @@ import { ManagerlinkComponent } from './managerlink/managerlink.component';
 import { RuleComponent } from './rule/rule.component';
 import { SupportComponent } from './support/support.component';
 import { GuideComponent } from './guide/guide.component';
+import { AboutdepositComponent } from './aboutdeposit/aboutdeposit.component';
+import { AboutloginComponent } from './aboutlogin/aboutlogin.component';
+import { AboutaccountgameComponent } from './aboutaccountgame/aboutaccountgame.component';
 const routes: Routes = [
   {
     path: '',
@@ -123,6 +126,18 @@ const routes: Routes = [
     {
       expectedRole: ['Admin']
     },
+  },
+  {
+    path: 'aboutdeposit',
+    component: AboutdepositComponent
+  },
+  {
+    path: 'aboutlogin',
+    component: AboutloginComponent
+  },
+  {
+    path: 'aboutaccountgame',
+    component: AboutaccountgameComponent
   }
 
 ];
