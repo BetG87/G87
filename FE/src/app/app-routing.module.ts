@@ -16,6 +16,8 @@ import { ManagergameProductComponent } from './managergame-product/managergame-p
 import { ManagernotificationComponent } from './managernotification/managernotification.component';
 import { ManagerlinkComponent } from './managerlink/managerlink.component';
 import { RuleComponent } from './rule/rule.component';
+import { SupportComponent } from './support/support.component';
+import { GuideComponent } from './guide/guide.component';
 const routes: Routes = [
   {
     path: '',
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path: 'rule',
     component: RuleComponent,
+  },
+  {
+    path: 'support',
+    component: SupportComponent,
+  },
+  {
+    path: 'guide',
+    component: GuideComponent,
   },
   {
     path: 'manageraccount',
