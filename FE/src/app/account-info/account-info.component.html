@@ -39,8 +39,7 @@
                                     <label for="gameCheck" class="size1Rem">Sản phẩm game đã đăng kí: </label>
                                     <!-- <select id="gameCheck" class="form-control" name="gameCheck" [(ngModel)]="selectGame" (ngModelChange)="onGameChange($event)" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let game of gameProduct" [value]="game._id">{{game.name}}</option>
-
-                          </select> -->
+                            </select> -->
                                     <ng-select [items]="gameProduct" bindLabel="name" bindValue="_id" [(ngModel)]="selectGame" (ngModelChange)="onGameChange($event)" [ngModelOptions]="{standalone: true}"></ng-select>
                                 </div>
                             </div>
@@ -66,20 +65,15 @@
                                     <button (click)="copyToClipboardPass()" class=" bg-copy rounded  m-1 border-0"> <i class="fa fa-copy "></i><span class="text-light"> Copy mật khẩu game</span></button>
                                 </div>
                             </div>
-                            <div class=" col-sm-12 bg-danger mt-4 rounded mb-4">
-                                <h2 class=" text-light text-center">LƯU Ý : Thành viên vui lòng đổi mật khẩu khi đăng nhập tài khoản Game lần đầu tiên
+                            <div class=" col-sm-12  mt-4 rounded mb-4">
+                                <h2 class=" text-danger text-center">LƯU Ý : Thành viên vui lòng đổi mật khẩu khi đăng nhập tài khoản bong88 lần đầu tiên
                                 </h2>
-
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-12"></div>
                 </div>
             </form>
-
-
-
-
         </div>
         <div id="tab1" *ngIf="selectedTab === 1">
             <div class="row">

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConnectApiService } from '../Services/Web/connect-api.service';
-import { Bank } from '../entity/bank';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MyModalComponent } from '../my-modal/my-modal.component';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -39,10 +37,7 @@ export class RegisterComponent implements OnInit {
       bankId: ['', Validators.required],
       showPassword: [false],
       showPasswordconfirm: [false]
-
     });
-
-
     this.connectApi.get('v1/bank').subscribe((response) => {
       console.log(response)
       this.bankNameLists = response;
@@ -58,9 +53,10 @@ export class RegisterComponent implements OnInit {
     console.log(event);
   }
   ngOnInit(): void {
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     this.connectApi.get('v1/gameproduct').subscribe((response) => {
-      this.gameProductFullAll = response;
-      this.gameProductAll = this.gameProductFullAll.filter((g: { isActive: boolean; }) => g.isActive === true);
+    this.gameProductFullAll = response;
+    this.gameProductAll = this.gameProductFullAll.filter((g: { isActive: boolean; }) => g.isActive === true);
     });
 
   }

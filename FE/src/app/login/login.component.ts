@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll({top: 0,left: 0, behavior: 'smooth' });
     const checkValue = this.activeRoute.snapshot.queryParamMap.get('check');
     if (checkValue != null) {
       this.checkaccount = checkValue
