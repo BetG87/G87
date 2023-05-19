@@ -36,7 +36,7 @@ export class MyModalupdateaccountComponent implements OnInit {
         nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
         numberPhone: [null, [Validators.required, Validators.minLength(8)]],
         typeAccount: [null, [Validators.required]],
-        fullname: [null, [Validators.required, Validators.minLength(10)]],
+        fullname: [null, [Validators.required]],
         email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
         statusUser: [true, [Validators.required]],
         accountpassword: [null, [Validators.required, Validators.minLength(6)]],
@@ -48,7 +48,7 @@ export class MyModalupdateaccountComponent implements OnInit {
         nameAccount: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
         numberPhone: [null, [Validators.required, Validators.minLength(8)]],
         typeAccount: [null, [Validators.required]],
-        fullname: [null, [Validators.required, Validators.minLength(10)]],
+        fullname: [null, [Validators.required]],
         email: [null, [Validators.required, Validators.email, Validators.minLength(10), Validators.maxLength(50)]],
         statusUser: [true, [Validators.required]],
         accountpassword: [null]
@@ -132,6 +132,7 @@ export class MyModalupdateaccountComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
+      console.log(result)
       if (result == true) {
         let meessage = {
           "_id": this.info[0]._id,

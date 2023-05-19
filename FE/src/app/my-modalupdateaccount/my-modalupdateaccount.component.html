@@ -58,6 +58,9 @@
                 <div class="form-group col-md-12">
                     <label for="fullname" class="size1Rem">Tên đầy đủ : </label>
                     <input type="text" formControlName="fullname" id="fullname" class="form-control">
+                    <div class="col alert alert-danger" *ngIf="confirm && formAccountupdate.controls.fullname.errors">
+                        <div *ngIf="confirm &&  formAccountupdate.controls.fullname.errors.required">Xin hãy nhập đầy đủ họ tên</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
