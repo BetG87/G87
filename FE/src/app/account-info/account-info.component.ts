@@ -128,7 +128,12 @@ export class AccountInfoComponent implements OnInit {
       });
       this.connectApi.get('v1/status').subscribe((response: any) => {
         this.allStatus = response
-        this.defaultStatus = response[0]['_id']
+        response.filter((status:any)=>{
+          if(status['name']=="Chờ xử lý")
+          {
+            this.defaultStatus = status._id
+          }
+        })
       })
       this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
         var bankAccount = response['bankAccounts']
@@ -163,7 +168,7 @@ export class AccountInfoComponent implements OnInit {
         }
         this.accounts = []
         bankAccount.filter((bankA: any) => {
-          if (bankA?.isActive) {    
+          if (bankA?.isActive) {
           var bankC = this.bankNameLists.find((p: { _id: any; }) => p._id === bankA['bankId']);
           var value = new Account();
           value._id = bankA["_id"]
@@ -466,6 +471,7 @@ export class AccountInfoComponent implements OnInit {
                       + "Số tiên: *" + this.vndFormatPipe.transform(this.formWithDrawal.get('amount').value) + "* \n"
                       + "Game: *" + gameName['name'] + "* \n"
                   }
+                  console.log(meessage)
                   this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
                     console.log(response)
                   })

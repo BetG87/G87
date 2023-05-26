@@ -13,7 +13,7 @@ services:
       - MONGODB_URL=mongodb+srv://kelvinkel6886:mitthuy123456@g87.fbbhkmu.mongodb.net/t89
       - JWT_ACCESS_KEY=TRIG87
       - JWT_REFRESH_KEY=TRIG87
-      - TELEGRAM_TOKEN=6115049677:AAG3TrLTgg8V0pGk-LTng6XYUDjwLQVc15Y
+      - TELEGRAM_TOKEN=6115049677:AAF9CHzDzJ96zlDkfYMbiKqhAciXVfSeHNU
   frontend:
     image: nginx:1.23.3
     ports:
