@@ -16,6 +16,7 @@
                     <tr class="borderstyle m-1">
                         <th class="px-4 text-center">Số Thứ Tự</th>
                         <th class="px-4 text-center">Số Tài Khoản</th>
+                        <th class="px-4 text-center">Tên Ngân Hàng</th>
                         <th class="px-4 text-center">Tên Chủ Tài Khoản</th>
                         <th class="px-4 text-center">Tài khoản</th>
                         <th class="px-4 text-center">Trạng Thái</th>
@@ -28,6 +29,7 @@
                     <tr *ngFor="let accountBank of filteredAccountsBank.slice((currentPage - 1) * pageSize, currentPage * pageSize); let i = index" class="borderstyle m-1">
                         <td class=" py-2 text-center">{{ (currentPage - 1) * pageSize + i +1 }}</td>
                         <td class=" py-2 text-center">{{ accountBank.bankAccountNumber}}</td>
+                        <td class=" py-2 text-center">{{ accountBank.bankName}}</td>
                         <td class=" py-2 text-center">{{ accountBank.ownerName }}</td>
                         <td class=" py-2 text-center">{{ accountBank.user?.username }}</td>
                         <td class=" py-2 text-center">{{ accountBank.isActive ? 'Đang sử dụng' : 'Ngưng sử dụng' }}</td>

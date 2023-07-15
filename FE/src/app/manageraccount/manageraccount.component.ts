@@ -41,7 +41,6 @@ export class ManageraccountComponent implements OnInit {
     })
   }
 
-
   constructor(private dataShare: DataShareService,
     private connectApi: ConnectApiService,
     private sessionStore: SessionStorageService,

@@ -25,6 +25,7 @@ export class ManagerbankaccountComponent implements OnInit {
   managerAccountBank: managerAccountBank[] = [];
   filteredAccountsBank: any[] = [];
   searchTerm: any;
+  bankNameLists: any;
 
 
   constructor(private dataShare: DataShareService,
@@ -50,7 +51,23 @@ export class ManagerbankaccountComponent implements OnInit {
       this.filteredAccountsBank = [...this.managerAccountBank];
       this.filteredAccountsBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
       console.log(this.filteredAccountsBank)
-      
+      this.connectApi.get('v1/bank').subscribe((response) => {
+        console.log(response)
+        this.bankNameLists = response;
+        for (var i = 0; i < this.filteredAccountsBank.length; i++) {
+          console.log(i + this.filteredAccountsBank[i].bankId)
+          var bankAccounts = this.filteredAccountsBank[i].bankId;
+            for (var k = 0; k < this.bankNameLists.length; k++) {
+              if (bankAccounts == this.bankNameLists[k]._id) {
+                var bankName = this.bankNameLists[k].name;
+                console.log(bankName)
+                this.filteredAccountsBank[i].bankName = bankName;  
+              }
+            }   
+        }
+      });
+
+    
     })
   }
   deleteAccountBank(idBank: any) {
