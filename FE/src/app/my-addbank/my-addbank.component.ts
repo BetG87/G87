@@ -39,7 +39,6 @@ export class MyAddbankComponent implements OnInit {
   ngOnInit(): void {
 
     this.connectApi.get('v1/bank').subscribe((response) => {
-      console.log(response)
       this.bankNamefullLists = response;
       this.bankNameLists= this.bankNamefullLists.filter((g: { isActive: boolean; }) => g.isActive === true);
       this.selectedBank = this.bankNameLists[0]._id;
@@ -48,11 +47,9 @@ export class MyAddbankComponent implements OnInit {
 
 
   UpdateBank = () => {
-    console.log(this.bankAccount.value)
     this.bankAccount.get('bankId').setValue(this.selectedBank);
     this.bankAccount.get('user').setValue(this.userId);
     this.connectApi.post('v1/bankaccount', this.bankAccount.value).subscribe((response) => {
-      console.log(response)
 
     });
     this.activeModal.close(true);

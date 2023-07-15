@@ -145,7 +145,6 @@ export class AccountInfoComponent implements OnInit {
           if (this.gameProduct && this.gameProduct.length > 0 && this.gameAccount && this.gameAccount.length > 0) {
             // Sử dụng gameProduct và gameAccount để lọc dữ liệu
             const filteredUsers: any = this.gameAccount.filter((user: any) => {
-              console.log(user)
               if (user.isActive) {
                 const product = this.selectGame === user['gameProduct'];
                 return product;
@@ -156,9 +155,7 @@ export class AccountInfoComponent implements OnInit {
             });
             this.tkGame = []
             this.tkGame.push(filteredUsers)
-            console.log(filteredUsers)
             this.tkGame = this.tkGame[0]
-            console.log(this.tkGame)
             this.formAccountinfo.get('gameAccount').setValue(this.tkGame[0]['_id']);
             this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
           } else {
@@ -181,7 +178,6 @@ export class AccountInfoComponent implements OnInit {
             return false
           }
         })
-        console.log(this.accounts)
         this.accountBankSend = this.accounts[0]?._id
         this.accountBankAdmin = []
         this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
@@ -214,7 +210,6 @@ export class AccountInfoComponent implements OnInit {
     this.withDrawalTransaction = []
 
     this.connectApi.get('v1/transaction/user/' + this.userId).subscribe((response: any) => {
-      console.log(response)
       response.filter((de: any) => {
         if (de['isActive'] == true) {
           if (de['type'] == 'deposit') {
@@ -278,7 +273,6 @@ export class AccountInfoComponent implements OnInit {
       this.formAccountinfo.get('gameAccount').setValue(this.tkGame[0]['_id']);
       this.formAccountinfo.get('gamePassword').setValue(this.tkGame[0]['password']);
     } else {
-      console.log('Không có dữ liệu để lọc');
     }
   }
   onTKChange(event: any): void {
@@ -293,12 +287,10 @@ export class AccountInfoComponent implements OnInit {
   addBank() {
     const modalRef = this.modalService.open(MyAddbankComponent, { size: "md", backdrop: "static", keyboard: false });
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result === true) {
 
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   depositBank() {
@@ -317,9 +309,7 @@ export class AccountInfoComponent implements OnInit {
           "user": this.userId,
           "type": "deposit"
         }
-        console.log(meessage)
         this.connectApi.post('v1/transaction/checkstatusgreater2', meessage).subscribe((response: any) => {
-          console.log(response)
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -336,7 +326,6 @@ export class AccountInfoComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           } else {
             this.connectApi.post('v1/transaction', this.formDeposit.value).subscribe((response: any) => {
@@ -344,7 +333,6 @@ export class AccountInfoComponent implements OnInit {
               modalRef.componentInstance.Notification = "Nạp Tiền";
               modalRef.componentInstance.contentNotification = "  Yêu cầu nạp tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
               modalRef.result.then((result: any) => {
-                console.log(result);
                 if (result === true) {
                   var senderName: string = ""
                   var senderNumber: string = ""
@@ -352,7 +340,6 @@ export class AccountInfoComponent implements OnInit {
                   this.accounts.filter((value: any) => {
 
                     if (value['_id'] == this.accountBankSend) {
-                      console.log(value)
                       senderName = value['nameAccount']
                       senderNumber = value['numberBank']
                       bankName = value['nameBank']
@@ -371,7 +358,6 @@ export class AccountInfoComponent implements OnInit {
                   this.gameProductAll.filter((value: any) => {
                     if (value['_id'] == this.formDeposit.get('gameProduct').value) {
                       gameName = value['name']
-                      console.log(gameName)
                     }
                   })
                   const meessage = {
@@ -386,21 +372,17 @@ export class AccountInfoComponent implements OnInit {
                       + "Ghi chú: *" + this.formDeposit.get('note').value + "*"
 
                   }
-                  console.log(meessage)
                   this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
-                    console.log(response)
                   })
                   this.getTransaction()
                 }
               }).catch((error: any) => {
-                console.log(error);
               });
             })
           }
         });
       }
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -417,9 +399,7 @@ export class AccountInfoComponent implements OnInit {
           "user": this.userId,
           "type": "withdrawal"
         }
-        console.log(meessage)
         this.connectApi.post('v1/transaction/checkstatusgreater2', meessage).subscribe((response: any) => {
-          console.log(response)
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -436,21 +416,17 @@ export class AccountInfoComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           } else {
             const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
             modalRef.componentInstance.Notification = "Rút TIền";
             modalRef.componentInstance.contentNotification = " Yêu cầu rút tiền của bạn đã được gởi đi. Vui lòng đợi trong giây lát.";
             modalRef.result.then((result: any) => {
-              console.log(result);
               if (result === true) {
                 this.formWithDrawal.get('bankAccount').setValue(this.accountBankSend);
                 this.formWithDrawal.get('status').setValue(this.defaultStatus)
                 this.formWithDrawal.get('user').setValue(this.userId);
-                console.log(this.formWithDrawal.value)
                 this.connectApi.post('v1/transaction', this.formWithDrawal.value).subscribe((response: any) => {
-                  console.log(response)
                   var gameName = this.gameProductAll.find((p: { _id: any; }) => p._id === this.formWithDrawal.get('gameProduct').value);
 
                   var senderName: string = ""
@@ -471,32 +447,26 @@ export class AccountInfoComponent implements OnInit {
                       + "Số tiên: *" + this.vndFormatPipe.transform(this.formWithDrawal.get('amount').value) + "* \n"
                       + "Game: *" + gameName['name'] + "* \n"
                   }
-                  console.log(meessage)
                   this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
-                    console.log(response)
                   })
                 })
                 this.getTransaction()
               }
             }).catch((error: any) => {
-              console.log(error);
             });
           }
         });
       }
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
   checkInit() {
     this.isLoggedIn = !!this.sessionStore.getToken();
     this.cookieStore.getCookie("auth-token");
-    //console.log(this.cookieStore.getCookie("auth-token"))
     const token = this.sessionStore.getToken();
     if (token) {
       const payload = decode(token);
-      //console.log(payload)
       if (this.isLoggedIn) {
         const user = this.sessionStore.getUser();
         this.username = user["username"];
@@ -528,7 +498,6 @@ export class AccountInfoComponent implements OnInit {
           window.location.href = '/';
         })
         .catch((error: any) => {
-          console.log(error);
         });
     }, (reponse) => {
       const modalRef = this.modalService.open(MyModalComponent, {
@@ -543,7 +512,6 @@ export class AccountInfoComponent implements OnInit {
         .then((result: any) => {
         })
         .catch((error: any) => {
-          console.log(error);
         });
     })
   }
@@ -566,7 +534,6 @@ export class AccountInfoComponent implements OnInit {
   }
   copyToClipboardPass() {
     if (this.myInputpass) {
-      console.log(this.myInputpass)
       this.myInputpass.nativeElement.select();
       document.execCommand('copy');
     }
@@ -580,16 +547,13 @@ export class AccountInfoComponent implements OnInit {
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {
-        console.log(result)
 
         // const queryParams = { tab: 1 };
         // this.route.navigate(['/account-info'], { queryParams });
         this.ngOnInit()
         this.selectedTab = 1
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

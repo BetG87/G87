@@ -77,7 +77,6 @@ export class HomeComponent implements OnInit {
 
     if (this.isLoggedIn) {
       this.connectApi.get("v1/user/" + this.userId).subscribe((response: any) => {
-        console.log(response);
         this.fulldata = response
         this.isLinkEnabled = false;
         this.isAdmin = response['admin']
@@ -91,7 +90,6 @@ export class HomeComponent implements OnInit {
       });
     }
     this.connectApi.get("v1/notification").subscribe((response: any) => {
-      console.log(response);
       this.notification = response.filter((res: any) => {
         if (res?.isActive) {
           return true
@@ -99,7 +97,6 @@ export class HomeComponent implements OnInit {
           return false
         }
       })
-      console.log(this.notification);
     });
     this.connectApi.get("v1/linkGame").subscribe((response: any) => {
       this.linkGame = response.filter((res: any) => {
@@ -119,7 +116,6 @@ export class HomeComponent implements OnInit {
     this.isLoggedIn = !!this.sessionStore.getToken();
     this.cookieStore.getCookie("auth-token");
     const token = this.sessionStore.getToken();
-    console.log(this.sessionStore);
     if (token) {
       const payload = decode(token);
       if (this.isLoggedIn) {
@@ -130,22 +126,16 @@ export class HomeComponent implements OnInit {
     }
   }
   addGameBong88(id: any, action: any) {
-    console.log(id)
-    console.log(action)
     // nếu action = true thì mở modal hiện tk mk, = false thì push tele
     if (action) {
-      console.log(this.fulldata)
       if (this.fulldata.gameAccounts != undefined) {
         const filteredGameAccounts = this.fulldata.gameAccounts.filter((gameAccount: { gameProduct: any; }) => {
           return gameAccount.gameProduct === id;
         });
-        console.log(filteredGameAccounts)
         const modalRef = this.modalService.open(MyModalshowinfogameComponent, { size: "sm", backdrop: "static", keyboard: false });
         modalRef.componentInstance.accountlist = filteredGameAccounts;
         modalRef.result.then((result: any) => {
-          console.log(result);
         }).catch((error: any) => {
-          console.log(error);
         });
       }
     }

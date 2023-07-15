@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
     if(this.isLoggedIn)
     {
       this.connectApi.get('v1/user/' + this.userId).subscribe((response: any) => {
-        console.log(response)
         this.role = response['role']
       })
 
@@ -58,7 +57,6 @@ export class AppComponent implements OnInit {
   checkInit() {
     this.isLoggedIn = !!this.sessionStore.getToken();
     this.cookieStore.getCookie("auth-token")
-    //console.log(this.cookieStore.getCookie("auth-token"))
     const token = this.sessionStore.getToken();
     if (token) {
       const payload = decode(token)

@@ -39,10 +39,8 @@ export class MyModalupdateanotificationComponent {
   }
   GetData() {
     if (this.infonotification) {
-      console.log(this.infonotification.content)
       this.formnotification.controls['isActive'].setValue(this.infonotification.isActive !== undefined ? this.infonotification.isActive : true);
       this.formnotification.controls['content'].setValue(this.infonotification.content !== undefined ? this.infonotification.content : "");
-      console.log(this.infonotification)
     }
   }
   closeModal() {
@@ -71,7 +69,6 @@ export class MyModalupdateanotificationComponent {
           "content": this.formnotification.controls['content'].value,
           "isActive": this.formnotification.controls['isActive'].value
         }
-        console.log(meessage)
         this.connectApi.post('v1/notification/update', meessage).subscribe((response: any) => {
           if (response) {
             if (response) {
@@ -90,15 +87,12 @@ export class MyModalupdateanotificationComponent {
                   this.activeModal.close(true);
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });
             }
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -113,7 +107,6 @@ export class MyModalupdateanotificationComponent {
         const meessage = {
           "content": this.formnotification.controls['content'].value,
         }
-        console.log(meessage)
         this.connectApi.post('v1/notification', meessage).subscribe((response: any) => {
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
@@ -130,14 +123,11 @@ export class MyModalupdateanotificationComponent {
                 this.activeModal.close(true);
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

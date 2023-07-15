@@ -63,7 +63,6 @@ export class MyModalupdateaccountComponent implements OnInit {
 
   GetBank() {
     this.connectApi.get('v1/bank').subscribe((response) => {
-      console.log(response)
       this.bankNameLists = response;
       this.formAccountupdate.controls['bankId'].setValue(this.bankNameLists[0]?._id)
     });
@@ -71,7 +70,6 @@ export class MyModalupdateaccountComponent implements OnInit {
   }
 
   Getdata() {
-    console.log(this.info)
     if (this.mode == "1") {
       this.formAccountupdate.controls['nameAccount'].setValue(this.info[0].username !== undefined ? this.info[0].username : "");
       this.formAccountupdate.controls['numberPhone'].setValue(this.info[0].numberPhone !== undefined ? this.info[0].numberPhone : "");
@@ -100,7 +98,6 @@ export class MyModalupdateaccountComponent implements OnInit {
           "username": this.formAccountupdate.controls['nameAccount'].value
         }
         this.connectApi.post('v1/user/usernameisexist', message).subscribe((response) => {
-          console.log(response)
           if (response['isexist']) {
             alert("Tài khoản này đã được sử dụng")
           } else {
@@ -115,7 +112,6 @@ export class MyModalupdateaccountComponent implements OnInit {
       "email": this.formAccountupdate.controls['email'].value
     }
     this.connectApi.post('v1/user/emailisexist', message).subscribe((response: any) => {
-      console.log(response)
       if (response['isexist']) {
         alert("Email này đã được sử dụng")
       } else {
@@ -132,7 +128,6 @@ export class MyModalupdateaccountComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-      console.log(result)
       if (result == true) {
         let meessage = {
           "_id": this.info[0]._id,
@@ -146,10 +141,8 @@ export class MyModalupdateaccountComponent implements OnInit {
         if (this.formAccountupdate.controls['accountpassword'].value == '' || this.formAccountupdate.controls['accountpassword'].value == null) {
           delete meessage['password'];
         }
-        console.log(meessage)
         this.connectApi.post('v1/user/update', meessage).subscribe((response: any) => {
           if (response) {
-            console.log(response)
             this.activeModal.close(true);
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -164,14 +157,11 @@ export class MyModalupdateaccountComponent implements OnInit {
               .then((result: any) => {
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -194,7 +184,6 @@ export class MyModalupdateaccountComponent implements OnInit {
           "bankId": this.formAccountupdate.controls['bankId'].value,
           "bankAccountNumber": this.formAccountupdate.controls['bankAccountNumber'].value,
         }
-        console.log(meessage)
         this.connectApi.post('v1/auth/register', meessage).subscribe((response: any) => {
           this.activeModal.close(true);
           const modalRef = this.modalService.open(MyModalComponent, {
@@ -210,13 +199,10 @@ export class MyModalupdateaccountComponent implements OnInit {
             .then((result: any) => {
             })
             .catch((error: any) => {
-              console.log(error);
             });
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

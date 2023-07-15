@@ -38,13 +38,10 @@ export class MyModalupdateBankComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.mode == "1") {
-      console.log(this.infoBank)
       if (this.infoBank) {
-        console.log(this.infoBank)
         this.formBank.controls['codeBank'].setValue(this.infoBank.code !== undefined ? this.infoBank.code : "");
         this.formBank.controls['nameBank'].setValue(this.infoBank.name !== undefined ? this.infoBank.name : "");
         this.formBank.controls['statusBank'].setValue(this.infoBank.isActive !== undefined ? this.infoBank.isActive : false);
-        console.log(this.infoBank)
       }
     }
   }
@@ -78,7 +75,6 @@ export class MyModalupdateBankComponent implements OnInit {
           "name": this.formBank.controls['nameBank'].value,
           "isActive": this.formBank.controls['statusBank'].value
         }
-        console.log(meessage)
         this.connectApi.post('v1/bank/update', meessage).subscribe((response: any) => {
           if (response) {
             if (response) {
@@ -97,15 +93,12 @@ export class MyModalupdateBankComponent implements OnInit {
                   this.activeModal.close(true);
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });
             }
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -122,7 +115,6 @@ export class MyModalupdateBankComponent implements OnInit {
           "name": this.formBank.controls['nameBank'].value,
           "isActive": this.formBank.controls['statusBank'].value
         }
-        console.log(meessage)
         this.connectApi.post('v1/bank/', meessage).subscribe((response: any) => {
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
@@ -139,14 +131,11 @@ export class MyModalupdateBankComponent implements OnInit {
                 this.activeModal.close(true);
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 }

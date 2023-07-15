@@ -39,13 +39,10 @@ export class MyModalupdateLinkComponent  implements OnInit {
   }
   ngOnInit(): void {
     if (this.mode == "1") {
-      console.log(this.infoLinkGame)
       if (this.infoLinkGame) {
-        console.log(this.infoLinkGame)
         this.formupdateLinkGame.controls['nameGame'].setValue(this.infoLinkGame.name !== undefined ? this.infoLinkGame.name : "");
         this.formupdateLinkGame.controls['linkGame'].setValue(this.infoLinkGame.linkGame !== undefined ? this.infoLinkGame.linkGame : "");
         this.formupdateLinkGame.controls['statusGame'].setValue(this.infoLinkGame.isActive !== undefined ? this.infoLinkGame.isActive : true);
-        console.log(this.infoLinkGame)
       }
     }
   }
@@ -80,7 +77,6 @@ export class MyModalupdateLinkComponent  implements OnInit {
           "linkGame": this.formupdateLinkGame.controls['linkGame'].value,
           "isActive": this.formupdateLinkGame.controls['statusGame'].value
         }
-        console.log(meessage)
         this.connectApi.post('v1/linkgame/update', meessage).subscribe((response: any) => {
           if (response) {
             if (response) {
@@ -99,15 +95,12 @@ export class MyModalupdateLinkComponent  implements OnInit {
                   this.activeModal.close(true);
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });
             }
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -140,14 +133,11 @@ export class MyModalupdateLinkComponent  implements OnInit {
                 this.activeModal.close(true);
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 }

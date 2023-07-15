@@ -41,10 +41,8 @@ export class MyModalupdatestatusComponent {
   }
   GetData() {
     if (this.infoStatus) {
-      console.log(this.infoStatus)
       this.formStatus.controls['isActive'].setValue(this.infoStatus.isActive !== undefined ? this.infoStatus.isActive : true);
       this.formStatus.controls['name'].setValue(this.infoStatus.name !== undefined ? this.infoStatus.name : "");
-      console.log(this.infoStatus)
     }
   }
   closeModal() {
@@ -73,7 +71,6 @@ export class MyModalupdatestatusComponent {
           "name": this.formStatus.controls['name'].value,
           "isActive": this.formStatus.controls['isActive'].value
         }
-        console.log(meessage)
         this.connectApi.post('v1/status/update', meessage).subscribe((response: any) => {
           if (response) {
             if (response) {
@@ -92,15 +89,12 @@ export class MyModalupdatestatusComponent {
                   this.activeModal.close(true);
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });
             }
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -115,7 +109,6 @@ export class MyModalupdatestatusComponent {
         const meessage = {
           "name": this.formStatus.controls['name'].value,
         }
-        console.log(meessage)
         this.connectApi.post('v1/status', meessage).subscribe((response: any) => {
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
@@ -132,14 +125,11 @@ export class MyModalupdatestatusComponent {
                 this.activeModal.close(true);
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

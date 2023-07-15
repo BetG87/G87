@@ -45,14 +45,12 @@ export class MyModalupdateaccountBankComponent implements OnInit {
 
     this.GetBank()
 
-    console.log(this.infoBank)
 
 
 
   }
   GetBank() {
     this.connectApi.get('v1/bank').subscribe((response) => {
-      console.log(response)
       this.bankNameLists = response;
       this.formAccountinfoBank.controls['bankId'].setValue(this.bankNameLists[0]?._id)
       this.GetUser()
@@ -61,7 +59,6 @@ export class MyModalupdateaccountBankComponent implements OnInit {
   GetUser() {
     this.connectApi.get('v1/user').subscribe((response: any) => {
       this.allUserName = response
-      console.log(this.allUserName)
       if (this.mode == "1") {
         this.GetData()
       }
@@ -69,7 +66,6 @@ export class MyModalupdateaccountBankComponent implements OnInit {
   }
   GetData() {
     if (this.infoBank) {
-      console.log(this.infoBank)
       this.formAccountinfoBank.controls['userName'].setValue(this.infoBank.user?._id !== undefined ? this.infoBank.user?._id : "");
       this.formAccountinfoBank.controls['accountBank'].setValue(this.infoBank.bankAccountNumber !== undefined ? this.infoBank.bankAccountNumber : "");
       this.formAccountinfoBank.controls['nameAccountBank'].setValue(this.infoBank.ownerName !== undefined ? this.infoBank.ownerName : "");
@@ -77,7 +73,6 @@ export class MyModalupdateaccountBankComponent implements OnInit {
       this.formAccountinfoBank.controls['typeAccount'].setValue(this.infoBank.isAdmin !== undefined ? this.infoBank.isAdmin : true);
       this.formAccountinfoBank.controls['bankId'].setValue(this.infoBank.bankId !== undefined ? this.infoBank.bankId : "");
       this.formAccountinfoBank.get('userName').disable();
-      console.log(this.infoBank)
     }
   }
   closeModal() {
@@ -115,7 +110,6 @@ export class MyModalupdateaccountBankComponent implements OnInit {
           "bankId": this.formAccountinfoBank.controls['bankId'].value,
 
         }
-        console.log(meessage)
         this.connectApi.post('v1/bankaccount/update', meessage).subscribe((response: any) => {
           if (response) {
             if (response) {
@@ -134,15 +128,12 @@ export class MyModalupdateaccountBankComponent implements OnInit {
                   this.activeModal.close(true);
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });
             }
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -162,7 +153,6 @@ export class MyModalupdateaccountBankComponent implements OnInit {
           "isAdmin": this.formAccountinfoBank.controls['typeAccount'].value,
           "bankId": this.formAccountinfoBank.controls['bankId'].value,
         }
-        console.log(meessage)
         this.connectApi.post('v1/bankaccount/', meessage).subscribe((response: any) => {
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
@@ -179,14 +169,11 @@ export class MyModalupdateaccountBankComponent implements OnInit {
                 this.activeModal.close(true);
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

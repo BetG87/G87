@@ -35,21 +35,16 @@ export class ManagerbankComponent  implements OnInit {
 
 
     const getTokenac = this.sessionStore.getToken();
-    console.log(getTokenac)
     if (getTokenac) {
       this.getToken = getTokenac;
-      console.log('getToken:', this.getToken);
     }
   }
 
   ngOnInit(): void {
     this.connectApi.get('v1/bank/').subscribe((response: any) => {
-      console.log(response)
       this.managerBank = response
       this.filteredBank = [...this.managerBank];
       this.filteredBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-      console.log(this.filteredBank)
-      console.log(this.managerBank)
     })
   }
   deleteAccountBank(idBank: any) {
@@ -59,7 +54,6 @@ export class ManagerbankComponent  implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result) {
         const message = {
           "_id": idBank
@@ -81,39 +75,31 @@ export class ManagerbankComponent  implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
   updateAccountBank(infoBank: any) {
-    console.log(infoBank);
     const modalRef = this.modalService.open(MyModalupdateBankComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.Tittle = "Cập Nhập ngân hàng";
     modalRef.componentInstance.buttonConfirm = "Cập Nhập ";
     modalRef.componentInstance.infoBank = infoBank;
     modalRef.componentInstance.mode = "1";
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result == true) {
         this.ngOnInit()
       }
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
   search() {
-    console.log(this.managerBank)
     this.filteredBank = [...this.managerBank];
     if (this.searchTerm) {    
-      console.log(this.filteredBank)
-      console.log(this.managerBank)
       this.filteredBank = this.managerBank.filter(accountBank => this.matchesSearchTerm(accountBank));         
     }
     this.filteredBank.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
@@ -121,11 +107,9 @@ export class ManagerbankComponent  implements OnInit {
   }
 
   matchesSearchTerm(accountBank: any) {
-    console.log(accountBank)
     accountBank.code = accountBank.code !== undefined ? accountBank.code : "";
     accountBank.name = accountBank.name !== undefined ? accountBank.name : "";
     accountBank.createdAt = accountBank.createdAt !== undefined ? accountBank.createdAt : "";
-    console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return accountBank.code.toLowerCase().indexOf(searchTerm) > -1
       || accountBank.name.toLowerCase().indexOf(searchTerm) > -1
@@ -138,12 +122,10 @@ export class ManagerbankComponent  implements OnInit {
     modalRef.componentInstance.Tittle = "Thêm ngân hàng";
     modalRef.componentInstance.buttonConfirm = "Thêm mới";
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result == true) {
         this.ngOnInit()
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

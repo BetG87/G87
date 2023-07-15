@@ -35,12 +35,9 @@ export class MyModalinfoaccountGameComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.infoGame)
     this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
-      console.log(response)
       this.GameProduct = response
       this.listGameProduct = [...this.GameProduct];
-      console.log(this.infoGame)
       const gameProduct = this.infoGame.gameProduct;
       const game = this.listGameProduct.find(g => g._id === gameProduct);
       if (game) {
@@ -49,13 +46,11 @@ export class MyModalinfoaccountGameComponent implements OnInit {
     })
 
     if (this.infoGame) {
-      console.log(this.infoGame)
       this.formAccountinfoGame.controls['accountGame'].setValue(this.infoGame.nameGame !== undefined ? this.infoGame.nameGame : "");
       this.formAccountinfoGame.controls['nameAccountGame'].setValue(this.infoGame.username !== undefined ? this.infoGame.username : "");
       this.formAccountinfoGame.controls['userGame'].setValue(this.infoGame.nameAccount !== undefined ? this.infoGame.nameAccount : "");
       this.formAccountinfoGame.controls['statusAccount'].setValue(this.infoGame.isActive !== false ? 'Đang sử dụng' : 'Ngưng sử dụng');
       this.formAccountinfoGame.controls['password'].setValue(this.infoGame.password !== undefined ? this.infoGame.password : "");
-      console.log(this.infoGame)
     }
   }
 

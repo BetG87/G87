@@ -41,24 +41,18 @@ export class ManagergameComponent implements OnInit {
 
 
     const getTokenac = this.sessionStore.getToken();
-    console.log(getTokenac)
     if (getTokenac) {
       this.getToken = getTokenac;
-      console.log('getToken:', this.getToken);
     }
   }
 
   ngOnInit(): void {
     this.connectApi.get('v1/gameaccount').subscribe((response: any) => {
-      console.log(response)
       this.managerAccountGame = response
       this.filteredAccountsGame = [...this.managerAccountGame];
-      console.log(this.filteredAccountsGame)
       this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
-        console.log(response)
         this.GameProduct = response
         this.listGameProduct = [...this.GameProduct];
-        console.log(this.listGameProduct)
 
         for (let i = 0; i < this.filteredAccountsGame.length; i++) {
           const gameProduct = this.filteredAccountsGame[i].gameProduct;
@@ -67,12 +61,9 @@ export class ManagergameComponent implements OnInit {
             this.filteredAccountsGame[i].nameGame = game.name;
           }
         }
-        console.log(this.filteredAccountsGame)
         this.connectApi.get('v1/user').subscribe((response: any) => {
-          console.log(response)
           this.allAccount = response
           this.listallAccount = [...this.allAccount];
-          console.log(this.listallAccount)
           for (let i = 0; i < this.filteredAccountsGame.length; i++) {
             const accountId = this.filteredAccountsGame[i].user;
             const account = this.listallAccount.find(g => g._id === accountId);
@@ -91,11 +82,9 @@ export class ManagergameComponent implements OnInit {
   }
   async GetfullData(datalist: any[]) {
     datalist.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-    console.log(datalist)
     this.filteredAccountsGame = datalist;
     this.currentPage = 1;
     // this.transactionsLoaded = true;
-    console.log(this.filteredAccountsGame)
 
   }
   deleteAccountGame(idGame: any) {
@@ -109,7 +98,6 @@ export class ManagergameComponent implements OnInit {
         const meessage = {
           "_id": idGame
         }
-        console.log(meessage)
         this.connectApi.post('v1/gameaccount/delete', meessage).subscribe((response: any) => {
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
@@ -127,28 +115,22 @@ export class ManagergameComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   infoAccountGame(Game: any) {
-    console.log(Game);
     const modalRef = this.modalService.open(MyModalinfoaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoGame = Game;
     modalRef.result.then((result: any) => {
 
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   updateAccountGame(Game: any) {
-    console.log(Game);
     const modalRef = this.modalService.open(MyModalupdateaccountGameComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoGame = Game;
     modalRef.componentInstance.mode = "1";
@@ -159,21 +141,14 @@ export class ManagergameComponent implements OnInit {
       if (result == true) {
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
   search() {
-    console.log(this.managerAccountGame)
-    console.log(this.filteredAccountsGame)
     this.filteredAccountsGame = [...this.managerAccountGame];
     if (this.searchTerm) {
-      console.log(this.filteredAccountsGame)
-      console.log(this.managerAccountGame)
       this.filteredAccountsGame = this.filteredAccountsGame.filter(accountGame => this.matchesSearchTerm(accountGame));    
-      console.log(this.filteredAccountsGame)
     }
     this.filteredAccountsGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
     this.currentPage = 1;
@@ -200,12 +175,10 @@ export class ManagergameComponent implements OnInit {
     modalRef.componentInstance.TittleGame = "Tạo Tài Khoản Game";
     modalRef.componentInstance.buttonConfirm = "Tạo Tài Khoản";
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result == true) {
         this.ngOnInit()
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

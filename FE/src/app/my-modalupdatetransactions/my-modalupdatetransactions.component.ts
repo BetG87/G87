@@ -59,14 +59,12 @@ export class MyModalupdatetransactionsComponent implements OnInit {
   GetUser() {
     this.connectApi.get('v1/user').subscribe((response: any) => {
       this.allUserName = response
-      console.log(this.allUserName)
     })
     return Promise.resolve();
   }
   GetProduct() {
     this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
       this.allGameproduct = response
-      console.log(this.allGameproduct)
     })
     return Promise.resolve();
   }
@@ -74,10 +72,8 @@ export class MyModalupdatetransactionsComponent implements OnInit {
     this.connectApi.get('v1/bank').subscribe((response: any) => {
       this.allBank = response
       this.connectApi.get('v1/bankaccount').subscribe((response: any) => {
-        console.log(response)
         this.allBankAccount = response
         this.listallBankAccount = [...this.allBankAccount];
-        console.log(this.listallBankAccount)
         for (let i = 0; i < this.listallBankAccount.length; i++) {
           const bankId = this.listallBankAccount[i].bankId;
           const bankAccount = this.allBank.find(g => g._id === bankId);
@@ -86,7 +82,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
             this.listallBankAccount[i].fullNameBank = this.listallBankAccount[i].ownerName + "-" + bankAccount.name + "-" + this.listallBankAccount[i].bankAccountNumber;
           }
         }
-        console.log(this.listallBankAccount)
         return Promise.resolve();
       })
     })
@@ -96,9 +91,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
     this.connectApi.get('v1/bank').subscribe((response: any) => {
       this.allBank = response
       this.connectApi.get('v1/bankaccount/admin').subscribe((response: any) => {
-        console.log(response)
         this.allBankAccountAdmin = response
-        console.log(this.listallBankAccount)
         for (let i = 0; i < this.allBankAccountAdmin.length; i++) {
           const bankId = this.allBankAccountAdmin[i].bankId;
           const bankAccount = this.allBank.find(g => g._id === bankId);
@@ -107,7 +100,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
             this.allBankAccountAdmin[i].fullNameBank = this.allBankAccountAdmin[i].ownerName + "-" + bankAccount.name + "-" + this.allBankAccountAdmin[i].bankAccountNumber;
           }
         }
-        console.log(this.allBankAccountAdmin)
         return Promise.resolve();
       })
     })
@@ -116,13 +108,11 @@ export class MyModalupdatetransactionsComponent implements OnInit {
 
   GetStatus() {
     this.connectApi.get('v1/status').subscribe((response: any) => {
-      console.log(response)
       this.listStatus = response
       this.listallStatus = [...this.listStatus];
       if (this.mode == "0") {
         this.formAccountupdateTransaction.controls['status'].setValue(this.listallStatus[0]._id);
       }
-      console.log(this.listallStatus)
     })
     this.GetData();
     return Promise.resolve();
@@ -130,9 +120,7 @@ export class MyModalupdatetransactionsComponent implements OnInit {
 
   GetData() {
     if (this.mode == "1") {
-      console.log(this.infoTransactions)
       if (this.infoTransactions) {
-        console.log(this.infoTransactions)
         this.formAccountupdateTransaction.controls['UserName'].setValue(this.infoTransactions.user?._id !== undefined ? this.infoTransactions.user?._id : "");
         this.formAccountupdateTransaction.controls['nameGame'].setValue(this.infoTransactions.gameProduct?._id !== undefined ? this.infoTransactions.gameProduct?._id : "");
         this.formAccountupdateTransaction.controls['AccountBankUser'].setValue(this.infoTransactions.bankAccount?._id !== undefined ? this.infoTransactions.bankAccount?._id : "");
@@ -150,9 +138,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
         this.formAccountupdateTransaction.get('amount').disable();
 
         // this.formAccountupdateTransaction.get('nameAccountGame').disable();
-        console.log(this.infoTransactions.numberbankAccount)
-        console.log(this.formAccountupdateTransaction.controls['AccountBankUser'].value)
-        console.log(this.listallBankAccount)
       }
     }
     return Promise.resolve();
@@ -186,7 +171,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
         if (this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == '' || this.formAccountupdateTransaction.controls['AccountBankAdmin'].value == null) {
           delete meessage['bankAccountAdmin'];
         }
-        console.log(meessage)
         this.connectApi.post('v1/transaction/update', meessage).subscribe((response: any) => {
           this.activeModal.close(true);
           const modalRef = this.modalService.open(MyModalComponent, {
@@ -202,13 +186,10 @@ export class MyModalupdatetransactionsComponent implements OnInit {
             .then((result: any) => {
             })
             .catch((error: any) => {
-              console.log(error);
             });
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -224,7 +205,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
           "user": this.formAccountupdateTransaction.controls['UserName'].value,
           "type": this.formAccountupdateTransaction.controls['type'].value
         }
-        console.log(meesage)
         this.connectApi.post('v1/transaction/checkstatusgreater2', meesage).subscribe((response: any) => {
           if (response) {
             const modalRef = this.modalService.open(MyModalComponent, {
@@ -242,7 +222,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           } else {
             const meessage = {
@@ -256,7 +235,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
               "note": this.formAccountupdateTransaction.controls['note'].value,
               "isActive": this.formAccountupdateTransaction.controls['isActive'].value
             }
-            console.log(meessage)
             this.connectApi.post('v1/transaction/', meessage).subscribe((response: any) => {
               this.activeModal.close(true);
               const modalRef = this.modalService.open(MyModalComponent, {
@@ -272,15 +250,12 @@ export class MyModalupdatetransactionsComponent implements OnInit {
                 .then((result: any) => {
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });
             })
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
@@ -296,7 +271,6 @@ export class MyModalupdatetransactionsComponent implements OnInit {
   }
 
   onChange(value: any) {
-    console.log(value)
     if (value == "deposit") {
       this.formIsHidden = false;
     } else {

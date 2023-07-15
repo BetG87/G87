@@ -44,10 +44,8 @@ export class ManagergameProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.connectApi.get('v1/gameproduct').subscribe((response: any) => {
-      console.log(response)
       this.managerGame = response
       this.filteredGame = [...this.managerGame];
-      console.log(this.filteredGame)
     })
   }
 
@@ -62,9 +60,7 @@ export class ManagergameProductComponent implements OnInit {
         const meessage = {
           "_id": idGame
         }
-        console.log(meessage)
         this.connectApi.post('v1/gameproduct/delete', meessage).subscribe((response: any) => {
-          console.log(response)
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -81,14 +77,11 @@ export class ManagergameProductComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -104,21 +97,14 @@ export class ManagergameProductComponent implements OnInit {
       if (result == true) {
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
 
   }
   search() {
-    console.log(this.managerGame)
-    console.log(this.filteredGame)
     this.filteredGame = [...this.managerGame];
     if (this.searchTerm) {
-      console.log(this.filteredGame)
-      console.log(this.managerGame)
       this.filteredGame = this.filteredGame.filter(Game => this.matchesSearchTerm(Game));     
-      console.log(this.filteredGame)
     }
     this.filteredGame.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
     this.currentPage = 1;
@@ -142,12 +128,10 @@ export class ManagergameProductComponent implements OnInit {
     modalRef.componentInstance.TittleGame = "Thêm Mới Game";
     modalRef.componentInstance.buttonConfirm = "Thêm Mới";
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result == true) {
         this.ngOnInit()
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 

@@ -47,12 +47,9 @@ export class ManagerstatusComponent {
     modalRef.componentInstance.buttonConfirm = "Đăng ký";
     modalRef.result.then((result: any) => {
       if (result == true) {
-        console.log(result)
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -64,12 +61,9 @@ export class ManagerstatusComponent {
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {
-        console.log(result)
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   deleteStatus(status: Status) {
@@ -83,9 +77,7 @@ export class ManagerstatusComponent {
         const message = {
           "_id": status?._id
         }
-        console.log(message)
         this.connectApi.post('v1/status/delete', message).subscribe((response: any) => {
-          console.log(response)
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -102,37 +94,29 @@ export class ManagerstatusComponent {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   GetStatus() {
     this.connectApi.get('v1/status').subscribe((response: any) => {
-      console.log(response)
       this.managerStatus = response
       this.filteredStatus = [...this.managerStatus];
-      console.log(this.filteredStatus)
       this.GetfullData(this.filteredStatus)
     })
   }
 
   async GetfullData(datalist: any[]) {
     datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    console.log(datalist)
     this.fullData = datalist;
     this.currentPage = 1;
     this.statusLoaded = true;
-    console.log(this.fullData)
 
   }
   search() {
-    console.log(this.fullData)
     this.fullData = [...this.managerStatus];
     if (this.searchTerm) {
       this.fullData = this.managerStatus.filter(status => this.matchesSearchTerm(status));
@@ -144,7 +128,6 @@ export class ManagerstatusComponent {
     status.id = status.id !== undefined ? status.id : "";
     status.name = status.name !== undefined ? status.name : "";
     status.createdAt = status.createdAt !== undefined ? status.createdAt : "";
-    console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return status.name.toLowerCase().indexOf(searchTerm) > -1
       || status.createdAt.toLowerCase().indexOf(searchTerm) > -1

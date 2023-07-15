@@ -37,11 +37,9 @@ export class MyModalupdateaccountBankuserComponent implements OnInit {
   }
   ngOnInit(): void {
     this.GetBank()
-    console.log(this.infoBank)
   }
   GetBank() {
     this.connectApi.get('v1/bank').subscribe((response) => {
-      console.log(response)
       this.bankNameLists = response;
       this.formAccountinfoBank.controls['nameBank'].setValue(this.bankNameLists[0]?._id)
       this.GetData()
@@ -49,13 +47,10 @@ export class MyModalupdateaccountBankuserComponent implements OnInit {
   }
   GetData() {
     if (this.infoBank) {
-      console.log(this.infoBank)
       this.formAccountinfoBank.controls['nameAccount'].setValue(this.infoBank.nameAccount !== undefined ? this.infoBank.nameAccount : "");
       this.formAccountinfoBank.controls['numberBank'].setValue(this.infoBank.numberBank !== undefined ? this.infoBank.numberBank : "");
       const info = this.bankNameLists.filter((item: { name: any; }) => item.name === this.infoBank.nameBank);
-      console.log(info)
       this.formAccountinfoBank.controls['nameBank'].setValue(info[0]._id !== undefined ? info[0]._id : "");
-      console.log(this.infoBank)
     }
   }
   closeModal() {
@@ -81,9 +76,7 @@ export class MyModalupdateaccountBankuserComponent implements OnInit {
           "bankId": this.formAccountinfoBank.controls['nameBank'].value,
           "bankAccountNumber": this.formAccountinfoBank.controls['numberBank'].value,
         }
-        console.log(meessage)
         this.connectApi.post('v1/bankaccount/update', meessage).subscribe((response: any) => {
-          console.log(response)
           if (response === "Update successfully") {       
               const modalRef = this.modalService.open(MyModalComponent, {
                 size: 'sm',
@@ -100,14 +93,11 @@ export class MyModalupdateaccountBankuserComponent implements OnInit {
                   this.activeModal.close(true);
                 })
                 .catch((error: any) => {
-                  console.log(error);
                 });        
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   

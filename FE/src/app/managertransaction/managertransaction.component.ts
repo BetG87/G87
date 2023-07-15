@@ -54,10 +54,8 @@ export class ManagertransactionComponent implements OnInit {
 
   GetTransaction() {
     this.connectApi.get('v1/transaction').subscribe((response: any) => {
-      console.log(response)
       this.managerTransaction = response
       this.filteredTransactions = [...this.managerTransaction];
-      console.log(this.filteredTransactions)
       this.GetBankAccount()
 
     })
@@ -65,18 +63,15 @@ export class ManagertransactionComponent implements OnInit {
 
   async GetfullData(datalist: any[]) {
     datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    console.log(datalist)
     this.fullData = datalist;
     this.currentPage = 1;
     this.transactionsLoaded = true;
-    console.log(this.fullData)
     this.search()
 
   }
   updateTransaction(accounttransaction: any) {
     const modalRef = this.modalService.open(MyModalupdatetransactionsComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.infoTransactions = accounttransaction;
-    console.log(accounttransaction)
     modalRef.componentInstance.mode = "1";
     modalRef.componentInstance.Tittle = "Cập Nhập Giao Dịch";
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
@@ -84,13 +79,10 @@ export class ManagertransactionComponent implements OnInit {
       if (result == true) {
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   search() {
-    console.log(this.fullData)
     this.fullData = [...this.managerTransaction];
     if (this.searchTerm) {
       this.fullData = this.managerTransaction.filter(accounttransaction => this.matchesSearchTerm(accounttransaction));    
@@ -139,12 +131,10 @@ export class ManagertransactionComponent implements OnInit {
     modalRef.componentInstance.Tittle = "Tạo Mới Giao Dịch";
     modalRef.componentInstance.buttonConfirm = "Tạo Mới";
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result == true) {
         this.ngOnInit()
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -158,7 +148,6 @@ export class ManagertransactionComponent implements OnInit {
           this.filteredTransactions[i].bankAccount.namebank = bankAccount.name;
         }
       }
-      console.log(this.filteredTransactions)
       this.GetfullData(this.filteredTransactions)
     })
   }
@@ -174,9 +163,7 @@ export class ManagertransactionComponent implements OnInit {
         const message = {
           "_id": id
         }
-        console.log(message)
         this.connectApi.post('v1/transaction/delete', message).subscribe((response: any) => {
-          console.log(response)
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -193,14 +180,11 @@ export class ManagertransactionComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 }

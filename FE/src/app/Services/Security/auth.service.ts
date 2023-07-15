@@ -11,10 +11,6 @@ export class AuthService {
   public isAuthenticated():boolean{
     const token = sessionStorage.getItem('auth-token');
     // const OBJ:Object = this.jwtHelper.decodeToken(token)
-
-    // console.log(!this.jwtHelper.isTokenExpired(token))
-    // console.log(OBJ['role']=="ROLE_ADMIN")
-
     return !this.jwtHelper.isTokenExpired(token)
   }
 }

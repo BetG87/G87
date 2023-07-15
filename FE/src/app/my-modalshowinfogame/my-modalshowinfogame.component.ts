@@ -36,7 +36,6 @@ export class MyModalshowinfogameComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.accountlist)
     this.tkGame = []
     if (this.accountlist.length > 0) {
       this.accountlist = this.accountlist.filter((res: any) => {
@@ -52,14 +51,12 @@ export class MyModalshowinfogameComponent implements OnInit {
         gameAccount: [this.tkGame.length > 0 ? this.tkGame[0] : null, Validators.required],
         gamePassword: [this.fulltkGame.length > 0 ? this.fulltkGame[0].password : null, Validators.required],
       });
-      console.log(this.fulltkGame);
     }
   }
   close = () => {
     this.activeModal.dismiss();
   }
   onTKChange(event: any): void {
-    console.log(event)
     const filteredPasswords = this.fulltkGame
       .filter((item: { username: any; }) => item.username === event)
       .map((item: { password: any; }) => item.password);
@@ -82,7 +79,6 @@ export class MyModalshowinfogameComponent implements OnInit {
   }
   copyToClipboardPass() {
     if (this.myInputpass) {
-      console.log(this.myInputpass)
       this.myInputpass.nativeElement.select();
       document.execCommand('copy');
     }

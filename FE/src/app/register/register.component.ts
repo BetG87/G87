@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
       showPasswordconfirm: [false]
     });
     this.connectApi.get('v1/bank').subscribe((response) => {
-      console.log(response)
       this.bankNameLists = response;
       this.selectedBank = this.bankNameLists[0]._id;
     });
@@ -50,7 +49,6 @@ export class RegisterComponent implements OnInit {
   bankNameLists: any;
 
   onBankChange(event: any): void {
-    console.log(event);
   }
   ngOnInit(): void {
     window.scroll({ top: 0, left: 0, behavior: 'smooth' });
@@ -89,7 +87,6 @@ export class RegisterComponent implements OnInit {
       "username": this.formRegister.controls['username'].value
     }
     this.connectApi.post('v1/user/usernameisexist', message).subscribe((response) => {
-      console.log(response)
       if (response['isexist']) {
         alert("Tài khoản này đã được sử dụng")
       } else {
@@ -102,7 +99,6 @@ export class RegisterComponent implements OnInit {
       "email": this.formRegister.controls['email'].value
     }
     this.connectApi.post('v1/user/emailisexist', message).subscribe((response: any) => {
-      console.log(response)
       if (response['isexist']) {
         alert("Email này đã được sử dụng")
       } else {
@@ -114,7 +110,6 @@ export class RegisterComponent implements OnInit {
     this.confirm = true
     if (this.confirm && this.formRegister.valid && this.showerrorconfirm == '') {
 
-      console.log(this.formRegister)
       var bankId = this.selectedBank;
 
       const requestRegister =
@@ -124,7 +119,6 @@ export class RegisterComponent implements OnInit {
       }
 
       this.connectApi.post('v1/auth/register', requestRegister).subscribe((response) => {
-        console.log(response)
         const meessage = {
           message: "*TÀI KHOẢN MỚI*\n"
             + "Username: *" + response.username + " * \n"
@@ -132,15 +126,12 @@ export class RegisterComponent implements OnInit {
             + "Số điện thoại: *" + response.numberPhone + "* \n"
             + "Ngày tạo: *" + response.createdAt + "* \n"
         }
-        console.log(meessage)
         this.connectApi.post('v1/telegram', meessage).subscribe((response: any) => {
-          console.log(response)
         })
         const modalRef = this.modalService.open(MyModalComponent, { size: "sm", backdrop: "static", keyboard: false });
         modalRef.componentInstance.Notification = "Thông Báo Đăng Kí";
         modalRef.componentInstance.contentNotification = "Bạn Đã Đăng Kí Thành Công";
         modalRef.componentInstance.command = "register"
-        modalRef.result.then((result: any) => { }).catch((error: any) => { console.log(error); });
       }, (error) => {
         const modalRef = this.modalService.open(MyModalComponent, {
           size: 'sm',

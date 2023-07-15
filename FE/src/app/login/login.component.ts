@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
     this.connectApi
       .post('v1/auth/login', this.formLogin.value)
       .subscribe((response) => {
-        console.log(response);
         this.sessionStore.saveToken(response['accessToken']);
 
         this.dataShare.setToken(response['accessToken']);
@@ -93,7 +92,6 @@ export class LoginComponent implements OnInit {
               window.location.href = '/';
             })
             .catch((error: any) => {
-              console.log(error);
             });
         }
         // else if (response['gameAccounts'].length == 0) {
@@ -111,7 +109,6 @@ export class LoginComponent implements OnInit {
         //       window.location.href = '/';
         //     })
         //     .catch((error: any) => {
-        //       console.log(error);
         //     });
         // }
         else {
@@ -132,13 +129,11 @@ export class LoginComponent implements OnInit {
           .then((result: any) => {
           })
           .catch((error: any) => {
-            console.log(error);
           });
       });
   }
 
   clickInput() {
-    console.log('event');
   }
   checkPassword() {
     this.formLogin.get('password').value

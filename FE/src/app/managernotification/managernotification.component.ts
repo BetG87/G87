@@ -45,12 +45,9 @@ export class ManagernotificationComponent{
     modalRef.componentInstance.buttonConfirm = "Đăng ký";
     modalRef.result.then((result: any) => {
       if (result == true) {
-        console.log(result)
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -62,12 +59,9 @@ export class ManagernotificationComponent{
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {
-        console.log(result)
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   deleteInfoUpdate(infoupdate: any) {
@@ -81,9 +75,7 @@ export class ManagernotificationComponent{
         const message = {
           "_id": infoupdate?._id
         }
-        console.log(message)
         this.connectApi.post('v1/notification/delete', message).subscribe((response: any) => {
-          console.log(response)
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -100,37 +92,29 @@ export class ManagernotificationComponent{
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
-      } else
-        console.log(result);
+      } 
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   GetInfoUpdate() {
     this.connectApi.get('v1/notification').subscribe((response: any) => {
-      console.log(response)
       this.managerInfoUpdate = response
       this.filteredInfoUpdate = [...this.managerInfoUpdate];
-      console.log(this.filteredInfoUpdate)
       this.GetfullData(this.filteredInfoUpdate)
     })
   }
 
   async GetfullData(datalist: any[]) {
     datalist.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    console.log(datalist)
     this.fullData = datalist;
     this.currentPage = 1;
     this.InfoUpdateLoaded = true;
-    console.log(this.fullData)
 
   }
   search() {
-    console.log(this.fullData)
     this.fullData = [...this.managerInfoUpdate];
     if (this.searchTerm) {
       this.fullData = this.managerInfoUpdate.filter(notification => this.matchesSearchTerm(notification));
@@ -142,7 +126,6 @@ export class ManagernotificationComponent{
     notification.content = notification.content !== undefined ? notification.content : "";
     notification.isActive = notification.isActive !== undefined ? notification.isActive : "";
     notification.createdAt = notification.createdAt !== undefined ? notification.createdAt : "";
-    console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase();
     return notification.content.toLowerCase().indexOf(searchTerm) > -1
       || notification.createdAt.toLowerCase().indexOf(searchTerm) > -1

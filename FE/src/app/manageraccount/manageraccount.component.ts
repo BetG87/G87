@@ -32,12 +32,10 @@ export class ManageraccountComponent implements OnInit {
   ngOnInit(): void {
 
     this.connectApi.get('v1/user/').subscribe((response: any) => {
-      console.log(response)
       this.managerAccount = response
 
       this.filteredAccounts = [...this.managerAccount];
       this.filteredAccounts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      console.log(this.filteredAccounts)
     })
   }
 
@@ -59,13 +57,11 @@ export class ManageraccountComponent implements OnInit {
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.content = content;
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result) {
         const message = {
           "_id": _id
         }
         this.connectApi.post('v1/user/delete', message).subscribe((response: any) => {
-          console.log(response)
           if (response == "Delete successfully") {
             const modalRef = this.modalService.open(MyModalComponent, {
               size: 'sm',
@@ -82,30 +78,24 @@ export class ManageraccountComponent implements OnInit {
                 this.ngOnInit()
               })
               .catch((error: any) => {
-                console.log(error);
               });
           }
         })
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   infoAccount(_id: any) {
     const info = this.managerAccount.filter((item) => item._id === _id);
-    console.log(info);
     const modalRef = this.modalService.open(MyModalinfoaccountComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.info = info[0];
     modalRef.result.then((result: any) => {
 
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   updateAccount(_id: any) {
     const info = this.managerAccount.filter((item) => item._id === _id);
-    console.log(info);
     const modalRef = this.modalService.open(MyModalupdateaccountComponent, { size: "lg", backdrop: "static", keyboard: false });
     modalRef.componentInstance.mode = "1";
     modalRef.componentInstance.info = info;
@@ -113,20 +103,14 @@ export class ManageraccountComponent implements OnInit {
     modalRef.componentInstance.buttonConfirm = "Cập Nhập";
     modalRef.result.then((result: any) => {
       if (result == true) {
-        console.log(result)
         this.ngOnInit()
       }
-      console.log(result);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
   search() {
-    console.log(this.managerAccount)
     this.filteredAccounts = [...this.managerAccount];
     if (this.searchTerm) {
-      console.log(this.filteredAccounts)
-      console.log(this.managerAccount)
       this.filteredAccounts = this.managerAccount.filter(account => this.matchesSearchTerm(account));      
     }
     this.filteredAccounts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -134,13 +118,11 @@ export class ManageraccountComponent implements OnInit {
   }
 
   matchesSearchTerm(account: any) {
-    console.log(account)
     account.username = account.username !== undefined ? account.username : "";
     account.email = account.email !== undefined ? account.email : "";
     account.numberPhone = account.numberPhone !== undefined ? account.numberPhone : "";
     account.fullName = account.fullName !== undefined ? account.fullName : "";
     account.role = account.role !== undefined ? account.role : "";
-    console.log(this.searchTerm)
     const searchTerm = this.searchTerm.toLowerCase(); 
     return account.username.toLowerCase().indexOf(searchTerm) > -1
       || account.email.toLowerCase().indexOf(searchTerm) > -1
@@ -154,12 +136,10 @@ export class ManageraccountComponent implements OnInit {
     modalRef.componentInstance.Tittle = "Tạo Mới Tài Khoản";
     modalRef.componentInstance.buttonConfirm = "Tạo Mới";
     modalRef.result.then((result: any) => {
-      console.log(result);
       if (result == true) {
         this.ngOnInit()
       }
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 }
