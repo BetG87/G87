@@ -14,7 +14,7 @@ const transactionRoute = require('./routes/transaction')
 const telegramRoute = require('./routes/telegram')
 const notificationRoute = require('./routes/notification')
 const linkGameRoute = require('./routes/linkgame')
-
+const qrRoute = require('./routes/qr')
 const app = express();
 
 
@@ -35,6 +35,7 @@ app.use("/v1/transaction", transactionRoute);
 app.use("/v1/telegram", telegramRoute);
 app.use("/v1/notification", notificationRoute);
 app.use("/v1/linkgame", linkGameRoute);
+app.use("/v1/qr", qrRoute);
 
 dotenv.config();
 
