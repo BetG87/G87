@@ -61,11 +61,18 @@
         </div>
     </div>
     <fieldset class="mt-4 borderlink">
-        <legend class="text-primary text-center mb-0 change-Locationlink bg-white  d-flex justify-content-start ">Link dự phòng</legend>
+        <legend class="text-primary text-center mb-0 change-Locationlink1 bg-white  d-flex justify-content-start ">Link vào Bong88</legend>
         <div class="p-3 d-flex btn-link-game" aria-label="Button group">
-            <a *ngFor="let button of linkGame; let i = index" class="btn btn-danger btn-lg mx-2" [href]="button.linkGame" target="_blank">Link {{i+1}}</a>
+            <a *ngFor="let bong88 of linkBong88; let i = index" class="btn btn-danger btn-lg mx-2" [href]="bong88.linkGame" target="_blank">Link {{i+1}}</a>
         </div>
     </fieldset>
+
+    <fieldset class="mt-4 borderlink">
+      <legend class="text-primary text-center mb-0 change-Locationlink2 bg-white  d-flex justify-content-start ">Link vào sảnh Đá Gà</legend>
+      <div class="p-3 d-flex btn-link-game" aria-label="Button group">
+          <a *ngFor="let daga of linkDaga; let i = index" class="btn btn-danger btn-lg mx-2" [href]="daga.linkGame" target="_blank">Link {{i+1}}</a>
+      </div>
+  </fieldset>
 
     <div class="row ">
         <div class="col-8 col-8 mt-4 pt-1">

@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit {
   videoId: string | undefined;
   videoUrl: any;
   isStatus = [false, false, false, false];
-  linkGame: any
+  linkBong88: any
+  linkDaga: any
   fulldata: any
   constructor(
     private dataShare: DataShareService,
@@ -99,8 +100,16 @@ export class HomeComponent implements OnInit {
       })
     });
     this.connectApi.get("v1/linkGame").subscribe((response: any) => {
-      this.linkGame = response.filter((res: any) => {
-        if (res?.isActive) {
+      console.log(response)
+      this.linkBong88 = response.filter((res: any) => {
+        if (res?.isActive && res.name == "bong88") {
+          return true
+        }else{
+          return false
+        }
+      })
+      this.linkDaga = response.filter((res: any) => {
+        if (res?.isActive && res.name == "Daga") {
           return true
         }else{
           return false
